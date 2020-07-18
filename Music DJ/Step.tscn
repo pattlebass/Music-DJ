@@ -1,0 +1,52 @@
+[gd_scene format=2]
+
+[node name="Step" type="VBoxContainer"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
+text = "0"
+align = 1
+valign = 1
+
+[node name="Button1" type="Button" parent="."]
+margin_top = 44.0
+margin_right = 40.0
+margin_bottom = 84.0
+rect_min_size = Vector2( 40, 40 )
+focus_mode = 0
+shortcut_in_tooltip = false
+enabled_focus_mode = 0
+
+[node name="Button2" type="Button" parent="."]
+margin_top = 88.0
+margin_right = 40.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 40, 40 )
+focus_mode = 0
+shortcut_in_tooltip = false
+enabled_focus_mode = 0
+
+[node name="Button3" type="Button" parent="."]
+margin_top = 132.0
+margin_right = 40.0
+margin_bottom = 172.0
+rect_min_size = Vector2( 40, 40 )
+focus_mode = 0
+shortcut_in_tooltip = false
+enabled_focus_mode = 0
+
+[node name="Button4" type="Button" parent="."]
+margin_top = 176.0
+margin_right = 40.0
+margin_bottom = 216.0
+rect_min_size = Vector2( 40, 40 )
+focus_mode = 0
+shortcut_in_tooltip = false
+enabled_focus_mode = 0
