@@ -11,9 +11,9 @@ func _ready():
 		
 		# Signals
 		step.get_node("Button1").connect("pressed", self, "button1", [i])
-		step.get_node("Button2").connect("pressed", self, "button1", [i])
-		step.get_node("Button3").connect("pressed", self, "button1", [i])
-		step.get_node("Button4").connect("pressed", self, "button1", [i])
+		step.get_node("Button2").connect("pressed", self, "button2", [i])
+		step.get_node("Button3").connect("pressed", self, "button3", [i])
+		step.get_node("Button4").connect("pressed", self, "button4", [i])
 		
 		
 		for g in song.values():
@@ -33,21 +33,25 @@ func play():
 
 
 func button1(_index):
-	print(_index)
+	$SoundDialog.instrument = 1
+	$SoundDialog.popup_centered()
 	
-	song["drums"].insert(_index, 1)
+	#song["drums"].insert(_index, 1)
 
 func button2(_index):
-	print(_index)
+	$SoundDialog.instrument = 2
+	$SoundDialog.popup_centered()
 	
-	song["guitar"].insert(_index, 0)
+	#song["guitar"].insert(_index, 0)
 
 func button3(_index):
-	print(_index)
+	$SoundDialog.instrument = 3
+	$SoundDialog.popup_centered()
 	
-	song["keys"].insert(_index, 0)
+	#song["keys"].insert(_index, 0)
 
 func button4(_index):
-	print(_index)
+	$SoundDialog.instrument = 4
+	$SoundDialog.popup_centered()
 	
-	song["trumpet"].insert(_index, 0)
+	#song["trumpet"].insert(_index, 0)
