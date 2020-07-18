@@ -1,6 +1,6 @@
 extends Control
 
-var song = {"drums":[], "guitar":[], "keys":[], "trumpet":[]}
+var song = [[], [], [], []]
 
 func _ready():
 	var step_scene = preload("res://Step.tscn")
@@ -10,13 +10,13 @@ func _ready():
 		get_node("HBoxContainer/StepContainer/HBoxContainer").add_child(step)
 		
 		# Signals
-		step.get_node("Button1").connect("pressed", self, "button1", [i])
-		step.get_node("Button2").connect("pressed", self, "button2", [i])
-		step.get_node("Button3").connect("pressed", self, "button3", [i])
-		step.get_node("Button4").connect("pressed", self, "button4", [i])
+		step.get_node("Button1").connect("pressed", self, "button", [i, 0])
+		step.get_node("Button2").connect("pressed", self, "button", [i, 1])
+		step.get_node("Button3").connect("pressed", self, "button", [i, 2])
+		step.get_node("Button4").connect("pressed", self, "button", [i, 3])
 		
 		
-		for g in song.values():
+		for g in song:
 			g.append(0)
 
 
@@ -26,32 +26,22 @@ func _process(delta):
 
 func play():
 	for i in 25:
-		song["drums"][i]
-		song["guitar"][i]
-		song["keys"][i]
-		song["trumpet"][i]
+		for a in 4:
+			if song[a][i] == 0:
+				continue
+			var audio_player = $AudioPlayers.get_child(a)
+			var sound = song[a][i]
+			audio_player.stream = load("res://sounds/"+str(a)+"/"+str(sound)+".wav")
+			audio_player.play()
+		yield(get_tree().create_timer(3), "timeout")
 
 
-func button1(_index):
-	$SoundDialog.instrument = 1
+func button(_column, _instrument):
+	$SoundDialog.instrument_index = _instrument
+	$SoundDialog.column = _column
 	$SoundDialog.popup_centered()
 	
-	#song["drums"].insert(_index, 1)
 
-func button2(_index):
-	$SoundDialog.instrument = 2
-	$SoundDialog.popup_centered()
-	
-	#song["guitar"].insert(_index, 0)
 
-func button3(_index):
-	$SoundDialog.instrument = 3
-	$SoundDialog.popup_centered()
-	
-	#song["keys"].insert(_index, 0)
-
-func button4(_index):
-	$SoundDialog.instrument = 4
-	$SoundDialog.popup_centered()
-	
-	#song["trumpet"].insert(_index, 0)
+func _on_Button_pressed():
+	play()

@@ -12,6 +12,24 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Button" type="Button" parent="."]
+margin_right = 108.0
+margin_bottom = 44.0
+text = "Debug"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AudioPlayers" type="Node2D" parent="."]
+
+[node name="AudioStreamPlayer0" type="AudioStreamPlayer" parent="AudioPlayers"]
+
+[node name="AudioStreamPlayer1" type="AudioStreamPlayer" parent="AudioPlayers"]
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="AudioPlayers"]
+
+[node name="AudioStreamPlayer3" type="AudioStreamPlayer" parent="AudioPlayers"]
+
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 anchor_left = 0.09
 anchor_top = 0.125
@@ -59,7 +77,7 @@ texture = ExtResource( 2 )
 
 [node name="StepContainer" type="ScrollContainer" parent="HBoxContainer"]
 margin_left = 68.0
-margin_right = 832.0
+margin_right = 831.0
 margin_bottom = 445.0
 size_flags_horizontal = 3
 scroll_vertical_enabled = false
@@ -102,7 +120,7 @@ margin_bottom = 192.0
 rect_min_size = Vector2( 0, 25 )
 alignment = 1
 
-[node name="Button" type="Button" parent="SoundDialog/VBoxContainer/HBoxContainer"]
+[node name="OkButton" type="Button" parent="SoundDialog/VBoxContainer/HBoxContainer"]
 margin_left = 167.0
 margin_right = 207.0
 margin_bottom = 25.0
@@ -110,5 +128,7 @@ rect_min_size = Vector2( 40, 0 )
 text = "OK"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="SoundDialog"]
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
 [connection signal="about_to_show" from="SoundDialog" to="SoundDialog" method="_on_SoundDialog_about_to_show"]
 [connection signal="item_selected" from="SoundDialog/VBoxContainer/ItemList" to="SoundDialog" method="_on_ItemList_item_selected"]
+[connection signal="pressed" from="SoundDialog/VBoxContainer/HBoxContainer/OkButton" to="SoundDialog" method="_on_OkButton_pressed"]
