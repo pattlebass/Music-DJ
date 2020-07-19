@@ -5,6 +5,7 @@ onready var main = get_parent()
 var instrument_index
 var column
 
+
 func _on_SoundDialog_about_to_show():
 	$VBoxContainer/ItemList.clear()
 	var instrument
@@ -28,7 +29,17 @@ func _on_ItemList_item_selected(index):
 
 
 func _on_OkButton_pressed():
-	main.song[instrument_index][column] = $VBoxContainer/ItemList.get_selected_items()[0]+1
+	var selected = $VBoxContainer/ItemList.get_selected_items()
+	
+	if selected.empty():
+		return
+	
+	# Button
+	var step = main.get_node("HBoxContainer/StepContainer/HBoxContainer").get_child(column)
+	var button = step.get_child(instrument_index+1)
+	button.text = str(selected[0]+1)
+	
+	main.song[instrument_index][column] = selected[0]+1
 	
 	hide()
 	column = 0

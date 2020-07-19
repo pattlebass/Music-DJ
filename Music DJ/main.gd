@@ -26,6 +26,11 @@ func _process(delta):
 
 func play():
 	for i in 25:
+		# Visuals
+		var step = get_node("HBoxContainer/StepContainer/HBoxContainer").get_child(i)
+		step.get_node("Label").add_color_override("font_color", Color(1,0,0))
+		
+		# Play sounds
 		for a in 4:
 			if song[a][i] == 0:
 				continue
@@ -33,15 +38,16 @@ func play():
 			var sound = song[a][i]
 			audio_player.stream = load("res://sounds/"+str(a)+"/"+str(sound)+".wav")
 			audio_player.play()
+		
 		yield(get_tree().create_timer(3), "timeout")
+		step.get_node("Label").add_color_override("font_color", Color(1,1,1))
 
 
 func button(_column, _instrument):
 	$SoundDialog.instrument_index = _instrument
 	$SoundDialog.column = _column
-	$SoundDialog.popup_centered()
+	$SoundDialog.popup_centered_ratio(0.75)
 	
-
 
 func _on_Button_pressed():
 	play()
