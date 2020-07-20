@@ -6,16 +6,16 @@
 size = 32
 font_data = ExtResource( 1 )
 
-[sub_resource type="DynamicFont" id=3]
-size = 64
-font_data = ExtResource( 1 )
-
 [sub_resource type="DynamicFont" id=2]
 size = 32
 font_data = ExtResource( 1 )
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=3]
 size = 32
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 20
 font_data = ExtResource( 1 )
 
 [resource]
@@ -37,7 +37,7 @@ ItemList/constants/hseparation = 4
 ItemList/constants/icon_margin = 4
 ItemList/constants/line_separation = 2
 ItemList/constants/vseparation = 2
-ItemList/fonts/font = SubResource( 3 )
+ItemList/fonts/font = SubResource( 2 )
 ItemList/styles/bg = null
 ItemList/styles/bg_focus = null
 ItemList/styles/cursor = null
@@ -51,7 +51,7 @@ Label/constants/line_spacing = 3
 Label/constants/shadow_as_outline = 0
 Label/constants/shadow_offset_x = 1
 Label/constants/shadow_offset_y = 1
-Label/fonts/font = SubResource( 2 )
+Label/fonts/font = SubResource( 3 )
 Label/styles/normal = null
 WindowDialog/colors/title_color = Color( 0, 0, 0, 1 )
 WindowDialog/constants/close_h_ofs = 18

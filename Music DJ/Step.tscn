@@ -11,7 +11,7 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="."]
-margin_right = 160.0
+margin_right = 80.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 40, 40 )
 theme = ExtResource( 1 )
@@ -21,39 +21,39 @@ valign = 1
 
 [node name="Button1" type="Button" parent="."]
 margin_top = 50.0
-margin_right = 160.0
-margin_bottom = 210.0
-rect_min_size = Vector2( 160, 160 )
+margin_right = 80.0
+margin_bottom = 130.0
+rect_min_size = Vector2( 80, 80 )
 focus_mode = 0
 theme = ExtResource( 1 )
 shortcut_in_tooltip = false
 enabled_focus_mode = 0
 
 [node name="Button2" type="Button" parent="."]
-margin_top = 220.0
-margin_right = 160.0
-margin_bottom = 380.0
-rect_min_size = Vector2( 160, 160 )
+margin_top = 140.0
+margin_right = 80.0
+margin_bottom = 220.0
+rect_min_size = Vector2( 80, 80 )
 focus_mode = 0
 theme = ExtResource( 1 )
 shortcut_in_tooltip = false
 enabled_focus_mode = 0
 
 [node name="Button3" type="Button" parent="."]
-margin_top = 390.0
-margin_right = 160.0
-margin_bottom = 550.0
-rect_min_size = Vector2( 160, 160 )
+margin_top = 230.0
+margin_right = 80.0
+margin_bottom = 310.0
+rect_min_size = Vector2( 80, 80 )
 focus_mode = 0
 theme = ExtResource( 1 )
 shortcut_in_tooltip = false
 enabled_focus_mode = 0
 
 [node name="Button4" type="Button" parent="."]
-margin_top = 560.0
-margin_right = 160.0
-margin_bottom = 720.0
-rect_min_size = Vector2( 160, 160 )
+margin_top = 320.0
+margin_right = 80.0
+margin_bottom = 400.0
+rect_min_size = Vector2( 80, 80 )
 focus_mode = 0
 theme = ExtResource( 1 )
 shortcut_in_tooltip = false

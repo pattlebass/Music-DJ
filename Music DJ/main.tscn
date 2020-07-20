@@ -49,50 +49,50 @@ __meta__ = {
 }
 
 [node name="ImageContainer" type="VBoxContainer" parent="HBoxContainer"]
-margin_right = 160.0
+margin_right = 80.0
 margin_bottom = 720.0
 custom_constants/separation = 10
 
 [node name="Label" type="Label" parent="HBoxContainer/ImageContainer"]
-margin_right = 160.0
+margin_right = 80.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 40, 40 )
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/ImageContainer"]
 margin_top = 50.0
-margin_right = 160.0
-margin_bottom = 210.0
-rect_min_size = Vector2( 160, 160 )
+margin_right = 80.0
+margin_bottom = 130.0
+rect_min_size = Vector2( 80, 80 )
 texture = ExtResource( 5 )
 expand = true
 
 [node name="TextureRect2" type="TextureRect" parent="HBoxContainer/ImageContainer"]
-margin_top = 220.0
-margin_right = 160.0
-margin_bottom = 380.0
-rect_min_size = Vector2( 160, 160 )
+margin_top = 140.0
+margin_right = 80.0
+margin_bottom = 220.0
+rect_min_size = Vector2( 80, 80 )
 texture = ExtResource( 6 )
 expand = true
 
 [node name="TextureRect3" type="TextureRect" parent="HBoxContainer/ImageContainer"]
-margin_top = 390.0
-margin_right = 160.0
-margin_bottom = 550.0
-rect_min_size = Vector2( 160, 160 )
+margin_top = 230.0
+margin_right = 80.0
+margin_bottom = 310.0
+rect_min_size = Vector2( 80, 80 )
 texture = ExtResource( 4 )
 expand = true
 
 [node name="TextureRect4" type="TextureRect" parent="HBoxContainer/ImageContainer"]
-margin_top = 560.0
-margin_right = 160.0
-margin_bottom = 720.0
-rect_min_size = Vector2( 160, 160 )
+margin_top = 320.0
+margin_right = 80.0
+margin_bottom = 400.0
+rect_min_size = Vector2( 80, 80 )
 texture = ExtResource( 2 )
 expand = true
 
 [node name="StepContainer" type="ScrollContainer" parent="HBoxContainer"]
-margin_left = 164.0
-margin_right = 965.0
+margin_left = 84.0
+margin_right = 964.0
 margin_bottom = 720.0
 size_flags_horizontal = 3
 scroll_vertical_enabled = false
@@ -105,6 +105,7 @@ __meta__ = {
 custom_constants/separation = 10
 
 [node name="SoundDialog" type="WindowDialog" parent="."]
+visible = true
 margin_left = 250.0
 margin_top = 75.0
 margin_right = 791.0
@@ -129,7 +130,7 @@ __meta__ = {
 
 [node name="ItemList" type="ItemList" parent="SoundDialog/VBoxContainer"]
 margin_right = 541.0
-margin_bottom = 232.0
+margin_bottom = 272.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource( 7 )
@@ -137,7 +138,7 @@ allow_reselect = true
 same_column_width = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="SoundDialog/VBoxContainer"]
-margin_top = 236.0
+margin_top = 276.0
 margin_right = 541.0
 margin_bottom = 336.0
 rect_min_size = Vector2( 0, 25 )
@@ -147,8 +148,8 @@ alignment = 1
 [node name="OkButton" type="Button" parent="SoundDialog/VBoxContainer/HBoxContainer"]
 margin_left = 220.0
 margin_right = 320.0
-margin_bottom = 100.0
-rect_min_size = Vector2( 100, 100 )
+margin_bottom = 60.0
+rect_min_size = Vector2( 100, 60 )
 theme = ExtResource( 7 )
 text = "OK"
 
