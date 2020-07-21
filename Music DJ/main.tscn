@@ -19,6 +19,7 @@ __meta__ = {
 [node name="Button" type="Button" parent="."]
 margin_right = 126.0
 margin_bottom = 100.0
+theme = ExtResource( 7 )
 text = "Debug"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -105,11 +106,11 @@ __meta__ = {
 custom_constants/separation = 10
 
 [node name="SoundDialog" type="WindowDialog" parent="."]
-visible = true
 margin_left = 250.0
 margin_top = 75.0
 margin_right = 791.0
 margin_bottom = 411.0
+mouse_filter = 2
 size_flags_stretch_ratio = 0.0
 theme = ExtResource( 7 )
 window_title = "Choose sound"
