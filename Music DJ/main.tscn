@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://assets/trumpet.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://assets/drum.png" type="Texture" id=5]
 [ext_resource path="res://assets/guitar.png" type="Texture" id=6]
 [ext_resource path="res://assets/theme.tres" type="Theme" id=7]
+[ext_resource path="res://assets/bg.png" type="Texture" id=8]
 
 [node name="main" type="Control"]
 anchor_right = 1.0
@@ -15,6 +16,11 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 511.75, 299.75 )
+scale = Vector2( 1024.5, 600.5 )
+texture = ExtResource( 8 )
 
 [node name="Button" type="Button" parent="."]
 margin_right = 126.0

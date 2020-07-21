@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/28 old.wav-a1860a266690d6ac7979f6f1cab2906d.sample"
+
+[deps]
+
+source_file="res://sounds/3/28 old.wav"
+dest_files=[ "res://.import/28 old.wav-a1860a266690d6ac7979f6f1cab2906d.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
