@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://assets/trumpet.png" type="Texture" id=2]
@@ -7,7 +7,6 @@
 [ext_resource path="res://assets/drum.png" type="Texture" id=5]
 [ext_resource path="res://assets/guitar.png" type="Texture" id=6]
 [ext_resource path="res://assets/theme.tres" type="Theme" id=7]
-[ext_resource path="res://assets/bg.png" type="Texture" id=8]
 
 [node name="main" type="Control"]
 anchor_right = 1.0
@@ -16,11 +15,6 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 511.75, 299.75 )
-scale = Vector2( 1024.5, 600.5 )
-texture = ExtResource( 8 )
 
 [node name="Button" type="Button" parent="."]
 margin_right = 126.0
@@ -43,13 +37,12 @@ __meta__ = {
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 anchor_left = 0.034
-anchor_top = 0.132
+anchor_top = 0.167
 anchor_right = 0.977
 anchor_bottom = 1.0
 margin_left = 0.183998
-margin_top = -4.2
+margin_top = -0.200005
 margin_right = -0.448059
-margin_bottom = 195.0
 size_flags_vertical = 3
 __meta__ = {
 "_edit_use_anchors_": false
@@ -57,7 +50,7 @@ __meta__ = {
 
 [node name="ImageContainer" type="VBoxContainer" parent="HBoxContainer"]
 margin_right = 80.0
-margin_bottom = 720.0
+margin_bottom = 500.0
 custom_constants/separation = 10
 
 [node name="Label" type="Label" parent="HBoxContainer/ImageContainer"]
@@ -99,8 +92,8 @@ expand = true
 
 [node name="StepContainer" type="ScrollContainer" parent="HBoxContainer"]
 margin_left = 84.0
-margin_right = 964.0
-margin_bottom = 720.0
+margin_right = 965.0
+margin_bottom = 500.0
 size_flags_horizontal = 3
 scroll_vertical_enabled = false
 scroll_vertical = 50
@@ -112,6 +105,7 @@ __meta__ = {
 custom_constants/separation = 10
 
 [node name="SoundDialog" type="WindowDialog" parent="."]
+visible = true
 margin_left = 250.0
 margin_top = 75.0
 margin_right = 791.0
@@ -119,6 +113,7 @@ margin_bottom = 411.0
 mouse_filter = 2
 size_flags_stretch_ratio = 0.0
 theme = ExtResource( 7 )
+popup_exclusive = true
 window_title = "Choose sound"
 script = ExtResource( 3 )
 __meta__ = {
@@ -128,6 +123,9 @@ __meta__ = {
 [node name="VBoxContainer" type="VBoxContainer" parent="SoundDialog"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 12.0
+margin_right = -12.0
+margin_bottom = -16.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
@@ -136,32 +134,49 @@ __meta__ = {
 }
 
 [node name="ItemList" type="ItemList" parent="SoundDialog/VBoxContainer"]
-margin_right = 541.0
-margin_bottom = 272.0
+margin_right = 517.0
+margin_bottom = 256.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource( 7 )
 allow_reselect = true
-same_column_width = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="SoundDialog/VBoxContainer"]
-margin_top = 276.0
-margin_right = 541.0
-margin_bottom = 336.0
+margin_top = 260.0
+margin_right = 517.0
+margin_bottom = 320.0
 rect_min_size = Vector2( 0, 25 )
 size_flags_horizontal = 3
 alignment = 1
 
 [node name="OkButton" type="Button" parent="SoundDialog/VBoxContainer/HBoxContainer"]
-margin_left = 220.0
-margin_right = 320.0
+margin_left = 104.0
+margin_right = 204.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 100, 60 )
 theme = ExtResource( 7 )
 text = "OK"
+
+[node name="ClearButton" type="Button" parent="SoundDialog/VBoxContainer/HBoxContainer"]
+margin_left = 208.0
+margin_right = 308.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 100, 60 )
+theme = ExtResource( 7 )
+text = "Clear"
+
+[node name="CancelButton" type="Button" parent="SoundDialog/VBoxContainer/HBoxContainer"]
+margin_left = 312.0
+margin_right = 412.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 100, 60 )
+theme = ExtResource( 7 )
+text = "Cancel"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="SoundDialog"]
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
 [connection signal="about_to_show" from="SoundDialog" to="SoundDialog" method="_on_SoundDialog_about_to_show"]
 [connection signal="item_selected" from="SoundDialog/VBoxContainer/ItemList" to="SoundDialog" method="_on_ItemList_item_selected"]
 [connection signal="pressed" from="SoundDialog/VBoxContainer/HBoxContainer/OkButton" to="SoundDialog" method="_on_OkButton_pressed"]
+[connection signal="pressed" from="SoundDialog/VBoxContainer/HBoxContainer/ClearButton" to="SoundDialog" method="_on_ClearButton_pressed"]
+[connection signal="pressed" from="SoundDialog/VBoxContainer/HBoxContainer/CancelButton" to="SoundDialog" method="_on_CancelButton_pressed"]
