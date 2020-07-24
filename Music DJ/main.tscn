@@ -39,10 +39,11 @@ __meta__ = {
 anchor_left = 0.034
 anchor_top = 0.167
 anchor_right = 0.977
-anchor_bottom = 1.0
+anchor_bottom = 0.912
 margin_left = 0.183998
-margin_top = -0.200005
+margin_top = -0.199997
 margin_right = -0.448059
+margin_bottom = -0.200012
 size_flags_vertical = 3
 __meta__ = {
 "_edit_use_anchors_": false
@@ -50,51 +51,59 @@ __meta__ = {
 
 [node name="ImageContainer" type="VBoxContainer" parent="HBoxContainer"]
 margin_right = 80.0
-margin_bottom = 500.0
+margin_bottom = 447.0
 custom_constants/separation = 10
 
 [node name="Label" type="Label" parent="HBoxContainer/ImageContainer"]
 margin_right = 80.0
-margin_bottom = 40.0
+margin_bottom = 59.0
 rect_min_size = Vector2( 40, 40 )
+theme = ExtResource( 7 )
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/ImageContainer"]
-margin_top = 50.0
+margin_top = 69.0
 margin_right = 80.0
-margin_bottom = 130.0
+margin_bottom = 149.0
 rect_min_size = Vector2( 80, 80 )
 texture = ExtResource( 5 )
 expand = true
 
 [node name="TextureRect2" type="TextureRect" parent="HBoxContainer/ImageContainer"]
-margin_top = 140.0
+margin_top = 159.0
 margin_right = 80.0
-margin_bottom = 220.0
+margin_bottom = 239.0
 rect_min_size = Vector2( 80, 80 )
 texture = ExtResource( 6 )
 expand = true
 
 [node name="TextureRect3" type="TextureRect" parent="HBoxContainer/ImageContainer"]
-margin_top = 230.0
+margin_top = 249.0
 margin_right = 80.0
-margin_bottom = 310.0
+margin_bottom = 329.0
 rect_min_size = Vector2( 80, 80 )
 texture = ExtResource( 4 )
 expand = true
 
 [node name="TextureRect4" type="TextureRect" parent="HBoxContainer/ImageContainer"]
-margin_top = 320.0
+margin_top = 339.0
 margin_right = 80.0
-margin_bottom = 400.0
+margin_bottom = 419.0
 rect_min_size = Vector2( 80, 80 )
 texture = ExtResource( 2 )
 expand = true
 
-[node name="StepContainer" type="ScrollContainer" parent="HBoxContainer"]
+[node name="VSeparator" type="VSeparator" parent="HBoxContainer"]
+self_modulate = Color( 1, 1, 1, 0 )
 margin_left = 84.0
+margin_right = 88.0
+margin_bottom = 447.0
+
+[node name="StepContainer" type="ScrollContainer" parent="HBoxContainer"]
+margin_left = 92.0
 margin_right = 965.0
-margin_bottom = 500.0
+margin_bottom = 447.0
 size_flags_horizontal = 3
+theme = ExtResource( 7 )
 scroll_vertical_enabled = false
 scroll_vertical = 50
 __meta__ = {
@@ -104,7 +113,7 @@ __meta__ = {
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/StepContainer"]
 custom_constants/separation = 10
 
-[node name="SoundDialog" type="WindowDialog" parent="."]
+[node name="SoundDialog" type="PopupDialog" parent="."]
 visible = true
 margin_left = 250.0
 margin_top = 75.0
@@ -114,7 +123,6 @@ mouse_filter = 2
 size_flags_stretch_ratio = 0.0
 theme = ExtResource( 7 )
 popup_exclusive = true
-window_title = "Choose sound"
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -123,9 +131,6 @@ __meta__ = {
 [node name="VBoxContainer" type="VBoxContainer" parent="SoundDialog"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 12.0
-margin_right = -12.0
-margin_bottom = -16.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
@@ -133,41 +138,74 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Label" type="Label" parent="SoundDialog/VBoxContainer"]
+margin_right = 541.0
+margin_bottom = 59.0
+text = "Choose"
+
+[node name="HSeparator" type="HSeparator" parent="SoundDialog/VBoxContainer"]
+margin_top = 63.0
+margin_right = 541.0
+margin_bottom = 65.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="SoundDialog/VBoxContainer"]
+margin_top = 69.0
+margin_right = 541.0
+margin_bottom = 262.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SoundDialog/VBoxContainer/ScrollContainer"]
+
 [node name="ItemList" type="ItemList" parent="SoundDialog/VBoxContainer"]
-margin_right = 517.0
-margin_bottom = 256.0
+visible = false
+margin_top = 69.0
+margin_right = 541.0
+margin_bottom = 258.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource( 7 )
 allow_reselect = true
 
+[node name="HSeparator2" type="HSeparator" parent="SoundDialog/VBoxContainer"]
+modulate = Color( 1, 1, 1, 0 )
+margin_top = 266.0
+margin_right = 541.0
+margin_bottom = 272.0
+custom_constants/separation = 6
+
 [node name="HBoxContainer" type="HBoxContainer" parent="SoundDialog/VBoxContainer"]
-margin_top = 260.0
-margin_right = 517.0
-margin_bottom = 320.0
+margin_top = 276.0
+margin_right = 541.0
+margin_bottom = 336.0
 rect_min_size = Vector2( 0, 25 )
 size_flags_horizontal = 3
+custom_constants/separation = 20
 alignment = 1
 
 [node name="OkButton" type="Button" parent="SoundDialog/VBoxContainer/HBoxContainer"]
-margin_left = 104.0
-margin_right = 204.0
+margin_left = 100.0
+margin_right = 200.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 100, 60 )
 theme = ExtResource( 7 )
 text = "OK"
 
 [node name="ClearButton" type="Button" parent="SoundDialog/VBoxContainer/HBoxContainer"]
-margin_left = 208.0
-margin_right = 308.0
+margin_left = 220.0
+margin_right = 320.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 100, 60 )
 theme = ExtResource( 7 )
 text = "Clear"
 
 [node name="CancelButton" type="Button" parent="SoundDialog/VBoxContainer/HBoxContainer"]
-margin_left = 312.0
-margin_right = 412.0
+margin_left = 340.0
+margin_right = 440.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 100, 60 )
 theme = ExtResource( 7 )

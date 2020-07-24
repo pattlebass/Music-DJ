@@ -46,7 +46,7 @@ func play():
 func button(_column, _instrument):
 	$SoundDialog.instrument_index = _instrument
 	$SoundDialog.column = _column
-	$SoundDialog.popup_centered_ratio(0.75)
+	$SoundDialog.popup_centered(Vector2(500, 550))
 	
 
 func _on_Button_pressed():

@@ -1,4 +1,4 @@
-extends WindowDialog
+extends PopupDialog
 
 onready var main = get_parent()
 
@@ -9,29 +9,48 @@ onready var item_list = $VBoxContainer/ItemList
 
 
 func _ready():
+	$VBoxContainer/ItemList.get_v_scroll().set_scale(Vector2(2,1))
+	
 	var text = ["Groove 1", "Groove 2", "Salsa 1", "Salsa 2", "Reggae 1", "Reggae 2", "Techno 1", "Techno 2"]
 	var category = ["Introduction", "Verse", "Chorus", "Solo"]
 	var color = [Color(0.678, 0.847, 90.2), Color(0.565, 0.933, 0.565), Color(1, 0.502, 1), Color(1, 0.894, 0.71)]
 	
 	for i in 4:
-		item_list.add_item(category[i], null, false)
-		#item_list.set_item_custom_fg_color(0, color[0])
+		var scroll_container = $VBoxContainer/ScrollContainer/VBoxContainer
+		
+		var separator = HSeparator.new()
+		separator.set("custom_constants/separation", 10)
+		separator.modulate = Color(1, 1, 1, 0.01)
+		scroll_container.add_child(separator)
+		
+		var label = Label.new()
+		label.text = category[i]
+		label.theme = preload("res://assets/theme 2.tres")
+		scroll_container.add_child(label)
+		
+		var separator2 = HSeparator.new()
+		separator2.theme = preload("res://assets/theme 2.tres")
+		scroll_container.add_child(separator2)
+		
+		# Icon
+		var image = Image.new()
+		var texture = ImageTexture.new()
+		image.create(32, 32, false, Image.FORMAT_RGBA4444)
+		image.lock()
+		for v in 32:
+			for h in 32:
+				image.set_pixel(h, v, color[i])
+		image.unlock()
+		texture.create_from_image(image)
+		
 		for g in 8:
-			var image = Image.new()
-			var texture = ImageTexture.new()
-			image.create(32, 32, false, Image.FORMAT_RGBA4444)
-			image.lock()
-			for v in 32:
-				for h in 32:
-					image.set_pixel(h, v, color[i])
-			image.unlock()
-			texture.create_from_image(image)
-			item_list.add_item("  "+text[g], texture)
+			var button = Button.new()
+			scroll_container.add_child(button)
+			button.text = " "+text[g]
+			button.theme = preload("res://assets/theme 2.tres")
+			button.icon = texture
+			button.align = Button.ALIGN_LEFT
 	
-	item_list.set_item_disabled(0, true)
-	item_list.set_item_disabled(9, true)
-	item_list.set_item_disabled(18, true)
-	item_list.set_item_disabled(27, true)
 
 func _on_SoundDialog_about_to_show():
 	$VBoxContainer/HBoxContainer/OkButton.disabled = true
@@ -46,9 +65,8 @@ func _on_SoundDialog_about_to_show():
 		instrument = "Keys"
 	elif instrument_index == 3:
 		instrument = "Trumpet"
-	
-	window_title = instrument
 
+	$VBoxContainer/Label.text = instrument
 
 func _on_ItemList_item_selected(index):
 	if item_list.is_item_disabled(index):
