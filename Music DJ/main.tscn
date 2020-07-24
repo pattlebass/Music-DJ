@@ -19,7 +19,9 @@ __meta__ = {
 [node name="Button" type="Button" parent="."]
 margin_right = 126.0
 margin_bottom = 100.0
+focus_mode = 0
 theme = ExtResource( 7 )
+enabled_focus_mode = 0
 text = "Debug"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -100,7 +102,7 @@ margin_bottom = 447.0
 
 [node name="StepContainer" type="ScrollContainer" parent="HBoxContainer"]
 margin_left = 92.0
-margin_right = 965.0
+margin_right = 964.0
 margin_bottom = 447.0
 size_flags_horizontal = 3
 theme = ExtResource( 7 )
@@ -214,6 +216,7 @@ text = "Cancel"
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="SoundDialog"]
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
 [connection signal="about_to_show" from="SoundDialog" to="SoundDialog" method="_on_SoundDialog_about_to_show"]
+[connection signal="popup_hide" from="SoundDialog" to="SoundDialog" method="_on_SoundDialog_popup_hide"]
 [connection signal="item_selected" from="SoundDialog/VBoxContainer/ItemList" to="SoundDialog" method="_on_ItemList_item_selected"]
 [connection signal="pressed" from="SoundDialog/VBoxContainer/HBoxContainer/OkButton" to="SoundDialog" method="_on_OkButton_pressed"]
 [connection signal="pressed" from="SoundDialog/VBoxContainer/HBoxContainer/ClearButton" to="SoundDialog" method="_on_ClearButton_pressed"]

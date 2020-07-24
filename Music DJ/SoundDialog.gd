@@ -4,16 +4,17 @@ onready var main = get_parent()
 
 var instrument_index
 var column
-var actual_index = 0
+var pressed_button_index = 0
+var genre_index = 0
 onready var item_list = $VBoxContainer/ItemList
 
 
 func _ready():
-	$VBoxContainer/ItemList.get_v_scroll().set_scale(Vector2(2,1))
 	
 	var text = ["Groove 1", "Groove 2", "Salsa 1", "Salsa 2", "Reggae 1", "Reggae 2", "Techno 1", "Techno 2"]
 	var category = ["Introduction", "Verse", "Chorus", "Solo"]
 	var color = [Color(0.678, 0.847, 90.2), Color(0.565, 0.933, 0.565), Color(1, 0.502, 1), Color(1, 0.894, 0.71)]
+	var button_index = -1
 	
 	for i in 4:
 		var scroll_container = $VBoxContainer/ScrollContainer/VBoxContainer
@@ -45,12 +46,18 @@ func _ready():
 		
 		# Buttons
 		for g in 8:
+			button_index += 1
 			var button = Button.new()
-			scroll_container.add_child(button)
 			button.text = " "+text[g]
 			button.theme = preload("res://assets/theme 2.tres")
 			button.icon = texture
 			button.align = Button.ALIGN_LEFT
+			button.mouse_filter = Button.MOUSE_FILTER_PASS
+			button.connect("pressed", self, "on_Button_selected", [button_index, g])
+			button.name = str(button_index)
+			button.focus_mode = Control.FOCUS_CLICK
+			scroll_container.add_child(button)
+			
 
 func _on_SoundDialog_about_to_show():
 	$VBoxContainer/HBoxContainer/OkButton.disabled = true
@@ -68,43 +75,30 @@ func _on_SoundDialog_about_to_show():
 
 	$VBoxContainer/Label.text = instrument
 
-func _on_ItemList_item_selected(index):
-	if item_list.is_item_disabled(index):
-		return
-	
+func on_Button_selected(index, genre):
 	var offsets = {0:1, 9:2, 18:3, 27:4}
 	var offset = 0
-	
-	for i in offsets.keys():
-		if index > i and index < i+9:
-			offset = offsets[i]
-	actual_index = index - offset
-	
-	print(str(instrument_index)+"/"+str(actual_index+1))
-	$AudioStreamPlayer.stream = load("res://sounds/"+str(instrument_index)+"/"+str(actual_index+1)+".wav")
+
+	print(str(instrument_index)+"/"+str(index+1))
+	$AudioStreamPlayer.stream = load("res://sounds/"+str(instrument_index)+"/"+str(index+1)+".wav")
 	$AudioStreamPlayer.play()
 	$VBoxContainer/HBoxContainer/OkButton.disabled = false
-
+	pressed_button_index = index
+	genre_index = genre
 
 func _on_OkButton_pressed():
-	var selected = $VBoxContainer/ItemList.get_selected_items()
-	
-	if selected.empty():
-		return
-	
 	# Button
 	var step = main.get_node("HBoxContainer/StepContainer/HBoxContainer").get_child(column)
 	var button = step.get_child(instrument_index+1)
 	var style_box = StyleBoxTexture.new()
 	
-	button.text = str(actual_index+1)
+	button.text = str(genre_index+1)
 	
-	style_box.texture = $VBoxContainer/ItemList.get_item_icon(selected[0])
+	style_box.texture = get_node("VBoxContainer/ScrollContainer/VBoxContainer/"+str(pressed_button_index)).icon
 	button.set("custom_styles/normal", style_box)
 	
-	main.song[instrument_index][column] = actual_index+1
-	
-	$VBoxContainer/ItemList.unselect_all()
+	main.song[instrument_index][column] = pressed_button_index+1
+
 	$VBoxContainer/ItemList.get_v_scroll().set_value(0.0)
 	hide()
 	column = 0
@@ -117,13 +111,13 @@ func _on_ClearButton_pressed():
 	button.set("custom_styles/normal", null)
 	
 	main.song[instrument_index][column] = 0
-	
-	$VBoxContainer/ItemList.unselect_all()
-	$VBoxContainer/ItemList.get_v_scroll().set_value(0.0)
+
 	hide()
+
 
 func _on_CancelButton_pressed():
-	$VBoxContainer/ItemList.unselect_all()
-	$VBoxContainer/ItemList.get_v_scroll().set_value(0.0)
 	hide()
 
+
+func _on_SoundDialog_popup_hide():
+	$VBoxContainer/ScrollContainer.scroll_vertical = 0
