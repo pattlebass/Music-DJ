@@ -43,6 +43,7 @@ func _ready():
 		image.unlock()
 		texture.create_from_image(image)
 		
+		# Buttons
 		for g in 8:
 			var button = Button.new()
 			scroll_container.add_child(button)
@@ -50,7 +51,6 @@ func _ready():
 			button.theme = preload("res://assets/theme 2.tres")
 			button.icon = texture
 			button.align = Button.ALIGN_LEFT
-	
 
 func _on_SoundDialog_about_to_show():
 	$VBoxContainer/HBoxContainer/OkButton.disabled = true
@@ -126,3 +126,4 @@ func _on_CancelButton_pressed():
 	$VBoxContainer/ItemList.unselect_all()
 	$VBoxContainer/ItemList.get_v_scroll().set_value(0.0)
 	hide()
+
