@@ -1,6 +1,7 @@
 extends Control
 
 var song = [[], [], [], []]
+var can_play = true
 
 func _ready():
 	var step_scene = preload("res://Step.tscn")
@@ -26,6 +27,9 @@ func _process(delta):
 
 func play():
 	for i in 25:
+		if not can_play:
+			return
+		
 		# Visuals
 		var step = get_node("HBoxContainer/StepContainer/HBoxContainer").get_child(i)
 		step.get_node("Label").add_color_override("font_color", Color(1,0,0))
@@ -47,7 +51,13 @@ func button(_column, _instrument):
 	$SoundDialog.instrument_index = _instrument
 	$SoundDialog.column = _column
 	$SoundDialog.popup_centered(Vector2(500, 550))
-	
 
-func _on_Button_pressed():
-	play()
+
+func _on_Play_toggled(button_pressed):
+	if button_pressed:
+		can_play = true
+		play()
+		$HBoxContainer2/Play.text = "Stop"
+	else:
+		can_play = false
+		$HBoxContainer2/Play.text = "Play"

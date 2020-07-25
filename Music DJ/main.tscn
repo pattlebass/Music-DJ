@@ -16,17 +16,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" type="Button" parent="."]
-margin_right = 126.0
-margin_bottom = 100.0
-focus_mode = 0
-theme = ExtResource( 7 )
-enabled_focus_mode = 0
-text = "Debug"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="AudioPlayers" type="Node2D" parent="."]
 
 [node name="AudioStreamPlayer0" type="AudioStreamPlayer" parent="AudioPlayers"]
@@ -36,6 +25,36 @@ __meta__ = {
 [node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="AudioPlayers"]
 
 [node name="AudioStreamPlayer3" type="AudioStreamPlayer" parent="AudioPlayers"]
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="."]
+anchor_left = 0.024
+anchor_top = 0.03
+anchor_right = 0.977
+anchor_bottom = 0.13
+margin_left = 0.424
+margin_right = -0.448059
+margin_bottom = -7.62939e-06
+custom_constants/separation = 50
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Play" type="Button" parent="HBoxContainer2"]
+margin_right = 100.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 100, 60 )
+theme = ExtResource( 7 )
+toggle_mode = true
+text = "Play"
+
+[node name="Save" type="Button" parent="HBoxContainer2"]
+margin_left = 150.0
+margin_right = 250.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 100, 0 )
+theme = ExtResource( 7 )
+disabled = true
+text = "Save"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 anchor_left = 0.034
@@ -118,9 +137,9 @@ custom_constants/separation = 10
 [node name="SoundDialog" type="PopupDialog" parent="."]
 visible = true
 margin_left = 250.0
-margin_top = 75.0
+margin_top = 136.0
 margin_right = 791.0
-margin_bottom = 411.0
+margin_bottom = 472.0
 mouse_filter = 2
 size_flags_stretch_ratio = 0.0
 theme = ExtResource( 7 )
@@ -162,6 +181,8 @@ __meta__ = {
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="SoundDialog/VBoxContainer/ScrollContainer"]
+margin_right = 541.0
+size_flags_horizontal = 3
 
 [node name="ItemList" type="ItemList" parent="SoundDialog/VBoxContainer"]
 visible = false
@@ -214,7 +235,7 @@ theme = ExtResource( 7 )
 text = "Cancel"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="SoundDialog"]
-[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
+[connection signal="toggled" from="HBoxContainer2/Play" to="." method="_on_Play_toggled"]
 [connection signal="about_to_show" from="SoundDialog" to="SoundDialog" method="_on_SoundDialog_about_to_show"]
 [connection signal="popup_hide" from="SoundDialog" to="SoundDialog" method="_on_SoundDialog_popup_hide"]
 [connection signal="item_selected" from="SoundDialog/VBoxContainer/ItemList" to="SoundDialog" method="_on_ItemList_item_selected"]
