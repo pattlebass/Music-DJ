@@ -6,7 +6,6 @@ var instrument_index
 var column
 var pressed_button_index = 0
 var genre_index = 0
-onready var item_list = $VBoxContainer/ItemList
 
 
 func _ready():
@@ -79,9 +78,6 @@ func _on_SoundDialog_about_to_show():
 func on_Button_selected(index, genre):
 	if index == pressed_button_index:
 		get_node("VBoxContainer/ScrollContainer/VBoxContainer/"+str(pressed_button_index)).pressed = true
-	
-	var offsets = {0:1, 9:2, 18:3, 27:4}
-	var offset = 0
 
 	print(str(instrument_index)+"/"+str(index+1))
 	$AudioStreamPlayer.stream = load("res://sounds/"+str(instrument_index)+"/"+str(index+1)+".wav")
@@ -108,8 +104,9 @@ func _on_OkButton_pressed():
 	button.set("custom_styles/normal", style_box)
 	
 	main.song[instrument_index][column] = pressed_button_index+1
+	if column > main.last_columns.back():
+		main.last_columns.append(column)
 
-	$VBoxContainer/ItemList.get_v_scroll().set_value(0.0)
 	hide()
 	column = 0
 
@@ -119,6 +116,14 @@ func _on_ClearButton_pressed():
 	var button = step.get_child(instrument_index+1)
 	button.text = ""
 	button.set("custom_styles/normal", null)
+	
+	var falses = -1
+	for i in step.get_children():
+		if not i.text == "":
+			falses += 1
+	print(falses)
+	if falses == 0:
+		main.last_columns.erase(column)
 	
 	main.song[instrument_index][column] = 0
 
@@ -135,3 +140,4 @@ func _on_SoundDialog_popup_hide():
 	for i in $VBoxContainer/ScrollContainer/VBoxContainer.get_children():
 		if i is Button:
 			i.pressed = false
+	

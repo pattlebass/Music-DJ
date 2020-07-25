@@ -2,6 +2,7 @@ extends Control
 
 var song = [[], [], [], []]
 var can_play = true
+var last_columns = [-1]
 
 func _ready():
 	var step_scene = preload("res://Step.tscn")
@@ -26,7 +27,12 @@ func _process(delta):
 
 
 func play():
+	yield(get_tree(), "idle_frame")
 	for i in 25:
+		if i > last_columns.back():
+			$HBoxContainer2/Play.pressed = false
+			return
+		
 		if not can_play:
 			return
 		
@@ -46,7 +52,6 @@ func play():
 		yield(get_tree().create_timer(3), "timeout")
 		step.get_node("Label").add_color_override("font_color", Color(1,1,1))
 
-
 func button(_column, _instrument):
 	$SoundDialog.instrument_index = _instrument
 	$SoundDialog.column = _column
@@ -61,3 +66,23 @@ func _on_Play_toggled(button_pressed):
 	else:
 		can_play = false
 		$HBoxContainer2/Play.text = "Play"
+
+
+func _on_Export_pressed():
+	if  last_columns.back() != -1:
+		$SaveDialog.title = "Export song as"
+		$SaveDialog.type_of_save = "export"
+		$SaveDialog.popup_centered()
+
+
+func _on_SaveProject_pressed():
+	if  last_columns.back() != -1:
+		$SaveDialog.title = "Save project as"
+		$SaveDialog.type_of_save = "project"
+		$SaveDialog.popup_centered()
+
+
+func _on_OpenProject_pressed():
+	var file = File.new()
+	file.open("res://saves/aaa.mdj", File.READ)
+	song = file.get_var()
