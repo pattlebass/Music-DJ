@@ -28,6 +28,7 @@ func _process(delta):
 
 func play():
 	yield(get_tree(), "idle_frame")
+	$SoundDialog/AudioStreamPlayer.stop()
 	for i in 25:
 		if i > last_columns.back():
 			$HBoxContainer2/Play.pressed = false
@@ -42,6 +43,8 @@ func play():
 		
 		# Play sounds
 		for a in 4:
+			if not can_play:
+				return
 			if song[a][i] == 0:
 				continue
 			var audio_player = $AudioPlayers.get_child(a)

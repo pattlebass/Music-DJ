@@ -5,6 +5,7 @@ var title = "Title"
 var entered_name = "Song"
 var type_of_save = "project"
 var effect = AudioServer.get_bus_effect(0, 0)
+var is_cancelled = false
 
 func _on_OkButton_pressed():
 	hide()
@@ -24,9 +25,10 @@ func _on_OkButton_pressed():
 		
 		# Saving
 		var recording = effect.get_recording()
-		if recording:
+		if recording and not is_cancelled:
 			recording.save_to_wav("res://saves/"+entered_name+".wav")
-
+		
+		is_cancelled = false
 
 func _on_CancelButton_pressed():
 	hide()

@@ -33,13 +33,16 @@ func _ready():
 		scroll_container.add_child(separator2)
 		
 		# Icon
-		var image = Image.new()
+		var image = load("res://assets/mask.png")
 		var texture = ImageTexture.new()
-		image.create(32, 32, false, Image.FORMAT_RGBA4444)
+		#image.create(32, 32, false, Image.FORMAT_RGBA4444)
 		image.lock()
 		for v in 32:
 			for h in 32:
-				image.set_pixel(h, v, color[i])
+				if image.get_pixel(h, v) == Color(1, 1, 1, 1):
+					image.set_pixel(h, v, color[i])
+				else:
+					image.set_pixel(h, v, Color(1, 1, 1, 0))
 		image.unlock()
 		texture.create_from_image(image)
 		
@@ -96,12 +99,19 @@ func _on_OkButton_pressed():
 	# Button
 	var step = main.get_node("HBoxContainer/StepContainer/HBoxContainer").get_child(column)
 	var button = step.get_child(instrument_index+1)
-	var style_box = StyleBoxTexture.new()
+	var style_box = preload("res://assets/button_stylebox.tres").duplicate()
 	
 	button.text = str(genre_index+1)
 	
-	style_box.texture = get_node("VBoxContainer/ScrollContainer/VBoxContainer/"+str(pressed_button_index)).icon
+	var sound_button = get_node("VBoxContainer/ScrollContainer/VBoxContainer/"+str(pressed_button_index))
+	var image = sound_button.icon.get_data()
+	
+	image.lock()
+	
+	style_box.bg_color = image.get_pixel(10,10)
 	button.set("custom_styles/normal", style_box)
+	
+	image.unlock()
 	
 	main.song[instrument_index][column] = pressed_button_index+1
 	if column > main.last_columns.back():

@@ -1,23 +1,23 @@
 extends PopupDialog
 
 onready var main = get_parent()
-
+onready var progress_bar = get_node("VBoxContainer/HBoxContainer2/VBoxContainer/ProgressBar")
 
 func _on_ProgressDialog_about_to_show():
-	$VBoxContainer/ProgressBar.max_value = main.last_columns.back()+1
+	progress_bar.max_value = main.last_columns.back()+1
 	loading()
 
 
 func _on_ProgressDialog_popup_hide():
-	$VBoxContainer/ProgressBar.value = 1
+	progress_bar.value = 1
 
 
 func loading():
 	yield(get_tree().create_timer(3), "timeout")
 	
-	$VBoxContainer/ProgressBar.value += 1
+	progress_bar.value += 1
 
-	if $VBoxContainer/ProgressBar.value >= $VBoxContainer/ProgressBar.max_value:
+	if progress_bar.value >= progress_bar.max_value:
 		yield(get_tree().create_timer(3.5), "timeout")
 		hide()
 		return
@@ -25,3 +25,9 @@ func loading():
 		loading()
 		return
 		
+
+
+func _on_CancelButton_pressed():
+	hide()
+	main.can_play = false
+	main.get_node("SaveDialog").is_cancelled = true
