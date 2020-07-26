@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://assets/trumpet.png" type="Texture" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://assets/fonts/libel-suit-rg.ttf" type="DynamicFontData" id=8]
 [ext_resource path="res://SaveDialog.gd" type="Script" id=9]
 [ext_resource path="res://ProgressDialog.gd" type="Script" id=10]
+[ext_resource path="res://LoadDialog.gd" type="Script" id=11]
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
@@ -311,7 +312,6 @@ rect_min_size = Vector2( 100, 50 )
 text = "Cancel"
 
 [node name="ProgressDialog" type="PopupDialog" parent="."]
-visible = true
 margin_right = 403.0
 margin_bottom = 195.0
 theme = ExtResource( 7 )
@@ -367,6 +367,60 @@ margin_right = 403.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 100, 50 )
 text = "Cancel"
+
+[node name="LoadDialog" type="PopupDialog" parent="."]
+visible = true
+margin_right = 382.0
+margin_bottom = 519.0
+theme = ExtResource( 7 )
+script = ExtResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LoadDialog"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="LoadDialog/VBoxContainer"]
+margin_right = 382.0
+margin_bottom = 59.0
+text = "Open file"
+
+[node name="HSeparator" type="HSeparator" parent="LoadDialog/VBoxContainer"]
+margin_top = 63.0
+margin_right = 382.0
+margin_bottom = 65.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="LoadDialog/VBoxContainer"]
+margin_top = 69.0
+margin_right = 382.0
+margin_bottom = 465.0
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LoadDialog/VBoxContainer/ScrollContainer"]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="LoadDialog/VBoxContainer"]
+margin_top = 469.0
+margin_right = 382.0
+margin_bottom = 519.0
+
+[node name="OkButton" type="Button" parent="LoadDialog/VBoxContainer/HBoxContainer"]
+margin_right = 100.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 100, 50 )
+text = "Open"
+
+[node name="CancelButton" type="Button" parent="LoadDialog/VBoxContainer/HBoxContainer"]
+margin_left = 104.0
+margin_right = 204.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 100, 50 )
+text = "Cancel"
 [connection signal="toggled" from="HBoxContainer2/Play" to="." method="_on_Play_toggled"]
 [connection signal="pressed" from="HBoxContainer2/Export" to="." method="_on_Export_pressed"]
 [connection signal="pressed" from="HBoxContainer2/SaveProject" to="." method="_on_SaveProject_pressed"]
@@ -384,3 +438,7 @@ text = "Cancel"
 [connection signal="about_to_show" from="ProgressDialog" to="ProgressDialog" method="_on_ProgressDialog_about_to_show"]
 [connection signal="popup_hide" from="ProgressDialog" to="ProgressDialog" method="_on_ProgressDialog_popup_hide"]
 [connection signal="pressed" from="ProgressDialog/VBoxContainer/HBoxContainer/CancelButton" to="ProgressDialog" method="_on_CancelButton_pressed"]
+[connection signal="about_to_show" from="LoadDialog" to="LoadDialog" method="_on_LoadDialog_about_to_show"]
+[connection signal="popup_hide" from="LoadDialog" to="LoadDialog" method="_on_LoadDialog_popup_hide"]
+[connection signal="pressed" from="LoadDialog/VBoxContainer/HBoxContainer/OkButton" to="LoadDialog" method="_on_OkButton_pressed"]
+[connection signal="pressed" from="LoadDialog/VBoxContainer/HBoxContainer/CancelButton" to="LoadDialog" method="_on_CancelButton_pressed"]

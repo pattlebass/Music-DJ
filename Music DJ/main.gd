@@ -86,6 +86,4 @@ func _on_SaveProject_pressed():
 
 
 func _on_OpenProject_pressed():
-	var file = File.new()
-	file.open("res://saves/aaa.mdj", File.READ)
-	song = file.get_var()
+	$LoadDialog.popup_centered()
