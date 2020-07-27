@@ -3,6 +3,7 @@ extends Control
 var song = [[], [], [], []]
 var can_play = true
 var last_columns = [-1]
+var user_dir = ""
 
 func _ready():
 	var step_scene = preload("res://Step.tscn")
@@ -20,6 +21,18 @@ func _ready():
 		
 		for g in song:
 			g.append(0)
+
+	if OS.get_name() == "Android":
+		user_dir = "/storage/emulated/0/MusicDJ/"
+		var dir = Directory.new()
+		dir.open("/storage/emulated/0/")
+		dir.make_dir("MusicDJ")
+		dir.open(user_dir)
+		dir.make_dir("Projects")
+		dir.make_dir("Exports")
+		
+	else:
+		user_dir = "res://saves/"
 
 
 func _process(delta):

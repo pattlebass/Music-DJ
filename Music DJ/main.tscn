@@ -408,16 +408,19 @@ scroll_horizontal_enabled = false
 margin_top = 469.0
 margin_right = 382.0
 margin_bottom = 519.0
+custom_constants/separation = 50
+alignment = 1
 
 [node name="OkButton" type="Button" parent="LoadDialog/VBoxContainer/HBoxContainer"]
-margin_right = 100.0
+margin_left = 66.0
+margin_right = 166.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 100, 50 )
 text = "Open"
 
 [node name="CancelButton" type="Button" parent="LoadDialog/VBoxContainer/HBoxContainer"]
-margin_left = 104.0
-margin_right = 204.0
+margin_left = 216.0
+margin_right = 316.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 100, 50 )
 text = "Cancel"

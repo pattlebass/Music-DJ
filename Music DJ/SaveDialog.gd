@@ -12,7 +12,7 @@ func _on_OkButton_pressed():
 	if type_of_save == "project":
 		# Project save
 		var file = File.new()
-		file.open("user://saves/"+entered_name+".mdj", File.WRITE)
+		file.open(main.user_dir+"Projects/"+entered_name+".mdj", File.WRITE)
 		file.store_var(main.song)
 	else:
 		main.get_node("SoundDialog/AudioStreamPlayer").stop()
@@ -26,7 +26,7 @@ func _on_OkButton_pressed():
 		# Saving
 		var recording = effect.get_recording()
 		if recording and not is_cancelled:
-			recording.save_to_wav("user://saves/"+entered_name+".wav")
+			recording.save_to_wav(main.user_dir+"Exports/"+entered_name+".wav")
 		
 		is_cancelled = false
 

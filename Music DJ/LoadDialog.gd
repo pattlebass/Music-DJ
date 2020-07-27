@@ -3,6 +3,7 @@ extends PopupDialog
 onready var main = get_parent()
 var selected_file = ""
 
+
 func _on_OkButton_pressed():
 	hide()
 	
@@ -10,10 +11,14 @@ func _on_OkButton_pressed():
 	file.open("user://saves/"+selected_file, File.READ)
 	main.song = file.get_var()
 	
+	#for i in song:
+	#	for g in i:
+	#		pass
+	
 
 func _on_LoadDialog_about_to_show():
 	$VBoxContainer/HBoxContainer/OkButton.disabled = true
-	for i in list_files_in_directory("user://saves"):
+	for i in list_files_in_directory(main.user_dir+"Projects/"):
 		var button = Button.new()
 		
 		button.text = i
