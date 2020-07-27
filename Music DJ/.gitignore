@@ -1,0 +1,14 @@
+.dropbox.attr
+Thumbs.db
+.import/*
+data/*
+dev/*
+ui/*
+*.import
+default_bus_layout.tres
+default_env.tres
+export_presets.cfg
+godot-midi-player.png
+icon.png
+project.godot
+TestScene.tscn
