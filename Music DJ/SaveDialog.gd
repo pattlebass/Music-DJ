@@ -7,6 +7,9 @@ var type_of_save = "project"
 var effect = AudioServer.get_bus_effect(0, 0)
 var is_cancelled = false
 
+var once = false
+
+
 func _on_OkButton_pressed():
 	hide()
 	if type_of_save == "project":
@@ -38,6 +41,7 @@ func _on_SaveDialog_about_to_show():
 	$VBoxContainer/VBoxContainer/Label.text = title
 	$VBoxContainer/HBoxContainer/OkButton.disabled = true
 	OS.show_virtual_keyboard("")
+	rect_position.x = get_viewport().get_visible_rect().size.x/2 - 200
 
 
 func _on_SaveDialog_popup_hide():
@@ -50,3 +54,10 @@ func _on_LineEdit_text_changed(new_text):
 		$VBoxContainer/HBoxContainer/OkButton.disabled = false
 	else:
 		$VBoxContainer/HBoxContainer/OkButton.disabled = true
+
+
+func _process(delta):
+	if OS.get_virtual_keyboard_height() == 0:
+		rect_position.y = get_viewport().get_visible_rect().size.y/2 - 100
+	else:
+		rect_position.y = get_viewport().get_visible_rect().size.y/2 - 100 - OS.get_virtual_keyboard_height()/4

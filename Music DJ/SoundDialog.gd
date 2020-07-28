@@ -110,6 +110,8 @@ func _on_OkButton_pressed():
 	
 	style_box.bg_color = image.get_pixel(10,10)
 	button.set("custom_styles/normal", style_box)
+	button.set("custom_styles/pressed", style_box)
+	button.set("custom_styles/focus", StyleBoxEmpty)
 	
 	image.unlock()
 	

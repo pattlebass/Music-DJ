@@ -77,6 +77,7 @@ margin_right = 611.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 100, 0 )
 theme = ExtResource( 7 )
+disabled = true
 text = "Open Project"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
@@ -249,8 +250,11 @@ text = "Cancel"
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="SoundDialog"]
 
 [node name="SaveDialog" type="PopupDialog" parent="."]
-margin_right = 403.0
-margin_bottom = 195.0
+visible = true
+margin_left = 300.0
+margin_top = 100.0
+margin_right = 703.0
+margin_bottom = 295.0
 theme = ExtResource( 7 )
 script = ExtResource( 9 )
 __meta__ = {
@@ -369,7 +373,6 @@ rect_min_size = Vector2( 100, 50 )
 text = "Cancel"
 
 [node name="LoadDialog" type="PopupDialog" parent="."]
-visible = true
 margin_right = 382.0
 margin_bottom = 519.0
 theme = ExtResource( 7 )

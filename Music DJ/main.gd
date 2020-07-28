@@ -95,7 +95,7 @@ func _on_SaveProject_pressed():
 	if  last_columns.back() != -1:
 		$SaveDialog.title = "Save project as"
 		$SaveDialog.type_of_save = "project"
-		$SaveDialog.popup_centered()
+		$SaveDialog.popup()
 
 
 func _on_OpenProject_pressed():
