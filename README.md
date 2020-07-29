@@ -28,6 +28,13 @@ On Android, you need to allow apps from unknown sources. If you don't know how t
 
 ## Donate
 I'm a teenager working on passion projects. If you appreciate the work that has been put into making this app, consider donating.
+[Donate](https://www.paypal.me/pattlebass)
+
+## Credit for icons and fonts
+Icons made by [Freepik](https://www.flaticon.com/authors/freepik) from [www.flaticon.com](https://www.flaticon.com/).
+
+
+[Libel Suit](https://typodermicfonts.com/libel-suit/) by [Typodermic Fonts](https://typodermicfonts.com).
 
 ## Contact me
-If you have any questions or you want to contribute to this project, DM me on Twitter @pattlebass .
+If you have any questions or you want to contribute to this project, DM me on Twitter [@pattlebass](https://twitter.com/pattle_bass).
