@@ -19,7 +19,7 @@ Finally, the app is ready for a public beta. It took me around 2 weeks, but we'r
 At the moment, this is an Android and Windows only app. Apple's policy makes me unable to release on IOS. If you want a linux version, let me know.
 
 * [Android](https://github.com/pattlebass/Music-Dj/releases/latest/download/MusicDJ.apk)
-* [Windows](https://github.com/pattlebass/Music-Dj/releases/latest/download/MusicDJ-windows.zip)
+* [Windows](https://github.com/pattlebass/Music-Dj/releases/latest/download/MusicDJ.zip)
 
 You might get warnings about this app being not safe. Like [this](https://i.stack.imgur.com/LlLiX.png) and [this](https://i.ytimg.com/vi/1CeDwp6jjNk/maxresdefault.jpg). That's because I'm not a verified publisher and there is nothing I can do at the moment.
 
