@@ -1,37 +1,27 @@
-## Welcome to GitHub Pages
+# MusicDJ recreated
 
-You can use the [editor on GitHub](https://github.com/pattlebass/Music-DJ/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+Finally, the app is ready for a public beta. It took me around 2 weeks, but we're here.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+![MusicDJ image](https://i.imgur.com/Osj7ef5.png)
 
-### Markdown
+## Features
+* Create songs using the original samples
+* You can export the songs to the .wav format
+* You can save the project you're working on for later
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+## To be added
+* Higher quality samples
+* MIDI player
+* Tempo changer
+* Actually opening the saved project (it currently doesn't work)
 
-```markdown
-Syntax highlighted code block
+## How to download
+At the moment, this is an Android and Windows only app. Apple's policy makes me unable to release on IOS. If you want a linux version, let me know.
 
-# Header 1
-## Header 2
-### Header 3
 
-- Bulleted
-- List
 
-1. Numbered
-2. List
+## Donate
+I'm a teenager working on passion projects. If you appreciate the work that has been put into making this app, consider donating.
 
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/pattlebass/Music-DJ/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+## Contact me
+If you have any questions or you want to contribute to this project, DM me on Twitter @pattlebass .
