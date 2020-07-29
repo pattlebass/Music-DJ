@@ -250,7 +250,6 @@ text = "Cancel"
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="SoundDialog"]
 
 [node name="SaveDialog" type="PopupDialog" parent="."]
-visible = true
 margin_left = 300.0
 margin_top = 100.0
 margin_right = 703.0
