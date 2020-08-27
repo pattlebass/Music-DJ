@@ -121,6 +121,8 @@ func _on_OkButton_pressed():
 	style_box.bg_color = image.get_pixel(10,10)
 	button.set("custom_styles/normal", style_box)
 	button.set("custom_styles/pressed", style_box)
+	button.set("custom_styles/disabled", style_box)
+	button.set("custom_styles/hover", style_box)
 	button.set("custom_styles/focus", StyleBoxEmpty)
 	
 	image.unlock()
@@ -136,6 +138,9 @@ func _on_OkButton_pressed():
 func _on_ClearButton_pressed():
 	button.text = ""
 	button.set("custom_styles/normal", null)
+	button.set("custom_styles/pressed", null)
+	button.set("custom_styles/disabled", null)
+	button.set("custom_styles/hover", null)
 	
 	# If all buttons in a step are clear remove that step from the play list
 	var falses = -1
@@ -160,3 +165,7 @@ func _on_SoundDialog_popup_hide():
 	for i in $VBoxContainer/ScrollContainer/VBoxContainer.get_children():
 		if i is Button:
 			i.pressed = false
+
+
+func _on_OkButton_mouse_entered():
+	print("awd")

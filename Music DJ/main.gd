@@ -70,15 +70,25 @@ func on_step_button_pressed(_column, _instrument):
 
 
 func on_Step_Button_held(index, genre, _button):
+	# Needs cleanup
 	yield(get_tree().create_timer(0.5), "timeout")
-	if _button.pressed:
+	
+	if _button.pressed and _button.text != "":
 		_button.disabled = true
 		_button.disabled = false
-	
-	var float_button_scene = preload("res://FloatButton.tscn")
-	var float_button = float_button_scene.instance()
-	float_button.add_child(_button.duplicate())
-	add_child(float_button)
+		
+		$HBoxContainer/StepContainer.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		
+		var float_button_scene = load("res://FloatButton.tscn")
+		var float_button = float_button_scene.instance()
+		
+		float_button.add_child(_button.duplicate())
+		var rect_pos = float_button.get_child(0).rect_size / 2
+		float_button.get_child(0).rect_position = -rect_pos
+		float_button.get_child(0).disabled = true
+		float_button.get_child(0).set("custom_colors/font_color", Color.black)
+		float_button.global_position = get_global_mouse_position()
+		add_child(float_button)
 	
 
 func _on_Play_toggled(button_pressed):
