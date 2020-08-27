@@ -37,4 +37,4 @@ Icons made by [Freepik](https://www.flaticon.com/authors/freepik) from [www.flat
 [Libel Suit](https://typodermicfonts.com/libel-suit/) by [Typodermic Fonts](https://typodermicfonts.com).
 
 ## Contact me
-If you have any questions or you want to contribute to this project, DM me on Twitter [@pattlebass](https://twitter.com/pattle_bass).
+If you have any questions or you want to contribute to this project, DM me on Twitter [@pattlebass_dev](https://twitter.com/pattlebass_dev).
