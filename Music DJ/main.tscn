@@ -65,17 +65,17 @@ text = "Export"
 
 [node name="SaveProject" type="Button" parent="HBoxContainer2"]
 margin_left = 300.0
-margin_right = 429.0
+margin_right = 450.0
 margin_bottom = 60.0
-rect_min_size = Vector2( 100, 0 )
+rect_min_size = Vector2( 150, 0 )
 theme = ExtResource( 7 )
 text = "Save Project"
 
 [node name="OpenProject" type="Button" parent="HBoxContainer2"]
-margin_left = 479.0
-margin_right = 611.0
+margin_left = 500.0
+margin_right = 650.0
 margin_bottom = 60.0
-rect_min_size = Vector2( 100, 0 )
+rect_min_size = Vector2( 150, 0 )
 theme = ExtResource( 7 )
 disabled = true
 text = "Open Project"

@@ -13,11 +13,9 @@ func _ready():
 		get_node("HBoxContainer/StepContainer/HBoxContainer").add_child(step)
 		
 		# Signals
-		step.get_node("Button1").connect("pressed", self, "button", [i, 0])
-		step.get_node("Button2").connect("pressed", self, "button", [i, 1])
-		step.get_node("Button3").connect("pressed", self, "button", [i, 2])
-		step.get_node("Button4").connect("pressed", self, "button", [i, 3])
-		
+		for b in 4:
+			step.get_node("Button"+str(b+1)).connect("pressed", self, "on_step_button_pressed", [i, b])
+			step.get_node("Button"+str(b+1)).connect("button_down", self, "on_Step_Button_held", [i, b, step.get_node("Button"+str(b+1))])
 		
 		for g in song:
 			g.append(0)
@@ -33,10 +31,6 @@ func _ready():
 		
 	else:
 		user_dir = "res://saves/"
-
-
-func _process(delta):
-	pass
 
 
 func play():
@@ -68,11 +62,24 @@ func play():
 		yield(get_tree().create_timer(3), "timeout")
 		step.get_node("Label").add_color_override("font_color", Color(1,1,1))
 
-func button(_column, _instrument):
+
+func on_step_button_pressed(_column, _instrument):
 	$SoundDialog.instrument_index = _instrument
 	$SoundDialog.column = _column
 	$SoundDialog.popup_centered(Vector2(500, 550))
 
+
+func on_Step_Button_held(index, genre, _button):
+	yield(get_tree().create_timer(0.5), "timeout")
+	if _button.pressed:
+		_button.disabled = true
+		_button.disabled = false
+	
+	var float_button_scene = preload("res://FloatButton.tscn")
+	var float_button = float_button_scene.instance()
+	float_button.add_child(_button.duplicate())
+	add_child(float_button)
+	
 
 func _on_Play_toggled(button_pressed):
 	if button_pressed:

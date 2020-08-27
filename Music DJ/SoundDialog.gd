@@ -3,12 +3,17 @@ extends PopupDialog
 onready var main = get_parent()
 
 var instrument_index
+var instrument_name = ["Drums", "Bass", "Keys", "Trumpet"]
 var column
 var pressed_button_index = 0
 var genre_index = 0
 
+var step
+var button
+
 
 func _ready():
+	# Create list
 	
 	var text = ["Groove 1", "Groove 2", "Salsa 1", "Salsa 2", "Reggae 1", "Reggae 2", "Techno 1", "Techno 2"]
 	var category = ["Introduction", "Verse", "Chorus", "Solo"]
@@ -63,20 +68,27 @@ func _ready():
 			
 
 func _on_SoundDialog_about_to_show():
-	$VBoxContainer/HBoxContainer/OkButton.disabled = true
+	step = main.get_node("HBoxContainer/StepContainer/HBoxContainer").get_child(column)
+	button = step.get_child(instrument_index+1)
+	
+	# Set title
 	
 	var instrument
 	
-	if instrument_index == 0:
-		instrument = "Drums"
-	elif instrument_index == 1:
-		instrument = "Bass"
-	elif instrument_index == 2:
-		instrument = "Keys"
-	elif instrument_index == 3:
-		instrument = "Trumpet"
-
+	instrument = instrument_name[instrument_index]
 	$VBoxContainer/Label.text = instrument + ", column " + str(column+1)
+	
+	# Set button states
+	
+	$VBoxContainer/HBoxContainer/OkButton.disabled = true
+	
+	var clear_button = get_node("VBoxContainer/HBoxContainer/ClearButton")
+	
+	if button.text == "":
+		clear_button.disabled = true
+	else:
+		clear_button.disabled = false
+
 
 func on_Button_selected(index, genre):
 	if index == pressed_button_index:
@@ -95,10 +107,8 @@ func on_Button_selected(index, genre):
 				continue
 			i.pressed = false
 
+
 func _on_OkButton_pressed():
-	# Button
-	var step = main.get_node("HBoxContainer/StepContainer/HBoxContainer").get_child(column)
-	var button = step.get_child(instrument_index+1)
 	var style_box = preload("res://assets/button_stylebox.tres").duplicate()
 	
 	button.text = str(genre_index+1)
@@ -124,16 +134,14 @@ func _on_OkButton_pressed():
 
 
 func _on_ClearButton_pressed():
-	var step = main.get_node("HBoxContainer/StepContainer/HBoxContainer").get_child(column)
-	var button = step.get_child(instrument_index+1)
 	button.text = ""
 	button.set("custom_styles/normal", null)
 	
+	# If all buttons in a step are clear remove that step from the play list
 	var falses = -1
 	for i in step.get_children():
-		if not i.text == "":
+		if i.text != "":
 			falses += 1
-	print(falses)
 	if falses == 0:
 		main.last_columns.erase(column)
 	
@@ -152,4 +160,3 @@ func _on_SoundDialog_popup_hide():
 	for i in $VBoxContainer/ScrollContainer/VBoxContainer.get_children():
 		if i is Button:
 			i.pressed = false
-	
