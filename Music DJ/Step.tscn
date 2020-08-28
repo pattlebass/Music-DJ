@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://assets/theme.tres" type="Theme" id=1]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 40, 40 )
 
 [node name="Step" type="VBoxContainer"]
 margin_right = 40.0
@@ -31,6 +34,12 @@ custom_colors/font_color = Color( 0, 0, 0, 1 )
 shortcut_in_tooltip = false
 enabled_focus_mode = 0
 
+[node name="Area2D" type="Area2D" parent="Button1"]
+position = Vector2( 40, 40 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Button1/Area2D"]
+shape = SubResource( 1 )
+
 [node name="Button2" type="Button" parent="."]
 margin_top = 159.0
 margin_right = 80.0
@@ -42,6 +51,15 @@ theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 shortcut_in_tooltip = false
 enabled_focus_mode = 0
+
+[node name="Area2D" type="Area2D" parent="Button2"]
+position = Vector2( 40, 40 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Button2/Area2D"]
+shape = SubResource( 1 )
 
 [node name="Button3" type="Button" parent="."]
 margin_top = 249.0
@@ -55,6 +73,12 @@ custom_colors/font_color = Color( 0, 0, 0, 1 )
 shortcut_in_tooltip = false
 enabled_focus_mode = 0
 
+[node name="Area2D" type="Area2D" parent="Button3"]
+position = Vector2( 40, 40 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Button3/Area2D"]
+shape = SubResource( 1 )
+
 [node name="Button4" type="Button" parent="."]
 margin_top = 339.0
 margin_right = 80.0
@@ -66,3 +90,9 @@ theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 shortcut_in_tooltip = false
 enabled_focus_mode = 0
+
+[node name="Area2D" type="Area2D" parent="Button4"]
+position = Vector2( 40, 40 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Button4/Area2D"]
+shape = SubResource( 1 )

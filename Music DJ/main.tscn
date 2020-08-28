@@ -432,7 +432,6 @@ text = "Cancel"
 [connection signal="pressed" from="HBoxContainer2/OpenProject" to="." method="_on_OpenProject_pressed"]
 [connection signal="about_to_show" from="SoundDialog" to="SoundDialog" method="_on_SoundDialog_about_to_show"]
 [connection signal="popup_hide" from="SoundDialog" to="SoundDialog" method="_on_SoundDialog_popup_hide"]
-[connection signal="mouse_entered" from="SoundDialog/VBoxContainer/HBoxContainer/OkButton" to="SoundDialog" method="_on_OkButton_mouse_entered"]
 [connection signal="pressed" from="SoundDialog/VBoxContainer/HBoxContainer/OkButton" to="SoundDialog" method="_on_OkButton_pressed"]
 [connection signal="pressed" from="SoundDialog/VBoxContainer/HBoxContainer/ClearButton" to="SoundDialog" method="_on_ClearButton_pressed"]
 [connection signal="pressed" from="SoundDialog/VBoxContainer/HBoxContainer/CancelButton" to="SoundDialog" method="_on_CancelButton_pressed"]

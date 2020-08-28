@@ -69,27 +69,32 @@ func on_step_button_pressed(_column, _instrument):
 	$SoundDialog.popup_centered(Vector2(500, 550))
 
 
-func on_Step_Button_held(index, genre, _button):
+func on_Step_Button_held(_column, _instrument, _button):
 	# Needs cleanup
 	yield(get_tree().create_timer(0.5), "timeout")
-	
 	if _button.pressed and _button.text != "":
 		_button.disabled = true
 		_button.disabled = false
 		
 		$HBoxContainer/StepContainer.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		
-		var float_button_scene = load("res://FloatButton.tscn")
+		var float_button_scene = preload("res://FloatButton.tscn")
 		var float_button = float_button_scene.instance()
 		
 		float_button.add_child(_button.duplicate())
-		var rect_pos = float_button.get_child(0).rect_size / 2
-		float_button.get_child(0).rect_position = -rect_pos
-		float_button.get_child(0).disabled = true
-		float_button.get_child(0).set("custom_colors/font_color", Color.black)
+		var rect_size = float_button.get_child(1).rect_size
+		
+		float_button.get_child(1).get_node("Area2D").queue_free()
+		float_button.get_child(1).rect_position = -rect_size*1.5/2
+		float_button.get_child(1).rect_size = rect_size * 1.5
+		#float_button.get_child(1).disabled = true
+		float_button.get_child(1).set("custom_colors/font_color", Color.black)
+		float_button.instrument = _instrument
+		float_button.column = _column
 		float_button.global_position = get_global_mouse_position()
 		add_child(float_button)
-	
+		var rect_global_pos = _button.rect_global_position
+		float_button.pos_y = rect_global_pos.y
 
 func _on_Play_toggled(button_pressed):
 	if button_pressed:

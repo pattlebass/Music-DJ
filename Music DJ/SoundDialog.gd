@@ -165,7 +165,3 @@ func _on_SoundDialog_popup_hide():
 	for i in $VBoxContainer/ScrollContainer/VBoxContainer.get_children():
 		if i is Button:
 			i.pressed = false
-
-
-func _on_OkButton_mouse_entered():
-	print("awd")
