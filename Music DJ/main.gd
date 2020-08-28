@@ -79,22 +79,24 @@ func on_Step_Button_held(_column, _instrument, _button):
 		$HBoxContainer/StepContainer.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		
 		var float_button_scene = preload("res://FloatButton.tscn")
-		var float_button = float_button_scene.instance()
+		var float_button_parent = float_button_scene.instance()
 		
-		float_button.add_child(_button.duplicate())
-		var rect_size = float_button.get_child(1).rect_size
+		float_button_parent.add_child(_button.duplicate())
 		
-		float_button.get_child(1).get_node("Area2D").queue_free()
-		float_button.get_child(1).rect_position = -rect_size*1.5/2
-		float_button.get_child(1).rect_size = rect_size * 1.5
-		#float_button.get_child(1).disabled = true
-		float_button.get_child(1).set("custom_colors/font_color", Color.black)
-		float_button.instrument = _instrument
-		float_button.column = _column
-		float_button.global_position = get_global_mouse_position()
-		add_child(float_button)
+		var float_button = float_button_parent.get_child(1)
+		
+		var rect_size = float_button.rect_size
+		
+		float_button.get_node("Area2D").queue_free()
+		float_button.rect_position = -rect_size*1.5/2
+		float_button.rect_size = rect_size * 1.5
+		float_button.set("custom_colors/font_color", Color.black)
+		float_button_parent.instrument = _instrument
+		float_button_parent.column = _column
+		float_button_parent.global_position = get_global_mouse_position()
+		add_child(float_button_parent)
 		var rect_global_pos = _button.rect_global_position
-		float_button.pos_y = rect_global_pos.y
+		float_button_parent.pos_y = rect_global_pos.y
 
 func _on_Play_toggled(button_pressed):
 	if button_pressed:

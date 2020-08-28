@@ -44,8 +44,9 @@ func _ready():
 		image.lock()
 		for v in 32:
 			for h in 32:
-				if image.get_pixel(h, v) == Color(1, 1, 1, 1):
-					image.set_pixel(h, v, color[i])
+				var current_pixel = image.get_pixel(h, v)
+				if current_pixel == Color(1, 1, 1):
+					image.set_pixel(h, v, color[i]*current_pixel)
 				else:
 					image.set_pixel(h, v, Color(1, 1, 1, 0))
 		image.unlock()
