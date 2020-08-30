@@ -96,7 +96,7 @@ __meta__ = {
 
 [node name="ImageContainer" type="VBoxContainer" parent="HBoxContainer"]
 margin_right = 80.0
-margin_bottom = 447.0
+margin_bottom = 488.0
 custom_constants/separation = 10
 
 [node name="Label" type="Label" parent="HBoxContainer/ImageContainer"]
@@ -141,12 +141,12 @@ expand = true
 self_modulate = Color( 1, 1, 1, 0 )
 margin_left = 84.0
 margin_right = 88.0
-margin_bottom = 447.0
+margin_bottom = 488.0
 
 [node name="StepContainer" type="ScrollContainer" parent="HBoxContainer"]
 margin_left = 92.0
 margin_right = 964.0
-margin_bottom = 447.0
+margin_bottom = 488.0
 size_flags_horizontal = 3
 theme = ExtResource( 7 )
 scroll_vertical_enabled = false
@@ -156,7 +156,33 @@ __meta__ = {
 }
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/StepContainer"]
+margin_right = 872.0
+margin_bottom = 488.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 custom_constants/separation = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/StepContainer/HBoxContainer"]
+margin_right = 60.0
+margin_bottom = 488.0
+rect_min_size = Vector2( 60, 0 )
+alignment = 1
+
+[node name="Label2" type="Label" parent="HBoxContainer/StepContainer/HBoxContainer/VBoxContainer"]
+margin_top = 181.0
+margin_right = 60.0
+margin_bottom = 240.0
+rect_min_size = Vector2( 40, 59 )
+theme = ExtResource( 7 )
+
+[node name="AddButton" type="Button" parent="HBoxContainer/StepContainer/HBoxContainer/VBoxContainer"]
+margin_top = 245.0
+margin_right = 60.0
+margin_bottom = 305.0
+rect_min_size = Vector2( 60, 60 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "+"
 
 [node name="SoundDialog" type="PopupDialog" parent="."]
 margin_left = 250.0
@@ -430,6 +456,7 @@ text = "Cancel"
 [connection signal="pressed" from="HBoxContainer2/Export" to="." method="_on_Export_pressed"]
 [connection signal="pressed" from="HBoxContainer2/SaveProject" to="." method="_on_SaveProject_pressed"]
 [connection signal="pressed" from="HBoxContainer2/OpenProject" to="." method="_on_OpenProject_pressed"]
+[connection signal="pressed" from="HBoxContainer/StepContainer/HBoxContainer/VBoxContainer/AddButton" to="." method="_on_AddButton_pressed"]
 [connection signal="about_to_show" from="SoundDialog" to="SoundDialog" method="_on_SoundDialog_about_to_show"]
 [connection signal="popup_hide" from="SoundDialog" to="SoundDialog" method="_on_SoundDialog_popup_hide"]
 [connection signal="pressed" from="SoundDialog/VBoxContainer/HBoxContainer/OkButton" to="SoundDialog" method="_on_OkButton_pressed"]

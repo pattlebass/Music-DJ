@@ -3,11 +3,12 @@ extends Control
 var song = [[], [], [], []]
 var can_play = true
 var last_columns = [-1]
+var step_index = 10
 var user_dir = ""
 
 func _ready():
 	var step_scene = preload("res://Step.tscn")
-	for i in 25:
+	for i in step_index:
 		var step = step_scene.instance()
 		step.get_node("Label").text = str(i + 1)
 		get_node("HBoxContainer/StepContainer/HBoxContainer").add_child(step)
@@ -17,8 +18,11 @@ func _ready():
 			step.get_node("Button"+str(b+1)).connect("pressed", self, "on_step_button_pressed", [i, b])
 			step.get_node("Button"+str(b+1)).connect("button_down", self, "on_Step_Button_held", [i, b, step.get_node("Button"+str(b+1))])
 		
+		# Add to song
 		for g in song:
 			g.append(0)
+	var add_button = get_node("HBoxContainer/StepContainer/HBoxContainer/VBoxContainer")
+	$HBoxContainer/StepContainer/HBoxContainer.move_child(add_button, step_index+1)
 
 	if OS.get_name() == "Android":
 		user_dir = "/storage/emulated/0/MusicDJ/"
@@ -36,7 +40,7 @@ func _ready():
 func play():
 	yield(get_tree(), "idle_frame")
 	$SoundDialog/AudioStreamPlayer.stop()
-	for i in 25:
+	for i in step_index:
 		if i > last_columns.back():
 			$HBoxContainer2/Play.pressed = false
 			return
@@ -50,10 +54,11 @@ func play():
 		
 		# Play sounds
 		for a in 4:
-			if not can_play:
-				return
 			if song[a][i] == 0:
 				continue
+			#if not can_play:
+			#	return
+				
 			var audio_player = $AudioPlayers.get_child(a)
 			var sound = song[a][i]
 			audio_player.stream = load("res://sounds/"+str(a)+"/"+str(sound)+".wav")
@@ -61,7 +66,6 @@ func play():
 		
 		yield(get_tree().create_timer(3), "timeout")
 		step.get_node("Label").add_color_override("font_color", Color(1,1,1))
-
 
 func on_step_button_pressed(_column, _instrument):
 	$SoundDialog.instrument_index = _instrument
@@ -106,6 +110,10 @@ func _on_Play_toggled(button_pressed):
 	else:
 		can_play = false
 		$HBoxContainer2/Play.text = "Play"
+		
+		yield(get_tree(), "idle_frame")
+		for i in $AudioPlayers.get_children():
+			i.stop()
 
 
 func _on_Export_pressed():
@@ -124,3 +132,26 @@ func _on_SaveProject_pressed():
 
 func _on_OpenProject_pressed():
 	$LoadDialog.popup_centered()
+
+
+func _on_AddButton_pressed():
+	var step_scene = preload("res://Step.tscn")
+	var step = step_scene.instance()
+	
+	# Signals
+	for b in 4:
+		step.get_node("Button"+str(b+1)).connect("pressed", self, "on_step_button_pressed", [step_index, b])
+		step.get_node("Button"+str(b+1)).connect("button_down", self, "on_Step_Button_held", [step_index, b, step.get_node("Button"+str(b+1))])
+	
+	# Add to song
+	#for g in song:
+	#	g.append(0)
+	
+	step_index += 1
+	step.get_node("Label").text = str(step_index)
+	get_node("HBoxContainer/StepContainer/HBoxContainer").add_child(step)
+	
+	
+	var add_button = get_node("HBoxContainer/StepContainer/HBoxContainer/VBoxContainer")
+	$HBoxContainer/StepContainer/HBoxContainer.move_child(add_button, step_index+1)
+	
