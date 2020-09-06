@@ -15,8 +15,10 @@ func _ready():
 		
 		# Signals
 		for b in 4:
-			step.get_node("Button"+str(b+1)).connect("pressed", self, "on_step_button_pressed", [i, b])
-			step.get_node("Button"+str(b+1)).connect("button_down", self, "on_Step_Button_held", [i, b, step.get_node("Button"+str(b+1))])
+			var button = step.get_node("Button"+str(b+1))
+			button.connect("pressed", self, "on_step_button_pressed", [i, b])
+			button.connect("button_down", self, "on_Step_Button_held", [i, b, step.get_node("Button"+str(b+1))])
+		step.get_node("Label").connect("pressed", self, "on_Step_Button_pressed", [i, step])
 		
 		# Add to song
 		for g in song:
@@ -102,6 +104,14 @@ func on_Step_Button_held(_column, _instrument, _button):
 		var rect_global_pos = _button.rect_global_position
 		float_button_parent.pos_y = rect_global_pos.y
 
+
+func on_Step_Button_pressed(_column, _step):
+	$StepDialog.step = _step
+	$StepDialog.column = _column
+	
+	$StepDialog.popup_centered()
+
+
 func _on_Play_toggled(button_pressed):
 	if button_pressed:
 		can_play = true
@@ -144,8 +154,8 @@ func _on_AddButton_pressed():
 		step.get_node("Button"+str(b+1)).connect("button_down", self, "on_Step_Button_held", [step_index, b, step.get_node("Button"+str(b+1))])
 	
 	# Add to song
-	#for g in song:
-	#	g.append(0)
+	for g in song:
+		g.append(0)
 	
 	step_index += 1
 	step.get_node("Label").text = str(step_index)

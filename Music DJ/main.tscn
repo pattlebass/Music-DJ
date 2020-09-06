@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://assets/trumpet.png" type="Texture" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://SaveDialog.gd" type="Script" id=9]
 [ext_resource path="res://ProgressDialog.gd" type="Script" id=10]
 [ext_resource path="res://LoadDialog.gd" type="Script" id=11]
+[ext_resource path="res://StepDialog.gd" type="Script" id=12]
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
@@ -41,7 +42,6 @@ anchor_right = 0.977
 anchor_bottom = 0.13
 margin_left = 0.424
 margin_right = -0.448059
-margin_bottom = -7.62939e-06
 custom_constants/separation = 50
 __meta__ = {
 "_edit_use_anchors_": false
@@ -96,13 +96,14 @@ __meta__ = {
 
 [node name="ImageContainer" type="VBoxContainer" parent="HBoxContainer"]
 margin_right = 80.0
-margin_bottom = 488.0
+margin_bottom = 447.0
 custom_constants/separation = 10
 
 [node name="Label" type="Label" parent="HBoxContainer/ImageContainer"]
 margin_right = 80.0
 margin_bottom = 59.0
 rect_min_size = Vector2( 40, 40 )
+size_flags_vertical = 1
 theme = ExtResource( 7 )
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/ImageContainer"]
@@ -141,12 +142,12 @@ expand = true
 self_modulate = Color( 1, 1, 1, 0 )
 margin_left = 84.0
 margin_right = 88.0
-margin_bottom = 488.0
+margin_bottom = 447.0
 
 [node name="StepContainer" type="ScrollContainer" parent="HBoxContainer"]
 margin_left = 92.0
 margin_right = 964.0
-margin_bottom = 488.0
+margin_bottom = 447.0
 size_flags_horizontal = 3
 theme = ExtResource( 7 )
 scroll_vertical_enabled = false
@@ -157,28 +158,28 @@ __meta__ = {
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/StepContainer"]
 margin_right = 872.0
-margin_bottom = 488.0
+margin_bottom = 447.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/StepContainer/HBoxContainer"]
 margin_right = 60.0
-margin_bottom = 488.0
+margin_bottom = 447.0
 rect_min_size = Vector2( 60, 0 )
 alignment = 1
 
 [node name="Label2" type="Label" parent="HBoxContainer/StepContainer/HBoxContainer/VBoxContainer"]
-margin_top = 181.0
+margin_top = 162.0
 margin_right = 60.0
-margin_bottom = 240.0
+margin_bottom = 221.0
 rect_min_size = Vector2( 40, 59 )
 theme = ExtResource( 7 )
 
 [node name="AddButton" type="Button" parent="HBoxContainer/StepContainer/HBoxContainer/VBoxContainer"]
-margin_top = 245.0
+margin_top = 225.0
 margin_right = 60.0
-margin_bottom = 305.0
+margin_bottom = 285.0
 rect_min_size = Vector2( 60, 60 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
@@ -340,6 +341,66 @@ margin_bottom = 50.0
 rect_min_size = Vector2( 100, 50 )
 text = "Cancel"
 
+[node name="StepDialog" type="PopupDialog" parent="."]
+visible = true
+margin_left = 300.0
+margin_top = 100.0
+margin_right = 703.0
+margin_bottom = 295.0
+theme = ExtResource( 7 )
+script = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StepDialog"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StepDialog/VBoxContainer"]
+margin_right = 403.0
+margin_bottom = 141.0
+size_flags_vertical = 3
+custom_constants/separation = 30
+
+[node name="Label" type="Label" parent="StepDialog/VBoxContainer/VBoxContainer"]
+margin_right = 403.0
+margin_bottom = 39.0
+custom_fonts/font = SubResource( 1 )
+text = "Column #"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="StepDialog/VBoxContainer"]
+margin_top = 145.0
+margin_right = 403.0
+margin_bottom = 195.0
+custom_constants/separation = 50
+alignment = 2
+
+[node name="ClearButton" type="Button" parent="StepDialog/VBoxContainer/HBoxContainer"]
+margin_left = 3.0
+margin_right = 103.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 100, 50 )
+text = "Clear"
+
+[node name="RemoveButton" type="Button" parent="StepDialog/VBoxContainer/HBoxContainer"]
+margin_left = 153.0
+margin_right = 253.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 100, 50 )
+text = "Remove"
+
+[node name="CancelButton" type="Button" parent="StepDialog/VBoxContainer/HBoxContainer"]
+margin_left = 303.0
+margin_right = 403.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 100, 50 )
+text = "Cancel"
+
 [node name="ProgressDialog" type="PopupDialog" parent="."]
 margin_right = 403.0
 margin_bottom = 195.0
@@ -467,6 +528,10 @@ text = "Cancel"
 [connection signal="text_changed" from="SaveDialog/VBoxContainer/VBoxContainer/HBoxContainer/LineEdit" to="SaveDialog" method="_on_LineEdit_text_changed"]
 [connection signal="pressed" from="SaveDialog/VBoxContainer/HBoxContainer/OkButton" to="SaveDialog" method="_on_OkButton_pressed"]
 [connection signal="pressed" from="SaveDialog/VBoxContainer/HBoxContainer/CancelButton" to="SaveDialog" method="_on_CancelButton_pressed"]
+[connection signal="about_to_show" from="StepDialog" to="StepDialog" method="_on_StepDialog_about_to_show"]
+[connection signal="pressed" from="StepDialog/VBoxContainer/HBoxContainer/ClearButton" to="StepDialog" method="_on_ClearButton_pressed"]
+[connection signal="pressed" from="StepDialog/VBoxContainer/HBoxContainer/RemoveButton" to="StepDialog" method="_on_RemoveButton_pressed"]
+[connection signal="pressed" from="StepDialog/VBoxContainer/HBoxContainer/CancelButton" to="StepDialog" method="_on_CancelButton_pressed"]
 [connection signal="about_to_show" from="ProgressDialog" to="ProgressDialog" method="_on_ProgressDialog_about_to_show"]
 [connection signal="popup_hide" from="ProgressDialog" to="ProgressDialog" method="_on_ProgressDialog_popup_hide"]
 [connection signal="pressed" from="ProgressDialog/VBoxContainer/HBoxContainer/CancelButton" to="ProgressDialog" method="_on_CancelButton_pressed"]

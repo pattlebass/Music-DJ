@@ -1,8 +1,10 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://assets/theme.tres" type="Theme" id=1]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 40, 40 )
 
 [node name="Step" type="VBoxContainer"]
@@ -13,19 +15,22 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Button" parent="."]
 margin_right = 80.0
-margin_bottom = 59.0
+margin_bottom = 40.0
 rect_min_size = Vector2( 40, 40 )
 theme = ExtResource( 1 )
+custom_styles/hover = SubResource( 1 )
+custom_styles/pressed = SubResource( 1 )
+custom_styles/focus = SubResource( 1 )
+custom_styles/disabled = SubResource( 1 )
+custom_styles/normal = SubResource( 1 )
 text = "0"
-align = 1
-valign = 1
 
 [node name="Button1" type="Button" parent="."]
-margin_top = 69.0
+margin_top = 50.0
 margin_right = 80.0
-margin_bottom = 149.0
+margin_bottom = 130.0
 rect_min_size = Vector2( 80, 80 )
 focus_mode = 0
 mouse_filter = 1
@@ -38,12 +43,12 @@ enabled_focus_mode = 0
 position = Vector2( 40, 40 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Button1/Area2D"]
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="Button2" type="Button" parent="."]
-margin_top = 159.0
+margin_top = 140.0
 margin_right = 80.0
-margin_bottom = 239.0
+margin_bottom = 220.0
 rect_min_size = Vector2( 80, 80 )
 focus_mode = 0
 mouse_filter = 1
@@ -54,17 +59,14 @@ enabled_focus_mode = 0
 
 [node name="Area2D" type="Area2D" parent="Button2"]
 position = Vector2( 40, 40 )
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Button2/Area2D"]
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="Button3" type="Button" parent="."]
-margin_top = 249.0
+margin_top = 230.0
 margin_right = 80.0
-margin_bottom = 329.0
+margin_bottom = 310.0
 rect_min_size = Vector2( 80, 80 )
 focus_mode = 0
 mouse_filter = 1
@@ -77,12 +79,12 @@ enabled_focus_mode = 0
 position = Vector2( 40, 40 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Button3/Area2D"]
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="Button4" type="Button" parent="."]
-margin_top = 339.0
+margin_top = 320.0
 margin_right = 80.0
-margin_bottom = 419.0
+margin_bottom = 400.0
 rect_min_size = Vector2( 80, 80 )
 focus_mode = 0
 mouse_filter = 1
@@ -95,4 +97,4 @@ enabled_focus_mode = 0
 position = Vector2( 40, 40 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Button4/Area2D"]
-shape = SubResource( 1 )
+shape = SubResource( 2 )
