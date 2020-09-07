@@ -73,14 +73,13 @@ func _on_SoundDialog_about_to_show():
 	button = step.get_child(instrument_index+1)
 	
 	# Set title
-	
 	var instrument
 	
 	instrument = instrument_name[instrument_index]
 	$VBoxContainer/Label.text = instrument + ", column " + str(column+1)
 	
-	# Set button states
 	
+	# Set button states
 	$VBoxContainer/HBoxContainer/OkButton.disabled = true
 	
 	var clear_button = get_node("VBoxContainer/HBoxContainer/ClearButton")

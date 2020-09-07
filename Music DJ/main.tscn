@@ -342,7 +342,6 @@ rect_min_size = Vector2( 100, 50 )
 text = "Cancel"
 
 [node name="StepDialog" type="PopupDialog" parent="."]
-visible = true
 margin_left = 300.0
 margin_top = 100.0
 margin_right = 703.0

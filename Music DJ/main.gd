@@ -150,8 +150,10 @@ func _on_AddButton_pressed():
 	
 	# Signals
 	for b in 4:
-		step.get_node("Button"+str(b+1)).connect("pressed", self, "on_step_button_pressed", [step_index, b])
-		step.get_node("Button"+str(b+1)).connect("button_down", self, "on_Step_Button_held", [step_index, b, step.get_node("Button"+str(b+1))])
+		var button = step.get_node("Button"+str(b+1))
+		button.connect("pressed", self, "on_step_button_pressed", [step_index, b])
+		button.connect("button_down", self, "on_Step_Button_held", [step_index, b, step.get_node("Button"+str(b+1))])
+	step.get_node("Label").connect("pressed", self, "on_Step_Button_pressed", [step_index, step])
 	
 	# Add to song
 	for g in song:
