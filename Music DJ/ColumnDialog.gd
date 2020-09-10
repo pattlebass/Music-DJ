@@ -5,7 +5,7 @@ onready var main = get_parent()
 var column
 var column_no
 
-func _on_StepDialog_about_to_show():
+func _on_ColumnDialog_about_to_show():
 	# Set title
 	var title = "Column " + str(column_no+1)
 	$VBoxContainer/VBoxContainer/Label.text = title

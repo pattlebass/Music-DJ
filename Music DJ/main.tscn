@@ -11,7 +11,7 @@
 [ext_resource path="res://SaveDialog.gd" type="Script" id=9]
 [ext_resource path="res://ProgressDialog.gd" type="Script" id=10]
 [ext_resource path="res://LoadDialog.gd" type="Script" id=11]
-[ext_resource path="res://StepDialog.gd" type="Script" id=12]
+[ext_resource path="res://ColumnDialog.gd" type="Script" id=12]
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
@@ -340,7 +340,7 @@ margin_bottom = 50.0
 rect_min_size = Vector2( 100, 50 )
 text = "Cancel"
 
-[node name="StepDialog" type="PopupDialog" parent="."]
+[node name="ColumnDialog" type="PopupDialog" parent="."]
 margin_left = 300.0
 margin_top = 100.0
 margin_right = 703.0
@@ -351,7 +351,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="StepDialog"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ColumnDialog"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 5
@@ -359,40 +359,40 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="StepDialog/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ColumnDialog/VBoxContainer"]
 margin_right = 403.0
 margin_bottom = 141.0
 size_flags_vertical = 3
 custom_constants/separation = 30
 
-[node name="Label" type="Label" parent="StepDialog/VBoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="ColumnDialog/VBoxContainer/VBoxContainer"]
 margin_right = 403.0
 margin_bottom = 39.0
 custom_fonts/font = SubResource( 1 )
 text = "Column #"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="StepDialog/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ColumnDialog/VBoxContainer"]
 margin_top = 145.0
 margin_right = 403.0
 margin_bottom = 195.0
 custom_constants/separation = 50
 alignment = 2
 
-[node name="ClearButton" type="Button" parent="StepDialog/VBoxContainer/HBoxContainer"]
+[node name="ClearButton" type="Button" parent="ColumnDialog/VBoxContainer/HBoxContainer"]
 margin_left = 3.0
 margin_right = 103.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 100, 50 )
 text = "Clear"
 
-[node name="RemoveButton" type="Button" parent="StepDialog/VBoxContainer/HBoxContainer"]
+[node name="RemoveButton" type="Button" parent="ColumnDialog/VBoxContainer/HBoxContainer"]
 margin_left = 153.0
 margin_right = 253.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 100, 50 )
 text = "Remove"
 
-[node name="CancelButton" type="Button" parent="StepDialog/VBoxContainer/HBoxContainer"]
+[node name="CancelButton" type="Button" parent="ColumnDialog/VBoxContainer/HBoxContainer"]
 margin_left = 303.0
 margin_right = 403.0
 margin_bottom = 50.0
@@ -528,10 +528,10 @@ text = "Cancel"
 [connection signal="text_changed" from="SaveDialog/VBoxContainer/VBoxContainer/HBoxContainer/LineEdit" to="SaveDialog" method="_on_LineEdit_text_changed"]
 [connection signal="pressed" from="SaveDialog/VBoxContainer/HBoxContainer/OkButton" to="SaveDialog" method="_on_OkButton_pressed"]
 [connection signal="pressed" from="SaveDialog/VBoxContainer/HBoxContainer/CancelButton" to="SaveDialog" method="_on_CancelButton_pressed"]
-[connection signal="about_to_show" from="StepDialog" to="StepDialog" method="_on_StepDialog_about_to_show"]
-[connection signal="pressed" from="StepDialog/VBoxContainer/HBoxContainer/ClearButton" to="StepDialog" method="_on_ClearButton_pressed"]
-[connection signal="pressed" from="StepDialog/VBoxContainer/HBoxContainer/RemoveButton" to="StepDialog" method="_on_RemoveButton_pressed"]
-[connection signal="pressed" from="StepDialog/VBoxContainer/HBoxContainer/CancelButton" to="StepDialog" method="_on_CancelButton_pressed"]
+[connection signal="about_to_show" from="ColumnDialog" to="ColumnDialog" method="_on_ColumnDialog_about_to_show"]
+[connection signal="pressed" from="ColumnDialog/VBoxContainer/HBoxContainer/ClearButton" to="ColumnDialog" method="_on_ClearButton_pressed"]
+[connection signal="pressed" from="ColumnDialog/VBoxContainer/HBoxContainer/RemoveButton" to="ColumnDialog" method="_on_RemoveButton_pressed"]
+[connection signal="pressed" from="ColumnDialog/VBoxContainer/HBoxContainer/CancelButton" to="ColumnDialog" method="_on_CancelButton_pressed"]
 [connection signal="about_to_show" from="ProgressDialog" to="ProgressDialog" method="_on_ProgressDialog_about_to_show"]
 [connection signal="popup_hide" from="ProgressDialog" to="ProgressDialog" method="_on_ProgressDialog_popup_hide"]
 [connection signal="pressed" from="ProgressDialog/VBoxContainer/HBoxContainer/CancelButton" to="ProgressDialog" method="_on_CancelButton_pressed"]

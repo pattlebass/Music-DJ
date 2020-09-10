@@ -12,18 +12,18 @@ var user_dir = ""
 # * A few variables need renaming (column -> column_no, step -> column)
 
 func _ready():
-	var step_scene = preload("res://Step.tscn")
+	var column_scene = preload("res://Step.tscn")
 	for i in step_index:
-		var step = step_scene.instance()
-		step.get_node("Label").text = str(i + 1)
-		get_node("HBoxContainer/StepContainer/HBoxContainer").add_child(step)
+		var column = column_scene.instance()
+		column.get_node("Label").text = str(i + 1)
+		get_node("HBoxContainer/StepContainer/HBoxContainer").add_child(column)
 		
 		# Signals
 		for b in 4:
-			var button = step.get_node("Button"+str(b+1))
-			button.connect("pressed", self, "on_step_button_pressed", [i, b])
-			button.connect("button_down", self, "on_Step_Button_held", [i, b, step.get_node("Button"+str(b+1))])
-		step.get_node("Label").connect("pressed", self, "on_Step_Button_pressed", [i, step])
+			var button = column.get_node("Button"+str(b+1))
+			button.connect("pressed", self, "on_Tile_pressed", [i, b])
+			button.connect("button_down", self, "on_Tile_held", [i, b, column.get_node("Button"+str(b+1))])
+		column.get_node("Label").connect("pressed", self, "on_Column_Button_pressed", [i, column])
 		
 		# Add to song
 		for g in song:
@@ -56,8 +56,8 @@ func play():
 			return
 		
 		# Visuals
-		var step = get_node("HBoxContainer/StepContainer/HBoxContainer").get_child(i)
-		step.get_node("Label").add_color_override("font_color", Color(1,0,0))
+		var column = get_node("HBoxContainer/StepContainer/HBoxContainer").get_child(i)
+		column.get_node("Label").add_color_override("font_color", Color(1,0,0))
 		
 		# Play sounds
 		for a in 4:
@@ -72,20 +72,20 @@ func play():
 			audio_player.play()
 		
 		yield(get_tree().create_timer(3), "timeout")
-		step.get_node("Label").add_color_override("font_color", Color(1,1,1))
+		column.get_node("Label").add_color_override("font_color", Color(1,1,1))
 		
 		if i >= last_columns.back():
 			$HBoxContainer2/Play.pressed = false
 			return
 		
 		
-func on_step_button_pressed(_column_no, _instrument):
+func on_Tile_pressed(_column_no, _instrument):
 	$SoundDialog.instrument_index = _instrument
 	$SoundDialog.column_no = _column_no
 	$SoundDialog.popup_centered(Vector2(500, 550))
 
 
-func on_Step_Button_held(_column_no, _instrument, _button):
+func on_Tile_held(_column_no, _instrument, _button):
 	# Needs cleanup
 	yield(get_tree().create_timer(0.5), "timeout")
 	if _button.pressed and _button.text != "":
@@ -115,11 +115,11 @@ func on_Step_Button_held(_column_no, _instrument, _button):
 		float_button_parent.pos_y = rect_global_pos.y
 
 
-func on_Step_Button_pressed(_column_no, _column):
-	$StepDialog.column = _column
-	$StepDialog.column_no = _column_no
+func on_Column_Button_pressed(_column_no, _column):
+	$ColumnDialog.column = _column
+	$ColumnDialog.column_no = _column_no
 	
-	$StepDialog.popup_centered()
+	$ColumnDialog.popup_centered()
 
 
 func _on_Play_toggled(button_pressed):
@@ -155,23 +155,23 @@ func _on_OpenProject_pressed():
 
 
 func _on_AddButton_pressed():
-	var step_scene = preload("res://Step.tscn")
-	var step = step_scene.instance()
+	var column_scene = preload("res://Step.tscn")
+	var column = column_scene.instance()
 	
 	# Signals
 	for b in 4:
-		var button = step.get_node("Button"+str(b+1))
-		button.connect("pressed", self, "on_step_button_pressed", [step_index, b])
-		button.connect("button_down", self, "on_Step_Button_held", [step_index, b, step.get_node("Button"+str(b+1))])
-	step.get_node("Label").connect("pressed", self, "on_Step_Button_pressed", [step_index, step])
+		var button = column.get_node("Button"+str(b+1))
+		button.connect("pressed", self, "on_Tile_pressed", [step_index, b])
+		button.connect("button_down", self, "on_Tile_held", [step_index, b, column.get_node("Button"+str(b+1))])
+	column.get_node("Label").connect("pressed", self, "on_Column_Button_pressed", [step_index, column])
 	
 	# Add to song
 	for g in song:
 		g.append(0)
 	
 	step_index += 1
-	step.get_node("Label").text = str(step_index)
-	get_node("HBoxContainer/StepContainer/HBoxContainer").add_child(step)
+	column.get_node("Label").text = str(step_index)
+	get_node("HBoxContainer/StepContainer/HBoxContainer").add_child(column)
 	
 	
 	var add_button = get_node("HBoxContainer/StepContainer/HBoxContainer/VBoxContainer")

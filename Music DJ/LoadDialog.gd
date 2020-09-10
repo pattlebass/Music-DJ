@@ -9,17 +9,16 @@ func _on_OkButton_pressed():
 	file.open(main.user_dir+"Projects/"+selected_file, File.READ)
 	main.song = file.get_var()
 	
+	# Clear last_columns
+	main.last_columns.clear()
+	main.last_columns.append(-1)
+
 	for instrument in main.song.size():
 		for column_no in main.song[instrument].size():
 			var column = main.get_node("HBoxContainer/StepContainer/HBoxContainer").get_child(column_no)
 			var button = column.get_child(instrument + 1)
 			var value = main.song[instrument][column_no]
 			
-			# Find last columns
-			if value > main.last_columns.back() and not main.last_columns.has(column_no):
-				main.last_columns.append(column_no)
-			
-			# Button
 			if value == 0:
 				button.text = ""
 				button.set("custom_styles/normal", null)
@@ -28,7 +27,13 @@ func _on_OkButton_pressed():
 				button.set("custom_styles/hover", null)
 				
 				continue
+			
+			# Find last columns
+			if column_no > main.last_columns.back() and not main.last_columns.has(column_no):
+				print(column_no)
+				main.last_columns.append(column_no)
 
+			# Button
 			var text
 			var style_box = preload("res://assets/button_stylebox.tres").duplicate()
 			var colors = GlobalVariables.colors
