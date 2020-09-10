@@ -6,6 +6,11 @@ var last_columns = [-1]
 var step_index = 25
 var user_dir = ""
 
+# Notes:
+# * "column" refers to the column node itself, while "column_no" refers
+# to the column as a number
+# * A few variables need renaming (column -> column_no, step -> column)
+
 func _ready():
 	var step_scene = preload("res://Step.tscn")
 	for i in step_index:
@@ -74,13 +79,13 @@ func play():
 			return
 		
 		
-func on_step_button_pressed(_column, _instrument):
+func on_step_button_pressed(_column_no, _instrument):
 	$SoundDialog.instrument_index = _instrument
-	$SoundDialog.column = _column
+	$SoundDialog.column_no = _column_no
 	$SoundDialog.popup_centered(Vector2(500, 550))
 
 
-func on_Step_Button_held(_column, _instrument, _button):
+func on_Step_Button_held(_column_no, _instrument, _button):
 	# Needs cleanup
 	yield(get_tree().create_timer(0.5), "timeout")
 	if _button.pressed and _button.text != "":
@@ -103,16 +108,16 @@ func on_Step_Button_held(_column, _instrument, _button):
 		float_button.rect_size = rect_size * 1.5
 		float_button.set("custom_colors/font_color", Color.black)
 		float_button_parent.instrument = _instrument
-		float_button_parent.column = _column
+		float_button_parent.column_no = _column_no
 		float_button_parent.global_position = get_global_mouse_position()
 		add_child(float_button_parent)
 		var rect_global_pos = _button.rect_global_position
 		float_button_parent.pos_y = rect_global_pos.y
 
 
-func on_Step_Button_pressed(_column, _step):
-	$StepDialog.step = _step
+func on_Step_Button_pressed(_column_no, _column):
 	$StepDialog.column = _column
+	$StepDialog.column_no = _column_no
 	
 	$StepDialog.popup_centered()
 

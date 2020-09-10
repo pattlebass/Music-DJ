@@ -3,7 +3,7 @@ extends Node2D
 onready var main = get_parent()
 
 var instrument
-var column
+var column_no
 var pos_y
 
 func _input(event):
@@ -29,10 +29,10 @@ func _input(event):
 			collided_button.set("custom_styles/focus", StyleBoxEmpty)
 			
 			# Add to play list
-			var collided_column = int(collided_button.get_parent().get_node("Label").text)-1
-			main.song[instrument][collided_column] = main.song[instrument][column]
-			if collided_column > main.last_columns.back():
-				main.last_columns.append(collided_column)
+			var collided_column_no = int(collided_button.get_parent().get_node("Label").text)-1
+			main.song[instrument][collided_column_no] = main.song[instrument][column_no]
+			if collided_column_no > main.last_columns.back():
+				main.last_columns.append(collided_column_no)
 			
 		get_parent().get_node("HBoxContainer/StepContainer").mouse_filter = Control.MOUSE_FILTER_STOP
 		queue_free()

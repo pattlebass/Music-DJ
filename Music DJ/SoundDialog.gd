@@ -4,11 +4,11 @@ onready var main = get_parent()
 
 var instrument_index
 var instrument_name = ["Drums", "Bass", "Keys", "Trumpet"]
-var column
+var column_no
 var pressed_button_index = 0
 var genre_index = 0 # Index based on genre. Eg: button 0 of genre 2. genre_index would be 0
 
-var step
+var column
 var button
 
 
@@ -69,14 +69,14 @@ func _ready():
 			
 
 func _on_SoundDialog_about_to_show():
-	step = main.get_node("HBoxContainer/StepContainer/HBoxContainer").get_child(column)
-	button = step.get_child(instrument_index+1)
+	column = main.get_node("HBoxContainer/StepContainer/HBoxContainer").get_child(column_no)
+	button = column.get_child(instrument_index+1)
 	
 	# Set title
 	var instrument
 	
 	instrument = instrument_name[instrument_index]
-	$VBoxContainer/Label.text = instrument + ", column " + str(column+1)
+	$VBoxContainer/Label.text = instrument + ", column " + str(column_no+1)
 	
 	
 	# Set button states
@@ -127,12 +127,12 @@ func _on_OkButton_pressed():
 	
 	image.unlock()
 	
-	main.song[instrument_index][column] = pressed_button_index+1
-	if column > main.last_columns.back():
-		main.last_columns.append(column)
+	main.song[instrument_index][column_no] = pressed_button_index+1
+	if column_no > main.last_columns.back():
+		main.last_columns.append(column_no)
 
 	hide()
-	column = 0
+	column_no = 0
 
 
 func _on_ClearButton_pressed():
@@ -142,15 +142,15 @@ func _on_ClearButton_pressed():
 	button.set("custom_styles/disabled", null)
 	button.set("custom_styles/hover", null)
 	
-	# If all buttons in a step are clear remove that step from the play list
+	# If all buttons in a column are clear remove that column from the play list
 	var falses = -1
-	for i in step.get_children():
+	for i in column.get_children():
 		if i.text != "":
 			falses += 1
 	if falses == 0:
-		main.last_columns.erase(column)
+		main.last_columns.erase(column_no)
 	
-	main.song[instrument_index][column] = 0
+	main.song[instrument_index][column_no] = 0
 
 	hide()
 
