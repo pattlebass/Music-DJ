@@ -5,17 +5,56 @@ var selected_file = ""
 
 
 func _on_OkButton_pressed():
-	hide()
-	
 	var file = File.new()
-	file.open("user://saves/"+selected_file, File.READ)
+	file.open(main.user_dir+"Projects/"+selected_file, File.READ)
 	main.song = file.get_var()
 	
-	#for i in song:
-	#	for g in i:
-	#		pass
-	
+	for instrument in main.song.size():
+		for column_no in main.song[instrument].size():
+			var column = main.get_node("HBoxContainer/StepContainer/HBoxContainer").get_child(column_no)
+			var button = column.get_child(instrument + 1)
+			var value = main.song[instrument][column_no]
+			
+			# Find last columns
+			if value > main.last_columns.back() and not main.last_columns.has(column_no):
+				main.last_columns.append(column_no)
+			
+			# Button
+			if value == 0:
+				button.text = ""
+				button.set("custom_styles/normal", null)
+				button.set("custom_styles/pressed", null)
+				button.set("custom_styles/disabled", null)
+				button.set("custom_styles/hover", null)
+				
+				continue
 
+			var text
+			var style_box = preload("res://assets/button_stylebox.tres").duplicate()
+			var colors = GlobalVariables.colors
+			
+			if value >= 1 and value <= 8:
+				text = value
+				style_box.bg_color = colors[0]
+			elif value >= 9 and value <= 16:
+				text = value - 8
+				style_box.bg_color = colors[1]
+			elif value >= 17 and value <= 24:
+				text = value - 16
+				style_box.bg_color = colors[2]
+			elif value >= 25 and value <= 32:
+				text = value - 24
+				style_box.bg_color = colors[3]
+			
+			button.text = str(text)
+			button.set("custom_styles/normal", style_box)
+			button.set("custom_styles/pressed", style_box)
+			button.set("custom_styles/disabled", style_box)
+			button.set("custom_styles/hover", style_box)
+			
+	hide()
+	
+	
 func _on_LoadDialog_about_to_show():
 	$VBoxContainer/HBoxContainer/OkButton.disabled = true
 	for i in list_files_in_directory(main.user_dir+"Projects/"):

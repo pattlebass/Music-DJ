@@ -6,7 +6,7 @@ var instrument_index
 var instrument_name = ["Drums", "Bass", "Keys", "Trumpet"]
 var column
 var pressed_button_index = 0
-var genre_index = 0
+var genre_index = 0 # Index based on genre. Eg: button 0 of genre 2. genre_index would be 0
 
 var step
 var button
@@ -17,7 +17,7 @@ func _ready():
 	
 	var text = ["Groove 1", "Groove 2", "Salsa 1", "Salsa 2", "Reggae 1", "Reggae 2", "Techno 1", "Techno 2"]
 	var category = ["Introduction", "Verse", "Chorus", "Solo"]
-	var color = [Color(0.678, 0.847, 90.2), Color(0.565, 0.933, 0.565), Color(1, 0.502, 1), Color(1, 0.894, 0.71)]
+	var colors = GlobalVariables.colors
 	var button_index = -1
 	
 	for i in 4:
@@ -46,7 +46,7 @@ func _ready():
 			for h in 32:
 				var current_pixel = image.get_pixel(h, v)
 				if current_pixel == Color(1, 1, 1):
-					image.set_pixel(h, v, color[i]*current_pixel)
+					image.set_pixel(h, v, colors[i]*current_pixel)
 				else:
 					image.set_pixel(h, v, Color(1, 1, 1, 0))
 		image.unlock()
@@ -90,7 +90,7 @@ func _on_SoundDialog_about_to_show():
 		clear_button.disabled = false
 
 
-func on_Button_selected(index, genre):
+func on_Button_selected(index, _genre_index):
 	if index == pressed_button_index:
 		get_node("VBoxContainer/ScrollContainer/VBoxContainer/"+str(pressed_button_index)).pressed = true
 
@@ -99,7 +99,7 @@ func on_Button_selected(index, genre):
 	$AudioStreamPlayer.play()
 	$VBoxContainer/HBoxContainer/OkButton.disabled = false
 	pressed_button_index = index
-	genre_index = genre
+	genre_index = _genre_index
 	
 	for i in $VBoxContainer/ScrollContainer/VBoxContainer.get_children():
 		if i is Button:

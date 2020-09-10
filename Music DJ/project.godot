@@ -19,6 +19,10 @@ config/name="Music DJ"
 run/main_scene="res://main.tscn"
 config/icon="res://assets/drum.png"
 
+[autoload]
+
+GlobalVariables="*res://GlobalVariables.gd"
+
 [display]
 
 window/stretch/mode="2d"

@@ -3,7 +3,7 @@ extends Control
 var song = [[], [], [], []]
 var can_play = true
 var last_columns = [-1]
-var step_index = 10
+var step_index = 25
 var user_dir = ""
 
 func _ready():
@@ -68,7 +68,12 @@ func play():
 		
 		yield(get_tree().create_timer(3), "timeout")
 		step.get_node("Label").add_color_override("font_color", Color(1,1,1))
-
+		
+		if i >= last_columns.back():
+			$HBoxContainer2/Play.pressed = false
+			return
+		
+		
 func on_step_button_pressed(_column, _instrument):
 	$SoundDialog.instrument_index = _instrument
 	$SoundDialog.column = _column

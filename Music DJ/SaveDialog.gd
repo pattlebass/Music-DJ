@@ -16,6 +16,7 @@ func _on_OkButton_pressed():
 		# Project save
 		var file = File.new()
 		file.open(main.user_dir+"Projects/"+entered_name+".mdj", File.WRITE)
+		print(main.user_dir+"Projects/"+entered_name+".mdj")
 		file.store_var(main.song)
 	else:
 		main.get_node("SoundDialog/AudioStreamPlayer").stop()
