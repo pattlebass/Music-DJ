@@ -3,7 +3,7 @@ extends Control
 var song = [[], [], [], []]
 var can_play = true
 var last_columns = [-1]
-var step_index = 25
+var column_index = 15
 var user_dir = ""
 
 # Notes:
@@ -12,8 +12,8 @@ var user_dir = ""
 # * A few variables need renaming (column -> column_no, step -> column)
 
 func _ready():
-	var column_scene = preload("res://Step.tscn")
-	for i in step_index:
+	var column_scene = preload("res://Column.tscn")
+	for i in column_index:
 		var column = column_scene.instance()
 		column.get_node("Label").text = str(i + 1)
 		get_node("HBoxContainer/StepContainer/HBoxContainer").add_child(column)
@@ -29,7 +29,7 @@ func _ready():
 		for g in song:
 			g.append(0)
 	var add_button = get_node("HBoxContainer/StepContainer/HBoxContainer/VBoxContainer")
-	$HBoxContainer/StepContainer/HBoxContainer.move_child(add_button, step_index+1)
+	$HBoxContainer/StepContainer/HBoxContainer.move_child(add_button, column_index+1)
 
 	if OS.get_name() == "Android":
 		user_dir = "/storage/emulated/0/MusicDJ/"
@@ -47,7 +47,7 @@ func _ready():
 func play():
 	yield(get_tree(), "idle_frame")
 	$SoundDialog/AudioStreamPlayer.stop()
-	for i in step_index:
+	for i in column_index:
 		if i > last_columns.back():
 			$HBoxContainer2/Play.pressed = false
 			return
@@ -144,10 +144,9 @@ func _on_Export_pressed():
 
 
 func _on_SaveProject_pressed():
-	if  last_columns.back() != -1:
-		$SaveDialog.title = "Save project as"
-		$SaveDialog.type_of_save = "project"
-		$SaveDialog.popup()
+	$SaveDialog.title = "Save project as"
+	$SaveDialog.type_of_save = "project"
+	$SaveDialog.popup()
 
 
 func _on_OpenProject_pressed():
@@ -155,25 +154,25 @@ func _on_OpenProject_pressed():
 
 
 func _on_AddButton_pressed():
-	var column_scene = preload("res://Step.tscn")
+	var column_scene = preload("res://Column.tscn")
 	var column = column_scene.instance()
 	
 	# Signals
 	for b in 4:
 		var button = column.get_node("Button"+str(b+1))
-		button.connect("pressed", self, "on_Tile_pressed", [step_index, b])
-		button.connect("button_down", self, "on_Tile_held", [step_index, b, column.get_node("Button"+str(b+1))])
-	column.get_node("Label").connect("pressed", self, "on_Column_Button_pressed", [step_index, column])
+		button.connect("pressed", self, "on_Tile_pressed", [column_index, b])
+		button.connect("button_down", self, "on_Tile_held", [column_index, b, column.get_node("Button"+str(b+1))])
+	column.get_node("Label").connect("pressed", self, "on_Column_Button_pressed", [column_index, column])
 	
 	# Add to song
 	for g in song:
 		g.append(0)
 	
-	step_index += 1
-	column.get_node("Label").text = str(step_index)
+	column_index += 1
+	column.get_node("Label").text = str(column_index)
 	get_node("HBoxContainer/StepContainer/HBoxContainer").add_child(column)
 	
 	
 	var add_button = get_node("HBoxContainer/StepContainer/HBoxContainer/VBoxContainer")
-	$HBoxContainer/StepContainer/HBoxContainer.move_child(add_button, step_index+1)
+	$HBoxContainer/StepContainer/HBoxContainer.move_child(add_button, column_index+1)
 	

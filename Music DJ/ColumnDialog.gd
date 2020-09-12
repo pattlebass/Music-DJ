@@ -11,7 +11,7 @@ func _on_ColumnDialog_about_to_show():
 	$VBoxContainer/VBoxContainer/Label.text = title
 	
 	# Make buttons visible
-	if column_no != main.step_index - 1 or main.step_index == 1:
+	if column_no != main.column_index - 1 or main.column_index == 15:
 		$VBoxContainer/HBoxContainer/RemoveButton.disabled = true
 	else:
 		$VBoxContainer/HBoxContainer/RemoveButton.disabled = false
@@ -56,6 +56,6 @@ func _on_RemoveButton_pressed():
 	main.last_columns.erase(column_no)
 	for i in 4:
 		main.song[i][column_no] = 0
-	main.step_index -= 1
+	main.column_index -= 1
 	
 	hide()

@@ -323,12 +323,12 @@ theme = ExtResource( 7 )
 margin_top = 145.0
 margin_right = 403.0
 margin_bottom = 195.0
-custom_constants/separation = 50
+custom_constants/separation = 20
 alignment = 2
 
 [node name="OkButton" type="Button" parent="SaveDialog/VBoxContainer/HBoxContainer"]
-margin_left = 153.0
-margin_right = 253.0
+margin_left = 183.0
+margin_right = 283.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 100, 50 )
 text = "Save"
@@ -375,26 +375,26 @@ text = "Column #"
 margin_top = 145.0
 margin_right = 403.0
 margin_bottom = 195.0
-custom_constants/separation = 50
-alignment = 2
+custom_constants/separation = 20
+alignment = 1
 
 [node name="ClearButton" type="Button" parent="ColumnDialog/VBoxContainer/HBoxContainer"]
-margin_left = 3.0
-margin_right = 103.0
+margin_left = 31.0
+margin_right = 131.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 100, 50 )
 text = "Clear"
 
 [node name="RemoveButton" type="Button" parent="ColumnDialog/VBoxContainer/HBoxContainer"]
-margin_left = 153.0
-margin_right = 253.0
+margin_left = 151.0
+margin_right = 251.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 100, 50 )
 text = "Remove"
 
 [node name="CancelButton" type="Button" parent="ColumnDialog/VBoxContainer/HBoxContainer"]
-margin_left = 303.0
-margin_right = 403.0
+margin_left = 271.0
+margin_right = 371.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 100, 50 )
 text = "Cancel"
@@ -497,19 +497,19 @@ size_flags_horizontal = 3
 margin_top = 469.0
 margin_right = 382.0
 margin_bottom = 519.0
-custom_constants/separation = 50
+custom_constants/separation = 20
 alignment = 1
 
 [node name="OkButton" type="Button" parent="LoadDialog/VBoxContainer/HBoxContainer"]
-margin_left = 66.0
-margin_right = 166.0
+margin_left = 81.0
+margin_right = 181.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 100, 50 )
 text = "Open"
 
 [node name="CancelButton" type="Button" parent="LoadDialog/VBoxContainer/HBoxContainer"]
-margin_left = 216.0
-margin_right = 316.0
+margin_left = 201.0
+margin_right = 301.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 100, 50 )
 text = "Cancel"
