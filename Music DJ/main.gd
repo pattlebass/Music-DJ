@@ -9,7 +9,12 @@ var user_dir = ""
 # Notes:
 # * "column" refers to the column node itself, while "column_no" refers
 # to the column as a number
-# * A few variables need renaming (column -> column_no, step -> column)
+# * A few variables/nodes need renaming (column -> column_no, step -> column)
+# * Some signals are a bit messy
+
+# To do:
+# * In-app tutorial
+
 
 func _ready():
 	var column_scene = preload("res://Column.tscn")
