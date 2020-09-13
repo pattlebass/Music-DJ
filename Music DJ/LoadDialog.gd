@@ -9,6 +9,32 @@ func _on_OkButton_pressed():
 	file.open(main.user_dir+"Projects/"+selected_file, File.READ)
 	main.song = file.get_var()
 	
+	
+	# Add remaining columns
+	var column_index = main.column_index
+	var song_column_index = main.song[0].size()
+	
+	if column_index != song_column_index:
+		var column_scene = preload("res://Column.tscn")
+		for i in song_column_index - column_index:
+			column_index += 1
+			var column_instance = column_scene.instance()
+			column_instance.get_node("Label").text = str(column_index)
+			var column_container = main.get_node("HBoxContainer/StepContainer/HBoxContainer")
+			column_container.add_child(column_instance)
+			var add_button = main.get_node("HBoxContainer/StepContainer/HBoxContainer/VBoxContainer")
+			column_container.move_child(add_button, column_index)
+			
+			# Signals
+			for b in 4:
+				var button = column_instance.get_node("Button"+str(b+1))
+				button.connect("pressed", main, "on_Tile_pressed", [column_index-1, b])
+				button.connect("button_down", main, "on_Tile_held", [column_index-1, b, column_instance.get_node("Button"+str(b+1))])
+			column_instance.get_node("Label").connect("pressed", main, "on_Column_Button_pressed", [column_index-1, column_instance])
+			
+		main.column_index = song_column_index
+	
+	
 	# Clear last_columns
 	main.last_columns.clear()
 	main.last_columns.append(-1)
@@ -30,7 +56,6 @@ func _on_OkButton_pressed():
 			
 			# Find last columns
 			if column_no > main.last_columns.back() and not main.last_columns.has(column_no):
-				print(column_no)
 				main.last_columns.append(column_no)
 
 			# Button
