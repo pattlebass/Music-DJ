@@ -99,7 +99,8 @@ func _on_LoadDialog_about_to_show():
 		button.connect("pressed", self, "on_Button_selected", [i])
 		
 		main.get_node("LoadDialog/VBoxContainer/ScrollContainer/VBoxContainer").add_child(button)
-
+		
+		$AnimationPlayer.play("fade_in")
 
 func list_files_in_directory(path):
 	var files = []
@@ -133,9 +134,16 @@ func on_Button_selected(_path):
 
 
 func _on_LoadDialog_popup_hide():
+	visible = true
+	# Animation
+	$AnimationPlayer.play_backwards("fade_in")
+	yield(get_tree().create_timer(0.1), "timeout")
+	
 	for i in $VBoxContainer/ScrollContainer/VBoxContainer.get_children():
 		i.queue_free()
-
+	
+	visible = false
 
 func _on_CancelButton_pressed():
+
 	hide()

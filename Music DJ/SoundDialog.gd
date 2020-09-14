@@ -88,7 +88,8 @@ func _on_SoundDialog_about_to_show():
 		clear_button.disabled = true
 	else:
 		clear_button.disabled = false
-
+	
+	$AnimationPlayer.play("fade_in")
 
 func on_Button_selected(index, _genre_index):
 	if index == pressed_button_index:
@@ -160,8 +161,15 @@ func _on_CancelButton_pressed():
 
 
 func _on_SoundDialog_popup_hide():
+	visible = true
+	# Animation
+	$AnimationPlayer.play_backwards("fade_in")
+	yield(get_tree().create_timer(0.1), "timeout")
+	
 	$VBoxContainer/ScrollContainer.scroll_vertical = 0
 	
 	for i in $VBoxContainer/ScrollContainer/VBoxContainer.get_children():
 		if i is Button:
 			i.pressed = false
+	
+	visible = false

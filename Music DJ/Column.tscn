@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/theme.tres" type="Theme" id=1]
 
@@ -6,6 +6,22 @@
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 40, 40 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "fade_in"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
 
 [node name="Step" type="VBoxContainer"]
 margin_right = 40.0
@@ -98,3 +114,6 @@ position = Vector2( 40, 40 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Button4/Area2D"]
 shape = SubResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/fade_in = SubResource( 3 )

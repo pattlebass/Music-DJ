@@ -181,3 +181,4 @@ func _on_AddButton_pressed():
 	var add_button = get_node("HBoxContainer/StepContainer/HBoxContainer/VBoxContainer")
 	$HBoxContainer/StepContainer/HBoxContainer.move_child(add_button, column_index+1)
 	
+	column.get_node("AnimationPlayer").play("fade_in")

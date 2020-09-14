@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://assets/trumpet.png" type="Texture" id=2]
@@ -13,14 +13,133 @@
 [ext_resource path="res://LoadDialog.gd" type="Script" id=11]
 [ext_resource path="res://ColumnDialog.gd" type="Script" id=12]
 [ext_resource path="res://TutorialDialog.gd" type="Script" id=13]
+[ext_resource path="res://icon.png" type="Texture" id=14]
+
+[sub_resource type="Animation" id=11]
+resource_name = "fade_in"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
 font_data = ExtResource( 8 )
 
+[sub_resource type="Animation" id=10]
+resource_name = "fade_in"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "fade_in"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "fade_in"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "fade_in"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
 [sub_resource type="DynamicFont" id=2]
 size = 32
 font_data = ExtResource( 8 )
+
+[sub_resource type="StyleBoxEmpty" id=5]
+
+[sub_resource type="StyleBoxEmpty" id=3]
+
+[sub_resource type="StyleBoxEmpty" id=4]
+
+[sub_resource type="Animation" id=12]
+resource_name = "fade_in"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "fade_in_image"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("VBoxContainer/HBoxContainer2/VBoxContainer2/TextureRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
 
 [node name="main" type="Control"]
 anchor_right = 1.0
@@ -46,7 +165,7 @@ anchor_top = 0.03
 anchor_right = 0.977
 anchor_bottom = 0.13
 margin_left = 0.424
-margin_right = -0.448059
+margin_right = -1.448
 custom_constants/separation = 50
 __meta__ = {
 "_edit_use_anchors_": false
@@ -280,6 +399,9 @@ text = "Cancel"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="SoundDialog"]
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SoundDialog"]
+anims/fade_in = SubResource( 11 )
+
 [node name="SaveDialog" type="PopupDialog" parent="."]
 margin_left = 300.0
 margin_top = 100.0
@@ -345,6 +467,9 @@ margin_bottom = 50.0
 rect_min_size = Vector2( 100, 50 )
 text = "Cancel"
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SaveDialog"]
+anims/fade_in = SubResource( 10 )
+
 [node name="ColumnDialog" type="PopupDialog" parent="."]
 margin_left = 300.0
 margin_top = 100.0
@@ -404,6 +529,9 @@ margin_bottom = 50.0
 rect_min_size = Vector2( 100, 50 )
 text = "Cancel"
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ColumnDialog"]
+anims/fade_in = SubResource( 9 )
+
 [node name="ProgressDialog" type="PopupDialog" parent="."]
 margin_right = 403.0
 margin_bottom = 195.0
@@ -461,9 +589,15 @@ margin_bottom = 64.0
 rect_min_size = Vector2( 100, 50 )
 text = "Cancel"
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ProgressDialog"]
+anims/fade_in = SubResource( 8 )
+
 [node name="LoadDialog" type="PopupDialog" parent="."]
-margin_right = 382.0
-margin_bottom = 519.0
+visible = true
+anchor_right = 0.373
+anchor_bottom = 0.865
+margin_right = 0.0479736
+margin_bottom = -6.10352e-05
 theme = ExtResource( 7 )
 script = ExtResource( 11 )
 __meta__ = {
@@ -519,14 +653,16 @@ margin_bottom = 50.0
 rect_min_size = Vector2( 100, 50 )
 text = "Cancel"
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LoadDialog"]
+anims/fade_in = SubResource( 7 )
+
 [node name="TutorialDialog" type="PopupDialog" parent="."]
-visible = true
-anchor_right = 0.648
-anchor_bottom = 0.938
-margin_right = 0.447998
-margin_bottom = 0.200012
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 0.664
+anchor_bottom = 0.782
+margin_right = 0.0639648
+margin_bottom = -0.200043
 theme = ExtResource( 7 )
-popup_exclusive = true
 script = ExtResource( 13 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -535,80 +671,112 @@ __meta__ = {
 [node name="VBoxContainer" type="VBoxContainer" parent="TutorialDialog"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = -4.0
+margin_bottom = -3.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label" type="Label" parent="TutorialDialog/VBoxContainer"]
-margin_right = 708.0
+margin_right = 676.0
 margin_bottom = 59.0
 text = "Tutorial"
 
 [node name="HSeparator" type="HSeparator" parent="TutorialDialog/VBoxContainer"]
 margin_top = 63.0
-margin_right = 708.0
+margin_right = 676.0
 margin_bottom = 65.0
 
 [node name="Label2" type="Label" parent="TutorialDialog/VBoxContainer"]
 margin_top = 69.0
-margin_right = 708.0
+margin_right = 676.0
 margin_bottom = 108.0
 custom_fonts/font = SubResource( 2 )
-text = "Drag and drop"
+text = "Subtitle"
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="TutorialDialog/VBoxContainer"]
+[node name="HSeparator2" type="HSeparator" parent="TutorialDialog/VBoxContainer"]
 margin_top = 112.0
-margin_right = 708.0
-margin_bottom = 616.0
-size_flags_vertical = 3
+margin_right = 676.0
+margin_bottom = 132.0
+custom_styles/separator = SubResource( 5 )
+custom_constants/separation = 20
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="TutorialDialog/VBoxContainer"]
+margin_top = 136.0
+margin_right = 676.0
+margin_bottom = 436.0
 alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TutorialDialog/VBoxContainer/VBoxContainer2"]
-margin_right = 708.0
-margin_bottom = 500.0
+[node name="VBoxContainer" type="VBoxContainer" parent="TutorialDialog/VBoxContainer/HBoxContainer2"]
+margin_right = 50.0
+margin_bottom = 300.0
 alignment = 1
 
-[node name="PreviousButton" type="Button" parent="TutorialDialog/VBoxContainer/VBoxContainer2/HBoxContainer"]
-margin_right = 100.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 100, 50 )
+[node name="PreviousButton" type="Button" parent="TutorialDialog/VBoxContainer/HBoxContainer2/VBoxContainer"]
+margin_top = 125.0
+margin_right = 50.0
+margin_bottom = 175.0
+rect_min_size = Vector2( 50, 50 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
-text = "Previous"
+text = "<"
 
-[node name="TextureRect" type="TextureRect" parent="TutorialDialog/VBoxContainer/VBoxContainer2/HBoxContainer"]
-margin_left = 104.0
-margin_right = 604.0
-margin_bottom = 500.0
-rect_min_size = Vector2( 500, 500 )
+[node name="VSeparator2" type="VSeparator" parent="TutorialDialog/VBoxContainer/HBoxContainer2"]
+margin_left = 54.0
+margin_right = 84.0
+margin_bottom = 300.0
+custom_styles/separator = SubResource( 3 )
+custom_constants/separation = 30
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="TutorialDialog/VBoxContainer/HBoxContainer2"]
+margin_left = 88.0
+margin_right = 588.0
+margin_bottom = 300.0
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="TutorialDialog/VBoxContainer/HBoxContainer2/VBoxContainer2"]
+margin_right = 500.0
+margin_bottom = 300.0
+rect_min_size = Vector2( 500, 300 )
+texture = ExtResource( 14 )
+expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="NextButton" type="Button" parent="TutorialDialog/VBoxContainer/VBoxContainer2/HBoxContainer"]
-margin_left = 608.0
-margin_right = 708.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 100, 50 )
-size_flags_horizontal = 0
-size_flags_vertical = 0
-text = "Next"
+[node name="VSeparator" type="VSeparator" parent="TutorialDialog/VBoxContainer/HBoxContainer2"]
+margin_left = 592.0
+margin_right = 622.0
+margin_bottom = 300.0
+custom_styles/separator = SubResource( 4 )
+custom_constants/separation = 30
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="TutorialDialog/VBoxContainer/VBoxContainer2"]
-margin_top = 504.0
-margin_right = 708.0
-margin_bottom = 504.0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="TutorialDialog/VBoxContainer"]
-margin_top = 620.0
-margin_right = 708.0
-margin_bottom = 620.0
-custom_constants/separation = 20
+[node name="VBoxContainer3" type="VBoxContainer" parent="TutorialDialog/VBoxContainer/HBoxContainer2"]
+margin_left = 626.0
+margin_right = 676.0
+margin_bottom = 300.0
 alignment = 1
 
-[node name="Container" type="Container" parent="TutorialDialog/VBoxContainer/HBoxContainer"]
-margin_right = 708.0
-size_flags_horizontal = 3
+[node name="NextButton" type="Button" parent="TutorialDialog/VBoxContainer/HBoxContainer2/VBoxContainer3"]
+margin_top = 125.0
+margin_right = 50.0
+margin_bottom = 175.0
+rect_min_size = Vector2( 50, 50 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = ">"
+
+[node name="Label3" type="Label" parent="TutorialDialog/VBoxContainer"]
+margin_top = 440.0
+margin_right = 676.0
+margin_bottom = 479.0
+custom_fonts/font = SubResource( 2 )
+text = "1/x"
+align = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TutorialDialog"]
+anims/fade_in = SubResource( 12 )
+anims/fade_in_image = SubResource( 6 )
 [connection signal="toggled" from="HBoxContainer2/Play" to="." method="_on_Play_toggled"]
 [connection signal="pressed" from="HBoxContainer2/Export" to="." method="_on_Export_pressed"]
 [connection signal="pressed" from="HBoxContainer2/SaveProject" to="." method="_on_SaveProject_pressed"]
@@ -625,6 +793,7 @@ size_flags_horizontal = 3
 [connection signal="pressed" from="SaveDialog/VBoxContainer/HBoxContainer/OkButton" to="SaveDialog" method="_on_OkButton_pressed"]
 [connection signal="pressed" from="SaveDialog/VBoxContainer/HBoxContainer/CancelButton" to="SaveDialog" method="_on_CancelButton_pressed"]
 [connection signal="about_to_show" from="ColumnDialog" to="ColumnDialog" method="_on_ColumnDialog_about_to_show"]
+[connection signal="popup_hide" from="ColumnDialog" to="ColumnDialog" method="_on_ColumnDialog_popup_hide"]
 [connection signal="pressed" from="ColumnDialog/VBoxContainer/HBoxContainer/ClearButton" to="ColumnDialog" method="_on_ClearButton_pressed"]
 [connection signal="pressed" from="ColumnDialog/VBoxContainer/HBoxContainer/RemoveButton" to="ColumnDialog" method="_on_RemoveButton_pressed"]
 [connection signal="pressed" from="ColumnDialog/VBoxContainer/HBoxContainer/CancelButton" to="ColumnDialog" method="_on_CancelButton_pressed"]
@@ -635,5 +804,7 @@ size_flags_horizontal = 3
 [connection signal="popup_hide" from="LoadDialog" to="LoadDialog" method="_on_LoadDialog_popup_hide"]
 [connection signal="pressed" from="LoadDialog/VBoxContainer/HBoxContainer/OkButton" to="LoadDialog" method="_on_OkButton_pressed"]
 [connection signal="pressed" from="LoadDialog/VBoxContainer/HBoxContainer/CancelButton" to="LoadDialog" method="_on_CancelButton_pressed"]
-[connection signal="pressed" from="TutorialDialog/VBoxContainer/VBoxContainer2/HBoxContainer/PreviousButton" to="LoadDialog" method="_on_OkButton_pressed"]
-[connection signal="pressed" from="TutorialDialog/VBoxContainer/VBoxContainer2/HBoxContainer/NextButton" to="LoadDialog" method="_on_CancelButton_pressed"]
+[connection signal="about_to_show" from="TutorialDialog" to="TutorialDialog" method="_on_TutorialDialog_about_to_show"]
+[connection signal="popup_hide" from="TutorialDialog" to="TutorialDialog" method="_on_TutorialDialog_popup_hide"]
+[connection signal="pressed" from="TutorialDialog/VBoxContainer/HBoxContainer2/VBoxContainer/PreviousButton" to="TutorialDialog" method="_on_PreviousButton_pressed"]
+[connection signal="pressed" from="TutorialDialog/VBoxContainer/HBoxContainer2/VBoxContainer3/NextButton" to="TutorialDialog" method="_on_NextButton_pressed"]

@@ -42,10 +42,18 @@ func _on_SaveDialog_about_to_show():
 	$VBoxContainer/HBoxContainer/OkButton.disabled = true
 	OS.show_virtual_keyboard("")
 	rect_position.x = get_viewport().get_visible_rect().size.x/2 - 200
-
+	
+	$AnimationPlayer.play("fade_in")
 
 func _on_SaveDialog_popup_hide():
+	visible = true
+	# Animation
+	$AnimationPlayer.play_backwards("fade_in")
+	yield(get_tree().create_timer(0.1), "timeout")
+	
 	$VBoxContainer/VBoxContainer/HBoxContainer/LineEdit.clear()
+	
+	visible = false
 
 
 func _on_LineEdit_text_changed(new_text):

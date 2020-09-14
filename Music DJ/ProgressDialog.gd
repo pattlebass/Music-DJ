@@ -6,11 +6,17 @@ onready var progress_bar = get_node("VBoxContainer/HBoxContainer2/VBoxContainer/
 func _on_ProgressDialog_about_to_show():
 	progress_bar.max_value = main.last_columns.back()+1
 	loading()
-
+	$AnimationPlayer.play("fade_in")
 
 func _on_ProgressDialog_popup_hide():
+	visible = true
+	# Animation
+	$AnimationPlayer.play_backwards("fade_in")
+	yield(get_tree().create_timer(0.1), "timeout")
+	
 	progress_bar.value = 1
-
+	
+	visible = false
 
 func loading():
 	yield(get_tree().create_timer(3), "timeout")
