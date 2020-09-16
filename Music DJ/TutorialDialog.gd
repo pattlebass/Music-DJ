@@ -41,6 +41,10 @@ func _on_PreviousButton_pressed():
 
 
 func change_panel(_panel_no):
+	if _panel_no == panels.size():
+		hide()
+		return
+	
 	$AnimationPlayer.play_backwards("fade_in_image")
 	yield(get_tree().create_timer(0.1), "timeout")
 	var panel = panels[_panel_no]
@@ -55,7 +59,6 @@ func change_panel(_panel_no):
 		previous_button.disabled = true
 		next_button.disabled = false
 	elif _panel_no == panels.size()-1:
-		next_button.disabled = true
 		previous_button.disabled = false
 
 
