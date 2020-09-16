@@ -2,7 +2,7 @@
 
 Finally, the app is ready for a public beta. It took me around 2 weeks, but we're here.
 
-![MusicDJ image](https://i.imgur.com/CmWheiY.png)
+![MusicDJ image](https://i.imgur.com/bgtqwwp.png)
 
 ## Features
 * Create songs using the original samples
