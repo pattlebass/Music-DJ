@@ -100,7 +100,7 @@ func _on_LoadDialog_about_to_show():
 		
 		main.get_node("LoadDialog/VBoxContainer/ScrollContainer/VBoxContainer").add_child(button)
 		
-		$AnimationPlayer.play("fade_in")
+	$AnimationPlayer.play("fade_in")
 
 func list_files_in_directory(path):
 	var files = []

@@ -11,3 +11,5 @@ data_*/
 # Android-specific ignores
 .apk
 *.apk
+*.exe
+*.TMP
