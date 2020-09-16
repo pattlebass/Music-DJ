@@ -33,6 +33,7 @@ func _ready():
 		# Add to song
 		for g in song:
 			g.append(0)
+	
 	var add_button = get_node("HBoxContainer/StepContainer/HBoxContainer/VBoxContainer")
 	$HBoxContainer/StepContainer/HBoxContainer.move_child(add_button, column_index+1)
 
@@ -124,7 +125,12 @@ func on_Column_Button_pressed(_column_no, _column):
 	$ColumnDialog.column = _column
 	$ColumnDialog.column_no = _column_no
 	
-	$ColumnDialog.popup_centered()
+	$ColumnDialog.popup()
+	var label = _column.get_node("Label")
+	var pos = label.rect_global_position
+	pos.x -= $ColumnDialog.rect_size.x/2 - label.rect_size.x/2
+	pos.y += label.rect_size.x
+	$ColumnDialog.rect_global_position = pos
 
 
 func _on_Play_toggled(button_pressed):

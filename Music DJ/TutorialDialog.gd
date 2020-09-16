@@ -41,7 +41,7 @@ func _on_PreviousButton_pressed():
 
 
 func change_panel(_panel_no):
-	if _panel_no == panels.size():
+	if _panel_no >= panels.size():
 		hide()
 		return
 	
