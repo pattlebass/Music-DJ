@@ -11,8 +11,20 @@ var current = 0
 onready var texture_rect = get_node("VBoxContainer/HBoxContainer2/VBoxContainer2/TextureRect")
 
 func _ready():
-	pass
-	call_deferred("popup_centered")
+	var file = File.new()
+	var data
+	if file.file_exists("user://options.txt"):
+		file.open("user://options.txt", File.READ)
+		data = file.get_var()
+	else:
+		data = {"show_tutorial":true}
+		file.open("user://options.txt", File.WRITE)
+		file.store_var(data)
+	if data["show_tutorial"]:
+		print(data)
+		call_deferred("popup_centered")
+		data["show_tutorial"] = false
+		
 
 func _on_TutorialDialog_about_to_show():
 	for panel in panels:
