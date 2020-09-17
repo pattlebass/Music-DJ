@@ -35,12 +35,14 @@ __meta__ = {
 margin_right = 80.0
 margin_bottom = 59.0
 rect_min_size = Vector2( 40, 59 )
+focus_mode = 0
 theme = ExtResource( 1 )
 custom_styles/hover = SubResource( 1 )
 custom_styles/pressed = SubResource( 1 )
 custom_styles/focus = SubResource( 1 )
 custom_styles/disabled = SubResource( 1 )
 custom_styles/normal = SubResource( 1 )
+enabled_focus_mode = 0
 text = "0"
 
 [node name="Button1" type="Button" parent="."]

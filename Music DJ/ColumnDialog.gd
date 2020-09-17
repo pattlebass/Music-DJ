@@ -79,6 +79,7 @@ func _on_ColumnDialog_popup_hide():
 
 
 func _on_PlayButton_pressed():
-	main.play_column(column_no)
+	main.play_column(column_no, true)
 	main.get_node("SoundDialog/AudioStreamPlayer").stop()
 	hide()
+	

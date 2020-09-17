@@ -27,7 +27,7 @@ func _on_OkButton_pressed():
 		
 		# Export
 		effect.set_recording_active(true)
-		yield(main.play(), "completed")
+		yield(main.play_song(), "completed")
 		effect.set_recording_active(false)
 		
 		# Saving

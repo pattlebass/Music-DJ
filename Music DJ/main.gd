@@ -5,6 +5,7 @@ var can_play = true
 var last_columns = [-1]
 var column_index = 15
 var user_dir = ""
+var is_playing = false
 
 # Notes:
 # * "column" refers to the column node itself, while "column_no" refers
@@ -57,19 +58,25 @@ func _ready():
 
 
 func play_song():
+	is_playing = true
 	yield(get_tree(), "idle_frame")
 	$SoundDialog/AudioStreamPlayer.stop()
 	for i in column_index:
-		play_column(i)
+		play_column(i, false)
 		yield(get_tree().create_timer(3), "timeout")
 		var column = get_node("HBoxContainer/StepContainer/HBoxContainer").get_child(i)
 		column.get_node("Label").add_color_override("font_color", Color(1,1,1))
 	
 		if i >= last_columns.back():
 			$HBoxContainer2/Play.pressed = false
+			can_play = true
+			is_playing = false
 			return
 		
-func play_column(_column_no):
+		
+func play_column(_column_no, _single):
+	is_playing = true
+	
 	if _column_no > last_columns.back():
 		$HBoxContainer2/Play.pressed = false
 		return
@@ -95,6 +102,11 @@ func play_column(_column_no):
 	# Needs cleanup
 	yield(get_tree().create_timer(3), "timeout")
 	column.get_node("Label").add_color_override("font_color", Color(1,1,1))
+		
+	if _single:
+		can_play = true
+		is_playing = false
+		
 		
 func on_Tile_pressed(_column_no, _instrument):
 	$SoundDialog.instrument_index = _instrument
@@ -213,3 +225,19 @@ func _on_AddButton_pressed():
 	$HBoxContainer/StepContainer/HBoxContainer.move_child(add_button, column_index+1)
 	
 	column.get_node("AnimationPlayer").play("fade_in")
+	
+	
+func _process(delta):
+	if last_columns.back() == -1:
+		$HBoxContainer2/Play.disabled = true
+		$HBoxContainer2/Export.disabled = true
+		$HBoxContainer2/SaveProject.disabled = true
+	else:
+		$HBoxContainer2/Play.disabled = false
+		$HBoxContainer2/Export.disabled = false
+		$HBoxContainer2/SaveProject.disabled = false
+		
+		if is_playing:
+			$HBoxContainer2/Export.disabled = true
+		else:
+			$HBoxContainer2/Export.disabled = false

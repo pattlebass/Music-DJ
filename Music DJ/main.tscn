@@ -69,27 +69,11 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="DynamicFont" id=14]
+[sub_resource type="DynamicFont" id=6]
 size = 20
 font_data = ExtResource( 8 )
 
-[sub_resource type="Animation" id=6]
-length = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
-}
-
 [sub_resource type="Animation" id=7]
-resource_name = "fade_in"
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:modulate")
@@ -104,17 +88,32 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="DynamicFont" id=8]
+[sub_resource type="Animation" id=8]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="DynamicFont" id=9]
 size = 32
 font_data = ExtResource( 8 )
-
-[sub_resource type="StyleBoxEmpty" id=9]
 
 [sub_resource type="StyleBoxEmpty" id=10]
 
 [sub_resource type="StyleBoxEmpty" id=11]
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="StyleBoxEmpty" id=12]
+
+[sub_resource type="Animation" id=13]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:modulate")
@@ -129,7 +128,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=14]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("VBoxContainer/HBoxContainer2/VBoxContainer2/TextureRect:modulate")
@@ -481,7 +480,6 @@ text = "Cancel"
 anims/fade_in = SubResource( 3 )
 
 [node name="ColumnDialog" type="PopupDialog" parent="."]
-visible = true
 anchor_left = 0.293
 anchor_top = 0.167
 anchor_right = 0.552
@@ -587,7 +585,7 @@ text = "Saving"
 margin_top = 63.0
 margin_right = 436.0
 margin_bottom = 88.0
-custom_fonts/font = SubResource( 14 )
+custom_fonts/font = SubResource( 6 )
 text = "documents/MusicDJ"
 autowrap = true
 
@@ -628,7 +626,7 @@ rect_min_size = Vector2( 100, 50 )
 text = "Cancel"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ProgressDialog"]
-anims/fade_in = SubResource( 6 )
+anims/fade_in = SubResource( 7 )
 
 [node name="LoadDialog" type="PopupDialog" parent="."]
 anchor_right = 0.373
@@ -692,7 +690,7 @@ rect_min_size = Vector2( 100, 50 )
 text = "Cancel"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="LoadDialog"]
-anims/fade_in = SubResource( 7 )
+anims/fade_in = SubResource( 8 )
 
 [node name="TutorialDialog" type="PopupDialog" parent="."]
 anchor_right = 0.664
@@ -729,14 +727,14 @@ margin_bottom = 65.0
 margin_top = 69.0
 margin_right = 676.0
 margin_bottom = 108.0
-custom_fonts/font = SubResource( 8 )
+custom_fonts/font = SubResource( 9 )
 text = "Subtitle"
 
 [node name="HSeparator2" type="HSeparator" parent="TutorialDialog/VBoxContainer"]
 margin_top = 112.0
 margin_right = 676.0
 margin_bottom = 132.0
-custom_styles/separator = SubResource( 9 )
+custom_styles/separator = SubResource( 10 )
 custom_constants/separation = 20
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="TutorialDialog/VBoxContainer"]
@@ -763,7 +761,7 @@ text = "<"
 margin_left = 54.0
 margin_right = 84.0
 margin_bottom = 300.0
-custom_styles/separator = SubResource( 10 )
+custom_styles/separator = SubResource( 11 )
 custom_constants/separation = 30
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="TutorialDialog/VBoxContainer/HBoxContainer2"]
@@ -786,7 +784,7 @@ __meta__ = {
 margin_left = 592.0
 margin_right = 622.0
 margin_bottom = 300.0
-custom_styles/separator = SubResource( 11 )
+custom_styles/separator = SubResource( 12 )
 custom_constants/separation = 30
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="TutorialDialog/VBoxContainer/HBoxContainer2"]
@@ -811,13 +809,13 @@ __meta__ = {
 margin_top = 440.0
 margin_right = 676.0
 margin_bottom = 479.0
-custom_fonts/font = SubResource( 8 )
+custom_fonts/font = SubResource( 9 )
 text = "1/x"
 align = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="TutorialDialog"]
-anims/fade_in = SubResource( 12 )
-anims/fade_in_image = SubResource( 13 )
+anims/fade_in = SubResource( 13 )
+anims/fade_in_image = SubResource( 14 )
 [connection signal="toggled" from="HBoxContainer2/Play" to="." method="_on_Play_toggled"]
 [connection signal="pressed" from="HBoxContainer2/Export" to="." method="_on_Export_pressed"]
 [connection signal="pressed" from="HBoxContainer2/SaveProject" to="." method="_on_SaveProject_pressed"]
