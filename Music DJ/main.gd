@@ -125,12 +125,26 @@ func on_Column_Button_pressed(_column_no, _column):
 	$ColumnDialog.column = _column
 	$ColumnDialog.column_no = _column_no
 	
-	$ColumnDialog.popup()
 	var label = _column.get_node("Label")
 	var pos = label.rect_global_position
 	pos.x -= $ColumnDialog.rect_size.x/2 - label.rect_size.x/2
 	pos.y += label.rect_size.x
+	var viewport_size = get_viewport().get_visible_rect().size
+	var pos_plus_size = pos+$ColumnDialog.rect_size+Vector2(16,16)
+	var pos_minus_size = pos-$ColumnDialog.rect_size-Vector2(16,16)
+	if pos_plus_size.x > viewport_size.x:
+		pos.x -= pos_plus_size.x - viewport_size.x
+	elif pos.x < 0:
+		pos.x = 0 + 16
+		
 	$ColumnDialog.rect_global_position = pos
+	
+	var sprite = $ColumnDialog.get_node("Sprite")
+	var sprite_pos_x = label.rect_global_position.x + label.rect_size.x/2
+	sprite.global_position.x = sprite_pos_x
+	
+	
+	$ColumnDialog.popup()
 
 
 func _on_Play_toggled(button_pressed):

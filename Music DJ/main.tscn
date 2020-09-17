@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://assets/trumpet.png" type="Texture" id=2]
@@ -14,6 +14,26 @@
 [ext_resource path="res://ColumnDialog.gd" type="Script" id=12]
 [ext_resource path="res://TutorialDialog.gd" type="Script" id=13]
 [ext_resource path="res://icon.png" type="Texture" id=14]
+[ext_resource path="res://assets/column_tear.png" type="Texture" id=15]
+
+[sub_resource type="Animation" id=1]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="DynamicFont" id=2]
+size = 32
+font_data = ExtResource( 8 )
 
 [sub_resource type="Animation" id=3]
 length = 0.1
@@ -30,8 +50,8 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="DynamicFont" id=16]
-size = 32
+[sub_resource type="DynamicFont" id=4]
+size = 26
 font_data = ExtResource( 8 )
 
 [sub_resource type="Animation" id=5]
@@ -49,11 +69,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="DynamicFont" id=18]
-size = 26
-font_data = ExtResource( 8 )
-
-[sub_resource type="Animation" id=17]
+[sub_resource type="Animation" id=6]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:modulate")
@@ -69,21 +85,6 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=7]
-length = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
-}
-
-[sub_resource type="Animation" id=8]
 resource_name = "fade_in"
 length = 0.1
 tracks/0/type = "value"
@@ -99,17 +100,17 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="DynamicFont" id=9]
+[sub_resource type="DynamicFont" id=8]
 size = 32
 font_data = ExtResource( 8 )
+
+[sub_resource type="StyleBoxEmpty" id=9]
 
 [sub_resource type="StyleBoxEmpty" id=10]
 
 [sub_resource type="StyleBoxEmpty" id=11]
 
-[sub_resource type="StyleBoxEmpty" id=12]
-
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=12]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:modulate")
@@ -124,7 +125,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=14]
+[sub_resource type="Animation" id=13]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("VBoxContainer/HBoxContainer2/VBoxContainer2/TextureRect:modulate")
@@ -404,7 +405,7 @@ text = "Cancel"
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="SoundDialog"]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="SoundDialog"]
-anims/fade_in = SubResource( 3 )
+anims/fade_in = SubResource( 1 )
 
 [node name="SaveDialog" type="PopupDialog" parent="."]
 margin_left = 300.0
@@ -435,7 +436,7 @@ custom_constants/separation = 30
 [node name="Label" type="Label" parent="SaveDialog/VBoxContainer/VBoxContainer"]
 margin_right = 403.0
 margin_bottom = 39.0
-custom_fonts/font = SubResource( 16 )
+custom_fonts/font = SubResource( 2 )
 text = "Insert dialog"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="SaveDialog/VBoxContainer/VBoxContainer"]
@@ -473,9 +474,10 @@ rect_min_size = Vector2( 100, 50 )
 text = "Cancel"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="SaveDialog"]
-anims/fade_in = SubResource( 5 )
+anims/fade_in = SubResource( 3 )
 
 [node name="ColumnDialog" type="PopupDialog" parent="."]
+visible = true
 anchor_left = 0.293
 anchor_top = 0.167
 anchor_right = 0.552
@@ -509,11 +511,11 @@ custom_constants/separation = 30
 [node name="Label" type="Label" parent="ColumnDialog/VBoxContainer/VBoxContainer"]
 margin_right = 480.0
 margin_bottom = 39.0
-custom_fonts/font = SubResource( 16 )
+custom_fonts/font = SubResource( 2 )
 text = "Column #"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ColumnDialog/VBoxContainer"]
-margin_right = 265.0
+margin_right = 264.0
 margin_bottom = 50.0
 custom_constants/separation = 10
 alignment = 1
@@ -538,7 +540,7 @@ margin_left = 182.0
 margin_right = 262.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 80, 50 )
-custom_fonts/font = SubResource( 18 )
+custom_fonts/font = SubResource( 4 )
 text = "Remove"
 
 [node name="CancelButton" type="Button" parent="ColumnDialog/VBoxContainer/HBoxContainer"]
@@ -550,7 +552,11 @@ rect_min_size = Vector2( 100, 50 )
 text = "Cancel"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ColumnDialog"]
-anims/fade_in = SubResource( 17 )
+anims/fade_in = SubResource( 5 )
+
+[node name="Sprite" type="Sprite" parent="ColumnDialog"]
+position = Vector2( 7.00769, -16.6434 )
+texture = ExtResource( 15 )
 
 [node name="ProgressDialog" type="PopupDialog" parent="."]
 margin_right = 403.0
@@ -611,7 +617,7 @@ rect_min_size = Vector2( 100, 50 )
 text = "Cancel"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ProgressDialog"]
-anims/fade_in = SubResource( 7 )
+anims/fade_in = SubResource( 6 )
 
 [node name="LoadDialog" type="PopupDialog" parent="."]
 anchor_right = 0.373
@@ -675,7 +681,7 @@ rect_min_size = Vector2( 100, 50 )
 text = "Cancel"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="LoadDialog"]
-anims/fade_in = SubResource( 8 )
+anims/fade_in = SubResource( 7 )
 
 [node name="TutorialDialog" type="PopupDialog" parent="."]
 anchor_right = 0.664
@@ -712,14 +718,14 @@ margin_bottom = 65.0
 margin_top = 69.0
 margin_right = 676.0
 margin_bottom = 108.0
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 8 )
 text = "Subtitle"
 
 [node name="HSeparator2" type="HSeparator" parent="TutorialDialog/VBoxContainer"]
 margin_top = 112.0
 margin_right = 676.0
 margin_bottom = 132.0
-custom_styles/separator = SubResource( 10 )
+custom_styles/separator = SubResource( 9 )
 custom_constants/separation = 20
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="TutorialDialog/VBoxContainer"]
@@ -746,7 +752,7 @@ text = "<"
 margin_left = 54.0
 margin_right = 84.0
 margin_bottom = 300.0
-custom_styles/separator = SubResource( 11 )
+custom_styles/separator = SubResource( 10 )
 custom_constants/separation = 30
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="TutorialDialog/VBoxContainer/HBoxContainer2"]
@@ -769,7 +775,7 @@ __meta__ = {
 margin_left = 592.0
 margin_right = 622.0
 margin_bottom = 300.0
-custom_styles/separator = SubResource( 12 )
+custom_styles/separator = SubResource( 11 )
 custom_constants/separation = 30
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="TutorialDialog/VBoxContainer/HBoxContainer2"]
@@ -794,13 +800,13 @@ __meta__ = {
 margin_top = 440.0
 margin_right = 676.0
 margin_bottom = 479.0
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 8 )
 text = "1/x"
 align = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="TutorialDialog"]
-anims/fade_in = SubResource( 13 )
-anims/fade_in_image = SubResource( 14 )
+anims/fade_in = SubResource( 12 )
+anims/fade_in_image = SubResource( 13 )
 [connection signal="toggled" from="HBoxContainer2/Play" to="." method="_on_Play_toggled"]
 [connection signal="pressed" from="HBoxContainer2/Export" to="." method="_on_Export_pressed"]
 [connection signal="pressed" from="HBoxContainer2/SaveProject" to="." method="_on_SaveProject_pressed"]
