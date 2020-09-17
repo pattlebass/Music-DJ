@@ -1,8 +1,8 @@
 extends PopupDialog
 
 
-var panels = [{"title":"Test1", "frames":30, "anim_texture":null, "index":0},
-{"title":"Test2", "frames":52, "anim_texture":null, "index":1},]
+var panels = [{"title":"Tap and hold a tile to copy it.", "frames":40, "anim_texture":null, "index":0},
+{"title":"Tap the number of a column to open its menu.", "frames":40, "anim_texture":null, "index":1},]
 #{"title":"Test3", "frames":30, "anim_texture":null, "index":2},
 #{"title":"Test4", "frames":30, "anim_texture":null, "index":3}]
 var texture_res = preload("res://assets/tutorial/animated_texture.tres")
@@ -11,20 +11,9 @@ var current = 0
 onready var texture_rect = get_node("VBoxContainer/HBoxContainer2/VBoxContainer2/TextureRect")
 
 func _ready():
-	var file = File.new()
-	var data
-	if file.file_exists("user://options.txt"):
-		file.open("user://options.txt", File.READ)
-		data = file.get_var()
-	else:
-		data = {"show_tutorial":true}
-		file.open("user://options.txt", File.WRITE)
-		file.store_var(data)
-	if data["show_tutorial"]:
-		print(data)
+	if GlobalVariables.options["show_tutorial"]:
 		call_deferred("popup_centered")
-		data["show_tutorial"] = false
-		
+
 
 func _on_TutorialDialog_about_to_show():
 	for panel in panels:
@@ -54,6 +43,8 @@ func _on_PreviousButton_pressed():
 
 func change_panel(_panel_no):
 	if _panel_no >= panels.size():
+		GlobalVariables.options["show_tutorial"] = false
+		GlobalVariables.save_options()
 		hide()
 		return
 	

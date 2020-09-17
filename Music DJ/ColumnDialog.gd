@@ -5,6 +5,7 @@ onready var main = get_parent()
 var column
 var column_no
 
+
 func _on_ColumnDialog_about_to_show():
 	# Set title
 	var title = "Column " + str(column_no+1)
@@ -22,9 +23,11 @@ func _on_ColumnDialog_about_to_show():
 			falses += 1
 	if falses == 0:
 		$VBoxContainer/HBoxContainer/ClearButton.disabled = true
+		$VBoxContainer/HBoxContainer/PlayButton.disabled = true
 	else:
 		$VBoxContainer/HBoxContainer/ClearButton.disabled = false
-	
+		$VBoxContainer/HBoxContainer/PlayButton.disabled = false
+		
 	$AnimationPlayer.play("fade_in")
 
 func _on_ClearButton_pressed():
@@ -73,3 +76,9 @@ func _on_ColumnDialog_popup_hide():
 	yield(get_tree().create_timer(0.1), "timeout")
 	
 	visible = false
+
+
+func _on_PlayButton_pressed():
+	main.play_column(column_no)
+	main.get_node("SoundDialog/AudioStreamPlayer").stop()
+	hide()

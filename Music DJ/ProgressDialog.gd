@@ -3,10 +3,15 @@ extends PopupDialog
 onready var main = get_parent()
 onready var progress_bar = get_node("VBoxContainer/HBoxContainer2/VBoxContainer/ProgressBar")
 
+var path_text = ""
+
+
 func _on_ProgressDialog_about_to_show():
 	progress_bar.max_value = main.last_columns.back()+1
 	loading()
+	$VBoxContainer/Label2.text = path_text.replace("user://", "%APPDATA%/Godot/app_userdata/Music DJ/saves/Exports/")
 	$AnimationPlayer.play("fade_in")
+
 
 func _on_ProgressDialog_popup_hide():
 	visible = true
@@ -17,6 +22,7 @@ func _on_ProgressDialog_popup_hide():
 	progress_bar.value = 1
 	
 	visible = false
+
 
 func loading():
 	yield(get_tree().create_timer(3), "timeout")

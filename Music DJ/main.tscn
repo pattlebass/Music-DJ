@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://assets/trumpet.png" type="Texture" id=2]
@@ -68,6 +68,10 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
+
+[sub_resource type="DynamicFont" id=14]
+size = 20
+font_data = ExtResource( 8 )
 
 [sub_resource type="Animation" id=6]
 length = 0.1
@@ -525,7 +529,6 @@ margin_left = 2.0
 margin_right = 82.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 80, 50 )
-disabled = true
 text = "Play"
 
 [node name="ClearButton" type="Button" parent="ColumnDialog/VBoxContainer/HBoxContainer"]
@@ -559,8 +562,8 @@ position = Vector2( 7.00769, -16.6434 )
 texture = ExtResource( 15 )
 
 [node name="ProgressDialog" type="PopupDialog" parent="."]
-margin_right = 403.0
-margin_bottom = 195.0
+margin_right = 436.0
+margin_bottom = 216.0
 theme = ExtResource( 7 )
 popup_exclusive = true
 script = ExtResource( 10 )
@@ -576,26 +579,34 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="ProgressDialog/VBoxContainer"]
-margin_right = 403.0
+margin_right = 436.0
 margin_bottom = 59.0
 text = "Saving"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="ProgressDialog/VBoxContainer"]
+[node name="Label2" type="Label" parent="ProgressDialog/VBoxContainer"]
 margin_top = 63.0
-margin_right = 403.0
-margin_bottom = 127.0
+margin_right = 436.0
+margin_bottom = 88.0
+custom_fonts/font = SubResource( 14 )
+text = "documents/MusicDJ"
+autowrap = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ProgressDialog/VBoxContainer"]
+margin_top = 92.0
+margin_right = 436.0
+margin_bottom = 152.0
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ProgressDialog/VBoxContainer/HBoxContainer2"]
-margin_right = 403.0
-margin_bottom = 64.0
+margin_right = 436.0
+margin_bottom = 60.0
 size_flags_horizontal = 3
 alignment = 1
 
 [node name="ProgressBar" type="ProgressBar" parent="ProgressDialog/VBoxContainer/HBoxContainer2/VBoxContainer"]
-margin_top = 27.0
-margin_right = 403.0
-margin_bottom = 37.0
+margin_top = 25.0
+margin_right = 436.0
+margin_bottom = 35.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
 step = 1.0
@@ -603,16 +614,16 @@ value = 1.0
 percent_visible = false
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ProgressDialog/VBoxContainer"]
-margin_top = 131.0
-margin_right = 403.0
-margin_bottom = 195.0
+margin_top = 156.0
+margin_right = 436.0
+margin_bottom = 216.0
 size_flags_vertical = 3
 alignment = 2
 
 [node name="CancelButton" type="Button" parent="ProgressDialog/VBoxContainer/HBoxContainer"]
-margin_left = 303.0
-margin_right = 403.0
-margin_bottom = 64.0
+margin_left = 336.0
+margin_right = 436.0
+margin_bottom = 60.0
 rect_min_size = Vector2( 100, 50 )
 text = "Cancel"
 
@@ -824,6 +835,7 @@ anims/fade_in_image = SubResource( 13 )
 [connection signal="pressed" from="SaveDialog/VBoxContainer/HBoxContainer/CancelButton" to="SaveDialog" method="_on_CancelButton_pressed"]
 [connection signal="about_to_show" from="ColumnDialog" to="ColumnDialog" method="_on_ColumnDialog_about_to_show"]
 [connection signal="popup_hide" from="ColumnDialog" to="ColumnDialog" method="_on_ColumnDialog_popup_hide"]
+[connection signal="pressed" from="ColumnDialog/VBoxContainer/HBoxContainer/PlayButton" to="ColumnDialog" method="_on_PlayButton_pressed"]
 [connection signal="pressed" from="ColumnDialog/VBoxContainer/HBoxContainer/ClearButton" to="ColumnDialog" method="_on_ClearButton_pressed"]
 [connection signal="pressed" from="ColumnDialog/VBoxContainer/HBoxContainer/RemoveButton" to="ColumnDialog" method="_on_RemoveButton_pressed"]
 [connection signal="pressed" from="ColumnDialog/VBoxContainer/HBoxContainer/CancelButton" to="ColumnDialog" method="_on_CancelButton_pressed"]

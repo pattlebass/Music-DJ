@@ -8,6 +8,7 @@ var effect = AudioServer.get_bus_effect(0, 0)
 var is_cancelled = false
 
 var once = false
+var path
 
 
 func _on_OkButton_pressed():
@@ -19,6 +20,9 @@ func _on_OkButton_pressed():
 		file.store_var(main.song)
 	else:
 		main.get_node("SoundDialog/AudioStreamPlayer").stop()
+		
+		var path = main.user_dir+"Exports/"+entered_name+".wav"
+		main.get_node("ProgressDialog").path_text = path
 		main.get_node("ProgressDialog").popup_centered()
 		
 		# Export
@@ -29,7 +33,7 @@ func _on_OkButton_pressed():
 		# Saving
 		var recording = effect.get_recording()
 		if recording and not is_cancelled:
-			recording.save_to_wav(main.user_dir+"Exports/"+entered_name+".wav")
+			recording.save_to_wav(path)
 		
 		is_cancelled = false
 

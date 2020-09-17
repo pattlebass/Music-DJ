@@ -146,7 +146,7 @@ func _on_ClearButton_pressed():
 	# If all buttons in a column are clear remove that column from the play list
 	var falses = -1
 	for i in column.get_children():
-		if i.text != "":
+		if i is Button and i.text != "":
 			falses += 1
 	if falses == 0:
 		main.last_columns.erase(column_no)

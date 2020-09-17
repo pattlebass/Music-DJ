@@ -47,43 +47,54 @@ func _ready():
 		dir.make_dir("Exports")
 		
 	else:
-		user_dir = "res://saves/"
+		var dir = Directory.new()
+		dir.open("user://")
+		dir.make_dir("saves")
+		dir.open("user://saves")
+		dir.make_dir("Exports")
+		dir.make_dir("Projects")
+		user_dir = "user://saves/"
 
 
-func play():
+func play_song():
 	yield(get_tree(), "idle_frame")
 	$SoundDialog/AudioStreamPlayer.stop()
 	for i in column_index:
-		if i > last_columns.back():
-			$HBoxContainer2/Play.pressed = false
-			return
-		
-		if not can_play:
-			return
-		
-		# Visuals
-		var column = get_node("HBoxContainer/StepContainer/HBoxContainer").get_child(i)
-		column.get_node("Label").add_color_override("font_color", Color(1,0,0))
-		
-		# Play sounds
-		for a in 4:
-			if song[a][i] == 0:
-				continue
-			#if not can_play:
-			#	return
-				
-			var audio_player = $AudioPlayers.get_child(a)
-			var sound = song[a][i]
-			audio_player.stream = load("res://sounds/"+str(a)+"/"+str(sound)+".wav")
-			audio_player.play()
-		
+		play_column(i)
 		yield(get_tree().create_timer(3), "timeout")
+		var column = get_node("HBoxContainer/StepContainer/HBoxContainer").get_child(i)
 		column.get_node("Label").add_color_override("font_color", Color(1,1,1))
-		
+	
 		if i >= last_columns.back():
 			$HBoxContainer2/Play.pressed = false
 			return
 		
+func play_column(_column_no):
+	if _column_no > last_columns.back():
+		$HBoxContainer2/Play.pressed = false
+		return
+	
+	if not can_play:
+		return
+	
+	# Visuals
+	var column = get_node("HBoxContainer/StepContainer/HBoxContainer").get_child(_column_no)
+	column.get_node("Label").add_color_override("font_color", Color(1,0,0))
+	
+	# Play sounds
+	for a in 4:
+		if song[a][_column_no] == 0:
+			continue
+		#if not can_play:
+		#	return
+			
+		var audio_player = $AudioPlayers.get_child(a)
+		var sound = song[a][_column_no]
+		audio_player.stream = load("res://sounds/"+str(a)+"/"+str(sound)+".wav")
+		audio_player.play()
+	# Needs cleanup
+	yield(get_tree().create_timer(3), "timeout")
+	column.get_node("Label").add_color_override("font_color", Color(1,1,1))
 		
 func on_Tile_pressed(_column_no, _instrument):
 	$SoundDialog.instrument_index = _instrument
@@ -150,7 +161,7 @@ func on_Column_Button_pressed(_column_no, _column):
 func _on_Play_toggled(button_pressed):
 	if button_pressed:
 		can_play = true
-		play()
+		play_song()
 		$HBoxContainer2/Play.text = "Stop"
 	else:
 		can_play = false
