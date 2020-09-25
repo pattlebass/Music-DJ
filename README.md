@@ -13,7 +13,6 @@ Finally, the app is ready for a public beta. It took me around 2 weeks, but we'r
 * Higher quality samples
 * MIDI player
 * Tempo changer
-* Actually opening the saved project (it currently doesn't work)
 
 ## How to download
 At the moment, this is an Android and Windows only app. Apple's policy makes me unable to release on IOS. If you want a linux version, let me know.
