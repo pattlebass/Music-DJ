@@ -1,10 +1,11 @@
 extends PopupDialog
 
 
-var panels = [{"title":"Tap and hold a tile to copy it.", "frames":40, "anim_texture":null, "index":0},
-{"title":"Tap the number of a column to open its menu.", "frames":40, "anim_texture":null, "index":1},]
-#{"title":"Test3", "frames":30, "anim_texture":null, "index":2},
-#{"title":"Test4", "frames":30, "anim_texture":null, "index":3}]
+var panels = [{"title":"This app needs Storage permissions", "frames":41, "anim_texture":null, "index":0},
+	{"title":"Tap and hold a tile to copy it.", "frames":40, "anim_texture":null, "index":1},
+{"title":"Tap the number of a column to open its menu.", "frames":40, "anim_texture":null, "index":2},]
+
+
 var texture_res = preload("res://assets/tutorial/animated_texture.tres")
 var current = 0
 

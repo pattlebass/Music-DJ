@@ -13,9 +13,6 @@ var is_playing = false
 # * A few variables/nodes need renaming (column -> column_no, step -> column)
 # * Some signals are a bit messy
 
-# To do:
-# * In-app tutorial
-
 
 func _ready():
 	var column_scene = preload("res://Column.tscn")
