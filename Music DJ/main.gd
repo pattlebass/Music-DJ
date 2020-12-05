@@ -36,6 +36,9 @@ func _ready():
 	$HBoxContainer/StepContainer/HBoxContainer.move_child(add_button, column_index+1)
 
 	if OS.get_name() == "Android":
+		yield(get_tree(), "idle_frame")
+		OS.request_permissions()
+		
 		user_dir = "/storage/emulated/0/MusicDJ/"
 		var dir = Directory.new()
 		dir.open("/storage/emulated/0/")

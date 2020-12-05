@@ -1,15 +1,13 @@
 extends PopupDialog
 
 
-var panels = [{"title":"This app needs Storage permissions", "frames":41, "anim_texture":null, "index":0},
-	{"title":"Tap and hold a tile to copy it.", "frames":40, "anim_texture":null, "index":1},
-{"title":"Tap the number of a column to open its menu.", "frames":40, "anim_texture":null, "index":2},]
-
-
-var texture_res = preload("res://assets/tutorial/animated_texture.tres")
+var panels = [{"title":"Tap and hold a tile to copy it.", "video":"res://assets/tutorial/0.webm", "index":0},
+{"title":"Tap the number of a column to open its menu.", "video":"res://assets/tutorial/1.webm", "index":1},
+{"title":"Follow @pattlebass_dev on Twitter for updates.", "video":"res://assets/tutorial/2.webm", "index":2},]
 var current = 0
 
-onready var texture_rect = get_node("VBoxContainer/HBoxContainer2/VBoxContainer2/TextureRect")
+onready var video_player = $VBoxContainer/HBoxContainer2/VBoxContainer2/VideoPlayer
+
 
 func _ready():
 	if GlobalVariables.options["show_tutorial"]:
@@ -17,18 +15,7 @@ func _ready():
 
 
 func _on_TutorialDialog_about_to_show():
-	for panel in panels:
-		var anim_texture = texture_res.duplicate()
-		anim_texture.frames = panel["frames"]
-		for i in panel["frames"]:
-			var frame_texture = load("res://assets/tutorial/"+str(panel["index"])+"/"+str(i)+".png")
-			
-			anim_texture.set_frame_texture(i, frame_texture)
-			
-		panel["anim_texture"] = anim_texture
-	
 	change_panel(0)
-	
 	$AnimationPlayer.play("fade_in")
 
 
@@ -52,7 +39,9 @@ func change_panel(_panel_no):
 	$AnimationPlayer.play_backwards("fade_in_image")
 	yield(get_tree().create_timer(0.1), "timeout")
 	var panel = panels[_panel_no]
-	texture_rect.texture = panel["anim_texture"]
+	video_player.stream = load(panel["video"])
+	video_player.play()
+	print(video_player)
 	$VBoxContainer/Label2.text = panel["title"]
 	$VBoxContainer/Label3.text = str(panel["index"]+1)+"/"+str(panels.size())
 	$AnimationPlayer.play("fade_in_image")
@@ -61,8 +50,7 @@ func change_panel(_panel_no):
 	var next_button = $VBoxContainer/HBoxContainer2/VBoxContainer3/NextButton
 	if _panel_no == 0:
 		previous_button.disabled = true
-		next_button.disabled = false
-	elif _panel_no == panels.size()-1:
+	else:
 		previous_button.disabled = false
 
 
@@ -73,3 +61,7 @@ func _on_TutorialDialog_popup_hide():
 	$AnimationPlayer.play_backwards("fade_in")
 	yield(get_tree().create_timer(0.1), "timeout")
 	visible = false
+
+
+func _on_VideoPlayer_finished():
+	video_player.play()

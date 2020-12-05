@@ -1,0 +1,10 @@
+[gd_scene format=2]
+
+[node name="VideoPlayer" type="VideoPlayer"]
+margin_right = 1004.0
+margin_bottom = 578.0
+autoplay = true
+paused = true
+__meta__ = {
+"_edit_use_anchors_": false
+}

@@ -15,14 +15,25 @@ func _on_OkButton_pressed():
 	hide()
 	if type_of_save == "project":
 		# Project save
+		var path = main.user_dir+"Projects/"+entered_name+".mdj"
 		var file = File.new()
-		file.open(main.user_dir+"Projects/"+entered_name+".mdj", File.WRITE)
+		file.open(path, File.WRITE)
 		file.store_var(main.song)
+		
+		# ProgressDialog
+		main.get_node("ProgressDialog").path_text = path
+		main.get_node("ProgressDialog").after_saving = "close"
+		main.get_node("ProgressDialog").progress_bar.max_value = 0.2
+		main.get_node("ProgressDialog").popup_centered()
+		
 	else:
 		main.get_node("SoundDialog/AudioStreamPlayer").stop()
 		
+		# ProgressDialog
 		var path = main.user_dir+"Exports/"+entered_name+".wav"
 		main.get_node("ProgressDialog").path_text = path
+		main.get_node("ProgressDialog").after_saving = "stay"
+		main.get_node("ProgressDialog").progress_bar.max_value = 3*(main.last_columns.back()+1) + 0.5
 		main.get_node("ProgressDialog").popup_centered()
 		
 		# Export

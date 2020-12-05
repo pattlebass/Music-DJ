@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://assets/trumpet.png" type="Texture" id=2]
@@ -13,7 +13,6 @@
 [ext_resource path="res://LoadDialog.gd" type="Script" id=11]
 [ext_resource path="res://ColumnDialog.gd" type="Script" id=12]
 [ext_resource path="res://TutorialDialog.gd" type="Script" id=13]
-[ext_resource path="res://icon.png" type="Texture" id=14]
 [ext_resource path="res://assets/column_tear.png" type="Texture" id=15]
 
 [sub_resource type="Animation" id=1]
@@ -131,7 +130,7 @@ tracks/0/keys = {
 [sub_resource type="Animation" id=14]
 length = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("VBoxContainer/HBoxContainer2/VBoxContainer2/TextureRect:modulate")
+tracks/0/path = NodePath("VBoxContainer/HBoxContainer2/VBoxContainer2/VideoPlayer:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -561,7 +560,7 @@ texture = ExtResource( 15 )
 
 [node name="ProgressDialog" type="PopupDialog" parent="."]
 margin_right = 436.0
-margin_bottom = 216.0
+margin_bottom = 201.0
 theme = ExtResource( 7 )
 popup_exclusive = true
 script = ExtResource( 10 )
@@ -579,7 +578,7 @@ __meta__ = {
 [node name="Label" type="Label" parent="ProgressDialog/VBoxContainer"]
 margin_right = 436.0
 margin_bottom = 59.0
-text = "Saving"
+text = "Saving..."
 
 [node name="Label2" type="Label" parent="ProgressDialog/VBoxContainer"]
 margin_top = 63.0
@@ -592,36 +591,44 @@ autowrap = true
 [node name="HBoxContainer2" type="HBoxContainer" parent="ProgressDialog/VBoxContainer"]
 margin_top = 92.0
 margin_right = 436.0
-margin_bottom = 152.0
+margin_bottom = 144.0
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ProgressDialog/VBoxContainer/HBoxContainer2"]
 margin_right = 436.0
-margin_bottom = 60.0
+margin_bottom = 52.0
 size_flags_horizontal = 3
 alignment = 1
 
 [node name="ProgressBar" type="ProgressBar" parent="ProgressDialog/VBoxContainer/HBoxContainer2/VBoxContainer"]
-margin_top = 25.0
+margin_top = 14.0
 margin_right = 436.0
-margin_bottom = 35.0
+margin_bottom = 38.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
-step = 1.0
-value = 1.0
-percent_visible = false
+max_value = 0.0
+step = 0.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ProgressDialog/VBoxContainer"]
-margin_top = 156.0
+margin_top = 148.0
 margin_right = 436.0
-margin_bottom = 216.0
+margin_bottom = 201.0
 size_flags_vertical = 3
+custom_constants/separation = 20
 alignment = 2
+
+[node name="OpenButton" type="Button" parent="ProgressDialog/VBoxContainer/HBoxContainer"]
+margin_left = 171.0
+margin_right = 316.0
+margin_bottom = 53.0
+rect_min_size = Vector2( 100, 50 )
+disabled = true
+text = "  Open Folder  "
 
 [node name="CancelButton" type="Button" parent="ProgressDialog/VBoxContainer/HBoxContainer"]
 margin_left = 336.0
 margin_right = 436.0
-margin_bottom = 60.0
+margin_bottom = 53.0
 rect_min_size = Vector2( 100, 50 )
 text = "Cancel"
 
@@ -648,43 +655,49 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="LoadDialog/VBoxContainer"]
-margin_right = 381.0
+margin_right = 385.0
 margin_bottom = 59.0
 text = "Open file"
 
 [node name="HSeparator" type="HSeparator" parent="LoadDialog/VBoxContainer"]
 margin_top = 63.0
-margin_right = 381.0
+margin_right = 385.0
 margin_bottom = 65.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="LoadDialog/VBoxContainer"]
 margin_top = 69.0
-margin_right = 381.0
+margin_right = 385.0
 margin_bottom = 464.0
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="LoadDialog/VBoxContainer/ScrollContainer"]
-margin_right = 381.0
+margin_right = 385.0
 size_flags_horizontal = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="LoadDialog/VBoxContainer"]
 margin_top = 468.0
-margin_right = 381.0
+margin_right = 385.0
 margin_bottom = 518.0
 custom_constants/separation = 20
 alignment = 1
 
 [node name="OkButton" type="Button" parent="LoadDialog/VBoxContainer/HBoxContainer"]
-margin_left = 80.0
-margin_right = 180.0
+margin_right = 100.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 100, 50 )
 text = "Open"
 
+[node name="OpenButton" type="Button" parent="LoadDialog/VBoxContainer/HBoxContainer"]
+margin_left = 120.0
+margin_right = 265.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 100, 50 )
+text = "  Open Folder  "
+
 [node name="CancelButton" type="Button" parent="LoadDialog/VBoxContainer/HBoxContainer"]
-margin_left = 200.0
-margin_right = 300.0
+margin_left = 285.0
+margin_right = 385.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 100, 50 )
 text = "Cancel"
@@ -693,6 +706,7 @@ text = "Cancel"
 anims/fade_in = SubResource( 8 )
 
 [node name="TutorialDialog" type="PopupDialog" parent="."]
+visible = true
 anchor_right = 0.664
 anchor_bottom = 0.782
 margin_right = 0.0639648
@@ -770,15 +784,10 @@ margin_right = 588.0
 margin_bottom = 300.0
 alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="TutorialDialog/VBoxContainer/HBoxContainer2/VBoxContainer2"]
+[node name="VideoPlayer" type="VideoPlayer" parent="TutorialDialog/VBoxContainer/HBoxContainer2/VBoxContainer2"]
 margin_right = 500.0
 margin_bottom = 300.0
 rect_min_size = Vector2( 500, 300 )
-texture = ExtResource( 14 )
-expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="VSeparator" type="VSeparator" parent="TutorialDialog/VBoxContainer/HBoxContainer2"]
 margin_left = 592.0
@@ -839,12 +848,15 @@ anims/fade_in_image = SubResource( 14 )
 [connection signal="pressed" from="ColumnDialog/VBoxContainer/HBoxContainer/CancelButton" to="ColumnDialog" method="_on_CancelButton_pressed"]
 [connection signal="about_to_show" from="ProgressDialog" to="ProgressDialog" method="_on_ProgressDialog_about_to_show"]
 [connection signal="popup_hide" from="ProgressDialog" to="ProgressDialog" method="_on_ProgressDialog_popup_hide"]
+[connection signal="pressed" from="ProgressDialog/VBoxContainer/HBoxContainer/OpenButton" to="ProgressDialog" method="_on_OpenButton_pressed"]
 [connection signal="pressed" from="ProgressDialog/VBoxContainer/HBoxContainer/CancelButton" to="ProgressDialog" method="_on_CancelButton_pressed"]
 [connection signal="about_to_show" from="LoadDialog" to="LoadDialog" method="_on_LoadDialog_about_to_show"]
 [connection signal="popup_hide" from="LoadDialog" to="LoadDialog" method="_on_LoadDialog_popup_hide"]
 [connection signal="pressed" from="LoadDialog/VBoxContainer/HBoxContainer/OkButton" to="LoadDialog" method="_on_OkButton_pressed"]
+[connection signal="pressed" from="LoadDialog/VBoxContainer/HBoxContainer/OpenButton" to="LoadDialog" method="_on_OpenButton_pressed"]
 [connection signal="pressed" from="LoadDialog/VBoxContainer/HBoxContainer/CancelButton" to="LoadDialog" method="_on_CancelButton_pressed"]
 [connection signal="about_to_show" from="TutorialDialog" to="TutorialDialog" method="_on_TutorialDialog_about_to_show"]
 [connection signal="popup_hide" from="TutorialDialog" to="TutorialDialog" method="_on_TutorialDialog_popup_hide"]
 [connection signal="pressed" from="TutorialDialog/VBoxContainer/HBoxContainer2/VBoxContainer/PreviousButton" to="TutorialDialog" method="_on_PreviousButton_pressed"]
+[connection signal="finished" from="TutorialDialog/VBoxContainer/HBoxContainer2/VBoxContainer2/VideoPlayer" to="TutorialDialog" method="_on_VideoPlayer_finished"]
 [connection signal="pressed" from="TutorialDialog/VBoxContainer/HBoxContainer2/VBoxContainer3/NextButton" to="TutorialDialog" method="_on_NextButton_pressed"]

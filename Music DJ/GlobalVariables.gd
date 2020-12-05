@@ -4,24 +4,28 @@ var colors = [Color(0.678, 0.847, 90.2), Color(0.565, 0.933, 0.565), Color(1, 0.
 var options
 var file = File.new()
 var current_tutorial_version = 1
+var default_options = {"show_tutorial":true, "last_tutorial_version":current_tutorial_version, "theme":"dark"}
 
 func _ready():
+	# Options
 	if file.file_exists("user://options.txt"):
 		file.open("user://options.txt", File.READ)
 		options = file.get_var()
 		
 		# Show tutorial if outdated
 		# This part is very messy
-		if options.has("last_tutorial_version"):
-			if current_tutorial_version > options["last_tutorial_version"]:
-				options = {"show_tutorial":true, "last_tutorial_version":current_tutorial_version}
+		if options:
+			if options.has("last_tutorial_version"):
+				if current_tutorial_version > options["last_tutorial_version"]:
+					options = default_options.duplicate()
+			else:
+				options = default_options.duplicate()
 		else:
-			options = {"show_tutorial":true, "last_tutorial_version":current_tutorial_version}
+			options = default_options.duplicate()
 		
 	else:
-		options = {"show_tutorial":true, "last_tutorial_version":current_tutorial_version}
-		file.open("user://options.txt", File.WRITE)
-		file.store_var(options)
+		options = default_options.duplicate()
+	save_options()
 
 func save_options():
 	file.open("user://options.txt", File.WRITE)

@@ -147,3 +147,10 @@ func _on_LoadDialog_popup_hide():
 func _on_CancelButton_pressed():
 
 	hide()
+
+
+func _on_OpenButton_pressed():
+	if OS.get_name() == "Android":
+		OS.alert(ProjectSettings.globalize_path(main.user_dir), "Folder location")
+	else:
+		OS.shell_open(ProjectSettings.globalize_path(main.user_dir))
