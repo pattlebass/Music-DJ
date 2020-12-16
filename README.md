@@ -2,7 +2,7 @@
 
 Finally, the app is ready for a public beta. It took me around 2 weeks, but we're here.
 
-![MusicDJ image](https://i.imgur.com/bgtqwwp.png)
+![MusicDJ image](https://i.imgur.com/aUPec4l.png)
 
 ## Features
 * Create songs using the original samples
@@ -20,7 +20,7 @@ At the moment, this is an Android and Windows only app. Apple's policy makes me 
 * [Android](https://github.com/pattlebass/Music-Dj/releases/latest/download/MusicDJ.apk)
 * [Windows](https://github.com/pattlebass/Music-Dj/releases/latest/download/MusicDJ.zip)
 
-You might get warnings about this app not being safe. Like [this](https://i.stack.imgur.com/LlLiX.png) and [this](https://i.ytimg.com/vi/1CeDwp6jjNk/maxresdefault.jpg). That's because I'm not a verified publisher and there is nothing I can do at the moment.
+You might get warnings about this app not being safe. Like [this](https://i.stack.imgur.com/LlLiX.png) and [this](https://i.imgur.com/VlnKgTB.png). That's because I'm not a verified publisher and there is nothing I can do at the moment.
 
 On Android, you'll need to allow apps from unknown sources. If you don't know how to do that, search a tutorial for your specific Android version.
 
