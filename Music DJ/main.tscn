@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://assets/trumpet.png" type="Texture" id=2]
@@ -6,14 +6,16 @@
 [ext_resource path="res://assets/piano.png" type="Texture" id=4]
 [ext_resource path="res://assets/drum.png" type="Texture" id=5]
 [ext_resource path="res://assets/guitar.png" type="Texture" id=6]
-[ext_resource path="res://assets/theme.tres" type="Theme" id=7]
+[ext_resource path="res://assets/themes/dark/theme.tres" type="Theme" id=7]
 [ext_resource path="res://assets/fonts/libel-suit-rg.ttf" type="DynamicFontData" id=8]
 [ext_resource path="res://SaveDialog.gd" type="Script" id=9]
 [ext_resource path="res://ProgressDialog.gd" type="Script" id=10]
 [ext_resource path="res://LoadDialog.gd" type="Script" id=11]
 [ext_resource path="res://ColumnDialog.gd" type="Script" id=12]
 [ext_resource path="res://TutorialDialog.gd" type="Script" id=13]
+[ext_resource path="res://SettingsDialog.gd" type="Script" id=14]
 [ext_resource path="res://assets/column_tear.png" type="Texture" id=15]
+[ext_resource path="res://assets/themes/dark/theme2.tres" type="Theme" id=16]
 
 [sub_resource type="Animation" id=1]
 length = 0.1
@@ -142,10 +144,24 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
+[sub_resource type="StyleBoxEmpty" id=15]
+
+[sub_resource type="StyleBoxEmpty" id=16]
+
 [node name="main" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BgPanel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -209,6 +225,15 @@ margin_bottom = 60.0
 rect_min_size = Vector2( 150, 0 )
 theme = ExtResource( 7 )
 text = "Open Project"
+
+[node name="Settings" type="Button" parent="HBoxContainer2"]
+visible = false
+margin_left = 824.0
+margin_right = 974.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 150, 0 )
+theme = ExtResource( 7 )
+text = "Settings"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 anchor_left = 0.034
@@ -282,6 +307,7 @@ size_flags_horizontal = 3
 theme = ExtResource( 7 )
 scroll_vertical_enabled = false
 scroll_vertical = 50
+scroll_deadzone = 60
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -329,6 +355,23 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="BgPanel" type="Panel" parent="SoundDialog"]
+show_behind_parent = true
+anchor_left = -0.462
+anchor_top = -0.405
+anchor_right = 1.431
+anchor_bottom = 1.381
+margin_left = -0.0579987
+margin_top = 0.0800171
+margin_right = -0.171082
+margin_bottom = -0.0160217
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 16 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="VBoxContainer" type="VBoxContainer" parent="SoundDialog"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -356,6 +399,7 @@ margin_bottom = 262.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
+scroll_deadzone = 30
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -481,12 +525,12 @@ anims/fade_in = SubResource( 3 )
 [node name="ColumnDialog" type="PopupDialog" parent="."]
 anchor_left = 0.293
 anchor_top = 0.167
-anchor_right = 0.552
-anchor_bottom = 0.248
+anchor_right = 0.293
+anchor_bottom = 0.167
 margin_left = -0.0320129
 margin_top = -0.200005
-margin_right = -0.248047
-margin_bottom = 0.199997
+margin_right = 264.968
+margin_bottom = 48.8
 theme = ExtResource( 7 )
 script = ExtResource( 12 )
 __meta__ = {
@@ -670,10 +714,18 @@ margin_right = 385.0
 margin_bottom = 464.0
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
+scroll_deadzone = 30
 
 [node name="VBoxContainer" type="VBoxContainer" parent="LoadDialog/VBoxContainer/ScrollContainer"]
 margin_right = 385.0
+margin_bottom = 39.0
 size_flags_horizontal = 3
+
+[node name="NoProjectsLabel" type="Label" parent="LoadDialog/VBoxContainer/ScrollContainer/VBoxContainer"]
+margin_right = 385.0
+margin_bottom = 39.0
+theme = ExtResource( 16 )
+text = "No saved projects"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="LoadDialog/VBoxContainer"]
 margin_top = 468.0
@@ -706,7 +758,6 @@ text = "Cancel"
 anims/fade_in = SubResource( 8 )
 
 [node name="TutorialDialog" type="PopupDialog" parent="."]
-visible = true
 anchor_right = 0.664
 anchor_bottom = 0.782
 margin_right = 0.0639648
@@ -825,10 +876,85 @@ align = 1
 [node name="AnimationPlayer" type="AnimationPlayer" parent="TutorialDialog"]
 anims/fade_in = SubResource( 13 )
 anims/fade_in_image = SubResource( 14 )
+
+[node name="SettingsDialog" type="PopupDialog" parent="."]
+margin_right = 480.0
+margin_bottom = 344.0
+theme = ExtResource( 7 )
+script = ExtResource( 14 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsDialog"]
+margin_right = 480.0
+margin_bottom = 344.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="SettingsDialog/VBoxContainer"]
+margin_right = 480.0
+margin_bottom = 59.0
+text = "Settings"
+
+[node name="HSeparator" type="HSeparator" parent="SettingsDialog/VBoxContainer"]
+margin_top = 63.0
+margin_right = 480.0
+margin_bottom = 83.0
+custom_constants/separation = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SettingsDialog/VBoxContainer"]
+margin_top = 87.0
+margin_right = 480.0
+margin_bottom = 146.0
+
+[node name="Label" type="Label" parent="SettingsDialog/VBoxContainer/HBoxContainer"]
+margin_right = 99.0
+margin_bottom = 59.0
+text = "Theme"
+
+[node name="VSeparator" type="VSeparator" parent="SettingsDialog/VBoxContainer/HBoxContainer"]
+margin_left = 103.0
+margin_right = 326.0
+margin_bottom = 59.0
+size_flags_horizontal = 3
+custom_styles/separator = SubResource( 15 )
+
+[node name="OptionButton" type="OptionButton" parent="SettingsDialog/VBoxContainer/HBoxContainer"]
+margin_left = 330.0
+margin_right = 480.0
+margin_bottom = 59.0
+rect_min_size = Vector2( 150, 0 )
+text = "Dark Theme"
+align = 1
+items = [ "Dark Theme", null, false, 0, null, "White Theme", null, false, 1, null, "Classic Theme 1", null, false, 2, null, "Classic Theme 2", null, false, 3, null ]
+selected = 0
+
+[node name="HSeparator2" type="HSeparator" parent="SettingsDialog/VBoxContainer"]
+margin_top = 150.0
+margin_right = 480.0
+margin_bottom = 290.0
+size_flags_vertical = 3
+custom_styles/separator = SubResource( 16 )
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="SettingsDialog/VBoxContainer"]
+margin_top = 294.0
+margin_right = 480.0
+margin_bottom = 344.0
+alignment = 1
+
+[node name="CloseButton" type="Button" parent="SettingsDialog/VBoxContainer/HBoxContainer2"]
+margin_left = 200.0
+margin_right = 280.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 80, 50 )
+text = "Close"
 [connection signal="toggled" from="HBoxContainer2/Play" to="." method="_on_Play_toggled"]
 [connection signal="pressed" from="HBoxContainer2/Export" to="." method="_on_Export_pressed"]
 [connection signal="pressed" from="HBoxContainer2/SaveProject" to="." method="_on_SaveProject_pressed"]
 [connection signal="pressed" from="HBoxContainer2/OpenProject" to="." method="_on_OpenProject_pressed"]
+[connection signal="pressed" from="HBoxContainer2/Settings" to="." method="_on_Settings_pressed"]
 [connection signal="pressed" from="HBoxContainer/StepContainer/HBoxContainer/VBoxContainer/AddButton" to="." method="_on_AddButton_pressed"]
 [connection signal="about_to_show" from="SoundDialog" to="SoundDialog" method="_on_SoundDialog_about_to_show"]
 [connection signal="popup_hide" from="SoundDialog" to="SoundDialog" method="_on_SoundDialog_popup_hide"]
@@ -860,3 +986,5 @@ anims/fade_in_image = SubResource( 14 )
 [connection signal="pressed" from="TutorialDialog/VBoxContainer/HBoxContainer2/VBoxContainer/PreviousButton" to="TutorialDialog" method="_on_PreviousButton_pressed"]
 [connection signal="finished" from="TutorialDialog/VBoxContainer/HBoxContainer2/VBoxContainer2/VideoPlayer" to="TutorialDialog" method="_on_VideoPlayer_finished"]
 [connection signal="pressed" from="TutorialDialog/VBoxContainer/HBoxContainer2/VBoxContainer3/NextButton" to="TutorialDialog" method="_on_NextButton_pressed"]
+[connection signal="item_selected" from="SettingsDialog/VBoxContainer/HBoxContainer/OptionButton" to="SettingsDialog" method="_on_OptionButton_item_selected"]
+[connection signal="pressed" from="SettingsDialog/VBoxContainer/HBoxContainer2/CloseButton" to="SettingsDialog" method="_on_CloseButton_pressed"]

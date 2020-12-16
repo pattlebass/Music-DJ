@@ -1,0 +1,52 @@
+[gd_resource type="Theme" load_steps=8 format=2]
+
+[ext_resource path="res://assets/fonts/libel-suit-rg.ttf" type="DynamicFontData" id=1]
+
+[sub_resource type="DynamicFont" id=1]
+size = 40
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxEmpty" id=2]
+content_margin_top = 5.0
+content_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.31, 0.8, 0.64, 0.37 )
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxLine" id=4]
+color = Color( 1, 1, 1, 0.12 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 32
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxEmpty" id=6]
+
+[resource]
+Button/colors/font_color = Color( 0.88, 0.88, 0.88, 1 )
+Button/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
+Button/colors/font_color_hover = Color( 0.94, 0.94, 0.94, 1 )
+Button/colors/font_color_pressed = Color( 1, 1, 1, 1 )
+Button/constants/hseparation = 2
+Button/fonts/font = SubResource( 1 )
+Button/styles/disabled = null
+Button/styles/focus = SubResource( 2 )
+Button/styles/hover = SubResource( 2 )
+Button/styles/normal = SubResource( 2 )
+Button/styles/pressed = SubResource( 3 )
+HSeparator/constants/separation = 4
+HSeparator/styles/separator = SubResource( 4 )
+Label/colors/font_color = Color( 1, 1, 1, 0.37 )
+Label/colors/font_color_shadow = Color( 0, 0, 0, 0 )
+Label/colors/font_outline_modulate = Color( 1, 1, 1, 1 )
+Label/constants/line_spacing = 3
+Label/constants/shadow_as_outline = 0
+Label/constants/shadow_offset_x = 1
+Label/constants/shadow_offset_y = 1
+Label/fonts/font = SubResource( 5 )
+Label/styles/normal = null
+Panel/styles/panel = SubResource( 6 )

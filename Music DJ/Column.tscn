@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://assets/theme.tres" type="Theme" id=1]
+[ext_resource path="res://assets/themes/white/theme.tres" type="Theme" id=1]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
@@ -26,6 +26,7 @@ tracks/0/keys = {
 [node name="Step" type="VBoxContainer"]
 margin_right = 40.0
 margin_bottom = 40.0
+theme = ExtResource( 1 )
 custom_constants/separation = 10
 __meta__ = {
 "_edit_use_anchors_": false
@@ -36,7 +37,6 @@ margin_right = 80.0
 margin_bottom = 59.0
 rect_min_size = Vector2( 40, 59 )
 focus_mode = 0
-theme = ExtResource( 1 )
 custom_styles/hover = SubResource( 1 )
 custom_styles/pressed = SubResource( 1 )
 custom_styles/focus = SubResource( 1 )
@@ -52,7 +52,6 @@ margin_bottom = 149.0
 rect_min_size = Vector2( 80, 80 )
 focus_mode = 0
 mouse_filter = 1
-theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 shortcut_in_tooltip = false
 enabled_focus_mode = 0
@@ -70,7 +69,6 @@ margin_bottom = 239.0
 rect_min_size = Vector2( 80, 80 )
 focus_mode = 0
 mouse_filter = 1
-theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 shortcut_in_tooltip = false
 enabled_focus_mode = 0
@@ -88,7 +86,6 @@ margin_bottom = 329.0
 rect_min_size = Vector2( 80, 80 )
 focus_mode = 0
 mouse_filter = 1
-theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 shortcut_in_tooltip = false
 enabled_focus_mode = 0
@@ -106,7 +103,6 @@ margin_bottom = 419.0
 rect_min_size = Vector2( 80, 80 )
 focus_mode = 0
 mouse_filter = 1
-theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 shortcut_in_tooltip = false
 enabled_focus_mode = 0

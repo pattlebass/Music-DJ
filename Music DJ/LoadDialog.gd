@@ -4,11 +4,22 @@ onready var main = get_parent()
 var selected_file = ""
 
 
+func _ready():
+	theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
+
+
 func _on_OkButton_pressed():
-	var file = File.new()
-	file.open(main.user_dir+"Projects/"+selected_file, File.READ)
-	main.song = file.get_var()
+	load_song(main.user_dir+"Projects/"+selected_file)
 	
+	
+
+func load_song(_path, _song = null):
+	if _song:
+		main.song = _song
+	else:
+		var file = File.new()
+		file.open(_path, File.READ)
+		main.song = file.get_var()
 	
 	# Add remaining columns
 	var column_index = main.column_index
@@ -86,13 +97,25 @@ func _on_OkButton_pressed():
 	
 	
 func _on_LoadDialog_about_to_show():
+	# Check for permissions
+	OS.request_permissions()
+	yield(get_tree(), "idle_frame")
+	if OS.get_granted_permissions().empty() && OS.get_name() == "Android":
+		hide()
+	
 	$VBoxContainer/HBoxContainer/OkButton.disabled = true
+	if list_files_in_directory(main.user_dir+"Projects/").empty():
+		$VBoxContainer/ScrollContainer/VBoxContainer/NoProjectsLabel.show()
+	else:
+		$VBoxContainer/ScrollContainer/VBoxContainer/NoProjectsLabel.hide()
+	$VBoxContainer/ScrollContainer/VBoxContainer/NoProjectsLabel.theme = load("res://assets/themes/%s/theme2.tres" % GlobalVariables.options.theme)
+	
 	for i in list_files_in_directory(main.user_dir+"Projects/"):
 		var button = Button.new()
 		
 		button.text = i
 		button.align = Button.ALIGN_LEFT
-		button.theme = preload("res://assets/theme 2.tres")
+		button.theme = load("res://assets/themes/%s/theme2.tres" % GlobalVariables.options.theme)
 		button.focus_mode = Control.FOCUS_NONE
 		button.mouse_filter = Button.MOUSE_FILTER_PASS
 		button.toggle_mode = true
@@ -101,6 +124,7 @@ func _on_LoadDialog_about_to_show():
 		main.get_node("LoadDialog/VBoxContainer/ScrollContainer/VBoxContainer").add_child(button)
 		
 	$AnimationPlayer.play("fade_in")
+
 
 func list_files_in_directory(path):
 	var files = []
@@ -140,7 +164,8 @@ func _on_LoadDialog_popup_hide():
 	yield(get_tree().create_timer(0.1), "timeout")
 	
 	for i in $VBoxContainer/ScrollContainer/VBoxContainer.get_children():
-		i.queue_free()
+		if i is Button:
+			i.queue_free()
 	
 	visible = false
 

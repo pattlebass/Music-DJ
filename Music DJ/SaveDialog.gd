@@ -8,7 +8,10 @@ var effect = AudioServer.get_bus_effect(0, 0)
 var is_cancelled = false
 
 var once = false
-var path
+
+
+func _ready():
+	theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
 
 
 func _on_OkButton_pressed():
@@ -53,12 +56,19 @@ func _on_CancelButton_pressed():
 
 
 func _on_SaveDialog_about_to_show():
+	# Check for permissions
+	OS.request_permissions()
+	yield(get_tree(), "idle_frame")
+	if OS.get_granted_permissions().empty() && OS.get_name() == "Android":
+		hide()
+	
 	$VBoxContainer/VBoxContainer/Label.text = title
 	$VBoxContainer/HBoxContainer/OkButton.disabled = true
 	OS.show_virtual_keyboard("")
 	rect_position.x = get_viewport().get_visible_rect().size.x/2 - 200
 	
 	$AnimationPlayer.play("fade_in")
+
 
 func _on_SaveDialog_popup_hide():
 	visible = true

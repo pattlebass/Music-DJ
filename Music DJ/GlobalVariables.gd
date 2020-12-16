@@ -5,12 +5,17 @@ var options
 var file = File.new()
 var current_tutorial_version = 1
 var default_options = {"show_tutorial":true, "last_tutorial_version":current_tutorial_version, "theme":"dark"}
+var theme = "dark"
+var themes = ["dark", "white", "classic1", "classic2"]
+var last_song
+
 
 func _ready():
 	# Options
 	if file.file_exists("user://options.txt"):
 		file.open("user://options.txt", File.READ)
 		options = file.get_var()
+		file.close()
 		
 		# Show tutorial if outdated
 		# This part is very messy
@@ -30,3 +35,4 @@ func _ready():
 func save_options():
 	file.open("user://options.txt", File.WRITE)
 	file.store_var(options)
+	file.close()

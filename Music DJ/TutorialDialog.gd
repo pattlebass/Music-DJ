@@ -10,6 +10,7 @@ onready var video_player = $VBoxContainer/HBoxContainer2/VBoxContainer2/VideoPla
 
 
 func _ready():
+	theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
 	if GlobalVariables.options["show_tutorial"]:
 		call_deferred("popup_centered")
 
@@ -41,13 +42,12 @@ func change_panel(_panel_no):
 	var panel = panels[_panel_no]
 	video_player.stream = load(panel["video"])
 	video_player.play()
-	print(video_player)
 	$VBoxContainer/Label2.text = panel["title"]
 	$VBoxContainer/Label3.text = str(panel["index"]+1)+"/"+str(panels.size())
 	$AnimationPlayer.play("fade_in_image")
 	
 	var previous_button = $VBoxContainer/HBoxContainer2/VBoxContainer/PreviousButton
-	var next_button = $VBoxContainer/HBoxContainer2/VBoxContainer3/NextButton
+	#var next_button = $VBoxContainer/HBoxContainer2/VBoxContainer3/NextButton
 	if _panel_no == 0:
 		previous_button.disabled = true
 	else:

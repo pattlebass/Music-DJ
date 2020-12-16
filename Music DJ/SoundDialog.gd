@@ -20,6 +20,9 @@ func _ready():
 	var colors = GlobalVariables.colors
 	var button_index = -1
 	
+	theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
+	$BgPanel.theme = load("res://assets/themes/%s/theme2.tres" % GlobalVariables.options.theme)
+	
 	for i in 4:
 		var scroll_container = $VBoxContainer/ScrollContainer/VBoxContainer
 		
@@ -30,11 +33,12 @@ func _ready():
 		
 		var label = Label.new()
 		label.text = category[i]
-		label.theme = preload("res://assets/theme 2.tres")
+		label.theme = load("res://assets/themes/%s/theme2.tres" % GlobalVariables.options.theme)
 		scroll_container.add_child(label)
 		
 		var separator2 = HSeparator.new()
-		separator2.theme = preload("res://assets/theme 2.tres")
+		var theme2_path = "res://assets/themes/%s/theme2.tres" % GlobalVariables.options.theme
+		separator2.theme = load(theme2_path)
 		scroll_container.add_child(separator2)
 		
 		# Icon
@@ -55,17 +59,17 @@ func _ready():
 		# Buttons
 		for g in 8:
 			button_index += 1
-			var button = Button.new()
-			button.text = " "+text[g]
-			button.theme = preload("res://assets/theme 2.tres")
-			button.icon = texture
-			button.align = Button.ALIGN_LEFT
-			button.mouse_filter = Button.MOUSE_FILTER_PASS
-			button.connect("pressed", self, "on_Button_selected", [button_index, g])
-			button.name = str(button_index)
-			button.focus_mode = Control.FOCUS_NONE
-			button.toggle_mode = true
-			scroll_container.add_child(button)
+			var button_in_list = Button.new()
+			button_in_list.text = " "+text[g]
+			button_in_list.theme = load("res://assets/themes/%s/theme2.tres" % GlobalVariables.options.theme)
+			button_in_list.icon = texture
+			button_in_list.align = Button.ALIGN_LEFT
+			button_in_list.mouse_filter = Button.MOUSE_FILTER_PASS
+			button_in_list.connect("pressed", self, "on_Button_selected", [button_index, g])
+			button_in_list.name = str(button_index)
+			button_in_list.focus_mode = Control.FOCUS_NONE
+			button_in_list.toggle_mode = true
+			scroll_container.add_child(button_in_list)
 			
 
 func _on_SoundDialog_about_to_show():

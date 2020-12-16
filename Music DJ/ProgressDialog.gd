@@ -6,6 +6,11 @@ onready var progress_bar = get_node("VBoxContainer/HBoxContainer2/VBoxContainer/
 var path_text = ""
 var after_saving = "stay"
 
+
+func _ready():
+	theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
+
+
 func _on_ProgressDialog_about_to_show():
 	set_process(true)
 	$VBoxContainer/HBoxContainer/OpenButton.disabled = true
@@ -37,7 +42,6 @@ func _on_CancelButton_pressed():
 
 
 func _process(delta):
-	print(progress_bar.value)
 	if progress_bar.value >= progress_bar.max_value:
 		$VBoxContainer/HBoxContainer/OpenButton.disabled = false
 		$VBoxContainer/Label.text = "Saved"

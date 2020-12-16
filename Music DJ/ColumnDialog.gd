@@ -6,6 +6,10 @@ var column
 var column_no
 
 
+func _ready():
+	theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
+
+
 func _on_ColumnDialog_about_to_show():
 	# Set title
 	var title = "Column " + str(column_no+1)

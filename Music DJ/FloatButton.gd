@@ -7,7 +7,7 @@ var column_no
 var pos_y
 
 func _input(event):
-	if event is InputEventScreenDrag or event is InputEventMouseMotion:
+	if event is InputEventScreenDrag or event is InputEventPanGesture or event is InputEventMouseMotion:
 		global_position = get_global_mouse_position()
 	else:
 		if $Area2D.get_overlapping_areas():
@@ -19,6 +19,7 @@ func _input(event):
 				return
 			
 			collided_button.text = copied_button.text
+			collided_button.theme = copied_button.theme
 			
 			# Styles
 			var style_box = copied_button.get("custom_styles/normal")

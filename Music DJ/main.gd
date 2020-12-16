@@ -19,6 +19,7 @@ func _ready():
 	for i in column_index:
 		var column = column_scene.instance()
 		column.get_node("Label").text = str(i + 1)
+		column.theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
 		get_node("HBoxContainer/StepContainer/HBoxContainer").add_child(column)
 		
 		# Signals
@@ -26,6 +27,7 @@ func _ready():
 			var button = column.get_node("Button"+str(b+1))
 			button.connect("pressed", self, "on_Tile_pressed", [i, b])
 			button.connect("button_down", self, "on_Tile_held", [i, b, column.get_node("Button"+str(b+1))])
+			button.theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
 		column.get_node("Label").connect("pressed", self, "on_Column_Button_pressed", [i, column])
 		
 		# Add to song
@@ -55,8 +57,16 @@ func _ready():
 		dir.make_dir("Exports")
 		dir.make_dir("Projects")
 		user_dir = "user://saves/"
-
-
+	
+	if GlobalVariables.last_song:
+		$LoadDialog.load_song(null, GlobalVariables.last_song)
+		GlobalVariables.last_song = null
+	$BgPanel.theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
+	for i in $HBoxContainer2.get_children():
+		i.theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
+	
+	
+	
 func play_song():
 	is_playing = true
 	yield(get_tree(), "idle_frame")
@@ -241,3 +251,7 @@ func _process(delta):
 			$HBoxContainer2/Export.disabled = true
 		else:
 			$HBoxContainer2/Export.disabled = false
+
+
+func _on_Settings_pressed():
+	$SettingsDialog.popup_centered()
