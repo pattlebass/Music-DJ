@@ -13,3 +13,6 @@ data_*/
 *.apk
 *.exe
 *.TMP
+
+# Other
+bin/

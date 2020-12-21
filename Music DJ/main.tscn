@@ -198,36 +198,35 @@ text = "Play"
 
 [node name="Container" type="Container" parent="HBoxContainer2"]
 margin_left = 130.0
-margin_right = 484.0
+margin_right = 304.0
 margin_bottom = 60.0
 size_flags_horizontal = 3
 
 [node name="Export" type="Button" parent="HBoxContainer2"]
-margin_left = 514.0
-margin_right = 614.0
+margin_left = 334.0
+margin_right = 434.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 100, 0 )
 theme = ExtResource( 7 )
 text = "Export"
 
 [node name="SaveProject" type="Button" parent="HBoxContainer2"]
-margin_left = 644.0
-margin_right = 794.0
+margin_left = 464.0
+margin_right = 614.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 150, 0 )
 theme = ExtResource( 7 )
 text = "Save Project"
 
 [node name="OpenProject" type="Button" parent="HBoxContainer2"]
-margin_left = 824.0
-margin_right = 974.0
+margin_left = 644.0
+margin_right = 794.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 150, 0 )
 theme = ExtResource( 7 )
 text = "Open Project"
 
 [node name="Settings" type="Button" parent="HBoxContainer2"]
-visible = false
 margin_left = 824.0
 margin_right = 974.0
 margin_bottom = 60.0
