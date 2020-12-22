@@ -679,6 +679,7 @@ text = "Cancel"
 anims/fade_in = SubResource( 7 )
 
 [node name="LoadDialog" type="PopupDialog" parent="."]
+visible = true
 anchor_right = 0.373
 anchor_bottom = 0.865
 margin_right = 0.0479736

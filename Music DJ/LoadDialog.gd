@@ -2,6 +2,7 @@ extends PopupDialog
 
 onready var main = get_parent()
 var selected_file = ""
+var button_scene = preload("res://LoadButton.tscn")
 
 
 func _ready():
@@ -111,17 +112,24 @@ func _on_LoadDialog_about_to_show():
 	$VBoxContainer/ScrollContainer/VBoxContainer/NoProjectsLabel.theme = load("res://assets/themes/%s/theme2.tres" % GlobalVariables.options.theme)
 	
 	for i in list_files_in_directory(main.user_dir+"Projects/"):
-		var button = Button.new()
+		var button_container = button_scene.instance()
+		var load_button = button_container.get_node("LoadButton")
+		var delete_button = button_container.get_node("DeleteButton")
+		var download_button = button_container.get_node("DownloadButton")
 		
-		button.text = i
-		button.align = Button.ALIGN_LEFT
-		button.theme = load("res://assets/themes/%s/theme2.tres" % GlobalVariables.options.theme)
-		button.focus_mode = Control.FOCUS_NONE
-		button.mouse_filter = Button.MOUSE_FILTER_PASS
-		button.toggle_mode = true
-		button.connect("pressed", self, "on_Button_selected", [i])
+		button_container.theme = load("res://assets/themes/%s/theme2.tres" % GlobalVariables.options.theme)
 		
-		main.get_node("LoadDialog/VBoxContainer/ScrollContainer/VBoxContainer").add_child(button)
+		load_button.text = i
+		load_button.connect("pressed", self, "on_Button_selected", [i])
+		
+		delete_button.connect("pressed", self, "on_Button_deleted", [button_container])
+		
+		if OS.get_name() == "HTML5":
+			download_button.connect("pressed", self, "on_Button_download", [button_container])
+		else:
+			download_button.hide()
+		
+		$VBoxContainer/ScrollContainer/VBoxContainer.add_child(button_container)
 		
 	$AnimationPlayer.play("fade_in")
 
@@ -143,18 +151,21 @@ func list_files_in_directory(path):
 
 	return files
 
+
 func on_Button_selected(_path):
 	if _path == selected_file:
 		for i in $VBoxContainer/ScrollContainer/VBoxContainer.get_children():
-			if i.text == _path:
-				i.pressed = true
+			for x in i.get_children():
+				if x is Button and x.text == _path:
+					x.pressed = true
 	
 	selected_file = _path
 	$VBoxContainer/HBoxContainer/OkButton.disabled = false
 	
 	for i in $VBoxContainer/ScrollContainer/VBoxContainer.get_children():
-		if i.text != _path:
-			i.pressed = false
+		for x in i.get_children():
+			if x is Button and x.text != _path:
+				x.pressed = false
 
 
 func _on_LoadDialog_popup_hide():
@@ -164,7 +175,7 @@ func _on_LoadDialog_popup_hide():
 	yield(get_tree().create_timer(0.1), "timeout")
 	
 	for i in $VBoxContainer/ScrollContainer/VBoxContainer.get_children():
-		if i is Button:
+		if i is HBoxContainer:
 			i.queue_free()
 	
 	visible = false
@@ -179,3 +190,15 @@ func _on_OpenButton_pressed():
 		OS.alert(ProjectSettings.globalize_path(main.user_dir), "Folder location")
 	else:
 		OS.shell_open(ProjectSettings.globalize_path(main.user_dir))
+
+
+func on_Button_deleted(_container):
+	var dir = Directory.new()
+	var _path = _container.get_child(0).text
+	
+	dir.remove(main.user_dir+"Projects/"+_path)
+	_container.queue_free()
+
+
+func on_Button_download(_container):
+	pass
