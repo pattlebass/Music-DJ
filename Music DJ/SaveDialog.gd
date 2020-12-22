@@ -22,6 +22,7 @@ func _on_OkButton_pressed():
 		var file = File.new()
 		file.open(path, File.WRITE)
 		file.store_var(main.song)
+		file.close()
 		
 		# ProgressDialog
 		main.get_node("ProgressDialog").path_text = path
@@ -94,3 +95,23 @@ func _process(delta):
 		rect_position.y = get_viewport().get_visible_rect().size.y/2 - 100
 	else:
 		rect_position.y = get_viewport().get_visible_rect().size.y/2 - 100 - OS.get_virtual_keyboard_height()/4
+
+
+
+func download_file(_filename, _file_data):
+	JavaScript.eval("""
+	function download(filename, text) {
+  var element = document.createElement('a');
+  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+  element.setAttribute('download', filename);
+
+  element.style.display = 'none';
+  document.body.appendChild(element);
+
+  element.click();
+
+  document.body.removeChild(element);
+}
+	download('%s','%s');
+	console.log('hahaha')
+	""" %[_filename, _file_data])

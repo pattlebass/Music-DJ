@@ -12,7 +12,6 @@ func _ready():
 func _on_OkButton_pressed():
 	load_song(main.user_dir+"Projects/"+selected_file)
 	
-	
 
 func load_song(_path, _song = null):
 	if _song:
@@ -20,7 +19,18 @@ func load_song(_path, _song = null):
 	else:
 		var file = File.new()
 		file.open(_path, File.READ)
-		main.song = file.get_var()
+		if _path.ends_with(".mdj"):
+			main.song = file.get_var()
+			file.close()
+		else:
+			main.song = str2var(file.get_as_text())
+			file.close()
+			var dir = Directory.new()
+			dir.remove(_path)
+			_path.erase(_path.length()-1, 1)
+			file.open(_path, File.WRITE)
+			file.store_var(main.song)
+			file.close()
 	
 	# Add remaining columns
 	var column_index = main.column_index
@@ -144,7 +154,7 @@ func list_files_in_directory(path):
 		var file = dir.get_next()
 		if file == "":
 			break
-		elif not file.begins_with(".") and file.ends_with(".mdj"):
+		elif not file.begins_with(".") and (file.ends_with(".mdj") or file.ends_with(".mdjt")):
 			files.append(file)
 
 	dir.list_dir_end()
@@ -201,4 +211,10 @@ func on_Button_deleted(_container):
 
 
 func on_Button_download(_container):
-	pass
+	var filename = _container.get_child(0).text
+	var file = File.new()
+	file.open(main.user_dir+"Projects/"+filename, File.READ)
+	var file_data_string = var2str(file.get_var())
+	file.close()
+	main.get_node("SaveDialog").download_file(filename+"t", file_data_string)
+

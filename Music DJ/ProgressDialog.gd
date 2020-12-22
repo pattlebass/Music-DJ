@@ -15,12 +15,15 @@ func _on_ProgressDialog_about_to_show():
 	set_process(true)
 	$VBoxContainer/HBoxContainer/OpenButton.disabled = true
 	$VBoxContainer/Label.text = "Saving..."
+	$VBoxContainer/Label2.text = ProjectSettings.globalize_path(path_text)
 	progress_bar.visible = true
 	if OS.get_name() == "Android":
 		$VBoxContainer/HBoxContainer/OpenButton.visible = false
 		after_saving = "close"
-	$VBoxContainer/Label2.text = ProjectSettings.globalize_path(path_text)
-	#$VBoxContainer/Label2.text = path_text.replace("user://", "%APPDATA%/Godot/app_userdata/Music DJ/saves/Exports/")
+	elif OS.get_name() == "HTML5":
+		$VBoxContainer/HBoxContainer/OpenButton.visible = false
+		after_saving = "stay"
+		$VBoxContainer/Label2.text = "You can find it in the list or you can download it."
 	$AnimationPlayer.play("fade_in")
 
 
