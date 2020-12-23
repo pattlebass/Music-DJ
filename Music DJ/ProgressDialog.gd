@@ -66,3 +66,8 @@ func _on_OpenButton_pressed():
 		OS.alert(ProjectSettings.globalize_path(main.user_dir), "Folder location")
 	else:
 		OS.shell_open(ProjectSettings.globalize_path(main.user_dir))
+
+
+func _on_DownloadButton_pressed():
+	var new_path = path_text.split("/")[-1]
+	main.get_node("SaveDialog").download_file(new_path, "")

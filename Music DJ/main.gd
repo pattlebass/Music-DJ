@@ -15,6 +15,8 @@ var is_playing = false
 
 
 func _ready():
+	get_tree().connect("files_dropped", self, "_files_dropped")
+	
 	var column_scene = preload("res://Column.tscn")
 	for i in column_index:
 		var column = column_scene.instance()
@@ -58,12 +60,17 @@ func _ready():
 		dir.make_dir("Projects")
 		user_dir = "user://saves/"
 	
+	if OS.get_name() == "HTML5":
+		$HBoxContainer2/Export.hide()
+	
 	if GlobalVariables.last_song:
 		$LoadDialog.load_song(null, GlobalVariables.last_song)
 		GlobalVariables.last_song = null
 	$BgPanel.theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
 	for i in $HBoxContainer2.get_children():
 		i.theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
+	
+	
 	
 	
 	
@@ -255,3 +262,19 @@ func _process(delta):
 
 func _on_Settings_pressed():
 	$SettingsDialog.popup_centered()
+
+func _files_dropped(_files, _screen):
+	var dir = Directory.new()
+	
+	for i in _files:
+		if i.ends_with(".mdj") or i.ends_with(".mdjt"):
+			var new_path = i.split("\\")[-1]
+			
+			if dir.file_exists(user_dir+"Projects/"+new_path):
+				$ConfirmationDialog.alert("Are you sure?","A file will be overwritten (%s)" %new_path)
+				yield($ConfirmationDialog, "chose")
+				if $ConfirmationDialog.choice:
+					dir.copy(i, user_dir+"Projects/"+new_path)
+			else:
+				dir.copy(i, user_dir+"Projects/"+new_path)
+	$LoadDialog.popup_centered()

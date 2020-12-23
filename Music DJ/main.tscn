@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://assets/trumpet.png" type="Texture" id=2]
@@ -16,6 +16,28 @@
 [ext_resource path="res://SettingsDialog.gd" type="Script" id=14]
 [ext_resource path="res://assets/column_tear.png" type="Texture" id=15]
 [ext_resource path="res://assets/themes/dark/theme2.tres" type="Theme" id=16]
+[ext_resource path="res://ConfirmationDialog.gd" type="Script" id=17]
+
+[sub_resource type="StyleBoxEmpty" id=17]
+
+[sub_resource type="DynamicFont" id=6]
+size = 20
+font_data = ExtResource( 8 )
+
+[sub_resource type="Animation" id=18]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
 
 [sub_resource type="Animation" id=1]
 length = 0.1
@@ -69,10 +91,6 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
-
-[sub_resource type="DynamicFont" id=6]
-size = 20
-font_data = ExtResource( 8 )
 
 [sub_resource type="Animation" id=7]
 length = 0.1
@@ -339,6 +357,77 @@ rect_min_size = Vector2( 60, 60 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
 text = "+"
+
+[node name="ConfirmationDialog" type="PopupDialog" parent="."]
+margin_right = 436.0
+margin_bottom = 201.0
+theme = ExtResource( 7 )
+popup_exclusive = true
+script = ExtResource( 17 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ConfirmationDialog"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="ConfirmationDialog/VBoxContainer"]
+margin_right = 436.0
+margin_bottom = 59.0
+text = "Are you sure?"
+
+[node name="HSeparator2" type="HSeparator" parent="ConfirmationDialog/VBoxContainer"]
+margin_top = 63.0
+margin_right = 436.0
+margin_bottom = 88.0
+size_flags_vertical = 3
+custom_styles/separator = SubResource( 17 )
+
+[node name="Subtitle" type="Label" parent="ConfirmationDialog/VBoxContainer"]
+margin_top = 92.0
+margin_right = 436.0
+margin_bottom = 117.0
+custom_fonts/font = SubResource( 6 )
+text = "Do you want to overwrite the files?"
+autowrap = true
+
+[node name="HSeparator" type="HSeparator" parent="ConfirmationDialog/VBoxContainer"]
+margin_top = 121.0
+margin_right = 436.0
+margin_bottom = 146.0
+size_flags_vertical = 3
+custom_styles/separator = SubResource( 17 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ConfirmationDialog/VBoxContainer"]
+margin_top = 150.0
+margin_right = 436.0
+margin_bottom = 200.0
+size_flags_vertical = 3
+custom_constants/separation = 20
+alignment = 2
+
+[node name="OKButton" type="Button" parent="ConfirmationDialog/VBoxContainer/HBoxContainer"]
+margin_left = 216.0
+margin_right = 316.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 100, 50 )
+toggle_mode = true
+text = "Yes"
+
+[node name="CancelButton" type="Button" parent="ConfirmationDialog/VBoxContainer/HBoxContainer"]
+margin_left = 336.0
+margin_right = 436.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 100, 50 )
+toggle_mode = true
+text = "Cancel"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ConfirmationDialog"]
+anims/fade_in = SubResource( 18 )
 
 [node name="SoundDialog" type="PopupDialog" parent="."]
 margin_left = 250.0
@@ -668,6 +757,14 @@ rect_min_size = Vector2( 100, 50 )
 disabled = true
 text = "  Open Folder  "
 
+[node name="DownloadButton" type="Button" parent="ProgressDialog/VBoxContainer/HBoxContainer"]
+visible = false
+margin_left = 336.0
+margin_right = 436.0
+margin_bottom = 53.0
+rect_min_size = Vector2( 100, 50 )
+text = "Cancel"
+
 [node name="CancelButton" type="Button" parent="ProgressDialog/VBoxContainer/HBoxContainer"]
 margin_left = 336.0
 margin_right = 436.0
@@ -955,6 +1052,10 @@ text = "Close"
 [connection signal="pressed" from="HBoxContainer2/OpenProject" to="." method="_on_OpenProject_pressed"]
 [connection signal="pressed" from="HBoxContainer2/Settings" to="." method="_on_Settings_pressed"]
 [connection signal="pressed" from="HBoxContainer/StepContainer/HBoxContainer/VBoxContainer/AddButton" to="." method="_on_AddButton_pressed"]
+[connection signal="about_to_show" from="ConfirmationDialog" to="ConfirmationDialog" method="_on_ConfirmationDialog_about_to_show"]
+[connection signal="popup_hide" from="ConfirmationDialog" to="ConfirmationDialog" method="_on_ConfirmationDialog_popup_hide"]
+[connection signal="pressed" from="ConfirmationDialog/VBoxContainer/HBoxContainer/OKButton" to="ConfirmationDialog" method="_on_OKButton_pressed"]
+[connection signal="pressed" from="ConfirmationDialog/VBoxContainer/HBoxContainer/CancelButton" to="ConfirmationDialog" method="_on_CancelButton_pressed"]
 [connection signal="about_to_show" from="SoundDialog" to="SoundDialog" method="_on_SoundDialog_about_to_show"]
 [connection signal="popup_hide" from="SoundDialog" to="SoundDialog" method="_on_SoundDialog_popup_hide"]
 [connection signal="pressed" from="SoundDialog/VBoxContainer/HBoxContainer/OkButton" to="SoundDialog" method="_on_OkButton_pressed"]
@@ -974,6 +1075,7 @@ text = "Close"
 [connection signal="about_to_show" from="ProgressDialog" to="ProgressDialog" method="_on_ProgressDialog_about_to_show"]
 [connection signal="popup_hide" from="ProgressDialog" to="ProgressDialog" method="_on_ProgressDialog_popup_hide"]
 [connection signal="pressed" from="ProgressDialog/VBoxContainer/HBoxContainer/OpenButton" to="ProgressDialog" method="_on_OpenButton_pressed"]
+[connection signal="pressed" from="ProgressDialog/VBoxContainer/HBoxContainer/DownloadButton" to="ProgressDialog" method="_on_DownloadButton_pressed"]
 [connection signal="pressed" from="ProgressDialog/VBoxContainer/HBoxContainer/CancelButton" to="ProgressDialog" method="_on_CancelButton_pressed"]
 [connection signal="about_to_show" from="LoadDialog" to="LoadDialog" method="_on_LoadDialog_about_to_show"]
 [connection signal="popup_hide" from="LoadDialog" to="LoadDialog" method="_on_LoadDialog_popup_hide"]

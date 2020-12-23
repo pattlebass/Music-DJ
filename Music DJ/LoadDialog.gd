@@ -113,6 +113,8 @@ func _on_LoadDialog_about_to_show():
 	yield(get_tree(), "idle_frame")
 	if OS.get_granted_permissions().empty() && OS.get_name() == "Android":
 		hide()
+	if OS.get_name() == "HTML5":
+		$VBoxContainer/HBoxContainer/OpenButton.hide()
 	
 	$VBoxContainer/HBoxContainer/OkButton.disabled = true
 	if list_files_in_directory(main.user_dir+"Projects/").empty():
@@ -191,7 +193,6 @@ func _on_LoadDialog_popup_hide():
 	visible = false
 
 func _on_CancelButton_pressed():
-
 	hide()
 
 
@@ -205,9 +206,13 @@ func _on_OpenButton_pressed():
 func on_Button_deleted(_container):
 	var dir = Directory.new()
 	var _path = _container.get_child(0).text
+	var con_dialog = main.get_node("ConfirmationDialog")
 	
-	dir.remove(main.user_dir+"Projects/"+_path)
-	_container.queue_free()
+	con_dialog.alert("Are you sure?","A file will be deleted (%s)" %_path)
+	yield(con_dialog, "chose")
+	if con_dialog.choice:
+		dir.remove(main.user_dir+"Projects/"+_path)
+		_container.queue_free()
 
 
 func on_Button_download(_container):

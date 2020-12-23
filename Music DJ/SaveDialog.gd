@@ -113,5 +113,4 @@ func download_file(_filename, _file_data):
   document.body.removeChild(element);
 }
 	download('%s','%s');
-	console.log('hahaha')
 	""" %[_filename, _file_data])
