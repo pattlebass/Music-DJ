@@ -19,11 +19,13 @@ func _on_ProgressDialog_about_to_show():
 	progress_bar.visible = true
 	if OS.get_name() == "Android":
 		$VBoxContainer/HBoxContainer/OpenButton.visible = false
+		$VBoxContainer/HBoxContainer/DownloadButton.visible = false
 		after_saving = "close"
 	elif OS.get_name() == "HTML5":
 		$VBoxContainer/HBoxContainer/OpenButton.visible = false
+		$VBoxContainer/HBoxContainer/DownloadButton.visible = true
 		after_saving = "stay"
-		$VBoxContainer/Label2.text = "You can find it in the list or you can download it."
+		$VBoxContainer/Label2.text = "You can find it in the project list or you can download it."
 	$AnimationPlayer.play("fade_in")
 
 
@@ -40,7 +42,6 @@ func _on_ProgressDialog_popup_hide():
 
 func _on_CancelButton_pressed():
 	hide()
-	main.can_play = false
 	main.get_node("SaveDialog").is_cancelled = true
 
 
@@ -58,7 +59,6 @@ func _process(delta):
 		set_process(false)
 	else:
 		progress_bar.value += delta
-		
 
 
 func _on_OpenButton_pressed():
@@ -70,4 +70,8 @@ func _on_OpenButton_pressed():
 
 func _on_DownloadButton_pressed():
 	var new_path = path_text.split("/")[-1]
-	main.get_node("SaveDialog").download_file(new_path, "")
+	var file = File.new()
+	file.open(main.user_dir+"Projects/"+new_path, File.READ)
+	var file_data_string = var2str(file.get_var())
+	file.close()
+	main.get_node("SaveDialog").download_file(new_path+"t", file_data_string)

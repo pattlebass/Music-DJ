@@ -1,7 +1,6 @@
 extends Control
 
 var song = [[], [], [], []]
-var can_play = true
 var last_columns = [-1]
 var column_index = 15
 var user_dir = ""
@@ -79,14 +78,13 @@ func play_song():
 	yield(get_tree(), "idle_frame")
 	$SoundDialog/AudioStreamPlayer.stop()
 	for i in column_index:
+		if not is_playing:
+			return
 		play_column(i, false)
 		yield(get_tree().create_timer(3), "timeout")
-		var column = get_node("HBoxContainer/StepContainer/HBoxContainer").get_child(i)
-		column.get_node("Label").add_color_override("font_color", Color(1,1,1))
 	
 		if i >= last_columns.back():
 			$HBoxContainer2/Play.pressed = false
-			can_play = true
 			is_playing = false
 			return
 		
@@ -98,9 +96,6 @@ func play_column(_column_no, _single):
 		$HBoxContainer2/Play.pressed = false
 		return
 	
-	if not can_play:
-		return
-	
 	# Visuals
 	var column = get_node("HBoxContainer/StepContainer/HBoxContainer").get_child(_column_no)
 	column.get_node("Label").add_color_override("font_color", Color(1,0,0))
@@ -109,9 +104,7 @@ func play_column(_column_no, _single):
 	for a in 4:
 		if song[a][_column_no] == 0:
 			continue
-		#if not can_play:
-		#	return
-			
+
 		var audio_player = $AudioPlayers.get_child(a)
 		var sound = song[a][_column_no]
 		audio_player.stream = load("res://sounds/"+str(a)+"/"+str(sound)+".wav")
@@ -121,11 +114,15 @@ func play_column(_column_no, _single):
 	column.get_node("Label").add_color_override("font_color", Color(1,1,1))
 		
 	if _single:
-		can_play = true
 		is_playing = false
-		
+
+	if not is_playing:
+		return
+	
 		
 func on_Tile_pressed(_column_no, _instrument):
+	if is_playing:
+		return
 	$SoundDialog.instrument_index = _instrument
 	$SoundDialog.column_no = _column_no
 	$SoundDialog.popup_centered(Vector2(500, 550))
@@ -133,6 +130,8 @@ func on_Tile_pressed(_column_no, _instrument):
 
 func on_Tile_held(_column_no, _instrument, _button):
 	# Needs cleanup
+	if is_playing:
+		return
 	yield(get_tree().create_timer(0.5), "timeout")
 	if _button.pressed and _button.text != "":
 		_button.disabled = true
@@ -189,11 +188,10 @@ func on_Column_Button_pressed(_column_no, _column):
 
 func _on_Play_toggled(button_pressed):
 	if button_pressed:
-		can_play = true
 		play_song()
 		$HBoxContainer2/Play.text = "Stop"
 	else:
-		can_play = false
+		is_playing = false
 		$HBoxContainer2/Play.text = "Play"
 		
 		yield(get_tree(), "idle_frame")
@@ -265,16 +263,20 @@ func _on_Settings_pressed():
 
 func _files_dropped(_files, _screen):
 	var dir = Directory.new()
+	var dialog_scene = preload("res://ConfirmationDialog.tscn")
 	
 	for i in _files:
 		if i.ends_with(".mdj") or i.ends_with(".mdjt"):
-			var new_path = i.split("\\")[-1]
+			var filename = i.split("\\")[-1]
 			
-			if dir.file_exists(user_dir+"Projects/"+new_path):
-				$ConfirmationDialog.alert("Are you sure?","A file will be overwritten (%s)" %new_path)
-				yield($ConfirmationDialog, "chose")
-				if $ConfirmationDialog.choice:
-					dir.copy(i, user_dir+"Projects/"+new_path)
+			if dir.file_exists(user_dir+"Projects/"+filename):
+				var dialog = dialog_scene.instance()
+				add_child(dialog)
+				dialog.alert("Are you sure?","A file will be overwritten (%s)" %filename)
+				var choice = yield(dialog, "chose")
+				if choice == true:
+					dir.copy(i, user_dir+"Projects/"+filename)
 			else:
-				dir.copy(i, user_dir+"Projects/"+new_path)
+				dir.copy(i, user_dir+"Projects/"+filename)
 	$LoadDialog.popup_centered()
+	

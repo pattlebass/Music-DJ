@@ -37,6 +37,11 @@
             android:name="xr_mode_metadata_name"
             android:value="xr_mode_metadata_value" />
 
+        <!-- Metadata populated at export time and used by Godot to figure out which plugins must be enabled. -->
+        <meta-data
+            android:name="plugins"
+            android:value="plugins_value"/>
+
         <activity
             android:name=".GodotApp"
             android:label="@string/godot_project_name_string"
@@ -46,6 +51,9 @@
             android:configChanges="orientation|keyboardHidden|screenSize|smallestScreenSize|density|keyboard|navigation|screenLayout|uiMode"
             android:resizeableActivity="false"
             tools:ignore="UnusedAttribute" >
+
+            <!-- Focus awareness metadata is updated at export time if the user enables it in the 'Xr Features' section. -->
+            <meta-data android:name="com.oculus.vr.focusaware" android:value="false" />
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

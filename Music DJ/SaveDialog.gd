@@ -3,6 +3,7 @@ extends PopupDialog
 onready var main = get_parent()
 var title = "Title"
 var entered_name = "Song"
+var last_name
 var type_of_save = "project"
 var effect = AudioServer.get_bus_effect(0, 0)
 var is_cancelled = false
@@ -13,9 +14,7 @@ var once = false
 func _ready():
 	theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
 
-
-func _on_OkButton_pressed():
-	hide()
+func save():
 	if type_of_save == "project":
 		# Project save
 		var path = main.user_dir+"Projects/"+entered_name+".mdj"
@@ -30,6 +29,7 @@ func _on_OkButton_pressed():
 		main.get_node("ProgressDialog").progress_bar.max_value = 0.2
 		main.get_node("ProgressDialog").popup_centered()
 		
+		last_name = entered_name
 	else:
 		main.get_node("SoundDialog/AudioStreamPlayer").stop()
 		
@@ -52,7 +52,17 @@ func _on_OkButton_pressed():
 		
 		is_cancelled = false
 
+func _on_OkButton_pressed():
+	save()
+	hide()
+
 func _on_CancelButton_pressed():
+	hide()
+
+
+func _on_OverwriteButton_pressed():
+	entered_name = last_name
+	save()
 	hide()
 
 
@@ -65,6 +75,8 @@ func _on_SaveDialog_about_to_show():
 	
 	$VBoxContainer/VBoxContainer/Label.text = title
 	$VBoxContainer/HBoxContainer/OkButton.disabled = true
+	if last_name:
+		$VBoxContainer/HBoxContainer/OverwriteButton.show()
 	OS.show_virtual_keyboard("")
 	rect_position.x = get_viewport().get_visible_rect().size.x/2 - 200
 	
@@ -114,3 +126,4 @@ func download_file(_filename, _file_data):
 }
 	download('%s','%s');
 	""" %[_filename, _file_data])
+

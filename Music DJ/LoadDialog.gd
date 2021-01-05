@@ -206,11 +206,12 @@ func _on_OpenButton_pressed():
 func on_Button_deleted(_container):
 	var dir = Directory.new()
 	var _path = _container.get_child(0).text
-	var con_dialog = main.get_node("ConfirmationDialog")
+	var dialog = preload("res://ConfirmationDialog.tscn").instance()
 	
-	con_dialog.alert("Are you sure?","A file will be deleted (%s)" %_path)
-	yield(con_dialog, "chose")
-	if con_dialog.choice:
+	main.add_child(dialog)
+	dialog.alert("Are you sure?","A file will be deleted (%s)" %_path)
+	var choice = yield(dialog, "chose")
+	if choice:
 		dir.remove(main.user_dir+"Projects/"+_path)
 		_container.queue_free()
 

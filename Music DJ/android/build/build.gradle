@@ -15,6 +15,7 @@ buildscript {
     }
     dependencies {
         classpath libraries.androidGradlePlugin
+        classpath libraries.kotlinGradlePlugin
 //CHUNK_BUILDSCRIPT_DEPENDENCIES_BEGIN
 //CHUNK_BUILDSCRIPT_DEPENDENCIES_END
     }
@@ -29,20 +30,49 @@ allprojects {
         jcenter()
 //CHUNK_ALLPROJECTS_REPOSITORIES_BEGIN
 //CHUNK_ALLPROJECTS_REPOSITORIES_END
+
+        // Godot user plugins custom maven repos
+        String[] mavenRepos = getGodotPluginsMavenRepos()
+        if (mavenRepos != null && mavenRepos.size() > 0) {
+            for (String repoUrl : mavenRepos) {
+                maven {
+                    url repoUrl
+                }
+            }
+        }
     }
 }
 
 dependencies {
     implementation libraries.supportCoreUtils
+    implementation libraries.kotlinStdLib
+    implementation libraries.v4Support
 
     if (rootProject.findProject(":lib")) {
         implementation project(":lib")
+    } else if (rootProject.findProject(":godot:lib")) {
+        implementation project(":godot:lib")
     } else {
         // Custom build mode. In this scenario this project is the only one around and the Godot
         // library is available through the pre-generated godot-lib.*.aar android archive files.
         debugImplementation fileTree(dir: 'libs/debug', include: ['*.jar', '*.aar'])
         releaseImplementation fileTree(dir: 'libs/release', include: ['*.jar', '*.aar'])
     }
+
+    // Godot user plugins remote dependencies
+    String[] remoteDeps = getGodotPluginsRemoteBinaries()
+    if (remoteDeps != null && remoteDeps.size() > 0) {
+        for (String dep : remoteDeps) {
+            implementation dep
+        }
+    }
+
+    // Godot user plugins local dependencies
+    String[] pluginsBinaries = getGodotPluginsLocalBinaries()
+    if (pluginsBinaries != null && pluginsBinaries.size() > 0) {
+        implementation files(pluginsBinaries)
+    }
+
 //CHUNK_DEPENDENCIES_BEGIN
 //CHUNK_DEPENDENCIES_END
 }
@@ -51,7 +81,17 @@ android {
     compileSdkVersion versions.compileSdk
     buildToolsVersion versions.buildTools
 
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+
     defaultConfig {
+        // The default ignore pattern for the 'assets' directory includes hidden files and directories which are used by Godot projects.
+        aaptOptions {
+            ignoreAssetsPattern "!.svn:!.git:!.ds_store:!*.scc:<dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"
+        }
+
         // Feel free to modify the application id to your own.
         applicationId getExportPackageName()
         minSdkVersion versions.minSdk
@@ -68,6 +108,9 @@ android {
     packagingOptions {
         exclude 'META-INF/LICENSE'
         exclude 'META-INF/NOTICE'
+
+        // Should be uncommented for development purpose within Android Studio
+        // doNotStrip '**/*.so'
     }
 
     // Both signing and zip-aligning will be done at export time
@@ -80,33 +123,33 @@ android {
         main {
             manifest.srcFile 'AndroidManifest.xml'
             java.srcDirs = [
-                    'src'
+                'src'
 //DIR_SRC_BEGIN
 //DIR_SRC_END
             ]
             res.srcDirs = [
-                    'res'
+                'res'
 //DIR_RES_BEGIN
 //DIR_RES_END
             ]
             aidl.srcDirs = [
-                    'aidl'
+                'aidl'
 //DIR_AIDL_BEGIN
 //DIR_AIDL_END
             ]
             assets.srcDirs = [
-                    'assets'
+                'assets'
 //DIR_ASSETS_BEGIN
 //DIR_ASSETS_END
             ]
         }
         debug.jniLibs.srcDirs = [
-                'libs/debug'
+            'libs/debug'
 //DIR_JNI_DEBUG_BEGIN
 //DIR_JNI_DEBUG_END
         ]
         release.jniLibs.srcDirs = [
-                'libs/release'
+            'libs/release'
 //DIR_JNI_RELEASE_BEGIN
 //DIR_JNI_RELEASE_END
         ]
