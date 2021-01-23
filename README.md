@@ -1,6 +1,6 @@
 # MusicDJ recreated
 
-Finally, the app is ready for a public beta. It took me around 2 weeks, but we're here.
+This is a recreation of the app with the same name found on Sony Ericsson devices of the 2000s.
 
 ![MusicDJ image](https://i.imgur.com/aUPec4l.png)
 
