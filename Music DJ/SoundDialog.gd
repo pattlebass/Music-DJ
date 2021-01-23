@@ -21,7 +21,6 @@ func _ready():
 	var button_index = -1
 	
 	theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
-	$BgPanel.theme = load("res://assets/themes/%s/theme2.tres" % GlobalVariables.options.theme)
 	
 	for i in 4:
 		var scroll_container = $VBoxContainer/ScrollContainer/VBoxContainer
@@ -73,6 +72,7 @@ func _ready():
 			
 
 func _on_SoundDialog_about_to_show():
+	main.get_node("ShadowPanel").visible = true
 	column = main.get_node("HBoxContainer/StepContainer/HBoxContainer").get_child(column_no)
 	button = column.get_child(instrument_index+1)
 	
@@ -176,4 +176,5 @@ func _on_SoundDialog_popup_hide():
 		if i is Button:
 			i.pressed = false
 	
+	main.get_node("ShadowPanel").visible = false
 	visible = false

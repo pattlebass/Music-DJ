@@ -15,6 +15,8 @@ func _on_ColumnDialog_about_to_show():
 	var title = "Column " + str(column_no+1)
 	$VBoxContainer/VBoxContainer/Label.text = title
 	
+	main.get_node("ShadowPanel").visible = true
+	
 	# Make buttons visible
 	if column_no != main.column_index - 1 or main.column_index == 15:
 		$VBoxContainer/HBoxContainer/RemoveButton.disabled = true
@@ -79,6 +81,7 @@ func _on_ColumnDialog_popup_hide():
 	$AnimationPlayer.play_backwards("fade_in")
 	yield(get_tree().create_timer(0.1), "timeout")
 	
+	main.get_node("ShadowPanel").visible = false
 	visible = false
 
 

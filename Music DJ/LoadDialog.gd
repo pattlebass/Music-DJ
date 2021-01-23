@@ -113,9 +113,10 @@ func _on_LoadDialog_about_to_show():
 	yield(get_tree(), "idle_frame")
 	if OS.get_granted_permissions().empty() && OS.get_name() == "Android":
 		hide()
+	
 	if OS.get_name() == "HTML5":
 		$VBoxContainer/HBoxContainer/OpenButton.hide()
-	
+	main.get_node("ShadowPanel").visible = true
 	$VBoxContainer/HBoxContainer/OkButton.disabled = true
 	if list_files_in_directory(main.user_dir+"Projects/").empty():
 		$VBoxContainer/ScrollContainer/VBoxContainer/NoProjectsLabel.show()
@@ -190,6 +191,7 @@ func _on_LoadDialog_popup_hide():
 		if i is HBoxContainer:
 			i.queue_free()
 	
+	main.get_node("ShadowPanel").visible = false
 	visible = false
 
 func _on_CancelButton_pressed():

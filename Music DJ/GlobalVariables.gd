@@ -5,7 +5,7 @@ var options
 var file = File.new()
 var current_tutorial_version = 1
 var default_options = {"show_tutorial":true, "last_tutorial_version":current_tutorial_version, "theme":"dark"}
-var theme = "dark"
+#var theme = "dark"
 var themes = ["dark", "white", "classic1", "classic2"]
 var last_song
 

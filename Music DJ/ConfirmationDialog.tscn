@@ -26,9 +26,10 @@ tracks/0/keys = {
 }
 
 [node name="ConfirmationDialog" type="PopupDialog"]
-visible = true
-margin_right = 436.0
-margin_bottom = 201.0
+margin_left = 316.0
+margin_top = 201.0
+margin_right = 752.0
+margin_bottom = 402.0
 theme = ExtResource( 3 )
 popup_exclusive = true
 script = ExtResource( 2 )

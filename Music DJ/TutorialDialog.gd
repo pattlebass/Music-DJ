@@ -7,6 +7,7 @@ var panels = [{"title":"Tap and hold a tile to copy it.", "video":"res://assets/
 var current = 0
 
 onready var video_player = $VBoxContainer/HBoxContainer2/VBoxContainer2/VideoPlayer
+onready var main = get_parent()
 
 
 func _ready():
@@ -16,6 +17,7 @@ func _ready():
 
 
 func _on_TutorialDialog_about_to_show():
+	main.get_node("ShadowPanel").visible = true
 	change_panel(0)
 	$AnimationPlayer.play("fade_in")
 
@@ -60,6 +62,8 @@ func _on_TutorialDialog_popup_hide():
 	# Animation
 	$AnimationPlayer.play_backwards("fade_in")
 	yield(get_tree().create_timer(0.1), "timeout")
+	
+	main.get_node("ShadowPanel").visible = false
 	visible = false
 
 

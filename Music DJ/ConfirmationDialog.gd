@@ -3,9 +3,6 @@ extends PopupDialog
 onready var main = get_parent()
 signal chose
 
-func ready():
-	theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
-
 
 func alert(_title, _subtitle):
 	$VBoxContainer/Title.text = _title
@@ -24,6 +21,9 @@ func _on_CancelButton_pressed():
 
 
 func _on_ConfirmationDialog_about_to_show():
+	theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
+	main.get_node("ShadowPanel").visible = true
+	
 	$AnimationPlayer.play("fade_in")
 
 
@@ -36,5 +36,6 @@ func _on_ConfirmationDialog_popup_hide():
 	$VBoxContainer/HBoxContainer/OKButton.pressed = false
 	$VBoxContainer/HBoxContainer/CancelButton.pressed = false
 	
+	main.get_node("ShadowPanel").visible = false
 	visible = false
 	queue_free()

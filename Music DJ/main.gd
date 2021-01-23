@@ -30,7 +30,7 @@ func _ready():
 			button.connect("button_down", self, "on_Tile_held", [i, b, column.get_node("Button"+str(b+1))])
 			button.theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
 		column.get_node("Label").connect("pressed", self, "on_Column_Button_pressed", [i, column])
-		
+		column.get_node("Label").theme = load("res://assets/themes/%s/theme2.tres" % GlobalVariables.options.theme)
 		# Add to song
 		for g in song:
 			g.append(0)
@@ -66,12 +66,11 @@ func _ready():
 		$LoadDialog.load_song(null, GlobalVariables.last_song)
 		GlobalVariables.last_song = null
 	$BgPanel.theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
+	$ShadowPanel.theme = load("res://assets/themes/%s/theme2.tres" % GlobalVariables.options.theme)
 	for i in $HBoxContainer2.get_children():
 		i.theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
 	
-	
-	
-	
+
 	
 func play_song():
 	is_playing = true

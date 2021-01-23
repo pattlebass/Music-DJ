@@ -73,6 +73,7 @@ func _on_SaveDialog_about_to_show():
 	if OS.get_granted_permissions().empty() && OS.get_name() == "Android":
 		hide()
 	
+	main.get_node("ShadowPanel").visible = true
 	$VBoxContainer/VBoxContainer/Label.text = title
 	$VBoxContainer/HBoxContainer/OkButton.disabled = true
 	if last_name:
@@ -91,6 +92,7 @@ func _on_SaveDialog_popup_hide():
 	
 	$VBoxContainer/VBoxContainer/HBoxContainer/LineEdit.clear()
 	
+	main.get_node("ShadowPanel").visible = false
 	visible = false
 
 

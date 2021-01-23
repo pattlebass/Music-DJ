@@ -16,7 +16,25 @@
 [ext_resource path="res://SettingsDialog.gd" type="Script" id=14]
 [ext_resource path="res://assets/column_tear.png" type="Texture" id=15]
 [ext_resource path="res://assets/themes/dark/theme2.tres" type="Theme" id=16]
-[ext_resource path="res://ConfirmationDialog.tscn" type="PackedScene" id=17]
+
+[sub_resource type="Animation" id=1]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="DynamicFont" id=2]
+size = 32
+font_data = ExtResource( 8 )
 
 [sub_resource type="Animation" id=3]
 length = 0.1
@@ -34,7 +52,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="DynamicFont" id=4]
-size = 32
+size = 26
 font_data = ExtResource( 8 )
 
 [sub_resource type="Animation" id=5]
@@ -53,7 +71,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="DynamicFont" id=6]
-size = 26
+size = 20
 font_data = ExtResource( 8 )
 
 [sub_resource type="Animation" id=7]
@@ -71,10 +89,6 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="DynamicFont" id=2]
-size = 20
-font_data = ExtResource( 8 )
-
 [sub_resource type="Animation" id=8]
 length = 0.1
 tracks/0/type = "value"
@@ -90,32 +104,17 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=9]
-length = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
-}
-
-[sub_resource type="DynamicFont" id=10]
+[sub_resource type="DynamicFont" id=9]
 size = 32
 font_data = ExtResource( 8 )
+
+[sub_resource type="StyleBoxEmpty" id=10]
 
 [sub_resource type="StyleBoxEmpty" id=11]
 
 [sub_resource type="StyleBoxEmpty" id=12]
 
-[sub_resource type="StyleBoxEmpty" id=13]
-
-[sub_resource type="Animation" id=14]
+[sub_resource type="Animation" id=13]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:modulate")
@@ -130,7 +129,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=15]
+[sub_resource type="Animation" id=14]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("VBoxContainer/HBoxContainer2/VBoxContainer2/VideoPlayer:modulate")
@@ -145,7 +144,9 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="StyleBoxEmpty" id=16]
+[sub_resource type="StyleBoxEmpty" id=15]
+
+[sub_resource type="ButtonGroup" id=16]
 
 [sub_resource type="StyleBoxEmpty" id=17]
 
@@ -199,36 +200,35 @@ text = "Play"
 
 [node name="Container" type="Container" parent="HBoxContainer2"]
 margin_left = 130.0
-margin_right = 484.0
+margin_right = 304.0
 margin_bottom = 60.0
 size_flags_horizontal = 3
 
 [node name="Export" type="Button" parent="HBoxContainer2"]
-margin_left = 514.0
-margin_right = 614.0
+margin_left = 334.0
+margin_right = 434.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 100, 0 )
 theme = ExtResource( 7 )
 text = "Export"
 
 [node name="SaveProject" type="Button" parent="HBoxContainer2"]
-margin_left = 644.0
-margin_right = 794.0
+margin_left = 464.0
+margin_right = 614.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 150, 0 )
 theme = ExtResource( 7 )
 text = "Save Project"
 
 [node name="OpenProject" type="Button" parent="HBoxContainer2"]
-margin_left = 824.0
-margin_right = 974.0
+margin_left = 644.0
+margin_right = 794.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 150, 0 )
 theme = ExtResource( 7 )
 text = "Open Project"
 
 [node name="Settings" type="Button" parent="HBoxContainer2"]
-visible = false
 margin_left = 824.0
 margin_right = 974.0
 margin_bottom = 60.0
@@ -342,8 +342,16 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 text = "+"
 
-[node name="ConfirmationDialog" parent="." instance=ExtResource( 17 )]
+[node name="ShadowPanel" type="Panel" parent="."]
 visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="SoundDialog" type="PopupDialog" parent="."]
 margin_left = 250.0
@@ -355,23 +363,6 @@ size_flags_stretch_ratio = 0.0
 theme = ExtResource( 7 )
 popup_exclusive = true
 script = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="BgPanel" type="Panel" parent="SoundDialog"]
-show_behind_parent = true
-anchor_left = -0.462
-anchor_top = -0.405
-anchor_right = 1.431
-anchor_bottom = 1.381
-margin_left = -0.0579987
-margin_top = 0.0800171
-margin_right = -0.171082
-margin_bottom = -0.0160217
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme = ExtResource( 16 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -433,7 +424,6 @@ margin_left = 100.0
 margin_right = 200.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 100, 60 )
-theme = ExtResource( 7 )
 text = "OK"
 
 [node name="ClearButton" type="Button" parent="SoundDialog/VBoxContainer/HBoxContainer"]
@@ -441,7 +431,6 @@ margin_left = 220.0
 margin_right = 320.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 100, 60 )
-theme = ExtResource( 7 )
 text = "Clear"
 
 [node name="CancelButton" type="Button" parent="SoundDialog/VBoxContainer/HBoxContainer"]
@@ -449,13 +438,12 @@ margin_left = 340.0
 margin_right = 440.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 100, 60 )
-theme = ExtResource( 7 )
 text = "Cancel"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="SoundDialog"]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="SoundDialog"]
-anims/fade_in = SubResource( 3 )
+anims/fade_in = SubResource( 1 )
 
 [node name="SaveDialog" type="PopupDialog" parent="."]
 margin_left = 300.0
@@ -486,7 +474,7 @@ custom_constants/separation = 30
 [node name="Label" type="Label" parent="SaveDialog/VBoxContainer/VBoxContainer"]
 margin_right = 406.0
 margin_bottom = 39.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 2 )
 text = "Insert dialog"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="SaveDialog/VBoxContainer/VBoxContainer"]
@@ -532,7 +520,7 @@ rect_min_size = Vector2( 100, 50 )
 text = "Cancel"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="SaveDialog"]
-anims/fade_in = SubResource( 5 )
+anims/fade_in = SubResource( 3 )
 
 [node name="ColumnDialog" type="PopupDialog" parent="."]
 anchor_left = 0.293
@@ -568,7 +556,7 @@ custom_constants/separation = 30
 [node name="Label" type="Label" parent="ColumnDialog/VBoxContainer/VBoxContainer"]
 margin_right = 480.0
 margin_bottom = 39.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 2 )
 text = "Column #"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ColumnDialog/VBoxContainer"]
@@ -596,7 +584,7 @@ margin_left = 182.0
 margin_right = 262.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 80, 50 )
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 4 )
 text = "Remove"
 
 [node name="CancelButton" type="Button" parent="ColumnDialog/VBoxContainer/HBoxContainer"]
@@ -608,7 +596,7 @@ rect_min_size = Vector2( 100, 50 )
 text = "Cancel"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ColumnDialog"]
-anims/fade_in = SubResource( 7 )
+anims/fade_in = SubResource( 5 )
 
 [node name="Sprite" type="Sprite" parent="ColumnDialog"]
 position = Vector2( 7.00769, -16.6434 )
@@ -640,7 +628,7 @@ text = "Saving..."
 margin_top = 63.0
 margin_right = 436.0
 margin_bottom = 88.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 6 )
 text = "documents/MusicDJ"
 autowrap = true
 
@@ -696,7 +684,7 @@ rect_min_size = Vector2( 100, 50 )
 text = "Cancel"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ProgressDialog"]
-anims/fade_in = SubResource( 8 )
+anims/fade_in = SubResource( 7 )
 
 [node name="LoadDialog" type="PopupDialog" parent="."]
 anchor_right = 0.373
@@ -774,7 +762,7 @@ rect_min_size = Vector2( 100, 50 )
 text = "Cancel"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="LoadDialog"]
-anims/fade_in = SubResource( 9 )
+anims/fade_in = SubResource( 8 )
 
 [node name="TutorialDialog" type="PopupDialog" parent="."]
 anchor_right = 0.664
@@ -811,14 +799,14 @@ margin_bottom = 65.0
 margin_top = 69.0
 margin_right = 676.0
 margin_bottom = 108.0
-custom_fonts/font = SubResource( 10 )
+custom_fonts/font = SubResource( 9 )
 text = "Subtitle"
 
 [node name="HSeparator2" type="HSeparator" parent="TutorialDialog/VBoxContainer"]
 margin_top = 112.0
 margin_right = 676.0
 margin_bottom = 132.0
-custom_styles/separator = SubResource( 11 )
+custom_styles/separator = SubResource( 10 )
 custom_constants/separation = 20
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="TutorialDialog/VBoxContainer"]
@@ -845,7 +833,7 @@ text = "<"
 margin_left = 54.0
 margin_right = 84.0
 margin_bottom = 300.0
-custom_styles/separator = SubResource( 12 )
+custom_styles/separator = SubResource( 11 )
 custom_constants/separation = 30
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="TutorialDialog/VBoxContainer/HBoxContainer2"]
@@ -863,7 +851,7 @@ rect_min_size = Vector2( 500, 300 )
 margin_left = 592.0
 margin_right = 622.0
 margin_bottom = 300.0
-custom_styles/separator = SubResource( 13 )
+custom_styles/separator = SubResource( 12 )
 custom_constants/separation = 30
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="TutorialDialog/VBoxContainer/HBoxContainer2"]
@@ -888,17 +876,17 @@ __meta__ = {
 margin_top = 440.0
 margin_right = 676.0
 margin_bottom = 479.0
-custom_fonts/font = SubResource( 10 )
+custom_fonts/font = SubResource( 9 )
 text = "1/x"
 align = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="TutorialDialog"]
-anims/fade_in = SubResource( 14 )
-anims/fade_in_image = SubResource( 15 )
+anims/fade_in = SubResource( 13 )
+anims/fade_in_image = SubResource( 14 )
 
 [node name="SettingsDialog" type="PopupDialog" parent="."]
 margin_right = 480.0
-margin_bottom = 344.0
+margin_bottom = 479.0
 theme = ExtResource( 7 )
 script = ExtResource( 14 )
 __meta__ = {
@@ -907,7 +895,7 @@ __meta__ = {
 
 [node name="VBoxContainer" type="VBoxContainer" parent="SettingsDialog"]
 margin_right = 480.0
-margin_bottom = 344.0
+margin_bottom = 472.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -923,44 +911,77 @@ margin_right = 480.0
 margin_bottom = 83.0
 custom_constants/separation = 20
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SettingsDialog/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="SettingsDialog/VBoxContainer"]
 margin_top = 87.0
 margin_right = 480.0
-margin_bottom = 146.0
+margin_bottom = 404.0
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+scroll_deadzone = 30
 
-[node name="Label" type="Label" parent="SettingsDialog/VBoxContainer/HBoxContainer"]
-margin_right = 99.0
+[node name="SettingsContainer" type="VBoxContainer" parent="SettingsDialog/VBoxContainer/ScrollContainer"]
+margin_right = 480.0
+margin_bottom = 220.0
+size_flags_horizontal = 3
+
+[node name="ThemeContainer" type="VBoxContainer" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer"]
+margin_right = 480.0
+margin_bottom = 152.0
+
+[node name="Label" type="Label" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer/ThemeContainer"]
+margin_right = 480.0
 margin_bottom = 59.0
 text = "Theme"
 
-[node name="VSeparator" type="VSeparator" parent="SettingsDialog/VBoxContainer/HBoxContainer"]
-margin_left = 103.0
-margin_right = 326.0
-margin_bottom = 59.0
-size_flags_horizontal = 3
-custom_styles/separator = SubResource( 16 )
-
-[node name="OptionButton" type="OptionButton" parent="SettingsDialog/VBoxContainer/HBoxContainer"]
-margin_left = 330.0
+[node name="VSeparator" type="VSeparator" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer/ThemeContainer"]
+margin_top = 63.0
 margin_right = 480.0
-margin_bottom = 59.0
-rect_min_size = Vector2( 150, 0 )
-text = "Dark Theme"
-align = 1
-items = [ "Dark Theme", null, false, 0, null, "White Theme", null, false, 1, null, "Classic Theme 1", null, false, 2, null, "Classic Theme 2", null, false, 3, null ]
-selected = 0
+margin_bottom = 66.0
+size_flags_horizontal = 3
+custom_styles/separator = SubResource( 15 )
+
+[node name="Dark" type="CheckBox" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer/ThemeContainer"]
+margin_top = 70.0
+margin_right = 480.0
+margin_bottom = 109.0
+group = SubResource( 16 )
+text = "Dark"
+
+[node name="White" type="CheckBox" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer/ThemeContainer"]
+margin_top = 113.0
+margin_right = 480.0
+margin_bottom = 152.0
+group = SubResource( 16 )
+text = "White"
+
+[node name="HSeparator" type="HSeparator" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer"]
+margin_top = 156.0
+margin_right = 480.0
+margin_bottom = 166.0
+custom_constants/separation = 10
+
+[node name="TutorialContainer" type="HBoxContainer" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer"]
+margin_top = 170.0
+margin_right = 480.0
+margin_bottom = 220.0
+rect_min_size = Vector2( 0, 50 )
+
+[node name="ShowTutorial" type="Button" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer/TutorialContainer"]
+margin_right = 163.0
+margin_bottom = 50.0
+text = "  Show Tutorial  "
 
 [node name="HSeparator2" type="HSeparator" parent="SettingsDialog/VBoxContainer"]
-margin_top = 150.0
+margin_top = 408.0
 margin_right = 480.0
-margin_bottom = 290.0
-size_flags_vertical = 3
+margin_bottom = 418.0
 custom_styles/separator = SubResource( 17 )
+custom_constants/separation = 10
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="SettingsDialog/VBoxContainer"]
-margin_top = 294.0
+margin_top = 422.0
 margin_right = 480.0
-margin_bottom = 344.0
+margin_bottom = 472.0
 alignment = 1
 
 [node name="CloseButton" type="Button" parent="SettingsDialog/VBoxContainer/HBoxContainer2"]
@@ -1007,5 +1028,7 @@ text = "Close"
 [connection signal="pressed" from="TutorialDialog/VBoxContainer/HBoxContainer2/VBoxContainer/PreviousButton" to="TutorialDialog" method="_on_PreviousButton_pressed"]
 [connection signal="finished" from="TutorialDialog/VBoxContainer/HBoxContainer2/VBoxContainer2/VideoPlayer" to="TutorialDialog" method="_on_VideoPlayer_finished"]
 [connection signal="pressed" from="TutorialDialog/VBoxContainer/HBoxContainer2/VBoxContainer3/NextButton" to="TutorialDialog" method="_on_NextButton_pressed"]
-[connection signal="item_selected" from="SettingsDialog/VBoxContainer/HBoxContainer/OptionButton" to="SettingsDialog" method="_on_OptionButton_item_selected"]
+[connection signal="toggled" from="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer/ThemeContainer/Dark" to="SettingsDialog" method="_on_theme_chosen" binds= [ "dark" ]]
+[connection signal="toggled" from="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer/ThemeContainer/White" to="SettingsDialog" method="_on_theme_chosen" binds= [ "white" ]]
+[connection signal="pressed" from="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer/TutorialContainer/ShowTutorial" to="SettingsDialog" method="_on_ShowTutorial_pressed"]
 [connection signal="pressed" from="SettingsDialog/VBoxContainer/HBoxContainer2/CloseButton" to="SettingsDialog" method="_on_CloseButton_pressed"]

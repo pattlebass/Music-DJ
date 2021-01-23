@@ -13,6 +13,7 @@ func _ready():
 
 func _on_ProgressDialog_about_to_show():
 	set_process(true)
+	main.get_node("ShadowPanel").visible = true
 	$VBoxContainer/HBoxContainer/OpenButton.disabled = true
 	$VBoxContainer/Label.text = "Saving..."
 	$VBoxContainer/Label2.text = ProjectSettings.globalize_path(path_text)
@@ -37,6 +38,7 @@ func _on_ProgressDialog_popup_hide():
 	
 	progress_bar.value = 0
 	
+	main.get_node("ShadowPanel").visible = false
 	visible = false
 
 
