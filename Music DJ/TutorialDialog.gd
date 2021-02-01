@@ -1,4 +1,4 @@
-extends PopupDialog
+extends "res://DialogScript.gd"
 
 
 var panels = [{"title":"Tap and hold a tile to copy it.", "video":"res://assets/tutorial/0.webm", "index":0},
@@ -7,19 +7,16 @@ var panels = [{"title":"Tap and hold a tile to copy it.", "video":"res://assets/
 var current = 0
 
 onready var video_player = $VBoxContainer/HBoxContainer2/VBoxContainer2/VideoPlayer
-onready var main = get_parent()
 
 
 func _ready():
-	theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
 	if GlobalVariables.options["show_tutorial"]:
 		call_deferred("popup_centered")
 
 
-func _on_TutorialDialog_about_to_show():
-	main.get_node("ShadowPanel").visible = true
+func about_to_show():
 	change_panel(0)
-	$AnimationPlayer.play("fade_in")
+	.about_to_show()
 
 
 func _on_NextButton_pressed():
@@ -54,17 +51,6 @@ func change_panel(_panel_no):
 		previous_button.disabled = true
 	else:
 		previous_button.disabled = false
-
-
-
-func _on_TutorialDialog_popup_hide():
-	visible = true
-	# Animation
-	$AnimationPlayer.play_backwards("fade_in")
-	yield(get_tree().create_timer(0.1), "timeout")
-	
-	main.get_node("ShadowPanel").visible = false
-	visible = false
 
 
 func _on_VideoPlayer_finished():

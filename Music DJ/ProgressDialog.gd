@@ -1,19 +1,14 @@
-extends PopupDialog
+extends "res://DialogScript.gd"
 
-onready var main = get_parent()
 onready var progress_bar = get_node("VBoxContainer/HBoxContainer2/VBoxContainer/ProgressBar")
 
 var path_text = ""
 var after_saving = "stay"
 
 
-func _ready():
-	theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
-
-
-func _on_ProgressDialog_about_to_show():
+func about_to_show():
+	progress_bar.value = 0
 	set_process(true)
-	main.get_node("ShadowPanel").visible = true
 	$VBoxContainer/HBoxContainer/OpenButton.disabled = true
 	$VBoxContainer/Label.text = "Saving..."
 	$VBoxContainer/Label2.text = ProjectSettings.globalize_path(path_text)
@@ -27,19 +22,7 @@ func _on_ProgressDialog_about_to_show():
 		$VBoxContainer/HBoxContainer/DownloadButton.visible = true
 		after_saving = "stay"
 		$VBoxContainer/Label2.text = "You can find it in the project list or you can download it."
-	$AnimationPlayer.play("fade_in")
-
-
-func _on_ProgressDialog_popup_hide():
-	visible = true
-	# Animation
-	$AnimationPlayer.play_backwards("fade_in")
-	yield(get_tree().create_timer(0.1), "timeout")
-	
-	progress_bar.value = 0
-	
-	main.get_node("ShadowPanel").visible = false
-	visible = false
+	.about_to_show()
 
 
 func _on_CancelButton_pressed():
@@ -50,6 +33,7 @@ func _on_CancelButton_pressed():
 func _process(delta):
 	if progress_bar.value >= progress_bar.max_value:
 		$VBoxContainer/HBoxContainer/OpenButton.disabled = false
+		$VBoxContainer/HBoxContainer/DownloadButton.disabled = false
 		$VBoxContainer/Label.text = "Saved"
 		progress_bar.visible = false
 		

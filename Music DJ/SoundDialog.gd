@@ -1,6 +1,4 @@
-extends PopupDialog
-
-onready var main = get_parent()
+extends "res://DialogScript.gd"
 
 var instrument_index
 var instrument_name = ["Drums", "Bass", "Keys", "Trumpet"]
@@ -13,14 +11,12 @@ var button
 
 
 func _ready():
-	# Create list
 	
+	# Create list
 	var text = ["Groove 1", "Groove 2", "Salsa 1", "Salsa 2", "Reggae 1", "Reggae 2", "Techno 1", "Techno 2"]
 	var category = ["Introduction", "Verse", "Chorus", "Solo"]
 	var colors = GlobalVariables.colors
 	var button_index = -1
-	
-	theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
 	
 	for i in 4:
 		var scroll_container = $VBoxContainer/ScrollContainer/VBoxContainer
@@ -71,8 +67,7 @@ func _ready():
 			scroll_container.add_child(button_in_list)
 			
 
-func _on_SoundDialog_about_to_show():
-	main.get_node("ShadowPanel").visible = true
+func about_to_show():
 	column = main.get_node("HBoxContainer/StepContainer/HBoxContainer").get_child(column_no)
 	button = column.get_child(instrument_index+1)
 	
@@ -93,7 +88,7 @@ func _on_SoundDialog_about_to_show():
 	else:
 		clear_button.disabled = false
 	
-	$AnimationPlayer.play("fade_in")
+	.about_to_show()
 
 func on_Button_selected(index, _genre_index):
 	if index == pressed_button_index:
@@ -164,17 +159,9 @@ func _on_CancelButton_pressed():
 	hide()
 
 
-func _on_SoundDialog_popup_hide():
-	visible = true
-	# Animation
-	$AnimationPlayer.play_backwards("fade_in")
-	yield(get_tree().create_timer(0.1), "timeout")
-	
+func popup_hide():
 	$VBoxContainer/ScrollContainer.scroll_vertical = 0
-	
 	for i in $VBoxContainer/ScrollContainer/VBoxContainer.get_children():
 		if i is Button:
 			i.pressed = false
-	
-	main.get_node("ShadowPanel").visible = false
-	visible = false
+	.popup_hide()

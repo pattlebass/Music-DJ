@@ -1,12 +1,8 @@
-extends PopupDialog
-
-onready var main = get_parent()
-#onready var theme_button_group = $VBoxContainer/ScrollContainer/ThemeContainer/Dark.group
+extends "res://DialogScript.gd"
 
 
 func _ready():
 	get_node("VBoxContainer/ScrollContainer/SettingsContainer/ThemeContainer/"+GlobalVariables.options.theme.capitalize()).pressed = true
-	theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
 	$VBoxContainer/ScrollContainer/SettingsContainer/ThemeContainer/Label.theme = load("res://assets/themes/%s/theme2.tres" % GlobalVariables.options.theme)
 	$VBoxContainer/HSeparator.theme = load("res://assets/themes/%s/theme2.tres" % GlobalVariables.options.theme)
 	$VBoxContainer/HSeparator2.theme = load("res://assets/themes/%s/theme2.tres" % GlobalVariables.options.theme)

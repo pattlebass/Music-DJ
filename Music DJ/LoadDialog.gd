@@ -1,12 +1,7 @@
-extends PopupDialog
+extends "res://DialogScript.gd"
 
-onready var main = get_parent()
 var selected_file = ""
 var button_scene = preload("res://LoadButton.tscn")
-
-
-func _ready():
-	theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
 
 
 func _on_OkButton_pressed():
@@ -107,7 +102,7 @@ func load_song(_path, _song = null):
 	hide()
 	
 	
-func _on_LoadDialog_about_to_show():
+func about_to_show():
 	# Check for permissions
 	OS.request_permissions()
 	yield(get_tree(), "idle_frame")
@@ -116,7 +111,6 @@ func _on_LoadDialog_about_to_show():
 	
 	if OS.get_name() == "HTML5":
 		$VBoxContainer/HBoxContainer/OpenButton.hide()
-	main.get_node("ShadowPanel").visible = true
 	$VBoxContainer/HBoxContainer/OkButton.disabled = true
 	if list_files_in_directory(main.user_dir+"Projects/").empty():
 		$VBoxContainer/ScrollContainer/VBoxContainer/NoProjectsLabel.show()
@@ -144,7 +138,7 @@ func _on_LoadDialog_about_to_show():
 		
 		$VBoxContainer/ScrollContainer/VBoxContainer.add_child(button_container)
 		
-	$AnimationPlayer.play("fade_in")
+	.about_to_show()
 
 
 func list_files_in_directory(path):
@@ -181,18 +175,12 @@ func on_Button_selected(_path):
 				x.pressed = false
 
 
-func _on_LoadDialog_popup_hide():
-	visible = true
-	# Animation
-	$AnimationPlayer.play_backwards("fade_in")
-	yield(get_tree().create_timer(0.1), "timeout")
-	
+func popup_hide():
+	.popup_hide()
 	for i in $VBoxContainer/ScrollContainer/VBoxContainer.get_children():
 		if i is HBoxContainer:
 			i.queue_free()
-	
-	main.get_node("ShadowPanel").visible = false
-	visible = false
+
 
 func _on_CancelButton_pressed():
 	hide()

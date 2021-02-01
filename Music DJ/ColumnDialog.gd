@@ -1,21 +1,15 @@
-extends PopupDialog
-
-onready var main = get_parent()
+extends "res://DialogScript.gd"
 
 var column
 var column_no
 
 
-func _ready():
-	theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
 
-
-func _on_ColumnDialog_about_to_show():
+func about_to_show():
 	# Set title
 	var title = "Column " + str(column_no+1)
 	$VBoxContainer/VBoxContainer/Label.text = title
 	
-	main.get_node("ShadowPanel").visible = true
 	
 	# Make buttons visible
 	if column_no != main.column_index - 1 or main.column_index == 15:
@@ -33,8 +27,8 @@ func _on_ColumnDialog_about_to_show():
 	else:
 		$VBoxContainer/HBoxContainer/ClearButton.disabled = false
 		$VBoxContainer/HBoxContainer/PlayButton.disabled = false
-		
-	$AnimationPlayer.play("fade_in")
+	
+	.about_to_show()
 
 func _on_ClearButton_pressed():
 	# Loop through all buttons
@@ -73,16 +67,6 @@ func _on_RemoveButton_pressed():
 	main.column_index -= 1
 	
 	hide()
-
-
-func _on_ColumnDialog_popup_hide():
-	visible = true
-	# Animation
-	$AnimationPlayer.play_backwards("fade_in")
-	yield(get_tree().create_timer(0.1), "timeout")
-	
-	main.get_node("ShadowPanel").visible = false
-	visible = false
 
 
 func _on_PlayButton_pressed():

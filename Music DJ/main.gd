@@ -66,7 +66,7 @@ func _ready():
 		$LoadDialog.load_song(null, GlobalVariables.last_song)
 		GlobalVariables.last_song = null
 	$BgPanel.theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
-	$ShadowPanel.theme = load("res://assets/themes/%s/theme2.tres" % GlobalVariables.options.theme)
+	#$ShadowPanel.theme = load("res://assets/themes/%s/theme2.tres" % GlobalVariables.options.theme)
 	for i in $HBoxContainer2.get_children():
 		i.theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
 	
