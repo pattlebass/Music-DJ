@@ -33,6 +33,7 @@ I'm a teenager working on passion projects. If you appreciate the work that has 
 ## Credit for icons and fonts
 Icons made by [Freepik](https://www.flaticon.com/authors/freepik) from [www.flaticon.com](https://www.flaticon.com/).
 
+Icons made by [Dave Gandy](https://www.flaticon.com/authors/dave-gandy) from [www.flaticon.com](https://www.flaticon.com/) (slightly modified).
 
 [Libel Suit](https://typodermicfonts.com/libel-suit/) by [Typodermic Fonts](https://typodermicfonts.com).
 
