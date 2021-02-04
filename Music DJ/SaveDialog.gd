@@ -9,6 +9,11 @@ var is_cancelled = false
 
 var once = false
 
+
+func _ready():
+	$VBoxContainer/VBoxContainer/HBoxContainer/LineEdit.theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
+
+
 func save():
 	if type_of_save == "project":
 		# Project save
@@ -71,8 +76,10 @@ func about_to_show():
 	$VBoxContainer/VBoxContainer/Label.text = title
 	$VBoxContainer/HBoxContainer/OkButton.disabled = true
 	$VBoxContainer/VBoxContainer/HBoxContainer/LineEdit.clear()
-	if last_name:
+	if last_name and type_of_save == "project":
 		$VBoxContainer/HBoxContainer/OverwriteButton.show()
+	else:
+		$VBoxContainer/HBoxContainer/OverwriteButton.hide()
 	OS.show_virtual_keyboard("")
 	rect_position.x = get_viewport().get_visible_rect().size.x/2 - 200
 	

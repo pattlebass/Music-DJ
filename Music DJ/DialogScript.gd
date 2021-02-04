@@ -23,5 +23,4 @@ func popup_hide():
 	$AnimationPlayer.play_backwards("fade_in")
 	yield(get_tree().create_timer(0.1), "timeout")
 	
-	#main.get_node("ShadowPanel").visible = false
 	visible = false

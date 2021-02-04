@@ -2,7 +2,7 @@
 
 [ext_resource path="res://DialogScript.gd" type="Script" id=1]
 
-[sub_resource type="Animation" id=1]
+[sub_resource type="Animation" id=3]
 resource_name = "fade_in"
 length = 0.1
 tracks/0/type = "value"
@@ -44,6 +44,6 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/fade_in = SubResource( 1 )
+anims/fade_in = SubResource( 3 )
 [connection signal="about_to_show" from="." to="." method="about_to_show"]
 [connection signal="popup_hide" from="." to="." method="popup_hide"]

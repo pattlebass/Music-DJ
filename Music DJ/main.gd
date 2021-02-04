@@ -67,8 +67,8 @@ func _ready():
 		GlobalVariables.last_song = null
 	$BgPanel.theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
 	#$ShadowPanel.theme = load("res://assets/themes/%s/theme2.tres" % GlobalVariables.options.theme)
-	for i in $HBoxContainer2.get_children():
-		i.theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
+	$HBoxContainer2.theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
+	$HBoxContainer.theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
 	
 
 	
@@ -97,7 +97,7 @@ func play_column(_column_no, _single):
 	
 	# Visuals
 	var column = get_node("HBoxContainer/StepContainer/HBoxContainer").get_child(_column_no)
-	column.get_node("Label").add_color_override("font_color", Color(1,0,0))
+	column.get_node("Label").set("custom_colors/font_color", Color.red)
 	
 	# Play sounds
 	for a in 4:
@@ -110,7 +110,7 @@ func play_column(_column_no, _single):
 		audio_player.play()
 	# Needs cleanup
 	yield(get_tree().create_timer(3), "timeout")
-	column.get_node("Label").add_color_override("font_color", Color(1,1,1))
+	column.get_node("Label").set("custom_colors/font_color", null)
 		
 	if _single:
 		is_playing = false

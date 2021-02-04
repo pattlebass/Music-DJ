@@ -1,13 +1,15 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/download.png" type="Texture" id=1]
 [ext_resource path="res://assets/delete.png" type="Texture" id=2]
+[ext_resource path="res://LoadButton.gd" type="Script" id=3]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
-[node name="HBoxContainer" type="HBoxContainer"]
+[node name="LoadButton" type="HBoxContainer"]
 margin_right = 137.0
 margin_bottom = 40.0
+script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

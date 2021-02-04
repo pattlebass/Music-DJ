@@ -3,10 +3,10 @@
 [ext_resource path="res://assets/themes/white/theme.tres" type="Theme" id=1]
 [ext_resource path="res://assets/themes/white/theme2.tres" type="Theme" id=2]
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 40, 40 )
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=2]
 resource_name = "fade_in"
 length = 0.1
 tracks/0/type = "value"
@@ -55,7 +55,7 @@ enabled_focus_mode = 0
 position = Vector2( 40, 40 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Button1/Area2D"]
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
 [node name="Button2" type="Button" parent="."]
 margin_top = 159.0
@@ -72,7 +72,7 @@ enabled_focus_mode = 0
 position = Vector2( 40, 40 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Button2/Area2D"]
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
 [node name="Button3" type="Button" parent="."]
 margin_top = 249.0
@@ -89,7 +89,7 @@ enabled_focus_mode = 0
 position = Vector2( 40, 40 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Button3/Area2D"]
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
 [node name="Button4" type="Button" parent="."]
 margin_top = 339.0
@@ -106,7 +106,7 @@ enabled_focus_mode = 0
 position = Vector2( 40, 40 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Button4/Area2D"]
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/fade_in = SubResource( 3 )
+anims/fade_in = SubResource( 2 )

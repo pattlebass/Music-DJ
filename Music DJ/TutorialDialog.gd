@@ -3,7 +3,7 @@ extends "res://DialogScript.gd"
 
 var panels = [{"title":"Tap and hold a tile to copy it.", "video":"res://assets/tutorial/0.webm", "index":0},
 {"title":"Tap the number of a column to open its menu.", "video":"res://assets/tutorial/1.webm", "index":1},
-{"title":"Follow @pattlebass_dev on Twitter for updates.", "video":"res://assets/tutorial/2.webm", "index":2},]
+{"title":"Follow [color=#4ecca3][url=https://twitter.com/pattlebass_dev]@pattlebass_dev[/url][/color] on Twitter for updates.", "video":"res://assets/tutorial/1.webm", "index":2},]
 var current = 0
 
 onready var video_player = $VBoxContainer/HBoxContainer2/VBoxContainer2/VideoPlayer
@@ -41,7 +41,7 @@ func change_panel(_panel_no):
 	var panel = panels[_panel_no]
 	video_player.stream = load(panel["video"])
 	video_player.play()
-	$VBoxContainer/Label2.text = panel["title"]
+	$VBoxContainer/Label2.bbcode_text = panel["title"]
 	$VBoxContainer/Label3.text = str(panel["index"]+1)+"/"+str(panels.size())
 	$AnimationPlayer.play("fade_in_image")
 	
@@ -55,3 +55,7 @@ func change_panel(_panel_no):
 
 func _on_VideoPlayer_finished():
 	video_player.play()
+
+
+func _on_Label2_meta_clicked(meta):
+	OS.shell_open(meta)

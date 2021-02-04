@@ -18,7 +18,7 @@
 [ext_resource path="res://assets/themes/dark/theme2.tres" type="Theme" id=16]
 [ext_resource path="res://CustomDialog.tscn" type="PackedScene" id=17]
 
-[sub_resource type="StyleBoxEmpty" id=17]
+[sub_resource type="StyleBoxEmpty" id=1]
 
 [sub_resource type="DynamicFont" id=2]
 size = 32
@@ -28,25 +28,25 @@ font_data = ExtResource( 8 )
 size = 26
 font_data = ExtResource( 8 )
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=4]
 size = 20
 font_data = ExtResource( 8 )
 
-[sub_resource type="DynamicFont" id=8]
+[sub_resource type="StyleBoxEmpty" id=6]
+
+[sub_resource type="StyleBoxEmpty" id=7]
+
+[sub_resource type="StyleBoxEmpty" id=8]
+
+[sub_resource type="DynamicFont" id=5]
 size = 32
 font_data = ExtResource( 8 )
 
 [sub_resource type="StyleBoxEmpty" id=9]
 
-[sub_resource type="StyleBoxEmpty" id=10]
+[sub_resource type="ButtonGroup" id=10]
 
 [sub_resource type="StyleBoxEmpty" id=11]
-
-[sub_resource type="StyleBoxEmpty" id=14]
-
-[sub_resource type="ButtonGroup" id=15]
-
-[sub_resource type="StyleBoxEmpty" id=16]
 
 [node name="main" type="Control"]
 anchor_right = 1.0
@@ -83,6 +83,7 @@ anchor_right = 0.977
 anchor_bottom = 0.13
 margin_left = 0.424
 margin_right = -1.448
+theme = ExtResource( 7 )
 custom_constants/separation = 30
 __meta__ = {
 "_edit_use_anchors_": false
@@ -92,7 +93,6 @@ __meta__ = {
 margin_right = 100.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 100, 60 )
-theme = ExtResource( 7 )
 toggle_mode = true
 text = "Play"
 
@@ -101,14 +101,13 @@ margin_left = 130.0
 margin_right = 304.0
 margin_bottom = 60.0
 size_flags_horizontal = 3
-custom_styles/separator = SubResource( 17 )
+custom_styles/separator = SubResource( 1 )
 
 [node name="Export" type="Button" parent="HBoxContainer2"]
 margin_left = 334.0
 margin_right = 434.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 100, 0 )
-theme = ExtResource( 7 )
 text = "Export"
 
 [node name="SaveProject" type="Button" parent="HBoxContainer2"]
@@ -116,7 +115,6 @@ margin_left = 464.0
 margin_right = 614.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 150, 0 )
-theme = ExtResource( 7 )
 text = "Save Project"
 
 [node name="OpenProject" type="Button" parent="HBoxContainer2"]
@@ -124,7 +122,6 @@ margin_left = 644.0
 margin_right = 794.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 150, 0 )
-theme = ExtResource( 7 )
 text = "Open Project"
 
 [node name="Settings" type="Button" parent="HBoxContainer2"]
@@ -132,7 +129,6 @@ margin_left = 824.0
 margin_right = 974.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 150, 0 )
-theme = ExtResource( 7 )
 text = "Settings"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
@@ -145,6 +141,7 @@ margin_top = -0.199997
 margin_right = -0.448059
 margin_bottom = -0.200012
 size_flags_vertical = 3
+theme = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -196,15 +193,14 @@ expand = true
 [node name="VSeparator" type="VSeparator" parent="HBoxContainer"]
 self_modulate = Color( 1, 1, 1, 0 )
 margin_left = 84.0
-margin_right = 88.0
+margin_right = 92.0
 margin_bottom = 447.0
 
 [node name="StepContainer" type="ScrollContainer" parent="HBoxContainer"]
-margin_left = 92.0
+margin_left = 96.0
 margin_right = 964.0
 margin_bottom = 447.0
 size_flags_horizontal = 3
-theme = ExtResource( 7 )
 scroll_vertical_enabled = false
 scroll_vertical = 50
 scroll_deadzone = 60
@@ -213,7 +209,7 @@ __meta__ = {
 }
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/StepContainer"]
-margin_right = 872.0
+margin_right = 868.0
 margin_bottom = 447.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -488,7 +484,7 @@ text = "Saving..."
 margin_top = 63.0
 margin_right = 426.0
 margin_bottom = 88.0
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 4 )
 text = "documents/MusicDJ"
 autowrap = true
 
@@ -639,24 +635,25 @@ margin_top = 63.0
 margin_right = 679.0
 margin_bottom = 65.0
 
-[node name="Label2" type="Label" parent="TutorialDialog/VBoxContainer"]
+[node name="Label2" type="RichTextLabel" parent="TutorialDialog/VBoxContainer"]
 margin_top = 69.0
 margin_right = 679.0
-margin_bottom = 108.0
-custom_fonts/font = SubResource( 8 )
-text = "Subtitle"
+margin_bottom = 109.0
+rect_min_size = Vector2( 0, 40 )
+bbcode_enabled = true
+scroll_active = false
 
 [node name="HSeparator2" type="HSeparator" parent="TutorialDialog/VBoxContainer"]
-margin_top = 112.0
+margin_top = 113.0
 margin_right = 679.0
-margin_bottom = 132.0
-custom_styles/separator = SubResource( 9 )
+margin_bottom = 133.0
+custom_styles/separator = SubResource( 6 )
 custom_constants/separation = 20
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="TutorialDialog/VBoxContainer"]
-margin_top = 136.0
+margin_top = 137.0
 margin_right = 679.0
-margin_bottom = 436.0
+margin_bottom = 437.0
 alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TutorialDialog/VBoxContainer/HBoxContainer2"]
@@ -678,7 +675,7 @@ text = "<"
 margin_left = 55.0
 margin_right = 85.0
 margin_bottom = 300.0
-custom_styles/separator = SubResource( 10 )
+custom_styles/separator = SubResource( 7 )
 custom_constants/separation = 30
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="TutorialDialog/VBoxContainer/HBoxContainer2"]
@@ -696,7 +693,7 @@ rect_min_size = Vector2( 500, 300 )
 margin_left = 593.0
 margin_right = 623.0
 margin_bottom = 300.0
-custom_styles/separator = SubResource( 11 )
+custom_styles/separator = SubResource( 8 )
 custom_constants/separation = 30
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="TutorialDialog/VBoxContainer/HBoxContainer2"]
@@ -718,10 +715,10 @@ __meta__ = {
 }
 
 [node name="Label3" type="Label" parent="TutorialDialog/VBoxContainer"]
-margin_top = 440.0
+margin_top = 441.0
 margin_right = 679.0
-margin_bottom = 479.0
-custom_fonts/font = SubResource( 8 )
+margin_bottom = 480.0
+custom_fonts/font = SubResource( 5 )
 text = "1/x"
 align = 1
 
@@ -776,20 +773,20 @@ margin_top = 63.0
 margin_right = 480.0
 margin_bottom = 66.0
 size_flags_horizontal = 3
-custom_styles/separator = SubResource( 14 )
+custom_styles/separator = SubResource( 9 )
 
 [node name="Dark" type="CheckBox" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer/ThemeContainer"]
 margin_top = 70.0
 margin_right = 480.0
 margin_bottom = 109.0
-group = SubResource( 15 )
+group = SubResource( 10 )
 text = "Dark"
 
 [node name="White" type="CheckBox" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer/ThemeContainer"]
 margin_top = 113.0
 margin_right = 480.0
 margin_bottom = 152.0
-group = SubResource( 15 )
+group = SubResource( 10 )
 text = "White"
 
 [node name="HSeparator" type="HSeparator" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer"]
@@ -813,7 +810,7 @@ text = "  Show Tutorial  "
 margin_top = 415.0
 margin_right = 480.0
 margin_bottom = 425.0
-custom_styles/separator = SubResource( 16 )
+custom_styles/separator = SubResource( 11 )
 custom_constants/separation = 10
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="SettingsDialog/VBoxContainer"]
@@ -851,6 +848,7 @@ text = "Close"
 [connection signal="pressed" from="LoadDialog/VBoxContainer/HBoxContainer/OkButton" to="LoadDialog" method="_on_OkButton_pressed"]
 [connection signal="pressed" from="LoadDialog/VBoxContainer/HBoxContainer/OpenButton" to="LoadDialog" method="_on_OpenButton_pressed"]
 [connection signal="pressed" from="LoadDialog/VBoxContainer/HBoxContainer/CancelButton" to="LoadDialog" method="_on_CancelButton_pressed"]
+[connection signal="meta_clicked" from="TutorialDialog/VBoxContainer/Label2" to="TutorialDialog" method="_on_Label2_meta_clicked"]
 [connection signal="pressed" from="TutorialDialog/VBoxContainer/HBoxContainer2/VBoxContainer/PreviousButton" to="TutorialDialog" method="_on_PreviousButton_pressed"]
 [connection signal="finished" from="TutorialDialog/VBoxContainer/HBoxContainer2/VBoxContainer2/VideoPlayer" to="TutorialDialog" method="_on_VideoPlayer_finished"]
 [connection signal="pressed" from="TutorialDialog/VBoxContainer/HBoxContainer2/VBoxContainer3/NextButton" to="TutorialDialog" method="_on_NextButton_pressed"]

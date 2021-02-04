@@ -7,8 +7,8 @@ func _ready():
 	$VBoxContainer/HSeparator.theme = load("res://assets/themes/%s/theme2.tres" % GlobalVariables.options.theme)
 	$VBoxContainer/HSeparator2.theme = load("res://assets/themes/%s/theme2.tres" % GlobalVariables.options.theme)
 	$VBoxContainer/ScrollContainer/SettingsContainer/HSeparator.theme = load("res://assets/themes/%s/theme2.tres" % GlobalVariables.options.theme)
-
-
+	
+	
 func _on_CloseButton_pressed():
 	hide()
 

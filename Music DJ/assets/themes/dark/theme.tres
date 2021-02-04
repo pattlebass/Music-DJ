@@ -1,8 +1,8 @@
-[gd_resource type="Theme" load_steps=29 format=2]
+[gd_resource type="Theme" load_steps=30 format=2]
 
 [ext_resource path="res://assets/fonts/libel-suit-rg.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://assets/themes/white/radio_button_check.png" type="Texture" id=2]
-[ext_resource path="res://assets/themes/white/radio_button_uncheck.png" type="Texture" id=3]
+[ext_resource path="res://assets/themes/dark/radio_uncheck.png" type="Texture" id=2]
+[ext_resource path="res://assets/themes/dark/radio_check.png" type="Texture" id=3]
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
@@ -99,6 +99,10 @@ thickness = 5
 color = Color( 0.305882, 0.8, 0.639216, 1 )
 thickness = 5
 
+[sub_resource type="DynamicFont" id=26]
+size = 32
+font_data = ExtResource( 1 )
+
 [sub_resource type="StyleBoxLine" id=23]
 color = Color( 1, 1, 1, 0.270588 )
 thickness = 5
@@ -135,8 +139,8 @@ CheckBox/constants/check_vadjust = 0
 CheckBox/constants/hseparation = 10
 CheckBox/fonts/font = null
 CheckBox/icons/checked = null
-CheckBox/icons/radio_checked = ExtResource( 2 )
-CheckBox/icons/radio_unchecked = ExtResource( 3 )
+CheckBox/icons/radio_checked = ExtResource( 3 )
+CheckBox/icons/radio_unchecked = ExtResource( 2 )
 CheckBox/icons/unchecked = null
 CheckBox/styles/disabled = SubResource( 6 )
 CheckBox/styles/focus = SubResource( 6 )
@@ -211,6 +215,23 @@ ProgressBar/colors/font_color_shadow = Color( 0, 0, 0, 1 )
 ProgressBar/fonts/font = null
 ProgressBar/styles/bg = SubResource( 21 )
 ProgressBar/styles/fg = SubResource( 22 )
+RichTextLabel/colors/default_color = Color( 1, 1, 1, 1 )
+RichTextLabel/colors/font_color_selected = Color( 0.49, 0.49, 0.49, 1 )
+RichTextLabel/colors/font_color_shadow = Color( 0, 0, 0, 0 )
+RichTextLabel/colors/selection_color = Color( 0.1, 0.1, 1, 0.8 )
+RichTextLabel/constants/line_separation = 1
+RichTextLabel/constants/shadow_as_outline = 0
+RichTextLabel/constants/shadow_offset_x = 1
+RichTextLabel/constants/shadow_offset_y = 1
+RichTextLabel/constants/table_hseparation = 3
+RichTextLabel/constants/table_vseparation = 3
+RichTextLabel/fonts/bold_font = null
+RichTextLabel/fonts/bold_italics_font = null
+RichTextLabel/fonts/italics_font = null
+RichTextLabel/fonts/mono_font = null
+RichTextLabel/fonts/normal_font = SubResource( 26 )
+RichTextLabel/styles/focus = null
+RichTextLabel/styles/normal = null
 VScrollBar/icons/decrement = null
 VScrollBar/icons/decrement_highlight = null
 VScrollBar/icons/increment = null
