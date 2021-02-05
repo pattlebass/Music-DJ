@@ -4,9 +4,9 @@ extends "res://DialogScript.gd"
 func _ready():
 	get_node("VBoxContainer/ScrollContainer/SettingsContainer/ThemeContainer/"+GlobalVariables.options.theme.capitalize()).pressed = true
 	$VBoxContainer/ScrollContainer/SettingsContainer/ThemeContainer/Label.theme = load("res://assets/themes/%s/theme2.tres" % GlobalVariables.options.theme)
-	$VBoxContainer/HSeparator.theme = load("res://assets/themes/%s/theme2.tres" % GlobalVariables.options.theme)
-	$VBoxContainer/HSeparator2.theme = load("res://assets/themes/%s/theme2.tres" % GlobalVariables.options.theme)
-	$VBoxContainer/ScrollContainer/SettingsContainer/HSeparator.theme = load("res://assets/themes/%s/theme2.tres" % GlobalVariables.options.theme)
+	#$VBoxContainer/HSeparator.theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
+	#$VBoxContainer/HSeparator2.theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
+	#$VBoxContainer/ScrollContainer/SettingsContainer/HSeparator.theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
 	
 	
 func _on_CloseButton_pressed():

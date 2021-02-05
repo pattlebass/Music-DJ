@@ -20,8 +20,11 @@ func about_to_show():
 	elif OS.get_name() == "HTML5":
 		$VBoxContainer/HBoxContainer/OpenButton.visible = false
 		$VBoxContainer/HBoxContainer/DownloadButton.visible = true
+		if path_text.ends_with(".mdj"):
+			$VBoxContainer/Label2.text = "You can find it in the project list or you can download it."
+		else:
+			$VBoxContainer/Label2.text = "Please keep this window focused. After it finishes click the Download button"
 		after_saving = "stay"
-		$VBoxContainer/Label2.text = "You can find it in the project list or you can download it."
 	.about_to_show()
 
 
@@ -43,6 +46,7 @@ func _process(delta):
 			pass
 		
 		set_process(false)
+		
 	else:
 		progress_bar.value += delta
 
@@ -55,9 +59,10 @@ func _on_OpenButton_pressed():
 
 
 func _on_DownloadButton_pressed():
-	var new_path = path_text.split("/")[-1]
-	var file = File.new()
-	file.open(main.user_dir+"Projects/"+new_path, File.READ)
-	var file_data_string = var2str(file.get_var())
-	file.close()
-	main.get_node("SaveDialog").download_file(new_path+"t", file_data_string)
+	var file_name = path_text.split("/")[-1]
+	var path
+	if file_name.ends_with(".mdj"):
+		path = main.user_dir+"Projects/"+file_name
+	elif file_name.ends_with(".wav"):
+		path = main.user_dir+"Exports/"+file_name
+	main.get_node("SaveDialog").download_file(path, file_name)

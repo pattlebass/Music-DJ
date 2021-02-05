@@ -101,20 +101,25 @@ func _process(delta):
 		rect_position.y = get_viewport().get_visible_rect().size.y/2 - 100 - OS.get_virtual_keyboard_height()/4
 
 
-func download_file(_filename, _file_data):
+
+func download_file(_file_path, _file_name):
+	var file = File.new()
+	file.open(_file_path, File.READ)
+	var file_data_raw = file.get_buffer(file.get_len())
+	var file_data_64 = Marshalls.raw_to_base64(file_data_raw)
+	file.close()
+	
+	var mime_type
+	if _file_name.ends_with(".wav"):
+		mime_type = "audio/wav"
+	elif _file_name.ends_with(".mdj"):
+		mime_type = "text/plain"
+
 	JavaScript.eval("""
-	function download(filename, text) {
-  var element = document.createElement('a');
-  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-  element.setAttribute('download', filename);
-
-  element.style.display = 'none';
-  document.body.appendChild(element);
-
-  element.click();
-
-  document.body.removeChild(element);
-}
-	download('%s','%s');
-	""" %[_filename, _file_data])
+var a = document.createElement('a')
+a.download = '%s'
+a.href = 'data:%s;base64,%s';
+a.target = '_blank'
+a.click();
+	""" % [_file_name, mime_type, file_data_64])
 

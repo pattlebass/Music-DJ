@@ -18,7 +18,7 @@ func load_song(_path, _song = null):
 		if _path.ends_with(".mdj"):
 			main.song = file.get_var()
 			file.close()
-		else:
+		else:# .mdjt
 			main.song = str2var(file.get_as_text())
 			file.close()
 			var dir = Directory.new()
@@ -208,10 +208,6 @@ func on_Button_deleted(_container):
 
 
 func on_Button_download(_container):
-	var filename = _container.get_child(0).text
-	var file = File.new()
-	file.open(main.user_dir+"Projects/"+filename, File.READ)
-	var file_data_string = var2str(file.get_var())
-	file.close()
-	main.get_node("SaveDialog").download_file(filename+"t", file_data_string)
+	var file_name = _container.get_child(0).text
+	main.get_node("SaveDialog").download_file(main.user_dir+"Projects/"+file_name, file_name)
 

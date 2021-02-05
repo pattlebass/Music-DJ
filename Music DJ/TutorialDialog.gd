@@ -12,9 +12,11 @@ onready var video_player = $VBoxContainer/HBoxContainer2/VBoxContainer2/VideoPla
 func _ready():
 	if GlobalVariables.options["show_tutorial"]:
 		call_deferred("popup_centered")
+	$AnimationPlayer.add_animation("fade_in_image", preload("res://assets/fade_image_animation.tres"))
 
 
 func about_to_show():
+	current = 0
 	change_panel(0)
 	.about_to_show()
 

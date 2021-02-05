@@ -59,9 +59,6 @@ func _ready():
 		dir.make_dir("Projects")
 		user_dir = "user://saves/"
 	
-	if OS.get_name() == "HTML5":
-		$HBoxContainer2/Export.hide()
-	
 	if GlobalVariables.last_song:
 		$LoadDialog.load_song(null, GlobalVariables.last_song)
 		GlobalVariables.last_song = null
@@ -266,7 +263,10 @@ func _files_dropped(_files, _screen):
 	
 	for i in _files:
 		if i.ends_with(".mdj") or i.ends_with(".mdjt"):
-			var filename = i.split("\\")[-1]
+			var split_slash = "\\"
+			if OS.get_name() == "HTML5":
+				split_slash = "/"
+			var filename = i.split(split_slash)[-1]
 			
 			if dir.file_exists(user_dir+"Projects/"+filename):
 				var dialog = dialog_scene.instance()
@@ -277,5 +277,7 @@ func _files_dropped(_files, _screen):
 					dir.copy(i, user_dir+"Projects/"+filename)
 			else:
 				dir.copy(i, user_dir+"Projects/"+filename)
+			print(filename)
 	$LoadDialog.popup_centered()
 	
+			

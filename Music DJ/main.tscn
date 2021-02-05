@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://assets/trumpet.png" type="Texture" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://assets/column_tear.png" type="Texture" id=15]
 [ext_resource path="res://assets/themes/dark/theme2.tres" type="Theme" id=16]
 [ext_resource path="res://CustomDialog.tscn" type="PackedScene" id=17]
+[ext_resource path="res://assets/fade_image_animation.tres" type="Animation" id=18]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
@@ -32,13 +33,13 @@ font_data = ExtResource( 8 )
 size = 20
 font_data = ExtResource( 8 )
 
+[sub_resource type="StyleBoxEmpty" id=5]
+
 [sub_resource type="StyleBoxEmpty" id=6]
 
 [sub_resource type="StyleBoxEmpty" id=7]
 
-[sub_resource type="StyleBoxEmpty" id=8]
-
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=8]
 size = 32
 font_data = ExtResource( 8 )
 
@@ -466,6 +467,7 @@ texture = ExtResource( 15 )
 margin_right = 426.0
 margin_bottom = 219.0
 theme = ExtResource( 7 )
+popup_exclusive = true
 script = ExtResource( 10 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ProgressDialog"]
@@ -506,8 +508,6 @@ margin_right = 426.0
 margin_bottom = 42.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
-max_value = 0.0
-step = 0.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ProgressDialog/VBoxContainer"]
 margin_top = 157.0
@@ -531,6 +531,7 @@ margin_left = 184.0
 margin_right = 306.0
 margin_bottom = 62.0
 rect_min_size = Vector2( 100, 50 )
+disabled = true
 text = "  Download  "
 
 [node name="CancelButton" type="Button" parent="ProgressDialog/VBoxContainer/HBoxContainer"]
@@ -611,10 +612,10 @@ rect_min_size = Vector2( 100, 50 )
 text = "Cancel"
 
 [node name="TutorialDialog" parent="." instance=ExtResource( 17 )]
-visible = true
 margin_right = 676.0
 margin_bottom = 479.0
 theme = ExtResource( 7 )
+popup_exclusive = true
 script = ExtResource( 13 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TutorialDialog"]
@@ -647,7 +648,7 @@ scroll_active = false
 margin_top = 113.0
 margin_right = 679.0
 margin_bottom = 133.0
-custom_styles/separator = SubResource( 6 )
+custom_styles/separator = SubResource( 5 )
 custom_constants/separation = 20
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="TutorialDialog/VBoxContainer"]
@@ -675,7 +676,7 @@ text = "<"
 margin_left = 55.0
 margin_right = 85.0
 margin_bottom = 300.0
-custom_styles/separator = SubResource( 7 )
+custom_styles/separator = SubResource( 6 )
 custom_constants/separation = 30
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="TutorialDialog/VBoxContainer/HBoxContainer2"]
@@ -685,6 +686,7 @@ margin_bottom = 300.0
 alignment = 1
 
 [node name="VideoPlayer" type="VideoPlayer" parent="TutorialDialog/VBoxContainer/HBoxContainer2/VBoxContainer2"]
+modulate = Color( 1, 1, 1, 0 )
 margin_right = 500.0
 margin_bottom = 300.0
 rect_min_size = Vector2( 500, 300 )
@@ -693,7 +695,7 @@ rect_min_size = Vector2( 500, 300 )
 margin_left = 593.0
 margin_right = 623.0
 margin_bottom = 300.0
-custom_styles/separator = SubResource( 8 )
+custom_styles/separator = SubResource( 7 )
 custom_constants/separation = 30
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="TutorialDialog/VBoxContainer/HBoxContainer2"]
@@ -718,9 +720,12 @@ __meta__ = {
 margin_top = 441.0
 margin_right = 679.0
 margin_bottom = 480.0
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 8 )
 text = "1/x"
 align = 1
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="TutorialDialog"]
+anims/fade_image = ExtResource( 18 )
 
 [node name="SettingsDialog" parent="." instance=ExtResource( 17 )]
 margin_right = 480.0

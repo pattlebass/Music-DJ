@@ -33,7 +33,7 @@ func _ready():
 		
 		var separator2 = HSeparator.new()
 		var theme2_path = "res://assets/themes/%s/theme2.tres" % GlobalVariables.options.theme
-		separator2.theme = load(theme2_path)
+		#separator2.theme = load(theme2_path)
 		scroll_container.add_child(separator2)
 		
 		# Icon

@@ -99,21 +99,21 @@ thickness = 5
 color = Color( 0.305882, 0.8, 0.639216, 1 )
 thickness = 5
 
-[sub_resource type="DynamicFont" id=26]
+[sub_resource type="DynamicFont" id=23]
 size = 32
 font_data = ExtResource( 1 )
 
-[sub_resource type="StyleBoxLine" id=23]
+[sub_resource type="StyleBoxLine" id=24]
 color = Color( 1, 1, 1, 0.270588 )
 thickness = 5
 vertical = true
 
-[sub_resource type="StyleBoxLine" id=24]
+[sub_resource type="StyleBoxLine" id=25]
 color = Color( 1, 1, 1, 0.270588 )
 thickness = 8
 vertical = true
 
-[sub_resource type="StyleBoxLine" id=25]
+[sub_resource type="StyleBoxLine" id=26]
 color = Color( 1, 1, 1, 0.00392157 )
 thickness = 5
 vertical = true
@@ -229,17 +229,17 @@ RichTextLabel/fonts/bold_font = null
 RichTextLabel/fonts/bold_italics_font = null
 RichTextLabel/fonts/italics_font = null
 RichTextLabel/fonts/mono_font = null
-RichTextLabel/fonts/normal_font = SubResource( 26 )
+RichTextLabel/fonts/normal_font = SubResource( 23 )
 RichTextLabel/styles/focus = null
 RichTextLabel/styles/normal = null
 VScrollBar/icons/decrement = null
 VScrollBar/icons/decrement_highlight = null
 VScrollBar/icons/increment = null
 VScrollBar/icons/increment_highlight = null
-VScrollBar/styles/grabber = SubResource( 23 )
-VScrollBar/styles/grabber_highlight = SubResource( 23 )
-VScrollBar/styles/grabber_pressed = SubResource( 24 )
-VScrollBar/styles/scroll = SubResource( 25 )
-VScrollBar/styles/scroll_focus = SubResource( 25 )
+VScrollBar/styles/grabber = SubResource( 24 )
+VScrollBar/styles/grabber_highlight = SubResource( 24 )
+VScrollBar/styles/grabber_pressed = SubResource( 25 )
+VScrollBar/styles/scroll = SubResource( 26 )
+VScrollBar/styles/scroll_focus = SubResource( 26 )
 VSeparator/constants/separation = 8
 VSeparator/styles/separator = null
