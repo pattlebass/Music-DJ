@@ -14,7 +14,7 @@
 [ext_resource path="res://ColumnDialog.gd" type="Script" id=12]
 [ext_resource path="res://TutorialDialog.gd" type="Script" id=13]
 [ext_resource path="res://SettingsDialog.gd" type="Script" id=14]
-[ext_resource path="res://assets/column_tear.png" type="Texture" id=15]
+[ext_resource path="res://assets/themes/white/column_tear.png" type="Texture" id=15]
 [ext_resource path="res://assets/themes/dark/theme2.tres" type="Theme" id=16]
 [ext_resource path="res://CustomDialog.tscn" type="PackedScene" id=17]
 [ext_resource path="res://assets/fade_image_animation.tres" type="Animation" id=18]
@@ -319,6 +319,7 @@ text = "Cancel"
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="SoundDialog"]
 
 [node name="SaveDialog" parent="." instance=ExtResource( 17 )]
+visible = true
 margin_left = 300.0
 margin_top = 100.0
 margin_right = 739.0
@@ -359,6 +360,10 @@ margin_right = 419.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 400, 50 )
 theme = ExtResource( 7 )
+max_length = 100
+placeholder_text = "File name here"
+placeholder_alpha = 0.2
+caret_blink = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="SaveDialog/VBoxContainer"]
 margin_top = 169.0

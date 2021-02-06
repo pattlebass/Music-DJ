@@ -87,7 +87,7 @@ func about_to_show():
 		clear_button.disabled = true
 	else:
 		clear_button.disabled = false
-	
+		
 	.about_to_show()
 
 func on_Button_selected(index, _genre_index):

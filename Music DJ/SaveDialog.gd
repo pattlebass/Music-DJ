@@ -1,7 +1,7 @@
 extends "res://DialogScript.gd"
 
 var title = "Title"
-var entered_name = "Song"
+var entered_name = ""
 var last_name
 var type_of_save = "project"
 var effect = AudioServer.get_bus_effect(0, 0)
@@ -87,6 +87,15 @@ func about_to_show():
 
 
 func _on_LineEdit_text_changed(new_text):
+	
+	# TODO: Figure out Regex
+	var invalid_chars = ["<", ">", ":", "\"", "/", ")", "\\", "|", "?", "*"]
+	
+	for i in invalid_chars:
+		if i in new_text:
+			$VBoxContainer/VBoxContainer/HBoxContainer/LineEdit.text = entered_name
+			return
+	
 	if new_text != "":
 		entered_name = new_text
 		$VBoxContainer/HBoxContainer/OkButton.disabled = false

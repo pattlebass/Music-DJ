@@ -200,7 +200,7 @@ func on_Button_deleted(_container):
 	var dialog = preload("res://ConfirmationDialog.tscn").instance()
 	
 	main.add_child(dialog)
-	dialog.alert("Are you sure?","A file will be deleted (%s)" %_path)
+	dialog.alert("Are you sure?","[color=#4ecca3]%s[/color] will be deleted." %_path)
 	var choice = yield(dialog, "chose")
 	if choice:
 		dir.remove(main.user_dir+"Projects/"+_path)

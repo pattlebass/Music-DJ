@@ -5,7 +5,7 @@ signal chose
 
 func alert(_title, _subtitle):
 	$VBoxContainer/Title.text = _title
-	$VBoxContainer/Subtitle.text = _subtitle
+	$VBoxContainer/Subtitle.bbcode_text = _subtitle
 	popup_centered()
 
 
@@ -26,5 +26,5 @@ func _on_ConfirmationDialog_about_to_show():
 
 func _on_ConfirmationDialog_popup_hide():
 	popup_hide()
-	yield(get_tree(), "idle_frame")
+	yield(get_tree().create_timer(0.1), "timeout")
 	queue_free()

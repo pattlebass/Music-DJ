@@ -4,6 +4,10 @@ var column
 var column_no
 
 
+func _ready():
+	var path = "res://assets/themes/%s/" % GlobalVariables.options.theme
+	$Sprite.texture = load(path+"column_tear.png")
+
 
 func about_to_show():
 	# Set title

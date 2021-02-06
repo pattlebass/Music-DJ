@@ -7,11 +7,10 @@
 [sub_resource type="StyleBoxEmpty" id=1]
 
 [sub_resource type="DynamicFont" id=2]
-size = 20
+size = 32
 font_data = ExtResource( 1 )
 
 [sub_resource type="Animation" id=3]
-resource_name = "fade_in"
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:modulate")
@@ -70,20 +69,22 @@ text = "Are you sure?"
 [node name="HSeparator2" type="HSeparator" parent="VBoxContainer"]
 margin_top = 63.0
 margin_right = 436.0
-margin_bottom = 88.0
+margin_bottom = 81.0
 size_flags_vertical = 3
 custom_styles/separator = SubResource( 1 )
 
-[node name="Subtitle" type="Label" parent="VBoxContainer"]
-margin_top = 92.0
+[node name="Subtitle" type="RichTextLabel" parent="VBoxContainer"]
+margin_top = 85.0
 margin_right = 436.0
-margin_bottom = 117.0
-custom_fonts/font = SubResource( 2 )
-text = "Do you want to overwrite the files?"
-autowrap = true
+margin_bottom = 125.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_enabled = true
+text = "This file will be deleted."
+scroll_active = false
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
-margin_top = 121.0
+margin_top = 129.0
 margin_right = 436.0
 margin_bottom = 147.0
 size_flags_vertical = 3
