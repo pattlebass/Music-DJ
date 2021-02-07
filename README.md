@@ -8,6 +8,7 @@ This is a recreation of the app with the same name found on Sony Ericsson device
 * Create songs using the original samples
 * You can export the songs to the .wav format
 * You can save the project you're working on for later
+* Both a Dark and a White theme are available, more in the future
 
 ## To be added
 * Higher quality samples
