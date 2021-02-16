@@ -319,7 +319,6 @@ text = "Cancel"
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="SoundDialog"]
 
 [node name="SaveDialog" parent="." instance=ExtResource( 17 )]
-visible = true
 margin_left = 300.0
 margin_top = 100.0
 margin_right = 739.0
@@ -360,6 +359,7 @@ margin_right = 419.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 400, 50 )
 theme = ExtResource( 7 )
+custom_colors/cursor_color = Color( 0, 0, 0, 0.5 )
 max_length = 100
 placeholder_text = "File name here"
 placeholder_alpha = 0.2
@@ -844,6 +844,7 @@ text = "Close"
 [connection signal="pressed" from="SoundDialog/VBoxContainer/HBoxContainer/OkButton" to="SoundDialog" method="_on_OkButton_pressed"]
 [connection signal="pressed" from="SoundDialog/VBoxContainer/HBoxContainer/ClearButton" to="SoundDialog" method="_on_ClearButton_pressed"]
 [connection signal="pressed" from="SoundDialog/VBoxContainer/HBoxContainer/CancelButton" to="SoundDialog" method="_on_CancelButton_pressed"]
+[connection signal="gui_input" from="SaveDialog/VBoxContainer/VBoxContainer/HBoxContainer/LineEdit" to="SaveDialog" method="_on_LineEdit_gui_input"]
 [connection signal="text_changed" from="SaveDialog/VBoxContainer/VBoxContainer/HBoxContainer/LineEdit" to="SaveDialog" method="_on_LineEdit_text_changed"]
 [connection signal="pressed" from="SaveDialog/VBoxContainer/HBoxContainer/OverwriteButton" to="SaveDialog" method="_on_OverwriteButton_pressed"]
 [connection signal="pressed" from="SaveDialog/VBoxContainer/HBoxContainer/OkButton" to="SaveDialog" method="_on_OkButton_pressed"]

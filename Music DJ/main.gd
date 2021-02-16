@@ -6,6 +6,8 @@ var column_index = 15
 var user_dir = ""
 var is_playing = false
 
+var column_scene = preload("res://Column.tscn")
+
 # Notes:
 # * "column" refers to the column node itself, while "column_no" refers
 # to the column as a number
@@ -16,27 +18,11 @@ var is_playing = false
 func _ready():
 	get_tree().connect("files_dropped", self, "_files_dropped")
 	
-	var column_scene = preload("res://Column.tscn")
 	for i in column_index:
-		var column = column_scene.instance()
-		column.get_node("Label").text = str(i + 1)
-		column.theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
-		get_node("HBoxContainer/StepContainer/HBoxContainer").add_child(column)
-		
-		# Signals
-		for b in 4:
-			var button = column.get_node("Button"+str(b+1))
-			button.connect("pressed", self, "on_Tile_pressed", [i, b])
-			button.connect("button_down", self, "on_Tile_held", [i, b, column.get_node("Button"+str(b+1))])
-			button.theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
-		column.get_node("Label").connect("pressed", self, "on_Column_Button_pressed", [i, column])
-		column.get_node("Label").theme = load("res://assets/themes/%s/theme2.tres" % GlobalVariables.options.theme)
-		# Add to song
-		for g in song:
-			g.append(0)
+		add_column(i)
 	
-	var add_button = get_node("HBoxContainer/StepContainer/HBoxContainer/VBoxContainer")
-	$HBoxContainer/StepContainer/HBoxContainer.move_child(add_button, column_index+1)
+#	var add_button = get_node("HBoxContainer/StepContainer/HBoxContainer/VBoxContainer")
+#	$HBoxContainer/StepContainer/HBoxContainer.move_child(add_button, column_index+1)
 
 	if OS.get_name() == "Android":
 		yield(get_tree(), "idle_frame")
@@ -213,30 +199,56 @@ func _on_OpenProject_pressed():
 
 
 func _on_AddButton_pressed():
-	var column_scene = preload("res://Column.tscn")
+#	var column_scene = preload("res://Column.tscn")
+#	var column = column_scene.instance()
+#
+#	# Signals
+#	for b in 4:
+#		var button = column.get_node("Button"+str(b+1))
+#		button.connect("pressed", self, "on_Tile_pressed", [column_index, b])
+#		button.connect("button_down", self, "on_Tile_held", [column_index, b, column.get_node("Button"+str(b+1))])
+#	column.get_node("Label").connect("pressed", self, "on_Column_Button_pressed", [column_index, column])
+#
+#	# Add to song
+#	for g in song:
+#		g.append(0)
+#
+#	column_index += 1
+#	column.get_node("Label").text = str(column_index)
+#	get_node("HBoxContainer/StepContainer/HBoxContainer").add_child(column)
+#
+#
+	column_index += 1
+	var new_column = add_column(column_index-1)
+	new_column.get_node("AnimationPlayer").play("fade_in")
+	
+	
+func add_column(_column_no:int, add_to_song:bool = true):
 	var column = column_scene.instance()
+	column.get_node("Label").text = str(_column_no + 1)
+	column.theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
+	var column_container = get_node("HBoxContainer/StepContainer/HBoxContainer")
+	column_container.add_child(column)
+	column_container.move_child(column, column_container.get_child_count()-2)
 	
 	# Signals
 	for b in 4:
 		var button = column.get_node("Button"+str(b+1))
-		button.connect("pressed", self, "on_Tile_pressed", [column_index, b])
-		button.connect("button_down", self, "on_Tile_held", [column_index, b, column.get_node("Button"+str(b+1))])
-	column.get_node("Label").connect("pressed", self, "on_Column_Button_pressed", [column_index, column])
+		button.connect("pressed", self, "on_Tile_pressed", [_column_no, b])
+		button.connect("button_down", self, "on_Tile_held", [_column_no, b, column.get_node("Button"+str(b+1))])
+		button.theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
+	column.get_node("Label").connect("pressed", self, "on_Column_Button_pressed", [_column_no, column])
+	column.get_node("Label").theme = load("res://assets/themes/%s/theme2.tres" % GlobalVariables.options.theme)
 	
 	# Add to song
-	for g in song:
-		g.append(0)
+	if add_to_song:
+		for g in song:
+			g.append(0)
 	
-	column_index += 1
-	column.get_node("Label").text = str(column_index)
-	get_node("HBoxContainer/StepContainer/HBoxContainer").add_child(column)
+#	var add_button = get_node("HBoxContainer/StepContainer/HBoxContainer/VBoxContainer")
+#	$HBoxContainer/StepContainer/HBoxContainer.move_child(add_button, _column_no+1)
 	
-	
-	var add_button = get_node("HBoxContainer/StepContainer/HBoxContainer/VBoxContainer")
-	$HBoxContainer/StepContainer/HBoxContainer.move_child(add_button, column_index+1)
-	
-	column.get_node("AnimationPlayer").play("fade_in")
-	
+	return column
 	
 func _process(delta):
 	if last_columns.back() == -1:

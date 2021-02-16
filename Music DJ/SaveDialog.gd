@@ -87,14 +87,15 @@ func about_to_show():
 
 
 func _on_LineEdit_text_changed(new_text):
-	
-	# TODO: Figure out Regex
 	var invalid_chars = ["<", ">", ":", "\"", "/", ")", "\\", "|", "?", "*"]
 	
 	for i in invalid_chars:
-		if i in new_text:
-			$VBoxContainer/VBoxContainer/HBoxContainer/LineEdit.text = entered_name
-			return
+		new_text = new_text.replace(i, "")
+	new_text = new_text.strip_edges(" ")
+	
+	var line_edit = $VBoxContainer/VBoxContainer/HBoxContainer/LineEdit
+	line_edit.text = new_text
+	line_edit.caret_position = line_edit.text.length()
 	
 	if new_text != "":
 		entered_name = new_text
@@ -132,3 +133,12 @@ a.target = '_blank'
 a.click();
 	""" % [_file_name, mime_type, file_data_64])
 
+
+
+func _on_LineEdit_gui_input(event):
+	if OS.get_name() == "HTML5" and event is InputEventScreenTouch:
+		var line_edit = $VBoxContainer/VBoxContainer/HBoxContainer/LineEdit
+		yield(get_tree(), "idle_frame")
+		var entered_text = JavaScript.eval("prompt('Save as...', '');")
+		line_edit.text = entered_text
+		_on_LineEdit_text_changed(entered_text)

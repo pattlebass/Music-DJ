@@ -23,7 +23,7 @@ func about_to_show():
 		if path_text.ends_with(".mdj"):
 			$VBoxContainer/Label2.text = "You can find it in the project list or you can download it."
 		else:
-			$VBoxContainer/Label2.text = "Please keep this window focused. After it finishes click the Download button"
+			$VBoxContainer/Label2.text = "Please keep this window focused. After it finishes click the download button"
 		after_saving = "stay"
 	.about_to_show()
 
@@ -42,9 +42,10 @@ func _process(delta):
 		
 		if after_saving == "close":
 			hide()
-		else:
-			pass
-		
+
+		if OS.get_name() == "HTML5" and path_text.ends_with(".wav"):
+			_on_DownloadButton_pressed()
+	
 		set_process(false)
 		
 	else:
