@@ -17,7 +17,9 @@ _global_script_class_icons={
 
 config/name="Music DJ"
 run/main_scene="res://main.tscn"
+run/low_processor_mode=true
 config/icon="res://assets/drum.png"
+config/windows_native_icon="res://icon.ico"
 
 [autoload]
 

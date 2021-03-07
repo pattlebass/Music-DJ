@@ -81,6 +81,7 @@ rect_min_size = Vector2( 0, 40 )
 custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
 text = "This file will be deleted."
+fit_content_height = true
 scroll_active = false
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://assets/trumpet.png" type="Texture" id=2]
@@ -39,15 +39,17 @@ font_data = ExtResource( 8 )
 
 [sub_resource type="StyleBoxEmpty" id=7]
 
-[sub_resource type="DynamicFont" id=8]
+[sub_resource type="StyleBoxEmpty" id=8]
+
+[sub_resource type="DynamicFont" id=9]
 size = 32
 font_data = ExtResource( 8 )
 
-[sub_resource type="StyleBoxEmpty" id=9]
+[sub_resource type="StyleBoxEmpty" id=10]
 
-[sub_resource type="ButtonGroup" id=10]
+[sub_resource type="ButtonGroup" id=11]
 
-[sub_resource type="StyleBoxEmpty" id=11]
+[sub_resource type="StyleBoxEmpty" id=12]
 
 [node name="main" type="Control"]
 anchor_right = 1.0
@@ -365,6 +367,17 @@ placeholder_text = "File name here"
 placeholder_alpha = 0.2
 caret_blink = true
 
+[node name="HTMLButton" type="Button" parent="SaveDialog/VBoxContainer/VBoxContainer/HBoxContainer"]
+visible = false
+margin_left = 404.0
+margin_right = 439.0
+margin_bottom = 50.0
+focus_mode = 1
+size_flags_horizontal = 3
+enabled_focus_mode = 1
+text = "Input file name"
+align = 0
+
 [node name="HBoxContainer" type="HBoxContainer" parent="SaveDialog/VBoxContainer"]
 margin_top = 169.0
 margin_right = 439.0
@@ -523,8 +536,8 @@ custom_constants/separation = 20
 alignment = 2
 
 [node name="OpenButton" type="Button" parent="ProgressDialog/VBoxContainer/HBoxContainer"]
-margin_left = 19.0
-margin_right = 164.0
+margin_left = 161.0
+margin_right = 306.0
 margin_bottom = 62.0
 rect_min_size = Vector2( 100, 50 )
 disabled = true
@@ -555,63 +568,73 @@ script = ExtResource( 11 )
 [node name="VBoxContainer" type="VBoxContainer" parent="LoadDialog"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = -10.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="LoadDialog/VBoxContainer"]
-margin_right = 412.0
+[node name="TitleHBox" type="HBoxContainer" parent="LoadDialog/VBoxContainer"]
+margin_right = 402.0
 margin_bottom = 59.0
-text = "Open file"
+
+[node name="Label" type="Label" parent="LoadDialog/VBoxContainer/TitleHBox"]
+margin_right = 197.0
+margin_bottom = 59.0
+text = "Open project"
+
+[node name="VSeparator" type="VSeparator" parent="LoadDialog/VBoxContainer/TitleHBox"]
+margin_left = 201.0
+margin_right = 398.0
+margin_bottom = 59.0
+size_flags_horizontal = 3
+custom_styles/separator = SubResource( 5 )
+
+[node name="OpenButton" type="Button" parent="LoadDialog/VBoxContainer/TitleHBox"]
+margin_left = 402.0
+margin_right = 402.0
+margin_bottom = 59.0
 
 [node name="HSeparator" type="HSeparator" parent="LoadDialog/VBoxContainer"]
 margin_top = 63.0
-margin_right = 412.0
+margin_right = 402.0
 margin_bottom = 65.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="LoadDialog/VBoxContainer"]
 margin_top = 69.0
-margin_right = 412.0
+margin_right = 402.0
 margin_bottom = 493.0
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
 scroll_deadzone = 30
 
 [node name="VBoxContainer" type="VBoxContainer" parent="LoadDialog/VBoxContainer/ScrollContainer"]
-margin_right = 412.0
+margin_right = 402.0
 margin_bottom = 39.0
 size_flags_horizontal = 3
 
 [node name="NoProjectsLabel" type="Label" parent="LoadDialog/VBoxContainer/ScrollContainer/VBoxContainer"]
-margin_right = 412.0
+margin_right = 402.0
 margin_bottom = 39.0
 theme = ExtResource( 16 )
 text = "No saved projects"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="LoadDialog/VBoxContainer"]
 margin_top = 497.0
-margin_right = 412.0
+margin_right = 402.0
 margin_bottom = 547.0
 custom_constants/separation = 20
 alignment = 1
 
 [node name="OkButton" type="Button" parent="LoadDialog/VBoxContainer/HBoxContainer"]
-margin_left = 13.0
-margin_right = 113.0
+margin_left = 91.0
+margin_right = 191.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 100, 50 )
 text = "Open"
 
-[node name="OpenButton" type="Button" parent="LoadDialog/VBoxContainer/HBoxContainer"]
-margin_left = 133.0
-margin_right = 278.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 100, 50 )
-text = "  Open Folder  "
-
 [node name="CancelButton" type="Button" parent="LoadDialog/VBoxContainer/HBoxContainer"]
-margin_left = 298.0
-margin_right = 398.0
+margin_left = 211.0
+margin_right = 311.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 100, 50 )
 text = "Cancel"
@@ -653,7 +676,7 @@ scroll_active = false
 margin_top = 113.0
 margin_right = 679.0
 margin_bottom = 133.0
-custom_styles/separator = SubResource( 5 )
+custom_styles/separator = SubResource( 6 )
 custom_constants/separation = 20
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="TutorialDialog/VBoxContainer"]
@@ -681,7 +704,7 @@ text = "<"
 margin_left = 55.0
 margin_right = 85.0
 margin_bottom = 300.0
-custom_styles/separator = SubResource( 6 )
+custom_styles/separator = SubResource( 7 )
 custom_constants/separation = 30
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="TutorialDialog/VBoxContainer/HBoxContainer2"]
@@ -700,7 +723,7 @@ rect_min_size = Vector2( 500, 300 )
 margin_left = 593.0
 margin_right = 623.0
 margin_bottom = 300.0
-custom_styles/separator = SubResource( 7 )
+custom_styles/separator = SubResource( 8 )
 custom_constants/separation = 30
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="TutorialDialog/VBoxContainer/HBoxContainer2"]
@@ -725,7 +748,7 @@ __meta__ = {
 margin_top = 441.0
 margin_right = 679.0
 margin_bottom = 480.0
-custom_fonts/font = SubResource( 8 )
+custom_fonts/font = SubResource( 9 )
 text = "1/x"
 align = 1
 
@@ -783,20 +806,20 @@ margin_top = 63.0
 margin_right = 480.0
 margin_bottom = 66.0
 size_flags_horizontal = 3
-custom_styles/separator = SubResource( 9 )
+custom_styles/separator = SubResource( 10 )
 
 [node name="Dark" type="CheckBox" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer/ThemeContainer"]
 margin_top = 70.0
 margin_right = 480.0
 margin_bottom = 109.0
-group = SubResource( 10 )
+group = SubResource( 11 )
 text = "Dark"
 
 [node name="White" type="CheckBox" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer/ThemeContainer"]
 margin_top = 113.0
 margin_right = 480.0
 margin_bottom = 152.0
-group = SubResource( 10 )
+group = SubResource( 11 )
 text = "White"
 
 [node name="HSeparator" type="HSeparator" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer"]
@@ -820,7 +843,7 @@ text = "  Show Tutorial  "
 margin_top = 415.0
 margin_right = 480.0
 margin_bottom = 425.0
-custom_styles/separator = SubResource( 11 )
+custom_styles/separator = SubResource( 12 )
 custom_constants/separation = 10
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="SettingsDialog/VBoxContainer"]
@@ -844,8 +867,8 @@ text = "Close"
 [connection signal="pressed" from="SoundDialog/VBoxContainer/HBoxContainer/OkButton" to="SoundDialog" method="_on_OkButton_pressed"]
 [connection signal="pressed" from="SoundDialog/VBoxContainer/HBoxContainer/ClearButton" to="SoundDialog" method="_on_ClearButton_pressed"]
 [connection signal="pressed" from="SoundDialog/VBoxContainer/HBoxContainer/CancelButton" to="SoundDialog" method="_on_CancelButton_pressed"]
-[connection signal="gui_input" from="SaveDialog/VBoxContainer/VBoxContainer/HBoxContainer/LineEdit" to="SaveDialog" method="_on_LineEdit_gui_input"]
 [connection signal="text_changed" from="SaveDialog/VBoxContainer/VBoxContainer/HBoxContainer/LineEdit" to="SaveDialog" method="_on_LineEdit_text_changed"]
+[connection signal="pressed" from="SaveDialog/VBoxContainer/VBoxContainer/HBoxContainer/HTMLButton" to="SaveDialog" method="_on_HTMLButton_pressed"]
 [connection signal="pressed" from="SaveDialog/VBoxContainer/HBoxContainer/OverwriteButton" to="SaveDialog" method="_on_OverwriteButton_pressed"]
 [connection signal="pressed" from="SaveDialog/VBoxContainer/HBoxContainer/OkButton" to="SaveDialog" method="_on_OkButton_pressed"]
 [connection signal="pressed" from="SaveDialog/VBoxContainer/HBoxContainer/CancelButton" to="SaveDialog" method="_on_CancelButton_pressed"]
@@ -856,8 +879,8 @@ text = "Close"
 [connection signal="pressed" from="ProgressDialog/VBoxContainer/HBoxContainer/OpenButton" to="ProgressDialog" method="_on_OpenButton_pressed"]
 [connection signal="pressed" from="ProgressDialog/VBoxContainer/HBoxContainer/DownloadButton" to="ProgressDialog" method="_on_DownloadButton_pressed"]
 [connection signal="pressed" from="ProgressDialog/VBoxContainer/HBoxContainer/CancelButton" to="ProgressDialog" method="_on_CancelButton_pressed"]
+[connection signal="pressed" from="LoadDialog/VBoxContainer/TitleHBox/OpenButton" to="LoadDialog" method="_on_OpenButton_pressed"]
 [connection signal="pressed" from="LoadDialog/VBoxContainer/HBoxContainer/OkButton" to="LoadDialog" method="_on_OkButton_pressed"]
-[connection signal="pressed" from="LoadDialog/VBoxContainer/HBoxContainer/OpenButton" to="LoadDialog" method="_on_OpenButton_pressed"]
 [connection signal="pressed" from="LoadDialog/VBoxContainer/HBoxContainer/CancelButton" to="LoadDialog" method="_on_CancelButton_pressed"]
 [connection signal="meta_clicked" from="TutorialDialog/VBoxContainer/Label2" to="TutorialDialog" method="_on_Label2_meta_clicked"]
 [connection signal="pressed" from="TutorialDialog/VBoxContainer/HBoxContainer2/VBoxContainer/PreviousButton" to="TutorialDialog" method="_on_PreviousButton_pressed"]

@@ -3,7 +3,8 @@ extends "res://DialogScript.gd"
 
 var panels = [{"title":"Tap and hold a tile to copy it.", "video":"res://assets/tutorial/0.webm", "index":0},
 {"title":"Tap the number of a column to open its menu.", "video":"res://assets/tutorial/1.webm", "index":1},
-{"title":"Follow [color=#4ecca3][url=https://twitter.com/pattlebass_dev]@pattlebass_dev[/url][/color] on Twitter for updates.", "video":"res://assets/tutorial/2.webm", "index":2},]
+{"title":"You can drag and drop project files into the App's window.", "video":"res://assets/tutorial/2.webm", "index":2},
+{"title":"Follow [color=#4ecca3][url=https://twitter.com/pattlebass_dev]@pattlebass_dev[/url][/color] on Twitter for updates.", "video":"res://assets/tutorial/3.webm", "index":3},]
 var current = 0
 
 onready var video_player = $VBoxContainer/HBoxContainer2/VBoxContainer2/VideoPlayer

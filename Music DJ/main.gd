@@ -283,13 +283,12 @@ func _files_dropped(_files, _screen):
 			if dir.file_exists(user_dir+"Projects/"+filename):
 				var dialog = dialog_scene.instance()
 				add_child(dialog)
-				dialog.alert("Are you sure?","A file will be overwritten (%s)" %filename)
+				dialog.alert("Are you sure?","[color=#4ecca3]%s[/color] will be overwritten." %filename.substr(0, 20))
 				var choice = yield(dialog, "chose")
 				if choice == true:
 					dir.copy(i, user_dir+"Projects/"+filename)
 			else:
 				dir.copy(i, user_dir+"Projects/"+filename)
-			print(filename)
+			#print(filename)
 	$LoadDialog.popup_centered()
 	
-			

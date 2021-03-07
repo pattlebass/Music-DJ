@@ -7,11 +7,22 @@ var type_of_save = "project"
 var effect = AudioServer.get_bus_effect(0, 0)
 var is_cancelled = false
 
+onready var html_button = $VBoxContainer/VBoxContainer/HBoxContainer/HTMLButton
+onready var line_edit = $VBoxContainer/VBoxContainer/HBoxContainer/LineEdit
+
 var once = false
 
 
 func _ready():
-	$VBoxContainer/VBoxContainer/HBoxContainer/LineEdit.theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
+	line_edit.theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
+	html_button.theme = load("res://assets/themes/%s/theme2.tres" % GlobalVariables.options.theme)
+	
+	if OS.get_name() == "HTML5":
+		html_button.show()
+		line_edit.hide()
+	else:
+		html_button.hide()
+		line_edit.show()
 
 
 func save():
@@ -75,7 +86,8 @@ func about_to_show():
 	
 	$VBoxContainer/VBoxContainer/Label.text = title
 	$VBoxContainer/HBoxContainer/OkButton.disabled = true
-	$VBoxContainer/VBoxContainer/HBoxContainer/LineEdit.clear()
+	line_edit.clear()
+	html_button.text = "Input file name"
 	if last_name and type_of_save == "project":
 		$VBoxContainer/HBoxContainer/OverwriteButton.show()
 	else:
@@ -87,7 +99,7 @@ func about_to_show():
 
 
 func _on_LineEdit_text_changed(new_text):
-	var invalid_chars = ["<", ">", ":", "\"", "/", ")", "\\", "|", "?", "*"]
+	var invalid_chars = ["<", ">", ":", "\"", "/", ")", "\\", "|", "?", "*", "#"]
 	
 	for i in invalid_chars:
 		new_text = new_text.replace(i, "")
@@ -95,7 +107,9 @@ func _on_LineEdit_text_changed(new_text):
 	
 	var line_edit = $VBoxContainer/VBoxContainer/HBoxContainer/LineEdit
 	line_edit.text = new_text
+	html_button.text = new_text
 	line_edit.caret_position = line_edit.text.length()
+	
 	
 	if new_text != "":
 		entered_name = new_text
@@ -109,7 +123,6 @@ func _process(delta):
 		rect_position.y = get_viewport().get_visible_rect().size.y/2 - 100
 	else:
 		rect_position.y = get_viewport().get_visible_rect().size.y/2 - 100 - OS.get_virtual_keyboard_height()/4
-
 
 
 func download_file(_file_path, _file_name):
@@ -126,19 +139,16 @@ func download_file(_file_path, _file_name):
 		mime_type = "text/plain"
 
 	JavaScript.eval("""
-var a = document.createElement('a')
-a.download = '%s'
-a.href = 'data:%s;base64,%s';
-a.target = '_blank'
-a.click();
+	var a = document.createElement('a');
+	a.download = '%s';
+	a.href = 'data:%s;base64,%s';
+	a.target = '_blank'
+	a.click();
 	""" % [_file_name, mime_type, file_data_64])
 
 
-
-func _on_LineEdit_gui_input(event):
-	if OS.get_name() == "HTML5" and event is InputEventScreenTouch:
-		var line_edit = $VBoxContainer/VBoxContainer/HBoxContainer/LineEdit
-		yield(get_tree(), "idle_frame")
-		var entered_text = JavaScript.eval("prompt('Save as...', '');")
-		line_edit.text = entered_text
-		_on_LineEdit_text_changed(entered_text)
+func _on_HTMLButton_pressed():
+	yield(get_tree(), "idle_frame")
+	var entered_text = JavaScript.eval("prompt('Save as...', '');")
+	line_edit.text = entered_text
+	_on_LineEdit_text_changed(entered_text)

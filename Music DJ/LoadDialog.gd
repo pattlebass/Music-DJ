@@ -119,13 +119,15 @@ func about_to_show():
 		hide()
 	
 	if OS.get_name() == "HTML5":
-		$VBoxContainer/HBoxContainer/OpenButton.hide()
+		$VBoxContainer/TitleHBox/OpenButton.hide()
 	$VBoxContainer/HBoxContainer/OkButton.disabled = true
 	if list_files_in_directory(main.user_dir+"Projects/").empty():
 		$VBoxContainer/ScrollContainer/VBoxContainer/NoProjectsLabel.show()
 	else:
 		$VBoxContainer/ScrollContainer/VBoxContainer/NoProjectsLabel.hide()
 	$VBoxContainer/ScrollContainer/VBoxContainer/NoProjectsLabel.theme = load("res://assets/themes/%s/theme2.tres" % GlobalVariables.options.theme)
+	$VBoxContainer/TitleHBox/OpenButton.icon = load("res://assets/themes/%s/open_folder.png" % GlobalVariables.options.theme)
+	$VBoxContainer/TitleHBox/OpenButton.theme = load("res://assets/themes/%s/theme2.tres" % GlobalVariables.options.theme)
 	
 	for i in list_files_in_directory(main.user_dir+"Projects/"):
 		var button_container = button_scene.instance()
@@ -208,7 +210,7 @@ func on_Button_deleted(_container):
 	var dialog = preload("res://ConfirmationDialog.tscn").instance()
 	
 	main.add_child(dialog)
-	dialog.alert("Are you sure?","[color=#4ecca3]%s[/color] will be deleted." %_path)
+	dialog.alert("Are you sure?","[color=#4ecca3]%s[/color] will be deleted." %_path.substr(0, 20))
 	var choice = yield(dialog, "chose")
 	if choice:
 		dir.remove(main.user_dir+"Projects/"+_path)
@@ -218,4 +220,3 @@ func on_Button_deleted(_container):
 func on_Button_download(_container):
 	var file_name = _container.get_child(0).text
 	main.get_node("SaveDialog").download_file(main.user_dir+"Projects/"+file_name, file_name)
-
