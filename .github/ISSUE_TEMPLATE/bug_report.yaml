@@ -21,7 +21,7 @@ body:
     attributes:
       label: Version
       description: What version of MusicDJ are you running?
-      placeholder: v1.2.2-beta
+      placeholder: Eg. v1.2.2-beta
     validations:
       required: true
   - type: input
@@ -40,8 +40,7 @@ body:
     validations:
       required: false
   - type: textarea
-    id: logs
+    id: media
     attributes:
-      label: Relevant log output
-      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
-      render: shell
+      label: Screenshots / Videos 
+      description: You can upload screenshots or videos showing the issue.
