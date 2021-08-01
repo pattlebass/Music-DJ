@@ -18,6 +18,8 @@ var column_scene = preload("res://Column.tscn")
 func _ready():
 	get_tree().connect("files_dropped", self, "_files_dropped")
 	
+	OS.low_processor_usage_mode = !OS.get_name() == "Android" # It is broken on Android
+
 	for i in column_index:
 		add_column(i)
 	
@@ -199,25 +201,6 @@ func _on_OpenProject_pressed():
 
 
 func _on_AddButton_pressed():
-#	var column_scene = preload("res://Column.tscn")
-#	var column = column_scene.instance()
-#
-#	# Signals
-#	for b in 4:
-#		var button = column.get_node("Button"+str(b+1))
-#		button.connect("pressed", self, "on_Tile_pressed", [column_index, b])
-#		button.connect("button_down", self, "on_Tile_held", [column_index, b, column.get_node("Button"+str(b+1))])
-#	column.get_node("Label").connect("pressed", self, "on_Column_Button_pressed", [column_index, column])
-#
-#	# Add to song
-#	for g in song:
-#		g.append(0)
-#
-#	column_index += 1
-#	column.get_node("Label").text = str(column_index)
-#	get_node("HBoxContainer/StepContainer/HBoxContainer").add_child(column)
-#
-#
 	column_index += 1
 	var new_column = add_column(column_index-1)
 	new_column.get_node("AnimationPlayer").play("fade_in")
