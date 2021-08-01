@@ -12,18 +12,23 @@ onready var line_edit = $VBoxContainer/VBoxContainer/HBoxContainer/LineEdit
 
 var once = false
 
+#var regex = RegEx.new()
+
 
 func _ready():
 	line_edit.theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
 	html_button.theme = load("res://assets/themes/%s/theme2.tres" % GlobalVariables.options.theme)
 	
-	if OS.get_name() == "HTML5":
-		html_button.show()
-		line_edit.hide()
-	else:
-		html_button.hide()
-		line_edit.show()
-
+	
+#	if OS.get_name() == "HTML5":
+#		html_button.show()
+#		line_edit.hide()
+#	else:
+#		html_button.hide()
+#		line_edit.show()
+	
+	#regex.compile('[\\/:"*?<>|]+')
+	
 
 func save():
 	if type_of_save == "project":
@@ -42,6 +47,7 @@ func save():
 		
 		last_name = entered_name
 	else:
+		is_cancelled = false
 		main.get_node("SoundDialog/AudioStreamPlayer").stop()
 		
 		# ProgressDialog
@@ -60,6 +66,9 @@ func save():
 		var recording = effect.get_recording()
 		if recording and not is_cancelled:
 			recording.save_to_wav(path)
+			print("Saved successfully!")
+		else:
+			print("Saved failed!")
 		
 		is_cancelled = false
 
@@ -101,15 +110,18 @@ func about_to_show():
 func _on_LineEdit_text_changed(new_text):
 	var invalid_chars = ["<", ">", ":", "\"", "/", ")", "\\", "|", "?", "*", "#"]
 	
+#	var result = regex.search_all(new_text)
+#	print(result[0].get_start())
+#	print(result[0].get_end())
 	for i in invalid_chars:
 		new_text = new_text.replace(i, "")
+	
 	new_text = new_text.strip_edges(" ")
 	
 	var line_edit = $VBoxContainer/VBoxContainer/HBoxContainer/LineEdit
 	line_edit.text = new_text
 	html_button.text = new_text
 	line_edit.caret_position = line_edit.text.length()
-	
 	
 	if new_text != "":
 		entered_name = new_text
@@ -152,3 +164,10 @@ func _on_HTMLButton_pressed():
 	var entered_text = JavaScript.eval("prompt('Save as...', '');")
 	line_edit.text = entered_text
 	_on_LineEdit_text_changed(entered_text)
+
+
+func _on_LineEdit_text_entered(new_text: String) -> void:
+	# Kinda hacky, but this is not an AcceptDialog so it doesn't have
+	# register_text_enter()
+	yield(get_tree().create_timer(0.1), "timeout")
+	$VBoxContainer/HBoxContainer/OkButton.emit_signal("pressed")
