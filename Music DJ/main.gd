@@ -118,6 +118,7 @@ func on_Tile_held(_column_no, _instrument, _button):
 		return
 	yield(get_tree().create_timer(0.5), "timeout")
 	if _button.pressed and _button.text != "":
+		# This is so that the button doesn't send the "pressed"
 		_button.disabled = true
 		_button.disabled = false
 		
@@ -142,6 +143,8 @@ func on_Tile_held(_column_no, _instrument, _button):
 		add_child(float_button_parent)
 		var rect_global_pos = _button.rect_global_position
 		float_button_parent.pos_y = rect_global_pos.y
+		
+		Input.vibrate_handheld(70)
 
 
 func on_Column_Button_pressed(_column_no, _column):
