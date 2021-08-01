@@ -60,5 +60,6 @@ __meta__ = {
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/fade_in = SubResource( 1 )
+
 [connection signal="about_to_show" from="." to="." method="about_to_show"]
 [connection signal="popup_hide" from="." to="." method="popup_hide"]

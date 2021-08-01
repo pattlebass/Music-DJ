@@ -10,7 +10,6 @@ config_version=4
 
 _global_script_classes=[  ]
 _global_script_class_icons={
-
 }
 
 [application]
@@ -18,8 +17,8 @@ _global_script_class_icons={
 config/name="Music DJ"
 run/main_scene="res://main.tscn"
 run/low_processor_mode=true
-config/icon="res://assets/drum.png"
-config/windows_native_icon="res://icon.ico"
+config/icon="res://assets/icon/icon.png"
+config/windows_native_icon="res://assets/icon/icon.ico"
 
 [autoload]
 
