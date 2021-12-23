@@ -16,10 +16,10 @@ This is a recreation of the app with the same name found on Sony Ericsson device
 * Tempo changer
 
 ## How to download
-At the moment, this is an Android and Windows only app. Apple's policy makes me unable to release on IOS. If you want a linux version, let me know.
 
 * [Android](https://github.com/pattlebass/Music-Dj/releases/latest/download/MusicDJ.apk)
-* [Windows](https://github.com/pattlebass/Music-Dj/releases/latest/download/MusicDJ.zip)
+* [Windows](https://github.com/pattlebass/Music-Dj/releases/latest/download/MusicDJ.Windows.zip)
+* [Linux](https://github.com/pattlebass/Music-Dj/releases/latest/download/MusicDJ.Linux.zip)
 * [HTML5](https://pattlebass.itch.io/musicdj)
 
 You might get warnings about this app not being safe. Like [this](https://i.stack.imgur.com/LlLiX.png) and [this](https://i.imgur.com/VlnKgTB.png). That's because I'm not a verified publisher and there is nothing I can do at the moment.
