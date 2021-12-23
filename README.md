@@ -28,7 +28,7 @@ On Android, you'll need to allow apps from unknown sources. If you don't know ho
 
 
 ## Donate
-I'm a teenager working on passion projects. If you appreciate the work that has been put into making this app, consider donating.
+If you appreciate the work that has been put into making this app, consider donating.
 [Donate](https://www.paypal.me/pattlebass)
 
 ## Credit for icons and fonts
