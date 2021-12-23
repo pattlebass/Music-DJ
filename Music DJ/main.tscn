@@ -676,8 +676,8 @@ scroll_active = false
 margin_top = 113.0
 margin_right = 679.0
 margin_bottom = 133.0
-custom_styles/separator = SubResource( 6 )
 custom_constants/separation = 20
+custom_styles/separator = SubResource( 6 )
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="TutorialDialog/VBoxContainer"]
 margin_top = 137.0
@@ -704,8 +704,8 @@ text = "<"
 margin_left = 55.0
 margin_right = 85.0
 margin_bottom = 300.0
-custom_styles/separator = SubResource( 7 )
 custom_constants/separation = 30
+custom_styles/separator = SubResource( 7 )
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="TutorialDialog/VBoxContainer/HBoxContainer2"]
 margin_left = 89.0
@@ -723,8 +723,8 @@ rect_min_size = Vector2( 500, 300 )
 margin_left = 593.0
 margin_right = 623.0
 margin_bottom = 300.0
-custom_styles/separator = SubResource( 8 )
 custom_constants/separation = 30
+custom_styles/separator = SubResource( 8 )
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="TutorialDialog/VBoxContainer/HBoxContainer2"]
 margin_left = 627.0
@@ -843,8 +843,8 @@ text = "  Show Tutorial  "
 margin_top = 415.0
 margin_right = 480.0
 margin_bottom = 425.0
-custom_styles/separator = SubResource( 12 )
 custom_constants/separation = 10
+custom_styles/separator = SubResource( 12 )
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="SettingsDialog/VBoxContainer"]
 margin_top = 429.0

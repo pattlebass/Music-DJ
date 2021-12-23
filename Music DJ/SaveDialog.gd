@@ -1,16 +1,16 @@
 extends "res://DialogScript.gd"
 
-var title = "Title"
-var entered_name = ""
-var last_name
-var type_of_save = "project"
+var title := "Title"
+var entered_name := ""
+var last_name := ""
+var type_of_save := "project"
 var effect = AudioServer.get_bus_effect(0, 0)
 var is_cancelled = false
 
 onready var html_button = $VBoxContainer/VBoxContainer/HBoxContainer/HTMLButton
 onready var line_edit = $VBoxContainer/VBoxContainer/HBoxContainer/LineEdit
 
-var once = false
+var once := false
 
 #var regex = RegEx.new()
 
@@ -33,7 +33,7 @@ func _ready():
 func save():
 	if type_of_save == "project":
 		# Project save
-		var path = main.user_dir+"Projects/"+entered_name+".mdj"
+		var path = main.user_dir+"Projects/"+entered_name.strip_edges()+".mdj"
 		var file = File.new()
 		file.open(path, File.WRITE)
 		file.store_var(main.song)
@@ -51,7 +51,7 @@ func save():
 		main.get_node("SoundDialog/AudioStreamPlayer").stop()
 		
 		# ProgressDialog
-		var path = main.user_dir+"Exports/"+entered_name+".wav"
+		var path = main.user_dir+"Exports/"+entered_name.strip_edges()+".wav"
 		main.get_node("ProgressDialog").path_text = path
 		main.get_node("ProgressDialog").after_saving = "stay"
 		main.get_node("ProgressDialog").progress_bar.max_value = 3*(main.last_columns.back()+1) + 0.5
@@ -93,9 +93,20 @@ func about_to_show():
 	if OS.get_granted_permissions().empty() && OS.get_name() == "Android":
 		hide()
 	
+	var default_name := "Song " + str(randi() % 1000)
+	
 	$VBoxContainer/VBoxContainer/Label.text = title
-	$VBoxContainer/HBoxContainer/OkButton.disabled = true
-	line_edit.clear()
+	#$VBoxContainer/HBoxContainer/OkButton.disabled = true
+	
+	if last_name:
+		line_edit.text = last_name
+	else:
+		line_edit.text = default_name
+	
+	# This shouldn't be needed, but it is...
+	_on_LineEdit_text_changed(line_edit.text)
+	
+	line_edit.caret_position = line_edit.text.length()
 	html_button.text = "Input file name"
 	if last_name and type_of_save == "project":
 		$VBoxContainer/HBoxContainer/OverwriteButton.show()
@@ -115,9 +126,7 @@ func _on_LineEdit_text_changed(new_text):
 #	print(result[0].get_end())
 	for i in invalid_chars:
 		new_text = new_text.replace(i, "")
-	
-	new_text = new_text.strip_edges(" ")
-	
+
 	var line_edit = $VBoxContainer/VBoxContainer/HBoxContainer/LineEdit
 	line_edit.text = new_text
 	html_button.text = new_text

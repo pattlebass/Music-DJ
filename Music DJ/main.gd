@@ -9,6 +9,10 @@ var is_playing = false
 var column_scene = preload("res://Column.tscn")
 
 # Notes:
+
+# * Beware! Old and bad coding habits ahead.
+# I will rewrite most of it at some point
+
 # * "column" refers to the column node itself, while "column_no" refers
 # to the column as a number
 # * A few variables/nodes need renaming (column -> column_no, step -> column)
@@ -17,6 +21,8 @@ var column_scene = preload("res://Column.tscn")
 
 func _ready():
 	get_tree().connect("files_dropped", self, "_files_dropped")
+	
+	randomize()
 	
 	OS.low_processor_usage_mode = !OS.get_name() == "Android" # It is broken on Android
 
