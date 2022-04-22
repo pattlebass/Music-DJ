@@ -1,4 +1,4 @@
-extends "res://DialogScript.gd"
+extends "res://scenes/DialogScript.gd"
 
 
 var panels = [{"title":"Tap and hold a tile to copy it.", "video":"res://assets/tutorial/0.webm", "index":0},

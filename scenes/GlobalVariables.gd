@@ -8,10 +8,17 @@ var default_options = {"show_tutorial":true, "last_tutorial_version":current_tut
 var loaded_theme = "dark"
 var themes = ["dark", "white", "classic1", "classic2"]
 var last_song
+var timer
 
+signal theme_changed
 
 func _ready():
 	# Options
+	timer = Timer.new()
+	timer.one_shot = true
+	timer.connect("timeout", self, "on_timer_timeout")
+	add_child(timer)
+	
 	if file.file_exists("user://options.txt"):
 		file.open("user://options.txt", File.READ)
 		options = file.get_var()
@@ -32,7 +39,17 @@ func _ready():
 		options = default_options.duplicate()
 	save_options()
 
-func save_options():
+
+func save_options(delay := 2):
+	timer.start(delay)
+
+
+func on_timer_timeout():
 	file.open("user://options.txt", File.WRITE)
 	file.store_var(options)
 	file.close()
+	print("written to file")
+
+
+func change_theme(new_theme):
+	emit_signal("theme_changed", new_theme)

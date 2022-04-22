@@ -15,14 +15,14 @@ _global_script_class_icons={
 [application]
 
 config/name="Music DJ"
-run/main_scene="res://main.tscn"
+run/main_scene="res://scenes/main.tscn"
 run/low_processor_mode=true
 config/icon="res://assets/icon/icon.png"
 config/windows_native_icon="res://assets/icon/icon.ico"
 
 [autoload]
 
-GlobalVariables="*res://GlobalVariables.gd"
+GlobalVariables="*res://scenes/GlobalVariables.gd"
 
 [display]
 

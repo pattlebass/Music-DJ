@@ -1,4 +1,4 @@
-extends "res://DialogScript.gd"
+extends "res://scenes/DialogScript.gd"
 
 signal chose
 
@@ -20,7 +20,7 @@ func _on_CancelButton_pressed():
 
 
 func _on_ConfirmationDialog_about_to_show():
-	theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
+	theme = GlobalVariables.theme_resource
 	about_to_show()
 
 

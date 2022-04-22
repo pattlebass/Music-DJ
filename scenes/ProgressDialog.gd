@@ -1,4 +1,4 @@
-extends "res://DialogScript.gd"
+extends "res://scenes/DialogScript.gd"
 
 onready var progress_bar = get_node("VBoxContainer/HBoxContainer2/VBoxContainer/ProgressBar")
 

@@ -1,7 +1,7 @@
-extends "res://DialogScript.gd"
+extends "res://scenes/DialogScript.gd"
 
 var selected_file = ""
-var button_scene = preload("res://LoadButton.tscn")
+var button_scene = preload("res://scenes/LoadButton.tscn")
 
 
 
@@ -207,7 +207,7 @@ func _on_OpenButton_pressed():
 func on_Button_deleted(_container):
 	var dir = Directory.new()
 	var _path = _container.get_child(0).text
-	var dialog = preload("res://ConfirmationDialog.tscn").instance()
+	var dialog = preload("res://scenes/ConfirmationDialog.tscn").instance()
 	
 	main.add_child(dialog)
 	dialog.alert("Are you sure?","[color=#4ecca3]%s[/color] will be deleted." %_path.substr(0, 20))

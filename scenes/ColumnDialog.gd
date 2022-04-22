@@ -1,4 +1,4 @@
-extends "res://DialogScript.gd"
+extends "res://scenes/DialogScript.gd"
 
 var column
 var column_no

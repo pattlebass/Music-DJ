@@ -1,4 +1,4 @@
-extends "res://DialogScript.gd"
+extends "res://scenes/DialogScript.gd"
 
 var instrument_index
 var instrument_name = ["Drums", "Bass", "Keys", "Trumpet"]

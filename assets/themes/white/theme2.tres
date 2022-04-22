@@ -32,7 +32,7 @@ size = 32
 font_data = ExtResource( 1 )
 
 [sub_resource type="StyleBoxFlat" id=7]
-bg_color = Color( 0, 0, 0, 0.32 )
+bg_color = Color( 0, 0, 0, 0.321569 )
 
 [resource]
 Button/colors/font_color = Color( 0, 0, 0, 0.6 )

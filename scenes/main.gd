@@ -6,7 +6,7 @@ var column_index := 15
 var user_dir := ""
 var is_playing := false
 
-var column_scene = preload("res://Column.tscn")
+var column_scene = preload("res://scenes/Column.tscn")
 
 # Notes:
 
@@ -21,6 +21,8 @@ var column_scene = preload("res://Column.tscn")
 
 func _ready():
 	get_tree().connect("files_dropped", self, "_files_dropped")
+	GlobalVariables.connect("theme_changed", self, "on_theme_changed")
+	GlobalVariables.change_theme(GlobalVariables.options.theme)
 	
 	randomize()
 	
@@ -56,13 +58,17 @@ func _ready():
 	if GlobalVariables.last_song:
 		$LoadDialog.load_song(null, GlobalVariables.last_song)
 		GlobalVariables.last_song = null
-	$BgPanel.theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
+	#$BgPanel.theme = GlobalVariables.theme_resource
 	#$ShadowPanel.theme = load("res://assets/themes/%s/theme2.tres" % GlobalVariables.options.theme)
-	$HBoxContainer2.theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
-	$HBoxContainer.theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
+	#$HBoxContainer2.theme = GlobalVariables.theme_resource
+	#$HBoxContainer.theme = GlobalVariables.theme_resource
 	
 
-	
+func on_theme_changed(new_theme):
+	#print("Theme changed")
+	theme = load("res://assets/themes/%s/theme.tres" % new_theme)
+
+
 func play_song():
 	is_playing = true
 	yield(get_tree(), "idle_frame")
@@ -94,7 +100,7 @@ func play_column(_column_no, _single):
 	for a in 4:
 		if song[a][_column_no] == 0:
 			continue
-
+	
 		var audio_player = $AudioPlayers.get_child(a)
 		var sound = song[a][_column_no]
 		audio_player.stream = load("res://sounds/"+str(a)+"/"+str(sound)+".wav")
@@ -105,11 +111,11 @@ func play_column(_column_no, _single):
 		
 	if _single:
 		is_playing = false
-
+	
 	if not is_playing:
 		return
-	
-		
+
+
 func on_Tile_pressed(_column_no, _instrument):
 	if is_playing:
 		return
@@ -130,7 +136,7 @@ func on_Tile_held(_column_no, _instrument, _button):
 		
 		$HBoxContainer/StepContainer.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		
-		var float_button_scene = preload("res://FloatButton.tscn")
+		var float_button_scene = preload("res://scenes/FloatButton.tscn")
 		var float_button_parent = float_button_scene.instance()
 		
 		float_button_parent.add_child(_button.duplicate())
@@ -218,7 +224,7 @@ func _on_AddButton_pressed():
 func add_column(_column_no:int, add_to_song:bool = true):
 	var column = column_scene.instance()
 	column.get_node("Label").text = str(_column_no + 1)
-	column.theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
+	#column.theme = GlobalVariables.theme_resource
 	var column_container = get_node("HBoxContainer/StepContainer/HBoxContainer")
 	column_container.add_child(column)
 	column_container.move_child(column, column_container.get_child_count()-2)
@@ -228,7 +234,7 @@ func add_column(_column_no:int, add_to_song:bool = true):
 		var button = column.get_node("Button"+str(b+1))
 		button.connect("pressed", self, "on_Tile_pressed", [_column_no, b])
 		button.connect("button_down", self, "on_Tile_held", [_column_no, b, column.get_node("Button"+str(b+1))])
-		button.theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
+	#	button.theme = GlobalVariables.theme_resource
 	column.get_node("Label").connect("pressed", self, "on_Column_Button_pressed", [_column_no, column])
 	column.get_node("Label").theme = load("res://assets/themes/%s/theme2.tres" % GlobalVariables.options.theme)
 	
@@ -263,7 +269,7 @@ func _on_Settings_pressed():
 
 func _files_dropped(_files, _screen):
 	var dir = Directory.new()
-	var dialog_scene = preload("res://ConfirmationDialog.tscn")
+	var dialog_scene = preload("res://scenes/ConfirmationDialog.tscn")
 	
 	for i in _files:
 		if i.ends_with(".mdj") or i.ends_with(".mdjt"):

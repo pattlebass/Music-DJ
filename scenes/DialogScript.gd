@@ -4,7 +4,7 @@ onready var main = get_parent()
 
 
 func _ready():
-	theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
+	#theme = GlobalVariables.theme_resource
 	$BackPanel.theme = load("res://assets/themes/%s/theme2.tres" % GlobalVariables.options.theme)
 
 

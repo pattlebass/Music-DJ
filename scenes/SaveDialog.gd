@@ -1,4 +1,4 @@
-extends "res://DialogScript.gd"
+extends "res://scenes/DialogScript.gd"
 
 var title := "Title"
 var entered_name := ""
@@ -16,7 +16,7 @@ var once := false
 
 
 func _ready():
-	line_edit.theme = load("res://assets/themes/%s/theme.tres" % GlobalVariables.options.theme)
+	#line_edit.theme = GlobalVariables.theme_resource
 	html_button.theme = load("res://assets/themes/%s/theme2.tres" % GlobalVariables.options.theme)
 	
 	

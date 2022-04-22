@@ -1,14 +1,14 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://assets/fonts/libel-suit-rg.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://ConfirmationDialog.gd" type="Script" id=2]
+[ext_resource path="res://scenes/ConfirmationDialog.gd" type="Script" id=1]
+[ext_resource path="res://assets/fonts/libel-suit-rg.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://assets/themes/dark/theme.tres" type="Theme" id=3]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
 [sub_resource type="DynamicFont" id=2]
 size = 32
-font_data = ExtResource( 1 )
+font_data = ExtResource( 2 )
 
 [sub_resource type="Animation" id=3]
 length = 0.1
@@ -44,7 +44,7 @@ margin_right = 752.0
 margin_bottom = 402.0
 theme = ExtResource( 3 )
 popup_exclusive = true
-script = ExtResource( 2 )
+script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -115,6 +115,7 @@ text = "Cancel"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/fade_in = SubResource( 3 )
+
 [connection signal="about_to_show" from="." to="." method="_on_ConfirmationDialog_about_to_show"]
 [connection signal="popup_hide" from="." to="." method="_on_ConfirmationDialog_popup_hide"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/OKButton" to="." method="_on_OKButton_pressed"]

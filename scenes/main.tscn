@@ -1,22 +1,22 @@
 [gd_scene load_steps=31 format=2]
 
-[ext_resource path="res://main.gd" type="Script" id=1]
+[ext_resource path="res://scenes/main.gd" type="Script" id=1]
 [ext_resource path="res://assets/trumpet.png" type="Texture" id=2]
-[ext_resource path="res://SoundDialog.gd" type="Script" id=3]
+[ext_resource path="res://scenes/SoundDialog.gd" type="Script" id=3]
 [ext_resource path="res://assets/piano.png" type="Texture" id=4]
 [ext_resource path="res://assets/drum.png" type="Texture" id=5]
 [ext_resource path="res://assets/guitar.png" type="Texture" id=6]
 [ext_resource path="res://assets/themes/dark/theme.tres" type="Theme" id=7]
 [ext_resource path="res://assets/fonts/libel-suit-rg.ttf" type="DynamicFontData" id=8]
-[ext_resource path="res://SaveDialog.gd" type="Script" id=9]
-[ext_resource path="res://ProgressDialog.gd" type="Script" id=10]
-[ext_resource path="res://LoadDialog.gd" type="Script" id=11]
-[ext_resource path="res://ColumnDialog.gd" type="Script" id=12]
-[ext_resource path="res://TutorialDialog.gd" type="Script" id=13]
-[ext_resource path="res://SettingsDialog.gd" type="Script" id=14]
+[ext_resource path="res://scenes/SaveDialog.gd" type="Script" id=9]
+[ext_resource path="res://scenes/ProgressDialog.gd" type="Script" id=10]
+[ext_resource path="res://scenes/LoadDialog.gd" type="Script" id=11]
+[ext_resource path="res://scenes/ColumnDialog.gd" type="Script" id=12]
+[ext_resource path="res://scenes/TutorialDialog.gd" type="Script" id=13]
+[ext_resource path="res://scenes/SettingsDialog.gd" type="Script" id=14]
 [ext_resource path="res://assets/themes/white/column_tear.png" type="Texture" id=15]
 [ext_resource path="res://assets/themes/dark/theme2.tres" type="Theme" id=16]
-[ext_resource path="res://CustomDialog.tscn" type="PackedScene" id=17]
+[ext_resource path="res://scenes/CustomDialog.tscn" type="PackedScene" id=17]
 [ext_resource path="res://assets/fade_image_animation.tres" type="Animation" id=18]
 
 [sub_resource type="StyleBoxEmpty" id=1]
@@ -54,20 +54,14 @@ font_data = ExtResource( 8 )
 [node name="main" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+theme = ExtResource( 7 )
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="BgPanel" type="Panel" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme = ExtResource( 7 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="AudioPlayers" type="Node2D" parent="."]
 
@@ -86,7 +80,6 @@ anchor_right = 0.977
 anchor_bottom = 0.13
 margin_left = 0.424
 margin_right = -1.448
-theme = ExtResource( 7 )
 custom_constants/separation = 30
 __meta__ = {
 "_edit_use_anchors_": false
@@ -144,7 +137,6 @@ margin_top = -0.199997
 margin_right = -0.448059
 margin_bottom = -0.200012
 size_flags_vertical = 3
-theme = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -242,7 +234,6 @@ text = "+"
 [node name="SoundDialog" parent="." instance=ExtResource( 17 )]
 margin_right = 340.0
 margin_bottom = 519.0
-theme = ExtResource( 7 )
 script = ExtResource( 3 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="SoundDialog"]
@@ -324,7 +315,6 @@ margin_left = 300.0
 margin_top = 100.0
 margin_right = 739.0
 margin_bottom = 321.0
-theme = ExtResource( 7 )
 script = ExtResource( 9 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="SaveDialog"]
@@ -369,7 +359,7 @@ caret_blink = true
 [node name="HTMLButton" type="Button" parent="SaveDialog/VBoxContainer/VBoxContainer/HBoxContainer"]
 visible = false
 margin_left = 404.0
-margin_right = 439.0
+margin_right = 562.0
 margin_bottom = 50.0
 focus_mode = 1
 size_flags_horizontal = 3
@@ -413,7 +403,6 @@ anchor_bottom = 0.083
 margin_top = 0.6
 margin_right = -0.120026
 margin_bottom = 0.199997
-theme = ExtResource( 7 )
 script = ExtResource( 12 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ColumnDialog"]
@@ -483,7 +472,6 @@ texture = ExtResource( 15 )
 [node name="ProgressDialog" parent="." instance=ExtResource( 17 )]
 margin_right = 426.0
 margin_bottom = 219.0
-theme = ExtResource( 7 )
 popup_exclusive = true
 script = ExtResource( 10 )
 
@@ -562,7 +550,6 @@ text = "Cancel"
 [node name="LoadDialog" parent="." instance=ExtResource( 17 )]
 margin_right = 412.0
 margin_bottom = 547.0
-theme = ExtResource( 7 )
 script = ExtResource( 11 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="LoadDialog"]
@@ -642,7 +629,6 @@ text = "Cancel"
 [node name="TutorialDialog" parent="." instance=ExtResource( 17 )]
 margin_right = 676.0
 margin_bottom = 479.0
-theme = ExtResource( 7 )
 popup_exclusive = true
 script = ExtResource( 13 )
 
@@ -758,7 +744,6 @@ anims/fade_image = ExtResource( 18 )
 [node name="SettingsDialog" parent="." instance=ExtResource( 17 )]
 margin_right = 480.0
 margin_bottom = 479.0
-theme = ExtResource( 7 )
 script = ExtResource( 14 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="SettingsDialog"]
