@@ -9,10 +9,9 @@ export_presets.cfg
 data_*/
 
 # Android-specific ignores
-.apk
 *.apk
-*.exe
 *.TMP
+android/build/
 
 # Other
 bin/
