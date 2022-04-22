@@ -15,3 +15,4 @@ android/build/
 
 # Other
 bin/
+*.zip
