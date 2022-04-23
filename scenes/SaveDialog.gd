@@ -34,7 +34,7 @@ func save():
 		var path = main.user_dir+"Projects/"+entered_name.strip_edges()+".mdj"
 		var file = File.new()
 		file.open(path, File.WRITE)
-		file.store_var(main.song)
+		file.store_string(to_json(main.song))
 		file.close()
 		
 		# ProgressDialog

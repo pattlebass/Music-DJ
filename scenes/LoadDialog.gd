@@ -19,9 +19,13 @@ func load_song(_path, _song = null):
 		var file = File.new()
 		file.open(_path, File.READ)
 		if _path.ends_with(".mdj"):
-			main.song = file.get_var()
+			var json_result = JSON.parse(file.get_as_text())
+			if json_result.error: # Godot dictionary
+				main.song = file.get_var()
+			else: # JSON format
+				main.song = json_result.result
 			file.close()
-		else:# .mdjt
+		else: # .mdjt
 			main.song = str2var(file.get_as_text())
 			file.close()
 			var dir = Directory.new()
