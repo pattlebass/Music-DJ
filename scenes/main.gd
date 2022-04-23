@@ -26,14 +26,11 @@ func _ready():
 	
 	randomize()
 	
-	OS.low_processor_usage_mode = !OS.get_name() == "Android" # It is broken on Android
+	#OS.low_processor_usage_mode = !OS.get_name() == "Android" # It is broken on Android
 
 	for i in column_index:
 		add_column(i)
 	
-#	var add_button = get_node("HBoxContainer/StepContainer/HBoxContainer/VBoxContainer")
-#	$HBoxContainer/StepContainer/HBoxContainer.move_child(add_button, column_index+1)
-
 	if OS.get_name() == "Android":
 		yield(get_tree(), "idle_frame")
 		OS.request_permissions()
@@ -54,19 +51,10 @@ func _ready():
 		dir.make_dir("Exports")
 		dir.make_dir("Projects")
 		user_dir = "user://saves/"
-	
-	if GlobalVariables.last_song:
-		$LoadDialog.load_song(null, GlobalVariables.last_song)
-		GlobalVariables.last_song = null
-	#$BgPanel.theme = GlobalVariables.theme_resource
-	#$ShadowPanel.theme = load("res://assets/themes/%s/theme2.tres" % GlobalVariables.options.theme)
-	#$HBoxContainer2.theme = GlobalVariables.theme_resource
-	#$HBoxContainer.theme = GlobalVariables.theme_resource
-	
+
 
 func on_theme_changed(new_theme):
-	#print("Theme changed")
-	theme = load("res://assets/themes/%s/theme.tres" % new_theme)
+	theme = load("res://assets/themes/%s/%s.tres" % [new_theme, new_theme])
 
 
 func play_song():
@@ -224,7 +212,6 @@ func _on_AddButton_pressed():
 func add_column(_column_no:int, add_to_song:bool = true):
 	var column = column_scene.instance()
 	column.get_node("Label").text = str(_column_no + 1)
-	#column.theme = GlobalVariables.theme_resource
 	var column_container = get_node("HBoxContainer/StepContainer/HBoxContainer")
 	column_container.add_child(column)
 	column_container.move_child(column, column_container.get_child_count()-2)
@@ -234,17 +221,12 @@ func add_column(_column_no:int, add_to_song:bool = true):
 		var button = column.get_node("Button"+str(b+1))
 		button.connect("pressed", self, "on_Tile_pressed", [_column_no, b])
 		button.connect("button_down", self, "on_Tile_held", [_column_no, b, column.get_node("Button"+str(b+1))])
-	#	button.theme = GlobalVariables.theme_resource
 	column.get_node("Label").connect("pressed", self, "on_Column_Button_pressed", [_column_no, column])
-	column.get_node("Label").theme = load("res://assets/themes/%s/theme2.tres" % GlobalVariables.options.theme)
 	
 	# Add to song
 	if add_to_song:
 		for g in song:
 			g.append(0)
-	
-#	var add_button = get_node("HBoxContainer/StepContainer/HBoxContainer/VBoxContainer")
-#	$HBoxContainer/StepContainer/HBoxContainer.move_child(add_button, _column_no+1)
 	
 	return column
 	

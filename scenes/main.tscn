@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://scenes/main.gd" type="Script" id=1]
 [ext_resource path="res://assets/trumpet.png" type="Texture" id=2]
@@ -6,7 +6,7 @@
 [ext_resource path="res://assets/piano.png" type="Texture" id=4]
 [ext_resource path="res://assets/drum.png" type="Texture" id=5]
 [ext_resource path="res://assets/guitar.png" type="Texture" id=6]
-[ext_resource path="res://assets/themes/dark/theme.tres" type="Theme" id=7]
+[ext_resource path="res://assets/themes/dark/dark.tres" type="Theme" id=7]
 [ext_resource path="res://assets/fonts/libel-suit-rg.ttf" type="DynamicFontData" id=8]
 [ext_resource path="res://scenes/SaveDialog.gd" type="Script" id=9]
 [ext_resource path="res://scenes/ProgressDialog.gd" type="Script" id=10]
@@ -15,7 +15,6 @@
 [ext_resource path="res://scenes/TutorialDialog.gd" type="Script" id=13]
 [ext_resource path="res://scenes/SettingsDialog.gd" type="Script" id=14]
 [ext_resource path="res://assets/themes/white/column_tear.png" type="Texture" id=15]
-[ext_resource path="res://assets/themes/dark/theme2.tres" type="Theme" id=16]
 [ext_resource path="res://scenes/CustomDialog.tscn" type="PackedScene" id=17]
 [ext_resource path="res://assets/fade_image_animation.tres" type="Animation" id=18]
 
@@ -137,9 +136,6 @@ margin_top = -0.199997
 margin_right = -0.448059
 margin_bottom = -0.200012
 size_flags_vertical = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ImageContainer" type="VBoxContainer" parent="HBoxContainer"]
 margin_right = 80.0
@@ -151,7 +147,6 @@ margin_right = 80.0
 margin_bottom = 59.0
 rect_min_size = Vector2( 40, 40 )
 size_flags_vertical = 1
-theme = ExtResource( 7 )
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/ImageContainer"]
 margin_top = 69.0
@@ -220,7 +215,6 @@ margin_top = 162.0
 margin_right = 60.0
 margin_bottom = 221.0
 rect_min_size = Vector2( 40, 59 )
-theme = ExtResource( 7 )
 
 [node name="AddButton" type="Button" parent="HBoxContainer/StepContainer/HBoxContainer/VBoxContainer"]
 margin_top = 225.0
@@ -349,7 +343,6 @@ margin_left = 19.0
 margin_right = 419.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 400, 50 )
-theme = ExtResource( 7 )
 custom_colors/cursor_color = Color( 0, 0, 0, 0.5 )
 max_length = 100
 placeholder_text = "File name here"
@@ -363,6 +356,7 @@ margin_right = 562.0
 margin_bottom = 50.0
 focus_mode = 1
 size_flags_horizontal = 3
+theme_type_variation = "ListItem"
 enabled_focus_mode = 1
 text = "Input file name"
 align = 0
@@ -580,6 +574,7 @@ custom_styles/separator = SubResource( 5 )
 margin_left = 402.0
 margin_right = 402.0
 margin_bottom = 59.0
+theme_type_variation = "ListItem"
 
 [node name="HSeparator" type="HSeparator" parent="LoadDialog/VBoxContainer"]
 margin_top = 63.0
@@ -596,13 +591,13 @@ scroll_deadzone = 30
 
 [node name="VBoxContainer" type="VBoxContainer" parent="LoadDialog/VBoxContainer/ScrollContainer"]
 margin_right = 402.0
-margin_bottom = 39.0
+margin_bottom = 49.0
 size_flags_horizontal = 3
 
 [node name="NoProjectsLabel" type="Label" parent="LoadDialog/VBoxContainer/ScrollContainer/VBoxContainer"]
 margin_right = 402.0
-margin_bottom = 39.0
-theme = ExtResource( 16 )
+margin_bottom = 49.0
+theme_type_variation = "ListItem"
 text = "No saved projects"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="LoadDialog/VBoxContainer"]
@@ -774,49 +769,50 @@ scroll_deadzone = 30
 
 [node name="SettingsContainer" type="VBoxContainer" parent="SettingsDialog/VBoxContainer/ScrollContainer"]
 margin_right = 480.0
-margin_bottom = 220.0
+margin_bottom = 200.0
 size_flags_horizontal = 3
 
 [node name="ThemeContainer" type="VBoxContainer" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer"]
 margin_right = 480.0
-margin_bottom = 152.0
+margin_bottom = 132.0
 
 [node name="Label" type="Label" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer/ThemeContainer"]
 margin_right = 480.0
-margin_bottom = 59.0
+margin_bottom = 39.0
+theme_type_variation = "LabelSubtitle"
 text = "Theme"
 
 [node name="VSeparator" type="VSeparator" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer/ThemeContainer"]
-margin_top = 63.0
+margin_top = 43.0
 margin_right = 480.0
-margin_bottom = 66.0
+margin_bottom = 46.0
 size_flags_horizontal = 3
 custom_styles/separator = SubResource( 10 )
 
 [node name="Dark" type="CheckBox" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer/ThemeContainer"]
-margin_top = 70.0
+margin_top = 50.0
 margin_right = 480.0
-margin_bottom = 109.0
+margin_bottom = 89.0
 group = SubResource( 11 )
 text = "Dark"
 
 [node name="White" type="CheckBox" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer/ThemeContainer"]
-margin_top = 113.0
+margin_top = 93.0
 margin_right = 480.0
-margin_bottom = 152.0
+margin_bottom = 132.0
 group = SubResource( 11 )
 text = "White"
 
 [node name="HSeparator" type="HSeparator" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer"]
-margin_top = 156.0
+margin_top = 136.0
 margin_right = 480.0
-margin_bottom = 166.0
+margin_bottom = 146.0
 custom_constants/separation = 10
 
 [node name="TutorialContainer" type="HBoxContainer" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer"]
-margin_top = 170.0
+margin_top = 150.0
 margin_right = 480.0
-margin_bottom = 220.0
+margin_bottom = 200.0
 rect_min_size = Vector2( 0, 50 )
 
 [node name="ShowTutorial" type="Button" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer/TutorialContainer"]

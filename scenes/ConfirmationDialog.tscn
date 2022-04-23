@@ -2,7 +2,7 @@
 
 [ext_resource path="res://scenes/ConfirmationDialog.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/libel-suit-rg.ttf" type="DynamicFontData" id=2]
-[ext_resource path="res://assets/themes/dark/theme.tres" type="Theme" id=3]
+[ext_resource path="res://assets/themes/dark/dark.tres" type="Theme" id=3]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 

@@ -4,6 +4,9 @@ var selected_file = ""
 var button_scene = preload("res://scenes/LoadButton.tscn")
 
 
+func _ready():
+	GlobalVariables.connect("theme_changed", self, "on_theme_changed")
+
 
 func _on_OkButton_pressed():
 	load_song(main.user_dir+"Projects/"+selected_file)
@@ -29,31 +32,13 @@ func load_song(_path, _song = null):
 			file.close()
 	
 	# Add remaining columns
-	#var column_index = main.column_index
 	var song_column_index = main.song[0].size()
 	
 	if main.column_index < song_column_index:
-		#var column_scene = preload("res://Column.tscn")
 		for i in song_column_index - main.column_index:
 			main.add_column(main.column_index, false)
 			main.column_index += 1
-			#print(song_column_index - main.column_index)
-#			column_index += 1
-#			var column_instance = column_scene.instance()
-#			column_instance.get_node("Label").text = str(column_index)
-#			var column_container = main.get_node("HBoxContainer/StepContainer/HBoxContainer")
-#			column_container.add_child(column_instance)
-#			var add_button = main.get_node("HBoxContainer/StepContainer/HBoxContainer/VBoxContainer")
-#			column_container.move_child(add_button, column_index)
-#
-#			# Signals
-#			for b in 4:
-#				var button = column_instance.get_node("Button"+str(b+1))
-#				button.connect("pressed", main, "on_Tile_pressed", [column_index-1, b])
-#				button.connect("button_down", main, "on_Tile_held", [column_index-1, b, column_instance.get_node("Button"+str(b+1))])
-#			column_instance.get_node("Label").connect("pressed", main, "on_Column_Button_pressed", [column_index-1, column_instance])
-			
-		#main.column_index = song_column_index
+
 	elif main.column_index > song_column_index:
 		for i in main.column_index - song_column_index:
 			main.get_node("HBoxContainer/StepContainer/HBoxContainer").get_child(main.column_index-1).queue_free()
@@ -66,7 +51,6 @@ func load_song(_path, _song = null):
 
 	for instrument in main.song.size():
 		for column_no in main.song[instrument].size():
-			#print(main.song[instrument].size())
 			var column = main.get_node("HBoxContainer/StepContainer/HBoxContainer").get_child(column_no)
 			var button = column.get_child(instrument + 1)
 			var value = main.song[instrument][column_no]
@@ -109,8 +93,12 @@ func load_song(_path, _song = null):
 			button.set("custom_styles/hover", style_box)
 			
 	hide()
-	
-	
+
+
+func on_theme_changed(new_theme):
+	$VBoxContainer/TitleHBox/OpenButton.icon = load("res://assets/themes/%s/open_folder.png" % new_theme)
+
+
 func about_to_show():
 	# Check for permissions
 	OS.request_permissions()
@@ -125,17 +113,12 @@ func about_to_show():
 		$VBoxContainer/ScrollContainer/VBoxContainer/NoProjectsLabel.show()
 	else:
 		$VBoxContainer/ScrollContainer/VBoxContainer/NoProjectsLabel.hide()
-	$VBoxContainer/ScrollContainer/VBoxContainer/NoProjectsLabel.theme = load("res://assets/themes/%s/theme2.tres" % GlobalVariables.options.theme)
-	$VBoxContainer/TitleHBox/OpenButton.icon = load("res://assets/themes/%s/open_folder.png" % GlobalVariables.options.theme)
-	$VBoxContainer/TitleHBox/OpenButton.theme = load("res://assets/themes/%s/theme2.tres" % GlobalVariables.options.theme)
 	
 	for i in list_files_in_directory(main.user_dir+"Projects/"):
 		var button_container = button_scene.instance()
 		var load_button = button_container.get_node("LoadButton")
 		var delete_button = button_container.get_node("DeleteButton")
 		var download_button = button_container.get_node("DownloadButton")
-		
-		button_container.theme = load("res://assets/themes/%s/theme2.tres" % GlobalVariables.options.theme)
 		
 		load_button.text = i
 		load_button.connect("pressed", self, "on_Button_selected", [i])

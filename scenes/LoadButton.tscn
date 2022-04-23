@@ -10,9 +10,6 @@
 margin_right = 137.0
 margin_bottom = 40.0
 script = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="LoadButton" type="Button" parent="."]
 margin_right = 12.0
@@ -20,6 +17,7 @@ margin_bottom = 40.0
 focus_mode = 0
 mouse_filter = 1
 size_flags_horizontal = 3
+theme_type_variation = "ListItem"
 toggle_mode = true
 enabled_focus_mode = 0
 align = 0
@@ -33,6 +31,7 @@ margin_right = 60.0
 margin_bottom = 40.0
 focus_mode = 0
 mouse_filter = 1
+theme_type_variation = "ListItem"
 enabled_focus_mode = 0
 icon = ExtResource( 2 )
 align = 0
@@ -44,8 +43,8 @@ __meta__ = {
 margin_left = 64.0
 margin_right = 104.0
 margin_bottom = 40.0
-custom_styles/separator = SubResource( 1 )
 custom_constants/separation = 40
+custom_styles/separator = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -56,6 +55,7 @@ margin_right = 152.0
 margin_bottom = 40.0
 focus_mode = 0
 mouse_filter = 1
+theme_type_variation = "ListItem"
 enabled_focus_mode = 0
 icon = ExtResource( 1 )
 align = 0

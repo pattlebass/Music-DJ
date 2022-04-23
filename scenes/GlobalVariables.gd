@@ -7,7 +7,6 @@ var current_tutorial_version = 1
 var default_options = {"show_tutorial":true, "last_tutorial_version":current_tutorial_version, "theme":"dark"}
 var loaded_theme = "dark"
 var themes = ["dark", "white", "classic1", "classic2"]
-var last_song
 var timer
 
 signal theme_changed
@@ -30,14 +29,17 @@ func _ready():
 			if options.has("last_tutorial_version"):
 				if current_tutorial_version > options["last_tutorial_version"]:
 					options = default_options.duplicate()
+					save_options()
 			else:
 				options = default_options.duplicate()
+				save_options()
 		else:
 			options = default_options.duplicate()
+			save_options()
 		
 	else:
 		options = default_options.duplicate()
-	save_options()
+		save_options()
 
 
 func save_options(delay := 2):
@@ -48,7 +50,7 @@ func on_timer_timeout():
 	file.open("user://options.txt", File.WRITE)
 	file.store_var(options)
 	file.close()
-	print("written to file")
+	print("Written to options.txt")
 
 
 func change_theme(new_theme):

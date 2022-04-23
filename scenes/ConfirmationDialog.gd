@@ -20,7 +20,6 @@ func _on_CancelButton_pressed():
 
 
 func _on_ConfirmationDialog_about_to_show():
-	theme = GlobalVariables.theme_resource
 	about_to_show()
 
 

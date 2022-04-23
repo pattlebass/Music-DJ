@@ -54,6 +54,7 @@ __meta__ = {
 show_behind_parent = true
 margin_right = 40.0
 margin_bottom = 40.0
+theme_type_variation = "ShadowPanel"
 __meta__ = {
 "_edit_use_anchors_": false
 }

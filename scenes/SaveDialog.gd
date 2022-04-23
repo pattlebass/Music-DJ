@@ -16,9 +16,7 @@ var once := false
 
 
 func _ready():
-	#line_edit.theme = GlobalVariables.theme_resource
-	html_button.theme = load("res://assets/themes/%s/theme2.tres" % GlobalVariables.options.theme)
-	
+	pass
 	
 #	if OS.get_name() == "HTML5":
 #		html_button.show()
@@ -28,7 +26,7 @@ func _ready():
 #		line_edit.show()
 	
 	#regex.compile('[\\/:"*?<>|]+')
-	
+
 
 func save():
 	if type_of_save == "project":
@@ -177,6 +175,6 @@ func _on_HTMLButton_pressed():
 
 func _on_LineEdit_text_entered(new_text: String) -> void:
 	# Kinda hacky, but this is not an AcceptDialog so it doesn't have
-	# register_text_enter()
+	# the register_text_enter() method
 	yield(get_tree().create_timer(0.1), "timeout")
 	$VBoxContainer/HBoxContainer/OkButton.emit_signal("pressed")

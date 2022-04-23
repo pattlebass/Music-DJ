@@ -5,8 +5,12 @@ var column_no
 
 
 func _ready():
-	var path = "res://assets/themes/%s/" % GlobalVariables.options.theme
-	$Sprite.texture = load(path+"column_tear.png")
+	GlobalVariables.connect("theme_changed", self, "on_theme_changed")
+
+
+func on_theme_changed(new_theme):
+	var path = "res://assets/themes/%s/" % new_theme
+	$Sprite.texture = load(path.plus_file("column_tear.png"))
 
 
 func about_to_show():

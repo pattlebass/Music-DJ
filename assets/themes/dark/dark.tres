@@ -1,6 +1,8 @@
-[gd_resource type="Theme" load_steps=24 format=2]
+[gd_resource type="Theme" load_steps=35 format=2]
 
 [ext_resource path="res://assets/fonts/libel-suit-rg.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://assets/themes/dark/radio_uncheck.png" type="Texture" id=2]
+[ext_resource path="res://assets/themes/dark/radio_check.png" type="Texture" id=3]
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
@@ -32,46 +34,70 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
-[sub_resource type="StyleBoxLine" id=6]
+[sub_resource type="StyleBoxEmpty" id=6]
+
+[sub_resource type="StyleBoxLine" id=7]
 color = Color( 1, 1, 1, 0.270588 )
 thickness = 5
 
-[sub_resource type="StyleBoxLine" id=7]
+[sub_resource type="StyleBoxLine" id=8]
 color = Color( 1, 1, 1, 0.27 )
 thickness = 8
 
-[sub_resource type="StyleBoxLine" id=8]
+[sub_resource type="StyleBoxLine" id=9]
 color = Color( 1, 1, 1, 0.00392157 )
 thickness = 5
 
-[sub_resource type="StyleBoxLine" id=9]
+[sub_resource type="StyleBoxLine" id=10]
 color = Color( 1, 1, 1, 0.121569 )
 
-[sub_resource type="DynamicFont" id=10]
+[sub_resource type="DynamicFont" id=11]
 size = 40
 font_data = ExtResource( 1 )
 
-[sub_resource type="StyleBoxFlat" id=11]
+[sub_resource type="StyleBoxFlat" id=12]
 bg_color = Color( 0.223529, 0.243137, 0.27451, 1 )
 
-[sub_resource type="StyleBoxFlat" id=12]
+[sub_resource type="StyleBoxFlat" id=13]
 
-[sub_resource type="DynamicFont" id=13]
+[sub_resource type="DynamicFont" id=14]
 size = 48
 font_data = ExtResource( 1 )
 
-[sub_resource type="DynamicFont" id=14]
+[sub_resource type="DynamicFont" id=28]
 size = 32
 font_data = ExtResource( 1 )
 
-[sub_resource type="StyleBoxEmpty" id=15]
+[sub_resource type="DynamicFont" id=15]
+size = 32
+font_data = ExtResource( 1 )
 
-[sub_resource type="StyleBoxFlat" id=16]
+[sub_resource type="StyleBoxEmpty" id=16]
+
+[sub_resource type="StyleBoxFlat" id=17]
 draw_center = false
 border_width_bottom = 2
 border_color = Color( 0.305882, 0.8, 0.639216, 1 )
 
-[sub_resource type="StyleBoxFlat" id=17]
+[sub_resource type="DynamicFont" id=27]
+size = 40
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxEmpty" id=29]
+
+[sub_resource type="StyleBoxFlat" id=30]
+bg_color = Color( 0.31, 0.8, 0.64, 0.37 )
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id=18]
+
+[sub_resource type="StyleBoxFlat" id=32]
+bg_color = Color( 0.14, 0.16, 0.19, 1 )
+
+[sub_resource type="StyleBoxFlat" id=20]
 bg_color = Color( 0.223529, 0.243137, 0.27451, 1 )
 corner_radius_top_left = 12
 corner_radius_top_right = 12
@@ -82,25 +108,31 @@ expand_margin_right = 16.0
 expand_margin_top = 16.0
 expand_margin_bottom = 16.0
 
-[sub_resource type="StyleBoxLine" id=18]
+[sub_resource type="StyleBoxLine" id=21]
 color = Color( 0.31, 0.8, 0.64, 0.37 )
 thickness = 5
 
-[sub_resource type="StyleBoxLine" id=19]
+[sub_resource type="StyleBoxLine" id=22]
 color = Color( 0.305882, 0.8, 0.639216, 1 )
 thickness = 5
 
-[sub_resource type="StyleBoxLine" id=20]
+[sub_resource type="DynamicFont" id=23]
+size = 32
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxEmpty" id=31]
+
+[sub_resource type="StyleBoxLine" id=24]
 color = Color( 1, 1, 1, 0.270588 )
 thickness = 5
 vertical = true
 
-[sub_resource type="StyleBoxLine" id=21]
+[sub_resource type="StyleBoxLine" id=25]
 color = Color( 1, 1, 1, 0.270588 )
 thickness = 8
 vertical = true
 
-[sub_resource type="StyleBoxLine" id=22]
+[sub_resource type="StyleBoxLine" id=26]
 color = Color( 1, 1, 1, 0.00392157 )
 thickness = 5
 vertical = true
@@ -117,17 +149,35 @@ Button/styles/focus = SubResource( 3 )
 Button/styles/hover = SubResource( 4 )
 Button/styles/normal = SubResource( 4 )
 Button/styles/pressed = SubResource( 5 )
+CheckBox/colors/font_color = Color( 0.88, 0.88, 0.88, 1 )
+CheckBox/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
+CheckBox/colors/font_color_hover = Color( 0.94, 0.94, 0.94, 1 )
+CheckBox/colors/font_color_hover_pressed = Color( 1, 1, 1, 1 )
+CheckBox/colors/font_color_pressed = Color( 1, 1, 1, 1 )
+CheckBox/constants/check_vadjust = 0
+CheckBox/constants/hseparation = 10
+CheckBox/fonts/font = null
+CheckBox/icons/checked = null
+CheckBox/icons/radio_checked = ExtResource( 3 )
+CheckBox/icons/radio_unchecked = ExtResource( 2 )
+CheckBox/icons/unchecked = null
+CheckBox/styles/disabled = SubResource( 6 )
+CheckBox/styles/focus = SubResource( 6 )
+CheckBox/styles/hover = SubResource( 6 )
+CheckBox/styles/hover_pressed = SubResource( 6 )
+CheckBox/styles/normal = SubResource( 6 )
+CheckBox/styles/pressed = SubResource( 6 )
 HScrollBar/icons/decrement = null
 HScrollBar/icons/decrement_highlight = null
 HScrollBar/icons/increment = null
 HScrollBar/icons/increment_highlight = null
-HScrollBar/styles/grabber = SubResource( 6 )
-HScrollBar/styles/grabber_highlight = SubResource( 6 )
-HScrollBar/styles/grabber_pressed = SubResource( 7 )
-HScrollBar/styles/scroll = SubResource( 8 )
-HScrollBar/styles/scroll_focus = SubResource( 8 )
+HScrollBar/styles/grabber = SubResource( 7 )
+HScrollBar/styles/grabber_highlight = SubResource( 7 )
+HScrollBar/styles/grabber_pressed = SubResource( 8 )
+HScrollBar/styles/scroll = SubResource( 9 )
+HScrollBar/styles/scroll_focus = SubResource( 9 )
 HSeparator/constants/separation = 2
-HSeparator/styles/separator = SubResource( 9 )
+HSeparator/styles/separator = SubResource( 10 )
 ItemList/colors/font_color = Color( 0.933333, 0.933333, 0.933333, 1 )
 ItemList/colors/font_color_selected = Color( 1, 1, 1, 1 )
 ItemList/colors/guide_color = Color( 1, 1, 1, 0 )
@@ -135,13 +185,13 @@ ItemList/constants/hseparation = 4
 ItemList/constants/icon_margin = 4
 ItemList/constants/line_separation = 2
 ItemList/constants/vseparation = 4
-ItemList/fonts/font = SubResource( 10 )
-ItemList/styles/bg = SubResource( 11 )
-ItemList/styles/bg_focus = SubResource( 11 )
+ItemList/fonts/font = SubResource( 11 )
+ItemList/styles/bg = SubResource( 12 )
+ItemList/styles/bg_focus = SubResource( 12 )
 ItemList/styles/cursor = null
 ItemList/styles/cursor_unfocused = null
 ItemList/styles/selected = null
-ItemList/styles/selected_focus = SubResource( 12 )
+ItemList/styles/selected_focus = SubResource( 13 )
 Label/colors/font_color = Color( 1, 1, 1, 1 )
 Label/colors/font_color_shadow = Color( 0, 0, 0, 0 )
 Label/colors/font_outline_modulate = Color( 1, 1, 1, 1 )
@@ -149,8 +199,13 @@ Label/constants/line_spacing = 3
 Label/constants/shadow_as_outline = 0
 Label/constants/shadow_offset_x = 1
 Label/constants/shadow_offset_y = 1
-Label/fonts/font = SubResource( 13 )
+Label/fonts/font = SubResource( 14 )
 Label/styles/normal = null
+LabelSubtitle/base_type = "Label"
+LabelSubtitle/colors/font_color = Color( 1, 1, 1, 0.368627 )
+LabelSubtitle/colors/font_color_shadow = Color( 0, 0, 0, 0 )
+LabelSubtitle/colors/font_outline_modulate = Color( 1, 1, 1, 1 )
+LabelSubtitle/fonts/font = SubResource( 28 )
 LineEdit/colors/clear_button_color = Color( 0.88, 0.88, 0.88, 1 )
 LineEdit/colors/clear_button_color_pressed = Color( 1, 1, 1, 1 )
 LineEdit/colors/cursor_color = Color( 0.94, 0.94, 0.94, 1 )
@@ -159,11 +214,17 @@ LineEdit/colors/font_color_selected = Color( 0, 0, 0, 1 )
 LineEdit/colors/font_color_uneditable = Color( 0.88, 0.88, 0.88, 0.5 )
 LineEdit/colors/selection_color = Color( 0.49, 0.49, 0.49, 1 )
 LineEdit/constants/minimum_spaces = 12
-LineEdit/fonts/font = SubResource( 14 )
+LineEdit/fonts/font = SubResource( 15 )
 LineEdit/icons/clear = null
-LineEdit/styles/focus = SubResource( 15 )
-LineEdit/styles/normal = SubResource( 16 )
+LineEdit/styles/focus = SubResource( 16 )
+LineEdit/styles/normal = SubResource( 17 )
 LineEdit/styles/read_only = null
+ListItem/base_type = "Button"
+ListItem/fonts/font = SubResource( 27 )
+ListItem/styles/focus = SubResource( 29 )
+ListItem/styles/hover = SubResource( 29 )
+ListItem/styles/normal = SubResource( 29 )
+ListItem/styles/pressed = SubResource( 30 )
 OptionButton/colors/font_color = Color( 0.88, 0.88, 0.88, 1 )
 OptionButton/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
 OptionButton/colors/font_color_hover = Color( 0.94, 0.94, 0.94, 1 )
@@ -175,22 +236,42 @@ OptionButton/icons/arrow = null
 OptionButton/styles/disabled = null
 OptionButton/styles/focus = null
 OptionButton/styles/hover = null
-OptionButton/styles/normal = null
+OptionButton/styles/normal = SubResource( 18 )
 OptionButton/styles/pressed = null
-PopupDialog/styles/panel = SubResource( 17 )
+Panel/styles/panel = SubResource( 32 )
+PopupDialog/styles/panel = SubResource( 20 )
 ProgressBar/colors/font_color = Color( 0.94, 0.94, 0.94, 1 )
 ProgressBar/colors/font_color_shadow = Color( 0, 0, 0, 1 )
 ProgressBar/fonts/font = null
-ProgressBar/styles/bg = SubResource( 18 )
-ProgressBar/styles/fg = SubResource( 19 )
+ProgressBar/styles/bg = SubResource( 21 )
+ProgressBar/styles/fg = SubResource( 22 )
+RichTextLabel/colors/default_color = Color( 1, 1, 1, 1 )
+RichTextLabel/colors/font_color_selected = Color( 0.49, 0.49, 0.49, 1 )
+RichTextLabel/colors/font_color_shadow = Color( 0, 0, 0, 0 )
+RichTextLabel/colors/selection_color = Color( 0.1, 0.1, 1, 0.8 )
+RichTextLabel/constants/line_separation = 1
+RichTextLabel/constants/shadow_as_outline = 0
+RichTextLabel/constants/shadow_offset_x = 1
+RichTextLabel/constants/shadow_offset_y = 1
+RichTextLabel/constants/table_hseparation = 3
+RichTextLabel/constants/table_vseparation = 3
+RichTextLabel/fonts/bold_font = null
+RichTextLabel/fonts/bold_italics_font = null
+RichTextLabel/fonts/italics_font = null
+RichTextLabel/fonts/mono_font = null
+RichTextLabel/fonts/normal_font = SubResource( 23 )
+RichTextLabel/styles/focus = null
+RichTextLabel/styles/normal = null
+ShadowPanel/base_type = "Panel"
+ShadowPanel/styles/panel = SubResource( 31 )
 VScrollBar/icons/decrement = null
 VScrollBar/icons/decrement_highlight = null
 VScrollBar/icons/increment = null
 VScrollBar/icons/increment_highlight = null
-VScrollBar/styles/grabber = SubResource( 20 )
-VScrollBar/styles/grabber_highlight = SubResource( 20 )
-VScrollBar/styles/grabber_pressed = SubResource( 21 )
-VScrollBar/styles/scroll = SubResource( 22 )
-VScrollBar/styles/scroll_focus = SubResource( 22 )
+VScrollBar/styles/grabber = SubResource( 24 )
+VScrollBar/styles/grabber_highlight = SubResource( 24 )
+VScrollBar/styles/grabber_pressed = SubResource( 25 )
+VScrollBar/styles/scroll = SubResource( 26 )
+VScrollBar/styles/scroll_focus = SubResource( 26 )
 VSeparator/constants/separation = 8
 VSeparator/styles/separator = null

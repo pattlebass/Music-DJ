@@ -28,12 +28,10 @@ func _ready():
 		
 		var label = Label.new()
 		label.text = category[i]
-		label.theme = load("res://assets/themes/%s/theme2.tres" % GlobalVariables.options.theme)
+		label.theme_type_variation = "LabelSubtitle"
 		scroll_container.add_child(label)
 		
 		var separator2 = HSeparator.new()
-		var theme2_path = "res://assets/themes/%s/theme2.tres" % GlobalVariables.options.theme
-		#separator2.theme = load(theme2_path)
 		scroll_container.add_child(separator2)
 		
 		# Icon
@@ -56,7 +54,7 @@ func _ready():
 			button_index += 1
 			var button_in_list = Button.new()
 			button_in_list.text = " "+text[g]
-			button_in_list.theme = load("res://assets/themes/%s/theme2.tres" % GlobalVariables.options.theme)
+			button_in_list.theme_type_variation = "ListItem"
 			button_in_list.icon = texture
 			button_in_list.align = Button.ALIGN_LEFT
 			button_in_list.mouse_filter = Button.MOUSE_FILTER_PASS
