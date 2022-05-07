@@ -29,6 +29,10 @@ GlobalVariables="*res://scenes/GlobalVariables.gd"
 window/stretch/mode="2d"
 window/stretch/aspect="expand"
 
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/AutoExportVersion/plugin.cfg" )
+
 [input]
 
 left_click={
