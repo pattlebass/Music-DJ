@@ -93,9 +93,8 @@ func about_to_show():
 func on_Button_selected(index, _genre_index):
 	if index == pressed_button_index:
 		get_node("VBoxContainer/ScrollContainer/VBoxContainer/"+str(pressed_button_index)).pressed = true
-
-	print(str(instrument_index)+"/"+str(index+1))
-	audio_player.stream = load("res://sounds/"+str(instrument_index)+"/"+str(index+1)+".wav")
+	
+	audio_player.stream = load("res://sounds/"+str(instrument_index)+"/"+str(index+1)+".ogg")
 	audio_player.play()
 	$VBoxContainer/HBoxContainer/OkButton.disabled = false
 	pressed_button_index = index
