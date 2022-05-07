@@ -15,12 +15,12 @@ This is a recreation of the app with the same name found on Sony Ericsson device
 * MIDI player
 * Tempo changer
 
-## How to download
+## Download
 
 * [Android](https://github.com/pattlebass/Music-Dj/releases/latest/download/MusicDJ.apk)
 * [Windows](https://github.com/pattlebass/Music-Dj/releases/latest/download/MusicDJ.Windows.zip)
 * [Linux](https://github.com/pattlebass/Music-Dj/releases/latest/download/MusicDJ.Linux.zip) (You may have to give it executable permissions)
-* [HTML5](https://pattlebass.itch.io/musicdj)
+* [HTML5](https://pattlebass.itch.io/musicdj) (Can be buggy on mobile devices)
 
 You might get warnings about this app not being safe. Like [this](https://i.stack.imgur.com/LlLiX.png) and [this](https://i.imgur.com/VlnKgTB.png). That's because I'm not a verified publisher and there is nothing I can do at the moment.
 
