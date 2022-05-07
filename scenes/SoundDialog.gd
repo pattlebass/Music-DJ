@@ -10,6 +10,9 @@ var column
 var button
 
 
+onready var button_container = $VBoxContainer/ScrollContainer/VBoxContainer
+onready var audio_player = $AudioStreamPlayer
+
 func _ready():
 	
 	# Create list
@@ -19,20 +22,18 @@ func _ready():
 	var button_index = -1
 	
 	for i in 4:
-		var scroll_container = $VBoxContainer/ScrollContainer/VBoxContainer
-		
 		var separator = HSeparator.new()
 		separator.set("custom_constants/separation", 10)
 		separator.modulate = Color(1, 1, 1, 0.01)
-		scroll_container.add_child(separator)
+		button_container.add_child(separator)
 		
 		var label = Label.new()
 		label.text = category[i]
 		label.theme_type_variation = "LabelSubtitle"
-		scroll_container.add_child(label)
+		button_container.add_child(label)
 		
 		var separator2 = HSeparator.new()
-		scroll_container.add_child(separator2)
+		button_container.add_child(separator2)
 		
 		# Icon
 		var image = load("res://assets/mask.png")
@@ -62,8 +63,8 @@ func _ready():
 			button_in_list.name = str(button_index)
 			button_in_list.focus_mode = Control.FOCUS_NONE
 			button_in_list.toggle_mode = true
-			scroll_container.add_child(button_in_list)
-			
+			button_container.add_child(button_in_list)
+
 
 func about_to_show():
 	column = main.get_node("HBoxContainer/StepContainer/HBoxContainer").get_child(column_no)
@@ -88,18 +89,19 @@ func about_to_show():
 		
 	.about_to_show()
 
+
 func on_Button_selected(index, _genre_index):
 	if index == pressed_button_index:
 		get_node("VBoxContainer/ScrollContainer/VBoxContainer/"+str(pressed_button_index)).pressed = true
 
 	print(str(instrument_index)+"/"+str(index+1))
-	$AudioStreamPlayer.stream = load("res://sounds/"+str(instrument_index)+"/"+str(index+1)+".wav")
-	$AudioStreamPlayer.play()
+	audio_player.stream = load("res://sounds/"+str(instrument_index)+"/"+str(index+1)+".wav")
+	audio_player.play()
 	$VBoxContainer/HBoxContainer/OkButton.disabled = false
 	pressed_button_index = index
 	genre_index = _genre_index
 	
-	for i in $VBoxContainer/ScrollContainer/VBoxContainer.get_children():
+	for i in button_container.get_children():
 		if i is Button:
 			if i.name == str(index):
 				continue
@@ -126,8 +128,8 @@ func _on_OkButton_pressed():
 	image.unlock()
 	
 	main.song[instrument_index][column_no] = pressed_button_index+1
-	if column_no > main.last_columns.back():
-		main.last_columns.append(column_no)
+	if not main.used_columns.has(column_no):
+		main.used_columns.append(column_no)
 
 	hide()
 	column_no = 0
@@ -146,7 +148,7 @@ func _on_ClearButton_pressed():
 		if i is Button and i.text != "":
 			falses += 1
 	if falses == 0:
-		main.last_columns.erase(column_no)
+		main.used_columns.erase(column_no)
 	
 	main.song[instrument_index][column_no] = 0
 
@@ -159,7 +161,7 @@ func _on_CancelButton_pressed():
 
 func popup_hide():
 	$VBoxContainer/ScrollContainer.scroll_vertical = 0
-	for i in $VBoxContainer/ScrollContainer/VBoxContainer.get_children():
+	for i in button_container.get_children():
 		if i is Button:
 			i.pressed = false
 	.popup_hide()

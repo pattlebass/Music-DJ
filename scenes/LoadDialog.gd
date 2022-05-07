@@ -49,9 +49,9 @@ func load_song(_path, _song = null):
 			main.column_index -= 1
 		
 		
-	# Clear last_columns
-	main.last_columns.clear()
-	main.last_columns.append(-1)
+	# Clear used_columns
+	main.used_columns.clear()
+	main.used_columns.append(-1)
 
 	for instrument in main.song.size():
 		for column_no in main.song[instrument].size():
@@ -69,8 +69,8 @@ func load_song(_path, _song = null):
 				continue
 			
 			# Find last columns
-			if column_no > main.last_columns.back() and not main.last_columns.has(column_no):
-				main.last_columns.append(column_no)
+			if not main.used_columns.has(column_no):
+				main.used_columns.append(column_no)
 
 			# Button
 			var text
@@ -196,12 +196,19 @@ func on_Button_deleted(_container):
 	var _path = _container.get_child(0).text
 	var dialog = preload("res://scenes/ConfirmationDialog.tscn").instance()
 	
+	modulate = Color.transparent
+	
 	main.add_child(dialog)
-	dialog.alert("Are you sure?","[color=#4ecca3]%s[/color] will be deleted." %_path.substr(0, 20))
+	dialog.alert("Delete project?",
+		"[color=#4ecca3]%s[/color] will be deleted." % _path.substr(0, 20))
 	var choice = yield(dialog, "chose")
 	if choice:
 		dir.remove(main.user_dir+"Projects/"+_path)
 		_container.queue_free()
+	
+	yield(get_tree(), "idle_frame")
+	main.on_popup_show()
+	modulate = Color.white
 
 
 func on_Button_download(_container):

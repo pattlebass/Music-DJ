@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://scenes/main.gd" type="Script" id=1]
 [ext_resource path="res://assets/trumpet.png" type="Texture" id=2]
@@ -50,6 +50,91 @@ font_data = ExtResource( 8 )
 
 [sub_resource type="StyleBoxEmpty" id=12]
 
+[sub_resource type="Animation" id=13]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("DimOverlay:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("DimOverlay:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=15]
+resource_name = "dim"
+length = 0.15
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("DimOverlay:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.15 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("DimOverlay:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=14]
+resource_name = "undim"
+length = 0.07
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("DimOverlay:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.07 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("DimOverlay:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.07 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
 [node name="main" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -80,9 +165,6 @@ anchor_bottom = 0.13
 margin_left = 0.424
 margin_right = -1.448
 custom_constants/separation = 30
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Play" type="Button" parent="HBoxContainer2"]
 margin_right = 100.0
@@ -142,40 +224,39 @@ margin_right = 80.0
 margin_bottom = 447.0
 custom_constants/separation = 10
 
-[node name="Label" type="Label" parent="HBoxContainer/ImageContainer"]
+[node name="Control" type="Control" parent="HBoxContainer/ImageContainer"]
 margin_right = 80.0
-margin_bottom = 59.0
-rect_min_size = Vector2( 40, 40 )
-size_flags_vertical = 1
+margin_bottom = 60.0
+rect_min_size = Vector2( 80, 60 )
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/ImageContainer"]
-margin_top = 69.0
+margin_top = 70.0
 margin_right = 80.0
-margin_bottom = 149.0
+margin_bottom = 150.0
 rect_min_size = Vector2( 80, 80 )
 texture = ExtResource( 5 )
 expand = true
 
 [node name="TextureRect2" type="TextureRect" parent="HBoxContainer/ImageContainer"]
-margin_top = 159.0
+margin_top = 160.0
 margin_right = 80.0
-margin_bottom = 239.0
+margin_bottom = 240.0
 rect_min_size = Vector2( 80, 80 )
 texture = ExtResource( 6 )
 expand = true
 
 [node name="TextureRect3" type="TextureRect" parent="HBoxContainer/ImageContainer"]
-margin_top = 249.0
+margin_top = 250.0
 margin_right = 80.0
-margin_bottom = 329.0
+margin_bottom = 330.0
 rect_min_size = Vector2( 80, 80 )
 texture = ExtResource( 4 )
 expand = true
 
 [node name="TextureRect4" type="TextureRect" parent="HBoxContainer/ImageContainer"]
-margin_top = 339.0
+margin_top = 340.0
 margin_right = 80.0
-margin_bottom = 419.0
+margin_bottom = 420.0
 rect_min_size = Vector2( 80, 80 )
 texture = ExtResource( 2 )
 expand = true
@@ -210,11 +291,11 @@ margin_bottom = 447.0
 rect_min_size = Vector2( 60, 0 )
 alignment = 1
 
-[node name="Label2" type="Label" parent="HBoxContainer/StepContainer/HBoxContainer/VBoxContainer"]
-margin_top = 162.0
+[node name="Control" type="Control" parent="HBoxContainer/StepContainer/HBoxContainer/VBoxContainer"]
+margin_top = 161.0
 margin_right = 60.0
 margin_bottom = 221.0
-rect_min_size = Vector2( 40, 59 )
+rect_min_size = Vector2( 60, 60 )
 
 [node name="AddButton" type="Button" parent="HBoxContainer/StepContainer/HBoxContainer/VBoxContainer"]
 margin_top = 225.0
@@ -224,6 +305,13 @@ rect_min_size = Vector2( 60, 60 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
 text = "+"
+
+[node name="DimOverlay" type="Panel" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+theme_type_variation = "ShadowPanel"
 
 [node name="SoundDialog" parent="." instance=ExtResource( 17 )]
 margin_right = 340.0
@@ -310,6 +398,9 @@ margin_top = 100.0
 margin_right = 739.0
 margin_bottom = 321.0
 script = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="VBoxContainer" type="VBoxContainer" parent="SaveDialog"]
 anchor_right = 1.0
@@ -392,11 +483,9 @@ text = "Cancel"
 
 [node name="ColumnDialog" parent="." instance=ExtResource( 17 )]
 anchor_top = -0.001
-anchor_right = 0.255
-anchor_bottom = 0.083
 margin_top = 0.6
-margin_right = -0.120026
-margin_bottom = 0.199997
+margin_right = 261.0
+margin_bottom = 50.0
 script = ExtResource( 12 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ColumnDialog"]
@@ -468,6 +557,9 @@ margin_right = 426.0
 margin_bottom = 219.0
 popup_exclusive = true
 script = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ProgressDialog"]
 anchor_right = 1.0
@@ -502,9 +594,9 @@ size_flags_horizontal = 3
 alignment = 1
 
 [node name="ProgressBar" type="ProgressBar" parent="ProgressDialog/VBoxContainer/HBoxContainer2/VBoxContainer"]
-margin_top = 18.0
+margin_top = 21.0
 margin_right = 426.0
-margin_bottom = 42.0
+margin_bottom = 40.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
 step = 0.001
@@ -545,6 +637,9 @@ text = "Cancel"
 margin_right = 412.0
 margin_bottom = 547.0
 script = ExtResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="VBoxContainer" type="VBoxContainer" parent="LoadDialog"]
 anchor_right = 1.0
@@ -626,6 +721,9 @@ margin_right = 676.0
 margin_bottom = 479.0
 popup_exclusive = true
 script = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TutorialDialog"]
 anchor_right = 1.0
@@ -769,8 +867,9 @@ scroll_deadzone = 30
 
 [node name="SettingsContainer" type="VBoxContainer" parent="SettingsDialog/VBoxContainer/ScrollContainer"]
 margin_right = 480.0
-margin_bottom = 200.0
+margin_bottom = 324.0
 size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="ThemeContainer" type="VBoxContainer" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer"]
 margin_right = 480.0
@@ -793,6 +892,7 @@ custom_styles/separator = SubResource( 10 )
 margin_top = 50.0
 margin_right = 480.0
 margin_bottom = 89.0
+mouse_filter = 1
 group = SubResource( 11 )
 text = "Dark"
 
@@ -800,6 +900,7 @@ text = "Dark"
 margin_top = 93.0
 margin_right = 480.0
 margin_bottom = 132.0
+mouse_filter = 1
 group = SubResource( 11 )
 text = "White"
 
@@ -818,7 +919,22 @@ rect_min_size = Vector2( 0, 50 )
 [node name="ShowTutorial" type="Button" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer/TutorialContainer"]
 margin_right = 163.0
 margin_bottom = 50.0
+mouse_filter = 1
 text = "  Show Tutorial  "
+
+[node name="Control" type="Control" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer"]
+margin_top = 204.0
+margin_right = 480.0
+margin_bottom = 281.0
+size_flags_vertical = 3
+
+[node name="LabelVersion" type="Label" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer"]
+margin_top = 285.0
+margin_right = 480.0
+margin_bottom = 324.0
+theme_type_variation = "LabelSubtitle"
+text = "v1.x.x"
+align = 2
 
 [node name="HSeparator2" type="HSeparator" parent="SettingsDialog/VBoxContainer"]
 margin_top = 415.0
@@ -839,6 +955,11 @@ margin_right = 280.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 80, 50 )
 text = "Close"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 13 )
+anims/dim = SubResource( 15 )
+anims/undim = SubResource( 14 )
 
 [connection signal="toggled" from="HBoxContainer2/Play" to="." method="_on_Play_toggled"]
 [connection signal="pressed" from="HBoxContainer2/Export" to="." method="_on_Export_pressed"]

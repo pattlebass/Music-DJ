@@ -8,18 +8,14 @@ func _ready():
 
 
 func about_to_show():
-	yield(get_tree(), "idle_frame")
+	rect_pivot_offset = rect_size / 2
 	
-	$BackPanel.rect_global_position = Vector2(0, 0)
-	$BackPanel.rect_size = OS.get_window_size()
+	main.on_popup_show()
 	
 	$AnimationPlayer.play("fade_in")
 
 
 func popup_hide():
-	visible = true
-	# Animation
-	$AnimationPlayer.play_backwards("fade_in")
-	yield(get_tree().create_timer(0.1), "timeout")
-	
-	visible = false
+	$AnimationPlayer.play("fade_out")
+
+	main.on_popup_hide()

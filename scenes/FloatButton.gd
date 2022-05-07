@@ -32,8 +32,9 @@ func _input(event):
 			# Add to play list
 			var collided_column_no = int(collided_button.get_parent().get_node("Label").text)-1
 			main.song[instrument][collided_column_no] = main.song[instrument][column_no]
-			if collided_column_no > main.last_columns.back():
-				main.last_columns.append(collided_column_no)
+			if not main.used_columns.has(collided_column_no):
+				main.used_columns.append(collided_column_no)
+			
 			
 		get_parent().get_node("HBoxContainer/StepContainer").mouse_filter = Control.MOUSE_FILTER_STOP
 		queue_free()

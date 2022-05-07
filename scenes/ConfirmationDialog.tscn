@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/ConfirmationDialog.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/libel-suit-rg.ttf" type="DynamicFontData" id=2]
@@ -10,7 +10,8 @@ size = 32
 font_data = ExtResource( 2 )
 
 [sub_resource type="Animation" id=3]
-length = 0.1
+resource_name = "RESET"
+length = 0.001
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
@@ -18,22 +19,80 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+"values": [ Color( 1, 1, 1, 1 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("BackPanel:modulate")
+tracks/1/path = NodePath(".:rect_scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "fade_in"
+length = 0.15
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.15 ),
+"transitions": PoolRealArray( 0.5, 0.5 ),
+"update": 0,
+"values": [ Vector2( 0.8, 0.8 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "fade_out"
+length = 0.07
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.07 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.07 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
 }
 
 [node name="ConfirmationDialog" type="PopupDialog"]
@@ -43,11 +102,9 @@ margin_right = 752.0
 margin_bottom = 402.0
 popup_exclusive = true
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="BackPanel" type="Panel" parent="."]
+modulate = Color( 1, 1, 1, 0 )
 show_behind_parent = true
 margin_right = 40.0
 margin_bottom = 40.0
@@ -62,20 +119,20 @@ __meta__ = {
 
 [node name="Title" type="Label" parent="VBoxContainer"]
 margin_right = 436.0
-margin_bottom = 59.0
+margin_bottom = 14.0
 text = "Are you sure?"
 
 [node name="HSeparator2" type="HSeparator" parent="VBoxContainer"]
-margin_top = 63.0
+margin_top = 18.0
 margin_right = 436.0
-margin_bottom = 81.0
+margin_bottom = 58.0
 size_flags_vertical = 3
 custom_styles/separator = SubResource( 1 )
 
 [node name="Subtitle" type="RichTextLabel" parent="VBoxContainer"]
-margin_top = 85.0
+margin_top = 62.0
 margin_right = 436.0
-margin_bottom = 125.0
+margin_bottom = 102.0
 rect_min_size = Vector2( 0, 40 )
 custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
@@ -84,7 +141,7 @@ fit_content_height = true
 scroll_active = false
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
-margin_top = 129.0
+margin_top = 106.0
 margin_right = 436.0
 margin_bottom = 147.0
 size_flags_vertical = 3
@@ -113,7 +170,9 @@ rect_min_size = Vector2( 100, 50 )
 text = "Cancel"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/fade_in = SubResource( 3 )
+anims/RESET = SubResource( 3 )
+anims/fade_in = SubResource( 4 )
+anims/fade_out = SubResource( 5 )
 
 [connection signal="about_to_show" from="." to="." method="_on_ConfirmationDialog_about_to_show"]
 [connection signal="popup_hide" from="." to="." method="_on_ConfirmationDialog_popup_hide"]

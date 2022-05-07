@@ -1,12 +1,19 @@
 extends Control
 
 var song := [[], [], [], []]
-var last_columns := [-1]
+var used_columns := [-1]
 var column_index := 15
 var user_dir := ""
 var is_playing := false
 
 var column_scene = preload("res://scenes/Column.tscn")
+
+onready var play_button = $HBoxContainer2/Play
+onready var export_button = $HBoxContainer2/Export
+onready var save_button = $HBoxContainer2/SaveProject
+onready var save_dialog = $SaveDialog
+onready var audio_players = $AudioPlayers
+onready var animation = $AnimationPlayer
 
 # Notes:
 
@@ -26,8 +33,9 @@ func _ready():
 	
 	randomize()
 	
-	#OS.low_processor_usage_mode = !OS.get_name() == "Android" # It is broken on Android
-
+	OS.min_window_size.x = ProjectSettings.get("display/window/size/width") * 0.75
+	OS.min_window_size.y = ProjectSettings.get("display/window/size/height") * 0.75
+	
 	for i in column_index:
 		add_column(i)
 	
@@ -60,15 +68,15 @@ func on_theme_changed(new_theme):
 func play_song():
 	is_playing = true
 	yield(get_tree(), "idle_frame")
-	$SoundDialog/AudioStreamPlayer.stop()
+	$SoundDialog.audio_player.stop()
 	for i in column_index:
 		if not is_playing:
 			return
 		play_column(i, false)
 		yield(get_tree().create_timer(3), "timeout")
 	
-		if i >= last_columns.back():
-			$HBoxContainer2/Play.pressed = false
+		if i >= used_columns.max():
+			play_button.pressed = false
 			is_playing = false
 			return
 		
@@ -76,8 +84,8 @@ func play_song():
 func play_column(_column_no, _single):
 	is_playing = true
 	
-	if _column_no > last_columns.back():
-		$HBoxContainer2/Play.pressed = false
+	if _column_no > used_columns.max():
+		play_button.pressed = false
 		return
 	
 	# Visuals
@@ -89,7 +97,7 @@ func play_column(_column_no, _single):
 		if song[a][_column_no] == 0:
 			continue
 	
-		var audio_player = $AudioPlayers.get_child(a)
+		var audio_player = audio_players.get_child(a)
 		var sound = song[a][_column_no]
 		audio_player.stream = load("res://sounds/"+str(a)+"/"+str(sound)+".wav")
 		audio_player.play()
@@ -107,9 +115,10 @@ func play_column(_column_no, _single):
 func on_Tile_pressed(_column_no, _instrument):
 	if is_playing:
 		return
-	$SoundDialog.instrument_index = _instrument
-	$SoundDialog.column_no = _column_no
-	$SoundDialog.popup_centered(Vector2(500, 550))
+	var sound_dialog = $SoundDialog
+	sound_dialog.instrument_index = _instrument
+	sound_dialog.column_no = _column_no
+	sound_dialog.popup_centered(Vector2(500, 550))
 
 
 func on_Tile_held(_column_no, _instrument, _button):
@@ -147,56 +156,30 @@ func on_Tile_held(_column_no, _instrument, _button):
 		Input.vibrate_handheld(70)
 
 
-func on_Column_Button_pressed(_column_no, _column):
-	$ColumnDialog.column = _column
-	$ColumnDialog.column_no = _column_no
-	
-	var label = _column.get_node("Label")
-	var pos = label.rect_global_position
-	pos.x -= $ColumnDialog.rect_size.x/2 - label.rect_size.x/2
-	pos.y += label.rect_size.x
-	var viewport_size = get_viewport().get_visible_rect().size
-	var pos_plus_size = pos+$ColumnDialog.rect_size+Vector2(16,16)
-	var pos_minus_size = pos-$ColumnDialog.rect_size-Vector2(16,16)
-	if pos_plus_size.x > viewport_size.x:
-		pos.x -= pos_plus_size.x - viewport_size.x
-	elif pos.x < 0:
-		pos.x = 0 + 16
-		
-	$ColumnDialog.rect_global_position = pos
-	
-	var sprite = $ColumnDialog.get_node("Sprite")
-	var sprite_pos_x = label.rect_global_position.x + label.rect_size.x/2
-	sprite.global_position.x = sprite_pos_x
-	
-	
-	$ColumnDialog.popup()
-
-
 func _on_Play_toggled(button_pressed):
 	if button_pressed:
 		play_song()
-		$HBoxContainer2/Play.text = "Stop"
+		play_button.text = "Stop"
 	else:
 		is_playing = false
-		$HBoxContainer2/Play.text = "Play"
+		play_button.text = "Play"
 		
 		yield(get_tree(), "idle_frame")
-		for i in $AudioPlayers.get_children():
+		for i in audio_players.get_children():
 			i.stop()
 
 
 func _on_Export_pressed():
-	if  last_columns.back() != -1:
-		$SaveDialog.title = "Export song as"
-		$SaveDialog.type_of_save = "export"
-		$SaveDialog.popup_centered()
+	if  used_columns.max() != -1:
+		save_dialog.title = "Export song as"
+		save_dialog.type_of_save = "export"
+		save_dialog.popup_centered()
 
 
 func _on_SaveProject_pressed():
-	$SaveDialog.title = "Save project as"
-	$SaveDialog.type_of_save = "project"
-	$SaveDialog.popup()
+	save_dialog.title = "Save project as"
+	save_dialog.type_of_save = "project"
+	save_dialog.popup()
 
 
 func _on_OpenProject_pressed():
@@ -221,7 +204,7 @@ func add_column(_column_no:int, add_to_song:bool = true):
 		var button = column.get_node("Button"+str(b+1))
 		button.connect("pressed", self, "on_Tile_pressed", [_column_no, b])
 		button.connect("button_down", self, "on_Tile_held", [_column_no, b, column.get_node("Button"+str(b+1))])
-	column.get_node("Label").connect("pressed", self, "on_Column_Button_pressed", [_column_no, column])
+	column.get_node("Label").connect("pressed", $ColumnDialog, "on_Column_Button_pressed", [_column_no, column])
 	
 	# Add to song
 	if add_to_song:
@@ -231,23 +214,24 @@ func add_column(_column_no:int, add_to_song:bool = true):
 	return column
 	
 func _process(delta):
-	if last_columns.back() == -1:
-		$HBoxContainer2/Play.disabled = true
-		$HBoxContainer2/Export.disabled = true
-		$HBoxContainer2/SaveProject.disabled = true
-	else:
-		$HBoxContainer2/Play.disabled = false
-		$HBoxContainer2/Export.disabled = false
-		$HBoxContainer2/SaveProject.disabled = false
-		
-		if is_playing:
-			$HBoxContainer2/Export.disabled = true
-		else:
-			$HBoxContainer2/Export.disabled = false
+	export_button.disabled = is_playing or used_columns.max() == -1
+	play_button.disabled = used_columns.max() == -1
+	save_button.disabled = used_columns.max() == -1
 
 
 func _on_Settings_pressed():
 	$SettingsDialog.popup_centered()
+
+
+func on_popup_show():
+#	$DimOverlay.show()
+	animation.play("dim")
+
+
+func on_popup_hide():
+#	$DimOverlay.hide()
+	animation.play("undim")
+
 
 func _files_dropped(_files, _screen):
 	var dir = Directory.new()
@@ -263,7 +247,7 @@ func _files_dropped(_files, _screen):
 			if dir.file_exists(user_dir+"Projects/"+filename):
 				var dialog = dialog_scene.instance()
 				add_child(dialog)
-				dialog.alert("Are you sure?","[color=#4ecca3]%s[/color] will be overwritten." %filename.substr(0, 20))
+				dialog.alert("Overwrite?","[color=#4ecca3]%s[/color] will be overwritten." %filename.substr(0, 20))
 				var choice = yield(dialog, "chose")
 				if choice == true:
 					dir.copy(i, user_dir+"Projects/"+filename)

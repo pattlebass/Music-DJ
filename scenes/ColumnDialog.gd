@@ -13,6 +13,33 @@ func on_theme_changed(new_theme):
 	$Sprite.texture = load(path.plus_file("column_tear.png"))
 
 
+func on_Column_Button_pressed(_column_no, _column):
+	column = _column
+	column_no = _column_no
+	
+	var label = _column.get_node("Label")
+	var pos = label.rect_global_position
+	pos.x -= rect_size.x/2 - label.rect_size.x/2
+	pos.y += label.rect_size.x
+	var viewport_size = get_viewport().get_visible_rect().size
+	var pos_plus_size = pos+rect_size+Vector2(16,16)
+	var pos_minus_size = pos-rect_size-Vector2(16,16)
+	if pos_plus_size.x > viewport_size.x:
+		pos.x -= pos_plus_size.x - viewport_size.x
+	elif pos.x < 0:
+		pos.x = 0 + 16
+		
+	rect_global_position = pos
+	
+	var sprite = get_node("Sprite")
+	var sprite_pos_x = label.rect_global_position.x + label.rect_size.x/2
+	sprite.global_position.x = sprite_pos_x
+	
+	popup()
+	
+	rect_pivot_offset = Vector2(sprite_pos_x - pos.x, 0)
+
+
 func about_to_show():
 	# Set title
 	var title = "Column " + str(column_no+1)
@@ -50,7 +77,7 @@ func _on_ClearButton_pressed():
 		button.set("custom_styles/hover", null)
 	
 	# Clear from song
-	main.last_columns.erase(column_no)
+	main.used_columns.erase(column_no)
 	for i in 4:
 		main.song[i][column_no] = 0
 
@@ -69,7 +96,7 @@ func _on_RemoveButton_pressed():
 	column.queue_free()
 	
 	# Clear from song
-	main.last_columns.erase(column_no)
+	main.used_columns.erase(column_no)
 	for i in 4:
 		main.song[i][column_no] = 0
 	main.column_index -= 1

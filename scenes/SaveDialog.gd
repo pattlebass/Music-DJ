@@ -52,7 +52,7 @@ func save():
 		var path = main.user_dir+"Exports/"+entered_name.strip_edges()+".wav"
 		main.get_node("ProgressDialog").path_text = path
 		main.get_node("ProgressDialog").after_saving = "stay"
-		main.get_node("ProgressDialog").progress_bar.max_value = 3*(main.last_columns.back()+1) + 0.5
+		main.get_node("ProgressDialog").progress_bar.max_value = 3*(main.used_columns.max()+1) + 0.5
 		main.get_node("ProgressDialog").popup_centered()
 		
 		# Export
@@ -94,7 +94,6 @@ func about_to_show():
 	var default_name := "Song " + str(randi() % 1000)
 	
 	$VBoxContainer/VBoxContainer/Label.text = title
-	#$VBoxContainer/HBoxContainer/OkButton.disabled = true
 	
 	if last_name:
 		line_edit.text = last_name
@@ -130,11 +129,13 @@ func _on_LineEdit_text_changed(new_text):
 	html_button.text = new_text
 	line_edit.caret_position = line_edit.text.length()
 	
+	var ok_button = $VBoxContainer/HBoxContainer/OkButton
+	
 	if new_text != "":
 		entered_name = new_text
-		$VBoxContainer/HBoxContainer/OkButton.disabled = false
+		ok_button.disabled = false
 	else:
-		$VBoxContainer/HBoxContainer/OkButton.disabled = true
+		ok_button.disabled = true
 
 
 func _process(delta):
