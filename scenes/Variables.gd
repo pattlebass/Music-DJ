@@ -8,6 +8,7 @@ var default_options = {"show_tutorial":true, "last_tutorial_version":current_tut
 var loaded_theme = "dark"
 var themes = ["dark", "white", "classic1", "classic2"]
 var timer
+var user_dir := ""
 
 signal theme_changed
 

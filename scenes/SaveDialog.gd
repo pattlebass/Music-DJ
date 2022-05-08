@@ -31,9 +31,9 @@ func _ready():
 func save():
 	if type_of_save == "project":
 		# Project save
-		var path = main.user_dir+"Projects/"+entered_name.strip_edges()+".mdj"
+		var path = Variables.user_dir.plus_file("Projects/%s.mdj" % entered_name.strip_edges())
 		var file = File.new()
-		file.open(path, File.WRITE)
+		print(file.open(path, File.WRITE))
 		file.store_string(to_json(main.song))
 		file.close()
 		
@@ -49,7 +49,7 @@ func save():
 		main.get_node("SoundDialog/AudioStreamPlayer").stop()
 		
 		# ProgressDialog
-		var path = main.user_dir+"Exports/"+entered_name.strip_edges()+".wav"
+		var path = Variables.user_dir.plus_file("Exports/%s.wav" % entered_name.strip_edges())
 		main.get_node("ProgressDialog").path_text = path
 		main.get_node("ProgressDialog").after_saving = "stay"
 		main.get_node("ProgressDialog").progress_bar.max_value = 3*(main.used_columns.max()+1) + 0.5

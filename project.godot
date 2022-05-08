@@ -22,7 +22,7 @@ config/windows_native_icon="res://assets/icon/icon.ico"
 
 [autoload]
 
-GlobalVariables="*res://scenes/GlobalVariables.gd"
+Variables="*res://scenes/Variables.gd"
 
 [display]
 

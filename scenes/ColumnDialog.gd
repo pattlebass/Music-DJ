@@ -5,7 +5,7 @@ var column_no
 
 
 func _ready():
-	GlobalVariables.connect("theme_changed", self, "on_theme_changed")
+	Variables.connect("theme_changed", self, "on_theme_changed")
 
 
 func on_theme_changed(new_theme):

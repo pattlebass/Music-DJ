@@ -5,11 +5,11 @@ var button_scene = preload("res://scenes/LoadButton.tscn")
 
 
 func _ready():
-	GlobalVariables.connect("theme_changed", self, "on_theme_changed")
+	Variables.connect("theme_changed", self, "on_theme_changed")
 
 
 func _on_OkButton_pressed():
-	load_song(main.user_dir+"Projects/"+selected_file)
+	load_song(Variables.user_dir.plus_file("Projects/%s" % selected_file))
 	
 
 func load_song(_path, _song = null):
@@ -75,7 +75,7 @@ func load_song(_path, _song = null):
 			# Button
 			var text
 			var style_box = preload("res://assets/button_stylebox.tres").duplicate()
-			var colors = GlobalVariables.colors
+			var colors = Variables.colors
 			
 			if value >= 1 and value <= 8:
 				text = value
@@ -104,6 +104,17 @@ func on_theme_changed(new_theme):
 
 
 func about_to_show():
+	var file_path = OS.get_system_dir(OS.SYSTEM_DIR_MUSIC).plus_file("musicdj.txt")
+#	var f = File.new()
+#	print(f.open(file_path, File.WRITE_READ))
+#	f.store_string("Stored " + str(OS.get_time()))
+#	print(f.get_as_text())
+#	f.close()
+	
+	var dir = Directory.new()
+	dir.make_dir(OS.get_system_dir(OS.SYSTEM_DIR_MUSIC).plus_file("MusicDJ"))
+	
+	
 	# Check for permissions
 	OS.request_permissions()
 	yield(get_tree(), "idle_frame")
@@ -113,12 +124,12 @@ func about_to_show():
 	if OS.get_name() == "HTML5":
 		$VBoxContainer/TitleHBox/OpenButton.hide()
 	$VBoxContainer/HBoxContainer/OkButton.disabled = true
-	if list_files_in_directory(main.user_dir+"Projects/").empty():
+	if list_files_in_directory(Variables.user_dir.plus_file("Projects/")).empty():
 		$VBoxContainer/ScrollContainer/VBoxContainer/NoProjectsLabel.show()
 	else:
 		$VBoxContainer/ScrollContainer/VBoxContainer/NoProjectsLabel.hide()
 	
-	for i in list_files_in_directory(main.user_dir+"Projects/"):
+	for i in list_files_in_directory(Variables.user_dir.plus_file("Projects/")):
 		var button_container = button_scene.instance()
 		var load_button = button_container.get_node("LoadButton")
 		var delete_button = button_container.get_node("DeleteButton")
@@ -153,7 +164,7 @@ func list_files_in_directory(path):
 			files.append(file)
 
 	dir.list_dir_end()
-
+	
 	return files
 
 
@@ -186,9 +197,9 @@ func _on_CancelButton_pressed():
 
 func _on_OpenButton_pressed():
 	if OS.get_name() == "Android":
-		OS.alert(ProjectSettings.globalize_path(main.user_dir), "Folder location")
+		OS.alert(ProjectSettings.globalize_path(Variables.user_dir), "Folder location")
 	else:
-		OS.shell_open(ProjectSettings.globalize_path(main.user_dir))
+		OS.shell_open(ProjectSettings.globalize_path(Variables.user_dir))
 
 
 func on_Button_deleted(_container):
@@ -203,7 +214,7 @@ func on_Button_deleted(_container):
 		"[color=#4ecca3]%s[/color] will be deleted." % _path.substr(0, 20))
 	var choice = yield(dialog, "chose")
 	if choice:
-		dir.remove(main.user_dir+"Projects/"+_path)
+		dir.remove(Variables.user_dir.plus_file("Projects/%s" % _path))
 		_container.queue_free()
 	
 	yield(get_tree(), "idle_frame")
@@ -213,4 +224,7 @@ func on_Button_deleted(_container):
 
 func on_Button_download(_container):
 	var file_name = _container.get_child(0).text
-	main.get_node("SaveDialog").download_file(main.user_dir+"Projects/"+file_name, file_name)
+	main.get_node("SaveDialog").download_file(
+		Variables.user_dir.plus_file("Projects/%s" % file_name),
+		file_name
+	)

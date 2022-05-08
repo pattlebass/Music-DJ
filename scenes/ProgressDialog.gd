@@ -54,16 +54,16 @@ func _process(delta):
 
 func _on_OpenButton_pressed():
 	if OS.get_name() == "Android":
-		OS.alert(ProjectSettings.globalize_path(main.user_dir), "Folder location")
+		OS.alert(ProjectSettings.globalize_path(Variables.user_dir), "Folder location")
 	else:
-		OS.shell_open(ProjectSettings.globalize_path(main.user_dir))
+		OS.shell_open(ProjectSettings.globalize_path(Variables.user_dir))
 
 
 func _on_DownloadButton_pressed():
 	var file_name = path_text.split("/")[-1]
 	var path
 	if file_name.ends_with(".mdj"):
-		path = main.user_dir+"Projects/"+file_name
+		path = Variables.user_dir.plus_file("Projects/%s" % file_name)
 	elif file_name.ends_with(".wav"):
-		path = main.user_dir+"Exports/"+file_name
+		path = Variables.user_dir.plus_file("Exports/%s" % file_name)
 	main.get_node("SaveDialog").download_file(path, file_name)

@@ -18,7 +18,7 @@ func _ready():
 	# Create list
 	var text = ["Groove 1", "Groove 2", "Salsa 1", "Salsa 2", "Reggae 1", "Reggae 2", "Techno 1", "Techno 2"]
 	var category = ["Introduction", "Verse", "Chorus", "Solo"]
-	var colors = GlobalVariables.colors
+	var colors = Variables.colors
 	var button_index = -1
 	
 	for i in 4:

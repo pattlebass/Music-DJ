@@ -3,7 +3,6 @@ extends Control
 var song := [[], [], [], []]
 var used_columns := [-1]
 var column_index := 15
-var user_dir := ""
 var is_playing := false
 
 var column_scene = preload("res://scenes/Column.tscn")
@@ -28,8 +27,8 @@ onready var animation = $AnimationPlayer
 
 func _ready():
 	get_tree().connect("files_dropped", self, "_files_dropped")
-	GlobalVariables.connect("theme_changed", self, "on_theme_changed")
-	GlobalVariables.change_theme(GlobalVariables.options.theme)
+	Variables.connect("theme_changed", self, "on_theme_changed")
+	Variables.change_theme(Variables.options.theme)
 	
 	randomize()
 	
@@ -43,11 +42,11 @@ func _ready():
 		yield(get_tree(), "idle_frame")
 		OS.request_permissions()
 		
-		user_dir = "/storage/emulated/0/MusicDJ/"
+		Variables.user_dir = "/storage/emulated/0/MusicDJ/"
 		var dir = Directory.new()
 		dir.open("/storage/emulated/0/")
 		dir.make_dir("MusicDJ")
-		dir.open(user_dir)
+		dir.open(Variables.user_dir)
 		dir.make_dir("Projects")
 		dir.make_dir("Exports")
 		
@@ -58,7 +57,7 @@ func _ready():
 		dir.open("user://saves")
 		dir.make_dir("Exports")
 		dir.make_dir("Projects")
-		user_dir = "user://saves/"
+		Variables.user_dir = "user://saves/"
 
 
 func on_theme_changed(new_theme):
@@ -244,15 +243,15 @@ func _files_dropped(_files, _screen):
 				split_slash = "/"
 			var filename = i.split(split_slash)[-1]
 			
-			if dir.file_exists(user_dir+"Projects/"+filename):
+			if dir.file_exists(Variables.user_dir.plus_file("Projects/%s" % filename)):
 				var dialog = dialog_scene.instance()
 				add_child(dialog)
 				dialog.alert("Overwrite?","[color=#4ecca3]%s[/color] will be overwritten." %filename.substr(0, 20))
 				var choice = yield(dialog, "chose")
 				if choice == true:
-					dir.copy(i, user_dir+"Projects/"+filename)
+					dir.copy(i, Variables.user_dir.plus_file("Projects/%s" % filename))
 			else:
-				dir.copy(i, user_dir+"Projects/"+filename)
+				dir.copy(i, Variables.user_dir.plus_file("Projects/%s" % filename))
 			#print(filename)
 	$LoadDialog.popup_centered()
 	
