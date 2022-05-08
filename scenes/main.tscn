@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://scenes/main.gd" type="Script" id=1]
 [ext_resource path="res://assets/trumpet.png" type="Texture" id=2]
@@ -16,7 +16,6 @@
 [ext_resource path="res://scenes/SettingsDialog.gd" type="Script" id=14]
 [ext_resource path="res://assets/themes/white/column_tear.png" type="Texture" id=15]
 [ext_resource path="res://scenes/CustomDialog.tscn" type="PackedScene" id=17]
-[ext_resource path="res://assets/fade_image_animation.tres" type="Animation" id=18]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
@@ -43,6 +42,192 @@ font_data = ExtResource( 8 )
 [sub_resource type="DynamicFont" id=9]
 size = 32
 font_data = ExtResource( 8 )
+
+[sub_resource type="Animation" id=16]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("VBoxContainer/HBoxContainer2/VBoxContainer2/VideoPlayer:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("VBoxContainer/HBoxContainer2/VBoxContainer2/VideoPlayer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("VBoxContainer/RichTextLabel:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("VBoxContainer/RichTextLabel:rect_position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 69 ) ]
+}
+
+[sub_resource type="Animation" id=20]
+resource_name = "fade_in"
+length = 0.1
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("VBoxContainer/HBoxContainer2/VBoxContainer2/VideoPlayer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 2, 2 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("VBoxContainer/HBoxContainer2/VBoxContainer2/VideoPlayer:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 0.5, 0.5 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 16, 0 ) ]
+}
+
+[sub_resource type="Animation" id=17]
+resource_name = "fade_in_right_to_left"
+length = 0.1
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("VBoxContainer/HBoxContainer2/VBoxContainer2/VideoPlayer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 0.5, 0.5 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("VBoxContainer/HBoxContainer2/VBoxContainer2/VideoPlayer:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 0.5, 0.5 ),
+"update": 0,
+"values": [ Vector2( 16, 0 ), Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("VBoxContainer/RichTextLabel:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 0.5, 0.5 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("VBoxContainer/RichTextLabel:rect_position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 0.5, 0.5 ),
+"update": 0,
+"values": [ Vector2( 16, 69 ), Vector2( 0, 69 ) ]
+}
+
+[sub_resource type="Animation" id=19]
+resource_name = "fade_out_right_to_left"
+length = 0.1
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("VBoxContainer/HBoxContainer2/VBoxContainer2/VideoPlayer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 0.5, 0.5 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("VBoxContainer/HBoxContainer2/VBoxContainer2/VideoPlayer:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 0.5, 0.5 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -16, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("VBoxContainer/RichTextLabel:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 0.5, 0.5 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("VBoxContainer/RichTextLabel:rect_position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 0.5, 0.5 ),
+"update": 0,
+"values": [ Vector2( 0, 69 ), Vector2( -16, 69 ) ]
+}
 
 [sub_resource type="StyleBoxEmpty" id=10]
 
@@ -721,19 +906,13 @@ margin_right = 676.0
 margin_bottom = 479.0
 popup_exclusive = true
 script = ExtResource( 13 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TutorialDialog"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = 3.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="Label" type="Label" parent="TutorialDialog/VBoxContainer"]
+[node name="Title" type="Label" parent="TutorialDialog/VBoxContainer"]
 margin_right = 679.0
 margin_bottom = 59.0
 text = "Tutorial"
@@ -743,7 +922,7 @@ margin_top = 63.0
 margin_right = 679.0
 margin_bottom = 65.0
 
-[node name="Label2" type="RichTextLabel" parent="TutorialDialog/VBoxContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="TutorialDialog/VBoxContainer"]
 margin_top = 69.0
 margin_right = 679.0
 margin_bottom = 109.0
@@ -793,7 +972,6 @@ margin_bottom = 300.0
 alignment = 1
 
 [node name="VideoPlayer" type="VideoPlayer" parent="TutorialDialog/VBoxContainer/HBoxContainer2/VBoxContainer2"]
-modulate = Color( 1, 1, 1, 0 )
 margin_right = 500.0
 margin_bottom = 300.0
 rect_min_size = Vector2( 500, 300 )
@@ -823,7 +1001,7 @@ __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="Label3" type="Label" parent="TutorialDialog/VBoxContainer"]
+[node name="PageLabel" type="Label" parent="TutorialDialog/VBoxContainer"]
 margin_top = 441.0
 margin_right = 679.0
 margin_bottom = 480.0
@@ -832,7 +1010,10 @@ text = "1/x"
 align = 1
 
 [node name="AnimationPlayer2" type="AnimationPlayer" parent="TutorialDialog"]
-anims/fade_image = ExtResource( 18 )
+anims/RESET = SubResource( 16 )
+anims/fade_in = SubResource( 20 )
+anims/fade_in_right_to_left = SubResource( 17 )
+anims/fade_out_right_to_left = SubResource( 19 )
 
 [node name="SettingsDialog" parent="." instance=ExtResource( 17 )]
 margin_right = 480.0
@@ -986,7 +1167,7 @@ anims/undim = SubResource( 14 )
 [connection signal="pressed" from="LoadDialog/VBoxContainer/TitleHBox/OpenButton" to="LoadDialog" method="_on_OpenButton_pressed"]
 [connection signal="pressed" from="LoadDialog/VBoxContainer/HBoxContainer/OkButton" to="LoadDialog" method="_on_OkButton_pressed"]
 [connection signal="pressed" from="LoadDialog/VBoxContainer/HBoxContainer/CancelButton" to="LoadDialog" method="_on_CancelButton_pressed"]
-[connection signal="meta_clicked" from="TutorialDialog/VBoxContainer/Label2" to="TutorialDialog" method="_on_Label2_meta_clicked"]
+[connection signal="meta_clicked" from="TutorialDialog/VBoxContainer/RichTextLabel" to="TutorialDialog" method="_on_Label2_meta_clicked"]
 [connection signal="pressed" from="TutorialDialog/VBoxContainer/HBoxContainer2/VBoxContainer/PreviousButton" to="TutorialDialog" method="_on_PreviousButton_pressed"]
 [connection signal="finished" from="TutorialDialog/VBoxContainer/HBoxContainer2/VBoxContainer2/VideoPlayer" to="TutorialDialog" method="_on_VideoPlayer_finished"]
 [connection signal="pressed" from="TutorialDialog/VBoxContainer/HBoxContainer2/VBoxContainer3/NextButton" to="TutorialDialog" method="_on_NextButton_pressed"]

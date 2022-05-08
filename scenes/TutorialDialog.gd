@@ -8,45 +8,36 @@ var panels = [{"title":"Tap and hold a tile to copy it.", "video":"res://assets/
 var current = 0
 
 onready var video_player = $VBoxContainer/HBoxContainer2/VBoxContainer2/VideoPlayer
+onready var animation = $AnimationPlayer2
 
 
 func _ready():
-	if GlobalVariables.options["show_tutorial"]:
+	if Variables.options["show_tutorial"]:
 		call_deferred("popup_centered")
-	$AnimationPlayer.add_animation("fade_in_image", preload("res://assets/fade_image_animation.tres"))
 
 
 func about_to_show():
 	current = 0
-	change_panel(0)
+	change_panel(0, 0)
 	.about_to_show()
 
 
 func _on_NextButton_pressed():
 	current += 1
-	change_panel(current)
+	change_panel(current, current - 1)
 
 
 func _on_PreviousButton_pressed():
 	current -= 1
-	change_panel(current)
+	change_panel(current, current + 1)
 
 
-func change_panel(_panel_no):
+func change_panel(_panel_no, _previous_panel_no):
 	if _panel_no >= panels.size():
-		GlobalVariables.options["show_tutorial"] = false
-		GlobalVariables.save_options()
+		Variables.options["show_tutorial"] = false
+		Variables.save_options()
 		hide()
 		return
-	
-	$AnimationPlayer.play_backwards("fade_in_image")
-	yield(get_tree().create_timer(0.1), "timeout")
-	var panel = panels[_panel_no]
-	video_player.stream = load(panel["video"])
-	video_player.play()
-	$VBoxContainer/Label2.bbcode_text = panel["title"]
-	$VBoxContainer/Label3.text = str(panel["index"]+1)+"/"+str(panels.size())
-	$AnimationPlayer.play("fade_in_image")
 	
 	var previous_button = $VBoxContainer/HBoxContainer2/VBoxContainer/PreviousButton
 	#var next_button = $VBoxContainer/HBoxContainer2/VBoxContainer3/NextButton
@@ -54,6 +45,29 @@ func change_panel(_panel_no):
 		previous_button.disabled = true
 	else:
 		previous_button.disabled = false
+	
+	# Note for future me:
+	# You can think backwards = opposite
+	# eg: fade_in_right_to_left backwards is fade_out_left_to_right
+	# I know it's confusing but it's easier to change
+	if _panel_no >= _previous_panel_no:
+		animation.play("fade_out_right_to_left")
+	else:
+		animation.play_backwards("fade_in_right_to_left")
+	
+	yield(get_tree().create_timer(0.1), "timeout")
+	animation.stop(false)
+	
+	var panel = panels[_panel_no]
+	video_player.stream = load(panel["video"])
+	video_player.play()
+	$VBoxContainer/RichTextLabel.bbcode_text = panel["title"]
+	$VBoxContainer/PageLabel.text = str(panel["index"]+1)+"/"+str(panels.size())
+	
+	if _panel_no >= _previous_panel_no:
+		animation.play("fade_in_right_to_left")
+	else:
+		animation.play_backwards("fade_out_right_to_left")
 
 
 func _on_VideoPlayer_finished():
