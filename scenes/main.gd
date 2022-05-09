@@ -42,9 +42,9 @@ func _ready():
 		yield(get_tree(), "idle_frame")
 		OS.request_permissions()
 		
-		Variables.user_dir = "/storage/emulated/0/MusicDJ/"
+		Variables.user_dir = OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS).plus_file("MusicDJ")
 		var dir = Directory.new()
-		dir.open("/storage/emulated/0/")
+		dir.open(OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS))
 		dir.make_dir("MusicDJ")
 		dir.open(Variables.user_dir)
 		dir.make_dir("Projects")
@@ -178,7 +178,7 @@ func _on_Export_pressed():
 func _on_SaveProject_pressed():
 	save_dialog.title = "Save project as"
 	save_dialog.type_of_save = "project"
-	save_dialog.popup()
+	save_dialog.popup_centered()
 
 
 func _on_OpenProject_pressed():
