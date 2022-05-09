@@ -7,11 +7,11 @@ var pressed_button_index = 0
 var genre_index = 0 # Index based on genre. Eg: button 0 of genre 2. genre_index would be 0
 
 var column
-var button
-
+var tile
 
 onready var button_container = $VBoxContainer/ScrollContainer/VBoxContainer
 onready var audio_player = $AudioStreamPlayer
+
 
 func _ready():
 	
@@ -43,10 +43,7 @@ func _ready():
 		for v in 32:
 			for h in 32:
 				var current_pixel = image.get_pixel(h, v)
-				if current_pixel == Color(1, 1, 1):
-					image.set_pixel(h, v, colors[i]*current_pixel)
-				else:
-					image.set_pixel(h, v, Color(1, 1, 1, 0))
+				image.set_pixel(h, v, colors[i] * current_pixel)
 		image.unlock()
 		texture.create_from_image(image)
 		
@@ -68,31 +65,30 @@ func _ready():
 
 func about_to_show():
 	column = main.get_node("HBoxContainer/StepContainer/HBoxContainer").get_child(column_no)
-	button = column.get_child(instrument_index+1)
+	tile = column.get_child(instrument_index+1)
 	
 	# Set title
-	var instrument
-	
-	instrument = instrument_name[instrument_index]
-	$VBoxContainer/Label.text = instrument + ", column " + str(column_no+1)
-	
+	var instrument = instrument_name[instrument_index]
+	$VBoxContainer/Label.text = instrument + ", column " + str(column_no + 1)
 	
 	# Set button states
-	$VBoxContainer/HBoxContainer/OkButton.disabled = true
-	
 	var clear_button = get_node("VBoxContainer/HBoxContainer/ClearButton")
+	var ok_button = get_node("VBoxContainer/HBoxContainer/OkButton")
 	
-	if button.text == "":
+	if tile.text == "":
 		clear_button.disabled = true
+		ok_button.disabled = true
 	else:
+		button_container.get_node(str(int(tile.text) - 1)).pressed = true
 		clear_button.disabled = false
-		
+		ok_button.disabled = false
+	
 	.about_to_show()
 
 
 func on_Button_selected(index, _genre_index):
 	if index == pressed_button_index:
-		get_node("VBoxContainer/ScrollContainer/VBoxContainer/"+str(pressed_button_index)).pressed = true
+		button_container.get_node(str(pressed_button_index)).pressed = true
 	
 	audio_player.stream = load("res://sounds/"+str(instrument_index)+"/"+str(index+1)+".ogg")
 	audio_player.play()
@@ -108,21 +104,25 @@ func on_Button_selected(index, _genre_index):
 
 
 func _on_OkButton_pressed():
+	if tile.text and int(tile.text) - 1 == pressed_button_index:
+		hide()
+		return
+	
 	var style_box = preload("res://assets/button_stylebox.tres").duplicate()
 	
-	button.text = str(genre_index+1)
+	tile.text = str(genre_index+1)
 	
-	var sound_button = get_node("VBoxContainer/ScrollContainer/VBoxContainer/"+str(pressed_button_index))
+	var sound_button = button_container.get_node(str(pressed_button_index))
 	var image = sound_button.icon.get_data()
 	
 	image.lock()
 	
 	style_box.bg_color = image.get_pixel(10,10)
-	button.set("custom_styles/normal", style_box)
-	button.set("custom_styles/pressed", style_box)
-	button.set("custom_styles/disabled", style_box)
-	button.set("custom_styles/hover", style_box)
-	button.set("custom_styles/focus", StyleBoxEmpty)
+	tile.set("custom_styles/normal", style_box)
+	tile.set("custom_styles/pressed", style_box)
+	tile.set("custom_styles/disabled", style_box)
+	tile.set("custom_styles/hover", style_box)
+	tile.set("custom_styles/focus", StyleBoxEmpty)
 	
 	image.unlock()
 	
@@ -135,11 +135,11 @@ func _on_OkButton_pressed():
 
 
 func _on_ClearButton_pressed():
-	button.text = ""
-	button.set("custom_styles/normal", null)
-	button.set("custom_styles/pressed", null)
-	button.set("custom_styles/disabled", null)
-	button.set("custom_styles/hover", null)
+	tile.text = ""
+	tile.set("custom_styles/normal", null)
+	tile.set("custom_styles/pressed", null)
+	tile.set("custom_styles/disabled", null)
+	tile.set("custom_styles/hover", null)
 	
 	# If all buttons in a column are clear remove that column from the play list
 	var falses = -1
