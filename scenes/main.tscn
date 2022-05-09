@@ -345,10 +345,11 @@ size_flags_vertical = 3
 [node name="HBoxContainer2" type="HBoxContainer" parent="."]
 anchor_left = 0.024
 anchor_top = 0.03
-anchor_right = 0.977
-anchor_bottom = 0.13
+anchor_right = 0.976
+anchor_bottom = 0.03
 margin_left = 0.424
-margin_right = -1.448
+margin_right = -0.424072
+margin_bottom = 60.0
 custom_constants/separation = 30
 
 [node name="Play" type="Button" parent="HBoxContainer2"]
@@ -397,11 +398,11 @@ text = "Settings"
 anchor_left = 0.034
 anchor_top = 0.167
 anchor_right = 0.977
-anchor_bottom = 0.912
+anchor_bottom = 0.167
 margin_left = 0.183998
 margin_top = -0.199997
-margin_right = -0.448059
-margin_bottom = -0.200012
+margin_right = -0.44812
+margin_bottom = 446.8
 size_flags_vertical = 3
 
 [node name="ImageContainer" type="VBoxContainer" parent="HBoxContainer"]
@@ -592,9 +593,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_bottom = -2.0
 size_flags_horizontal = 5
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="VBoxContainer" type="VBoxContainer" parent="SaveDialog/VBoxContainer"]
 margin_right = 439.0
@@ -625,32 +623,12 @@ placeholder_text = "File name here"
 placeholder_alpha = 0.2
 caret_blink = true
 
-[node name="HTMLButton" type="Button" parent="SaveDialog/VBoxContainer/VBoxContainer/HBoxContainer"]
-visible = false
-margin_left = 404.0
-margin_right = 562.0
-margin_bottom = 50.0
-focus_mode = 1
-size_flags_horizontal = 3
-theme_type_variation = "ListItem"
-enabled_focus_mode = 1
-text = "Input file name"
-align = 0
-
 [node name="HBoxContainer" type="HBoxContainer" parent="SaveDialog/VBoxContainer"]
 margin_top = 169.0
 margin_right = 439.0
 margin_bottom = 219.0
 custom_constants/separation = 20
 alignment = 2
-
-[node name="OverwriteButton" type="Button" parent="SaveDialog/VBoxContainer/HBoxContainer"]
-visible = false
-margin_left = 39.0
-margin_right = 199.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 100, 50 )
-text = " Overwrite last "
 
 [node name="OkButton" type="Button" parent="SaveDialog/VBoxContainer/HBoxContainer"]
 margin_left = 219.0
@@ -871,13 +849,13 @@ scroll_deadzone = 30
 
 [node name="VBoxContainer" type="VBoxContainer" parent="LoadDialog/VBoxContainer/ScrollContainer"]
 margin_right = 402.0
-margin_bottom = 49.0
+margin_bottom = 39.0
 size_flags_horizontal = 3
 
 [node name="NoProjectsLabel" type="Label" parent="LoadDialog/VBoxContainer/ScrollContainer/VBoxContainer"]
 margin_right = 402.0
-margin_bottom = 49.0
-theme_type_variation = "ListItem"
+margin_bottom = 39.0
+theme_type_variation = "LabelSubtitle"
 text = "No saved projects"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="LoadDialog/VBoxContainer"]
@@ -1153,8 +1131,6 @@ anims/undim = SubResource( 14 )
 [connection signal="pressed" from="SoundDialog/VBoxContainer/HBoxContainer/CancelButton" to="SoundDialog" method="_on_CancelButton_pressed"]
 [connection signal="text_changed" from="SaveDialog/VBoxContainer/VBoxContainer/HBoxContainer/LineEdit" to="SaveDialog" method="_on_LineEdit_text_changed"]
 [connection signal="text_entered" from="SaveDialog/VBoxContainer/VBoxContainer/HBoxContainer/LineEdit" to="SaveDialog" method="_on_LineEdit_text_entered"]
-[connection signal="pressed" from="SaveDialog/VBoxContainer/VBoxContainer/HBoxContainer/HTMLButton" to="SaveDialog" method="_on_HTMLButton_pressed"]
-[connection signal="pressed" from="SaveDialog/VBoxContainer/HBoxContainer/OverwriteButton" to="SaveDialog" method="_on_OverwriteButton_pressed"]
 [connection signal="pressed" from="SaveDialog/VBoxContainer/HBoxContainer/OkButton" to="SaveDialog" method="_on_OkButton_pressed"]
 [connection signal="pressed" from="SaveDialog/VBoxContainer/HBoxContainer/CancelButton" to="SaveDialog" method="_on_CancelButton_pressed"]
 [connection signal="pressed" from="ColumnDialog/VBoxContainer/HBoxContainer/PlayButton" to="ColumnDialog" method="_on_PlayButton_pressed"]

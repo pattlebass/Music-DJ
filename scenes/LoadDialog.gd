@@ -52,7 +52,10 @@ func load_song(_path, _song = null):
 	# Clear used_columns
 	main.used_columns.clear()
 	main.used_columns.append(-1)
-
+	
+	# TODO: Cleanup
+	main.get_node("SaveDialog").last_name = _path.get_file().get_basename()
+	
 	for instrument in main.song.size():
 		for column_no in main.song[instrument].size():
 			var column = main.get_node("HBoxContainer/StepContainer/HBoxContainer").get_child(column_no)
@@ -104,32 +107,24 @@ func on_theme_changed(new_theme):
 
 
 func about_to_show():
-	var file_path = OS.get_system_dir(OS.SYSTEM_DIR_MUSIC).plus_file("musicdj.txt")
-#	var f = File.new()
-#	print(f.open(file_path, File.WRITE_READ))
-#	f.store_string("Stored " + str(OS.get_time()))
-#	print(f.get_as_text())
-#	f.close()
-	
-	var dir = Directory.new()
-	dir.make_dir(OS.get_system_dir(OS.SYSTEM_DIR_MUSIC).plus_file("MusicDJ"))
-	
-	
 	# Check for permissions
-	OS.request_permissions()
 	yield(get_tree(), "idle_frame")
 	if OS.get_granted_permissions().empty() && OS.get_name() == "Android":
-		hide()
+		if !OS.request_permissions():
+			hide()
 	
 	if OS.get_name() == "HTML5":
 		$VBoxContainer/TitleHBox/OpenButton.hide()
 	$VBoxContainer/HBoxContainer/OkButton.disabled = true
-	if list_files_in_directory(Variables.user_dir.plus_file("Projects/")).empty():
+	
+	var projects = list_files_in_directory(Variables.user_dir.plus_file("Projects/"))
+	
+	if projects.empty():
 		$VBoxContainer/ScrollContainer/VBoxContainer/NoProjectsLabel.show()
 	else:
 		$VBoxContainer/ScrollContainer/VBoxContainer/NoProjectsLabel.hide()
 	
-	for i in list_files_in_directory(Variables.user_dir.plus_file("Projects/")):
+	for i in projects:
 		var button_container = button_scene.instance()
 		var load_button = button_container.get_node("LoadButton")
 		var delete_button = button_container.get_node("DeleteButton")
@@ -146,7 +141,7 @@ func about_to_show():
 			download_button.hide()
 		
 		$VBoxContainer/ScrollContainer/VBoxContainer.add_child(button_container)
-		
+	
 	.about_to_show()
 
 
