@@ -106,7 +106,7 @@ func on_theme_changed(new_theme):
 	$VBoxContainer/TitleHBox/OpenButton.icon = load("res://assets/themes/%s/open_folder.png" % new_theme)
 
 
-func about_to_show():
+func about_to_show(dim := true):
 	# Check for permissions
 	yield(get_tree(), "idle_frame")
 	if OS.get_granted_permissions().empty() && OS.get_name() == "Android":
@@ -179,7 +179,7 @@ func on_Button_selected(_path):
 				x.pressed = false
 
 
-func popup_hide():
+func popup_hide(dim := true):
 	.popup_hide()
 	for i in $VBoxContainer/ScrollContainer/VBoxContainer.get_children():
 		if i is HBoxContainer:
@@ -213,7 +213,6 @@ func on_Button_deleted(_container):
 		_container.queue_free()
 	
 	yield(get_tree(), "idle_frame")
-	main.on_popup_show()
 	modulate = Color.white
 
 

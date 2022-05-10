@@ -17,10 +17,9 @@ func on_Column_Button_pressed(_column_no, _column):
 	column = _column
 	column_no = _column_no
 	
-	var label = _column.get_node("Label")
-	var pos = label.rect_global_position
-	pos.x -= rect_size.x/2 - label.rect_size.x/2
-	pos.y += label.rect_size.x
+	var pos = _column.column_button.rect_global_position
+	pos.x -= rect_size.x/2 - _column.column_button.rect_size.x/2
+	pos.y += _column.column_button.rect_size.x
 	var viewport_size = get_viewport().get_visible_rect().size
 	var pos_plus_size = pos+rect_size+Vector2(16,16)
 	var pos_minus_size = pos-rect_size-Vector2(16,16)
@@ -32,7 +31,8 @@ func on_Column_Button_pressed(_column_no, _column):
 	rect_global_position = pos
 	
 	var sprite = get_node("Sprite")
-	var sprite_pos_x = label.rect_global_position.x + label.rect_size.x/2
+	var sprite_pos_x = _column.column_button.rect_global_position.x + \
+		_column.column_button.rect_size.x/2
 	sprite.global_position.x = sprite_pos_x
 	
 	popup()
@@ -40,7 +40,7 @@ func on_Column_Button_pressed(_column_no, _column):
 	rect_pivot_offset = Vector2(sprite_pos_x - pos.x, 0)
 
 
-func about_to_show():
+func about_to_show(dim := true):
 	# Set title
 	var title = "Column " + str(column_no+1)
 	$VBoxContainer/VBoxContainer/Label.text = title
@@ -89,11 +89,7 @@ func _on_CancelButton_pressed():
 
 
 func _on_RemoveButton_pressed():
-	# Animation
-	column.get_node("AnimationPlayer").play_backwards("fade_in")
-	yield(get_tree().create_timer(0.1), "timeout")
-	
-	column.queue_free()
+	column.remove()
 	
 	# Clear from song
 	main.used_columns.erase(column_no)

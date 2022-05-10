@@ -5,10 +5,12 @@ var options
 var file = File.new()
 var current_tutorial_version = 1
 var default_options = {"show_tutorial":true, "last_tutorial_version":current_tutorial_version, "theme":"dark"}
-var loaded_theme = "dark"
 var themes = ["dark", "white", "classic1", "classic2"]
 var timer
 var user_dir := ""
+
+const category_names = ["Introduction", "Verse", "Chorus", "Solo"]
+const instrument_names = ["Drums", "Bass", "Keys", "Trumpet"]
 
 signal theme_changed
 

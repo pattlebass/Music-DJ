@@ -27,12 +27,12 @@ func _on_CancelButton_pressed():
 	hide()
 
 
-func _on_ConfirmationDialog_about_to_show():
-	about_to_show()
+func _on_ConfirmationDialog_about_to_show(dim := true):
+	about_to_show(false)
 	$BackPanel.modulate = Color(1, 1, 1, 1)
 
 
 func _on_ConfirmationDialog_popup_hide():
-	popup_hide()
+	popup_hide(false)
 	yield(get_tree().create_timer(0.1), "timeout")
 	queue_free()

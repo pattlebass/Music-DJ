@@ -1,13 +1,12 @@
 extends "res://scenes/DialogScript.gd"
 
 var instrument_index
-var instrument_name = ["Drums", "Bass", "Keys", "Trumpet"]
 var column_no
 var pressed_button_index = 0
 var genre_index = 0 # Index based on genre. Eg: button 0 of genre 2. genre_index would be 0
+var sample_category = 0
 
 var column
-var tile
 
 onready var button_container = $VBoxContainer/ScrollContainer/VBoxContainer
 onready var audio_player = $AudioStreamPlayer
@@ -38,6 +37,10 @@ func _ready():
 		# Icon
 		var image = load("res://assets/mask.png")
 		var texture = ImageTexture.new()
+		var color = get_theme().get_color(
+			Variables.category_names[i],
+			"Tile"
+		)
 		#image.create(32, 32, false, Image.FORMAT_RGBA4444)
 		image.lock()
 		for v in 32:
@@ -56,37 +59,40 @@ func _ready():
 			button_in_list.icon = texture
 			button_in_list.align = Button.ALIGN_LEFT
 			button_in_list.mouse_filter = Button.MOUSE_FILTER_PASS
-			button_in_list.connect("pressed", self, "on_Button_selected", [button_index, g])
+			button_in_list.connect("pressed", self, "on_Button_selected", [button_index, g, i])
 			button_in_list.name = str(button_index)
-			button_in_list.focus_mode = Control.FOCUS_NONE
+			button_in_list.focus_mode = Control.FOCUS_CLICK
 			button_in_list.toggle_mode = true
 			button_container.add_child(button_in_list)
 
 
-func about_to_show():
+func about_to_show(dim := true):
 	column = main.get_node("HBoxContainer/StepContainer/HBoxContainer").get_child(column_no)
-	tile = column.get_child(instrument_index+1)
 	
 	# Set title
-	var instrument = instrument_name[instrument_index]
+	var instrument = Variables.instrument_names[instrument_index]
 	$VBoxContainer/Label.text = instrument + ", column " + str(column_no + 1)
 	
 	# Set button states
 	var clear_button = get_node("VBoxContainer/HBoxContainer/ClearButton")
 	var ok_button = get_node("VBoxContainer/HBoxContainer/OkButton")
 	
-	if tile.text == "":
-		clear_button.disabled = true
-		ok_button.disabled = true
-	else:
-		button_container.get_node(str(int(tile.text) - 1)).pressed = true
+	if main.song[instrument_index][column_no]:
+		var selected_button = button_container.get_node(
+			str(main.song[instrument_index][column_no] - 1)
+		)
+		selected_button.pressed = true
+		selected_button.grab_focus()
 		clear_button.disabled = false
 		ok_button.disabled = false
+	else:
+		clear_button.disabled = true
+		ok_button.disabled = true
 	
 	.about_to_show()
 
 
-func on_Button_selected(index, _genre_index):
+func on_Button_selected(index, _genre_index, _sample_category):
 	if index == pressed_button_index:
 		button_container.get_node(str(pressed_button_index)).pressed = true
 	
@@ -95,6 +101,7 @@ func on_Button_selected(index, _genre_index):
 	$VBoxContainer/HBoxContainer/OkButton.disabled = false
 	pressed_button_index = index
 	genre_index = _genre_index
+	sample_category = _sample_category
 	
 	for i in button_container.get_children():
 		if i is Button:
@@ -104,47 +111,32 @@ func on_Button_selected(index, _genre_index):
 
 
 func _on_OkButton_pressed():
-	if tile.text and int(tile.text) - 1 == pressed_button_index:
+	if main.song[instrument_index][column_no] - 1 == pressed_button_index:
 		hide()
 		return
-	
-	var style_box = preload("res://assets/button_stylebox.tres").duplicate()
-	
-	tile.text = str(genre_index+1)
-	
-	var sound_button = button_container.get_node(str(pressed_button_index))
-	var image = sound_button.icon.get_data()
-	
-	image.lock()
-	
-	style_box.bg_color = image.get_pixel(10,10)
-	tile.set("custom_styles/normal", style_box)
-	tile.set("custom_styles/pressed", style_box)
-	tile.set("custom_styles/disabled", style_box)
-	tile.set("custom_styles/hover", style_box)
-	tile.set("custom_styles/focus", StyleBoxEmpty)
-	
-	image.unlock()
+
+	column.set_tile(
+		instrument_index,
+		sample_category,
+		str(genre_index + 1)
+	)
 	
 	main.song[instrument_index][column_no] = pressed_button_index+1
 	if not main.used_columns.has(column_no):
 		main.used_columns.append(column_no)
-
-	hide()
+	
 	column_no = 0
+	
+	hide()
 
 
 func _on_ClearButton_pressed():
-	tile.text = ""
-	tile.set("custom_styles/normal", null)
-	tile.set("custom_styles/pressed", null)
-	tile.set("custom_styles/disabled", null)
-	tile.set("custom_styles/hover", null)
+	column.clear_tile(instrument_index)
 	
 	# If all buttons in a column are clear remove that column from the play list
 	var falses = -1
-	for i in column.get_children():
-		if i is Button and i.text != "":
+	for i in 4:
+		if main.song[i][column_no]:
 			falses += 1
 	if falses == 0:
 		main.used_columns.erase(column_no)
@@ -158,9 +150,18 @@ func _on_CancelButton_pressed():
 	hide()
 
 
-func popup_hide():
+func popup_hide(dim := true):
 	$VBoxContainer/ScrollContainer.scroll_vertical = 0
 	for i in button_container.get_children():
 		if i is Button:
 			i.pressed = false
 	.popup_hide()
+
+func get_theme():
+	var control = self
+	var theme = null
+	while control != null && "theme" in control:
+		theme = control.theme
+		if theme != null: break
+		control = control.get_parent()
+	return theme

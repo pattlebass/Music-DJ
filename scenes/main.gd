@@ -89,7 +89,7 @@ func play_column(_column_no, _single):
 	
 	# Visuals
 	var column = get_node("HBoxContainer/StepContainer/HBoxContainer").get_child(_column_no)
-	column.get_node("Label").set("custom_colors/font_color", Color.red)
+	column.on_play_started()
 	
 	# Play sounds
 	for a in 4:
@@ -102,7 +102,7 @@ func play_column(_column_no, _single):
 		audio_player.play()
 	# Needs cleanup
 	yield(get_tree().create_timer(3), "timeout")
-	column.get_node("Label").set("custom_colors/font_color", null)
+	column.on_play_ended()
 		
 	if _single:
 		is_playing = false
@@ -187,23 +187,23 @@ func _on_OpenProject_pressed():
 
 func _on_AddButton_pressed():
 	column_index += 1
-	var new_column = add_column(column_index-1)
-	new_column.get_node("AnimationPlayer").play("fade_in")
-	
-	
+	add_column(column_index-1).fade_in()
+
+
 func add_column(_column_no:int, add_to_song:bool = true):
 	var column = column_scene.instance()
-	column.get_node("Label").text = str(_column_no + 1)
 	var column_container = get_node("HBoxContainer/StepContainer/HBoxContainer")
 	column_container.add_child(column)
 	column_container.move_child(column, column_container.get_child_count()-2)
+	column.add(_column_no)
+	
 	
 	# Signals
 	for b in 4:
 		var button = column.get_node("Button"+str(b+1))
 		button.connect("pressed", self, "on_Tile_pressed", [_column_no, b])
 		button.connect("button_down", self, "on_Tile_held", [_column_no, b, column.get_node("Button"+str(b+1))])
-	column.get_node("Label").connect("pressed", $ColumnDialog, "on_Column_Button_pressed", [_column_no, column])
+	column.column_button.connect("pressed", $ColumnDialog, "on_Column_Button_pressed", [_column_no, column])
 	
 	# Add to song
 	if add_to_song:
@@ -223,12 +223,10 @@ func _on_Settings_pressed():
 
 
 func on_popup_show():
-#	$DimOverlay.show()
 	animation.play("dim")
 
 
 func on_popup_hide():
-#	$DimOverlay.hide()
 	animation.play("undim")
 
 
@@ -252,6 +250,4 @@ func _files_dropped(_files, _screen):
 					dir.copy(i, Variables.user_dir.plus_file("Projects/%s" % filename))
 			else:
 				dir.copy(i, Variables.user_dir.plus_file("Projects/%s" % filename))
-			#print(filename)
 	$LoadDialog.popup_centered()
-	

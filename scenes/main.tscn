@@ -361,35 +361,35 @@ text = "Play"
 
 [node name="VSeparator" type="VSeparator" parent="HBoxContainer2"]
 margin_left = 130.0
-margin_right = 304.0
+margin_right = 303.0
 margin_bottom = 60.0
 size_flags_horizontal = 3
 custom_styles/separator = SubResource( 1 )
 
 [node name="Export" type="Button" parent="HBoxContainer2"]
-margin_left = 334.0
-margin_right = 434.0
+margin_left = 333.0
+margin_right = 433.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 100, 0 )
 text = "Export"
 
 [node name="SaveProject" type="Button" parent="HBoxContainer2"]
-margin_left = 464.0
-margin_right = 614.0
+margin_left = 463.0
+margin_right = 613.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 150, 0 )
 text = "Save Project"
 
 [node name="OpenProject" type="Button" parent="HBoxContainer2"]
-margin_left = 644.0
-margin_right = 794.0
+margin_left = 643.0
+margin_right = 793.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 150, 0 )
 text = "Open Project"
 
 [node name="Settings" type="Button" parent="HBoxContainer2"]
-margin_left = 824.0
-margin_right = 974.0
+margin_left = 823.0
+margin_right = 973.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 150, 0 )
 text = "Settings"
@@ -530,6 +530,7 @@ margin_right = 340.0
 margin_bottom = 445.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+follow_focus = true
 scroll_horizontal_enabled = false
 scroll_deadzone = 30
 __meta__ = {

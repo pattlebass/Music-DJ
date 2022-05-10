@@ -7,15 +7,18 @@ func _ready():
 	pass
 
 
-func about_to_show():
+func about_to_show(dim := true):
 	rect_pivot_offset = rect_size / 2
 	
-	main.on_popup_show()
+	if dim:
+		main.on_popup_show()
 	
 	$AnimationPlayer.play("fade_in")
 
 
-func popup_hide():
+func popup_hide(dim := true):
 	$AnimationPlayer.play("fade_out")
-
-	main.on_popup_hide()
+	
+	if dim:
+		print("AAAAAAAAA")
+		main.on_popup_hide()

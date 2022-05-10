@@ -32,7 +32,7 @@ func save():
 		# Project save
 		var path = Variables.user_dir.plus_file("Projects/%s.mdj" % entered_name.strip_edges())
 		var file = File.new()
-		print(file.open(path, File.WRITE))
+		file.open(path, File.WRITE)
 		file.store_string(to_json(main.song))
 		file.close()
 		
@@ -71,14 +71,14 @@ func save():
 
 
 func _on_OkButton_pressed():
-	save()
 	hide()
+	save()
 
 func _on_CancelButton_pressed():
 	hide()
 
 
-func about_to_show():
+func about_to_show(dim := true):
 	# Check for permissions
 	yield(get_tree(), "idle_frame")
 	if OS.get_granted_permissions().empty() && OS.get_name() == "Android":
@@ -94,7 +94,6 @@ func about_to_show():
 	line_edit.caret_position = line_edit.text.length()
 
 #	OS.show_virtual_keyboard("")
-#	rect_position.x = get_viewport().get_visible_rect().size.x/2 - 200
 	
 	.about_to_show()
 
