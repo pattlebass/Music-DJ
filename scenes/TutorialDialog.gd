@@ -12,7 +12,7 @@ onready var animation = $AnimationPlayer2
 
 
 func _ready():
-	if Variables.options["show_tutorial"]:
+	if Variables.current_tutorial_version > Variables.options["last_seen_tutorial"]:
 		call_deferred("popup_centered")
 
 
@@ -34,8 +34,9 @@ func _on_PreviousButton_pressed():
 
 func change_panel(_panel_no, _previous_panel_no):
 	if _panel_no >= panels.size():
-		Variables.options["show_tutorial"] = false
-		Variables.save_options()
+		if Variables.current_tutorial_version > Variables.options["last_seen_tutorial"]:
+			Variables.options["last_seen_tutorial"] = Variables.current_tutorial_version
+			Variables.save_options()
 		hide()
 		return
 	
