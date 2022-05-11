@@ -24,6 +24,11 @@ func set_tile(instrument: int, sample_category: int, text: String) -> void:
 	tile.text = text
 
 
+func clear() -> void:
+	for i in 4:
+		clear_tile(i)
+
+
 func clear_tile(instrument: int) -> void:
 	var tile = get_node("Button" + str(instrument + 1))
 	tile.text = ""

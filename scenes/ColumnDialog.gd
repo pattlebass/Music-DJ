@@ -66,15 +66,7 @@ func about_to_show(dim := true):
 	.about_to_show()
 
 func _on_ClearButton_pressed():
-	# Loop through all buttons
-	for button in column.get_children():
-		if not button is Button or button.name == "Label":
-			continue
-		button.text = ""
-		button.set("custom_styles/normal", null)
-		button.set("custom_styles/pressed", null)
-		button.set("custom_styles/disabled", null)
-		button.set("custom_styles/hover", null)
+	column.clear()
 	
 	# Clear from song
 	main.used_columns.erase(column_no)
