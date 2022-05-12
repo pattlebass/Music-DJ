@@ -107,11 +107,8 @@ func on_theme_changed(new_theme):
 
 
 func about_to_show(dim := true):
-	# Check for permissions
-	yield(get_tree(), "idle_frame")
-	if OS.get_granted_permissions().empty() && OS.get_name() == "Android":
-		if !OS.request_permissions():
-			hide()
+	if !Variables.has_storage_perms():
+		hide()
 	
 	if OS.get_name() == "HTML5":
 		$VBoxContainer/TitleHBox/OpenButton.hide()

@@ -17,13 +17,6 @@ var once := false
 func _ready():
 	pass
 	
-#	if OS.get_name() == "HTML5":
-#		html_button.show()
-#		line_edit.hide()
-#	else:
-#		html_button.hide()
-#		line_edit.show()
-	
 	#regex.compile('[\\/:"*?<>|]+')
 
 
@@ -79,11 +72,8 @@ func _on_CancelButton_pressed():
 
 
 func about_to_show(dim := true):
-	# Check for permissions
-	yield(get_tree(), "idle_frame")
-	if OS.get_granted_permissions().empty() && OS.get_name() == "Android":
-		if !OS.request_permissions():
-			hide()
+	if !Variables.has_storage_perms():
+		hide()
 	
 	$VBoxContainer/VBoxContainer/Label.text = title
 	
@@ -92,8 +82,6 @@ func about_to_show(dim := true):
 	_on_LineEdit_text_changed(line_edit.text)
 	
 	line_edit.caret_position = line_edit.text.length()
-
-#	OS.show_virtual_keyboard("")
 	
 	.about_to_show()
 
@@ -124,9 +112,9 @@ func _on_LineEdit_text_changed(new_text):
 
 func _process(delta):
 	if OS.get_virtual_keyboard_height() == 0:
-		rect_position.y = get_viewport().get_visible_rect().size.y/2 - 100
+		rect_position.y = get_viewport().get_visible_rect().size.y / 2 - rect_size.y / 2
 	else:
-		rect_position.y = get_viewport().get_visible_rect().size.y/2 - 100 - OS.get_virtual_keyboard_height()/4
+		rect_position.y = get_viewport().get_visible_rect().size.y/2 - rect_size.y / 2 - OS.get_virtual_keyboard_height()/4
 
 
 func get_default_name() -> String:

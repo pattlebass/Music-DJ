@@ -30,7 +30,7 @@ func _input(event):
 			collided_button.set("custom_styles/focus", StyleBoxEmpty)
 			
 			# Add to play list
-			var collided_column_no = int(collided_button.get_parent().get_node("Label").text)-1
+			var collided_column_no = collided_button.get_parent().column_no
 			main.song[instrument][collided_column_no] = main.song[instrument][column_no]
 			if not main.used_columns.has(collided_column_no):
 				main.used_columns.append(collided_column_no)

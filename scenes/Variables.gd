@@ -63,3 +63,9 @@ func on_timer_timeout():
 
 func change_theme(new_theme):
 	emit_signal("theme_changed", new_theme)
+
+
+func has_storage_perms() -> bool:
+	if OS.get_granted_permissions().empty() && OS.get_name() == "Android":
+		return OS.request_permissions()
+	return true

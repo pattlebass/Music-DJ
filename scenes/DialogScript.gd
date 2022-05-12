@@ -20,5 +20,4 @@ func popup_hide(dim := true):
 	$AnimationPlayer.play("fade_out")
 	
 	if dim:
-		print("AAAAAAAAA")
 		main.on_popup_hide()

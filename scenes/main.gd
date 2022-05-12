@@ -13,6 +13,8 @@ onready var save_button = $HBoxContainer2/SaveProject
 onready var save_dialog = $SaveDialog
 onready var audio_players = $AudioPlayers
 onready var animation = $AnimationPlayer
+onready var column_container = $HBoxContainer/StepContainer/HBoxContainer
+onready var scroll_container = $HBoxContainer/StepContainer
 
 # Notes:
 
@@ -40,7 +42,7 @@ func _ready():
 	
 	if OS.get_name() == "Android":
 		yield(get_tree(), "idle_frame")
-		OS.request_permissions()
+		Variables.has_storage_perms()
 		
 		Variables.user_dir = OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS).plus_file("MusicDJ")
 		var dir = Directory.new()
@@ -58,6 +60,8 @@ func _ready():
 		dir.make_dir("Exports")
 		dir.make_dir("Projects")
 		Variables.user_dir = "user://saves/"
+
+	print(Engine.get_singleton("AndroidVersionGodot").getAPILevel())
 
 
 func on_theme_changed(new_theme):
@@ -88,8 +92,9 @@ func play_column(_column_no, _single):
 		return
 	
 	# Visuals
-	var column = get_node("HBoxContainer/StepContainer/HBoxContainer").get_child(_column_no)
+	var column = column_container.get_child(_column_no)
 	column.on_play_started()
+	scroll_container.ensure_control_visible(column)
 	
 	# Play sounds
 	for a in 4:
@@ -192,7 +197,6 @@ func _on_AddButton_pressed():
 
 func add_column(_column_no:int, add_to_song:bool = true):
 	var column = column_scene.instance()
-	var column_container = get_node("HBoxContainer/StepContainer/HBoxContainer")
 	column_container.add_child(column)
 	column_container.move_child(column, column_container.get_child_count()-2)
 	column.add(_column_no)
