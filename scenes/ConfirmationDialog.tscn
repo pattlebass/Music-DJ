@@ -1,13 +1,8 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/ConfirmationDialog.gd" type="Script" id=1]
-[ext_resource path="res://assets/fonts/libel-suit-rg.ttf" type="DynamicFontData" id=2]
 
 [sub_resource type="StyleBoxEmpty" id=1]
-
-[sub_resource type="DynamicFont" id=2]
-size = 32
-font_data = ExtResource( 2 )
 
 [sub_resource type="Animation" id=3]
 resource_name = "RESET"
@@ -134,7 +129,6 @@ margin_top = 62.0
 margin_right = 436.0
 margin_bottom = 102.0
 rect_min_size = Vector2( 0, 40 )
-custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
 text = "This file will be deleted."
 fit_content_height = true

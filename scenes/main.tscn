@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://scenes/main.gd" type="Script" id=1]
 [ext_resource path="res://assets/trumpet.png" type="Texture" id=2]
@@ -7,7 +7,6 @@
 [ext_resource path="res://assets/drum.png" type="Texture" id=5]
 [ext_resource path="res://assets/guitar.png" type="Texture" id=6]
 [ext_resource path="res://assets/themes/dark/dark.tres" type="Theme" id=7]
-[ext_resource path="res://assets/fonts/libel-suit-rg.ttf" type="DynamicFontData" id=8]
 [ext_resource path="res://scenes/SaveDialog.gd" type="Script" id=9]
 [ext_resource path="res://scenes/ProgressDialog.gd" type="Script" id=10]
 [ext_resource path="res://scenes/LoadDialog.gd" type="Script" id=11]
@@ -15,33 +14,14 @@
 [ext_resource path="res://scenes/TutorialDialog.gd" type="Script" id=13]
 [ext_resource path="res://scenes/SettingsDialog.gd" type="Script" id=14]
 [ext_resource path="res://assets/themes/white/column_tear.png" type="Texture" id=15]
+[ext_resource path="res://assets/tutorial/0.webm" type="VideoStream" id=16]
 [ext_resource path="res://scenes/CustomDialog.tscn" type="PackedScene" id=17]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
-[sub_resource type="DynamicFont" id=2]
-size = 32
-font_data = ExtResource( 8 )
-
-[sub_resource type="DynamicFont" id=3]
-size = 26
-font_data = ExtResource( 8 )
-
-[sub_resource type="DynamicFont" id=4]
-size = 20
-font_data = ExtResource( 8 )
-
 [sub_resource type="StyleBoxEmpty" id=5]
 
 [sub_resource type="StyleBoxEmpty" id=6]
-
-[sub_resource type="StyleBoxEmpty" id=7]
-
-[sub_resource type="StyleBoxEmpty" id=8]
-
-[sub_resource type="DynamicFont" id=9]
-size = 32
-font_data = ExtResource( 8 )
 
 [sub_resource type="Animation" id=16]
 length = 0.001
@@ -361,27 +341,27 @@ text = "Play"
 
 [node name="VSeparator" type="VSeparator" parent="HBoxContainer2"]
 margin_left = 130.0
-margin_right = 303.0
+margin_right = 290.0
 margin_bottom = 60.0
 size_flags_horizontal = 3
 custom_styles/separator = SubResource( 1 )
 
 [node name="Export" type="Button" parent="HBoxContainer2"]
-margin_left = 333.0
-margin_right = 433.0
+margin_left = 320.0
+margin_right = 420.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 100, 0 )
 text = "Export"
 
 [node name="SaveProject" type="Button" parent="HBoxContainer2"]
-margin_left = 463.0
-margin_right = 613.0
+margin_left = 450.0
+margin_right = 603.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 150, 0 )
 text = "Save Project"
 
 [node name="OpenProject" type="Button" parent="HBoxContainer2"]
-margin_left = 643.0
+margin_left = 633.0
 margin_right = 793.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 150, 0 )
@@ -516,16 +496,16 @@ __meta__ = {
 
 [node name="Label" type="Label" parent="SoundDialog/VBoxContainer"]
 margin_right = 340.0
-margin_bottom = 59.0
+margin_bottom = 55.0
 text = "Choose"
 
 [node name="HSeparator" type="HSeparator" parent="SoundDialog/VBoxContainer"]
-margin_top = 63.0
+margin_top = 59.0
 margin_right = 340.0
-margin_bottom = 65.0
+margin_bottom = 61.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="SoundDialog/VBoxContainer"]
-margin_top = 69.0
+margin_top = 65.0
 margin_right = 340.0
 margin_bottom = 445.0
 size_flags_horizontal = 3
@@ -603,14 +583,13 @@ custom_constants/separation = 30
 
 [node name="Label" type="Label" parent="SaveDialog/VBoxContainer/VBoxContainer"]
 margin_right = 439.0
-margin_bottom = 39.0
-custom_fonts/font = SubResource( 2 )
-text = "Insert dialog"
+margin_bottom = 55.0
+text = "Save as"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="SaveDialog/VBoxContainer/VBoxContainer"]
-margin_top = 69.0
+margin_top = 85.0
 margin_right = 439.0
-margin_bottom = 119.0
+margin_bottom = 135.0
 alignment = 1
 
 [node name="LineEdit" type="LineEdit" parent="SaveDialog/VBoxContainer/VBoxContainer/HBoxContainer"]
@@ -647,35 +626,20 @@ text = "Cancel"
 
 [node name="ColumnDialog" parent="." instance=ExtResource( 17 )]
 anchor_top = -0.001
+anchor_bottom = -0.001
 margin_top = 0.6
-margin_right = 261.0
-margin_bottom = 50.0
+margin_right = 287.0
+margin_bottom = 50.6
 script = ExtResource( 12 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ColumnDialog"]
-anchor_right = 1.0
+anchor_right = 0.983
 anchor_bottom = 1.0
-margin_left = 1.0
+margin_right = -0.053009
 size_flags_horizontal = 5
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="VBoxContainer" type="VBoxContainer" parent="ColumnDialog/VBoxContainer"]
-visible = false
-margin_right = 260.0
-margin_bottom = 39.0
-size_flags_vertical = 3
-custom_constants/separation = 30
-
-[node name="Label" type="Label" parent="ColumnDialog/VBoxContainer/VBoxContainer"]
-margin_right = 260.0
-margin_bottom = 39.0
-custom_fonts/font = SubResource( 2 )
-text = "Column #"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ColumnDialog/VBoxContainer"]
-margin_right = 260.0
+margin_right = 286.0
 margin_bottom = 50.0
 custom_constants/separation = 10
 alignment = 1
@@ -697,10 +661,9 @@ text = "Clear"
 
 [node name="RemoveButton" type="Button" parent="ColumnDialog/VBoxContainer/HBoxContainer"]
 margin_left = 180.0
-margin_right = 260.0
+margin_right = 286.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 80, 50 )
-custom_fonts/font = SubResource( 3 )
 disabled = true
 text = "Remove"
 
@@ -734,39 +697,39 @@ __meta__ = {
 
 [node name="Label" type="Label" parent="ProgressDialog/VBoxContainer"]
 margin_right = 426.0
-margin_bottom = 59.0
+margin_bottom = 55.0
 text = "Saving..."
 
 [node name="Label2" type="Label" parent="ProgressDialog/VBoxContainer"]
-margin_top = 63.0
+margin_top = 59.0
 margin_right = 426.0
-margin_bottom = 88.0
-custom_fonts/font = SubResource( 4 )
+margin_bottom = 83.0
+theme_type_variation = "Text"
 text = "documents/MusicDJ"
 autowrap = true
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="ProgressDialog/VBoxContainer"]
-margin_top = 92.0
+margin_top = 87.0
 margin_right = 426.0
-margin_bottom = 153.0
+margin_bottom = 151.0
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ProgressDialog/VBoxContainer/HBoxContainer2"]
 margin_right = 426.0
-margin_bottom = 61.0
+margin_bottom = 64.0
 size_flags_horizontal = 3
 alignment = 1
 
 [node name="ProgressBar" type="ProgressBar" parent="ProgressDialog/VBoxContainer/HBoxContainer2/VBoxContainer"]
-margin_top = 21.0
+margin_top = 22.0
 margin_right = 426.0
-margin_bottom = 40.0
+margin_bottom = 41.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
 step = 0.001
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ProgressDialog/VBoxContainer"]
-margin_top = 157.0
+margin_top = 155.0
 margin_right = 426.0
 margin_bottom = 219.0
 size_flags_vertical = 3
@@ -774,9 +737,9 @@ custom_constants/separation = 20
 alignment = 2
 
 [node name="OpenButton" type="Button" parent="ProgressDialog/VBoxContainer/HBoxContainer"]
-margin_left = 161.0
+margin_left = 127.0
 margin_right = 306.0
-margin_bottom = 62.0
+margin_bottom = 64.0
 rect_min_size = Vector2( 100, 50 )
 disabled = true
 text = "  Open Folder  "
@@ -793,7 +756,7 @@ text = "  Download  "
 [node name="CancelButton" type="Button" parent="ProgressDialog/VBoxContainer/HBoxContainer"]
 margin_left = 326.0
 margin_right = 426.0
-margin_bottom = 62.0
+margin_bottom = 64.0
 rect_min_size = Vector2( 100, 50 )
 text = "Cancel"
 
@@ -815,33 +778,33 @@ __meta__ = {
 
 [node name="TitleHBox" type="HBoxContainer" parent="LoadDialog/VBoxContainer"]
 margin_right = 402.0
-margin_bottom = 59.0
+margin_bottom = 55.0
 
 [node name="Label" type="Label" parent="LoadDialog/VBoxContainer/TitleHBox"]
-margin_right = 197.0
-margin_bottom = 59.0
+margin_right = 240.0
+margin_bottom = 55.0
 text = "Open project"
 
 [node name="VSeparator" type="VSeparator" parent="LoadDialog/VBoxContainer/TitleHBox"]
-margin_left = 201.0
+margin_left = 244.0
 margin_right = 398.0
-margin_bottom = 59.0
+margin_bottom = 55.0
 size_flags_horizontal = 3
 custom_styles/separator = SubResource( 5 )
 
 [node name="OpenButton" type="Button" parent="LoadDialog/VBoxContainer/TitleHBox"]
 margin_left = 402.0
 margin_right = 402.0
-margin_bottom = 59.0
+margin_bottom = 55.0
 theme_type_variation = "ListItem"
 
 [node name="HSeparator" type="HSeparator" parent="LoadDialog/VBoxContainer"]
-margin_top = 63.0
+margin_top = 59.0
 margin_right = 402.0
-margin_bottom = 65.0
+margin_bottom = 61.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="LoadDialog/VBoxContainer"]
-margin_top = 69.0
+margin_top = 65.0
 margin_right = 402.0
 margin_bottom = 493.0
 size_flags_vertical = 3
@@ -850,12 +813,12 @@ scroll_deadzone = 30
 
 [node name="VBoxContainer" type="VBoxContainer" parent="LoadDialog/VBoxContainer/ScrollContainer"]
 margin_right = 402.0
-margin_bottom = 39.0
+margin_bottom = 38.0
 size_flags_horizontal = 3
 
 [node name="NoProjectsLabel" type="Label" parent="LoadDialog/VBoxContainer/ScrollContainer/VBoxContainer"]
 margin_right = 402.0
-margin_bottom = 39.0
+margin_bottom = 38.0
 theme_type_variation = "LabelSubtitle"
 text = "No saved projects"
 
@@ -881,72 +844,67 @@ rect_min_size = Vector2( 100, 50 )
 text = "Cancel"
 
 [node name="TutorialDialog" parent="." instance=ExtResource( 17 )]
-margin_right = 676.0
-margin_bottom = 479.0
+margin_right = 715.0
+margin_bottom = 473.0
 popup_exclusive = true
 script = ExtResource( 13 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TutorialDialog"]
 anchor_right = 1.0
-anchor_bottom = 1.0
-margin_right = 3.0
+anchor_bottom = 0.933
+margin_bottom = 0.102997
 
 [node name="Title" type="Label" parent="TutorialDialog/VBoxContainer"]
-margin_right = 679.0
-margin_bottom = 59.0
+margin_right = 715.0
+margin_bottom = 55.0
 text = "Tutorial"
 
 [node name="HSeparator" type="HSeparator" parent="TutorialDialog/VBoxContainer"]
-margin_top = 63.0
-margin_right = 679.0
-margin_bottom = 65.0
+margin_top = 59.0
+margin_right = 715.0
+margin_bottom = 61.0
 
 [node name="RichTextLabel" type="RichTextLabel" parent="TutorialDialog/VBoxContainer"]
 margin_top = 69.0
-margin_right = 679.0
+margin_right = 715.0
 margin_bottom = 109.0
 rect_min_size = Vector2( 0, 40 )
 bbcode_enabled = true
+text = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore. "
 scroll_active = false
 
 [node name="HSeparator2" type="HSeparator" parent="TutorialDialog/VBoxContainer"]
-margin_top = 113.0
-margin_right = 679.0
-margin_bottom = 133.0
+margin_top = 109.0
+margin_right = 715.0
+margin_bottom = 129.0
 custom_constants/separation = 20
 custom_styles/separator = SubResource( 6 )
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="TutorialDialog/VBoxContainer"]
-margin_top = 137.0
-margin_right = 679.0
-margin_bottom = 437.0
+margin_top = 133.0
+margin_right = 715.0
+margin_bottom = 433.0
+custom_constants/separation = 30
 alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TutorialDialog/VBoxContainer/HBoxContainer2"]
-margin_left = 1.0
-margin_right = 51.0
+margin_left = 17.0
+margin_right = 77.0
 margin_bottom = 300.0
 alignment = 1
 
 [node name="PreviousButton" type="Button" parent="TutorialDialog/VBoxContainer/HBoxContainer2/VBoxContainer"]
-margin_top = 125.0
-margin_right = 50.0
-margin_bottom = 175.0
-rect_min_size = Vector2( 50, 50 )
+margin_top = 120.0
+margin_right = 60.0
+margin_bottom = 180.0
+rect_min_size = Vector2( 60, 60 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
 text = "<"
 
-[node name="VSeparator2" type="VSeparator" parent="TutorialDialog/VBoxContainer/HBoxContainer2"]
-margin_left = 55.0
-margin_right = 85.0
-margin_bottom = 300.0
-custom_constants/separation = 30
-custom_styles/separator = SubResource( 7 )
-
 [node name="VBoxContainer2" type="VBoxContainer" parent="TutorialDialog/VBoxContainer/HBoxContainer2"]
-margin_left = 89.0
-margin_right = 589.0
+margin_left = 107.0
+margin_right = 607.0
 margin_bottom = 300.0
 alignment = 1
 
@@ -954,25 +912,19 @@ alignment = 1
 margin_right = 500.0
 margin_bottom = 300.0
 rect_min_size = Vector2( 500, 300 )
-
-[node name="VSeparator" type="VSeparator" parent="TutorialDialog/VBoxContainer/HBoxContainer2"]
-margin_left = 593.0
-margin_right = 623.0
-margin_bottom = 300.0
-custom_constants/separation = 30
-custom_styles/separator = SubResource( 8 )
+stream = ExtResource( 16 )
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="TutorialDialog/VBoxContainer/HBoxContainer2"]
-margin_left = 627.0
-margin_right = 677.0
+margin_left = 637.0
+margin_right = 697.0
 margin_bottom = 300.0
 alignment = 1
 
 [node name="NextButton" type="Button" parent="TutorialDialog/VBoxContainer/HBoxContainer2/VBoxContainer3"]
-margin_top = 125.0
-margin_right = 50.0
-margin_bottom = 175.0
-rect_min_size = Vector2( 50, 50 )
+margin_top = 120.0
+margin_right = 60.0
+margin_bottom = 180.0
+rect_min_size = Vector2( 60, 60 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
 text = ">"
@@ -981,10 +933,10 @@ __meta__ = {
 }
 
 [node name="PageLabel" type="Label" parent="TutorialDialog/VBoxContainer"]
-margin_top = 441.0
-margin_right = 679.0
-margin_bottom = 480.0
-custom_fonts/font = SubResource( 9 )
+margin_top = 437.0
+margin_right = 715.0
+margin_bottom = 475.0
+theme_type_variation = "LabelSubtitle"
 text = "1/x"
 align = 1
 
@@ -1008,17 +960,17 @@ __meta__ = {
 
 [node name="Label" type="Label" parent="SettingsDialog/VBoxContainer"]
 margin_right = 480.0
-margin_bottom = 59.0
+margin_bottom = 55.0
 text = "Settings"
 
 [node name="HSeparator" type="HSeparator" parent="SettingsDialog/VBoxContainer"]
-margin_top = 63.0
+margin_top = 59.0
 margin_right = 480.0
-margin_bottom = 83.0
+margin_bottom = 79.0
 custom_constants/separation = 20
 
 [node name="ScrollContainer" type="ScrollContainer" parent="SettingsDialog/VBoxContainer"]
-margin_top = 87.0
+margin_top = 83.0
 margin_right = 480.0
 margin_bottom = 411.0
 size_flags_vertical = 3
@@ -1027,71 +979,71 @@ scroll_deadzone = 30
 
 [node name="SettingsContainer" type="VBoxContainer" parent="SettingsDialog/VBoxContainer/ScrollContainer"]
 margin_right = 480.0
-margin_bottom = 324.0
+margin_bottom = 328.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="ThemeContainer" type="VBoxContainer" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer"]
 margin_right = 480.0
-margin_bottom = 132.0
+margin_bottom = 129.0
 
 [node name="Label" type="Label" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer/ThemeContainer"]
 margin_right = 480.0
-margin_bottom = 39.0
+margin_bottom = 38.0
 theme_type_variation = "LabelSubtitle"
 text = "Theme"
 
 [node name="VSeparator" type="VSeparator" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer/ThemeContainer"]
-margin_top = 43.0
+margin_top = 42.0
 margin_right = 480.0
-margin_bottom = 46.0
+margin_bottom = 45.0
 size_flags_horizontal = 3
 custom_styles/separator = SubResource( 10 )
 
 [node name="Dark" type="CheckBox" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer/ThemeContainer"]
-margin_top = 50.0
+margin_top = 49.0
 margin_right = 480.0
-margin_bottom = 89.0
+margin_bottom = 87.0
 mouse_filter = 1
 group = SubResource( 11 )
 text = "Dark"
 
 [node name="White" type="CheckBox" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer/ThemeContainer"]
-margin_top = 93.0
+margin_top = 91.0
 margin_right = 480.0
-margin_bottom = 132.0
+margin_bottom = 129.0
 mouse_filter = 1
 group = SubResource( 11 )
 text = "White"
 
 [node name="HSeparator" type="HSeparator" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer"]
-margin_top = 136.0
+margin_top = 133.0
 margin_right = 480.0
-margin_bottom = 146.0
+margin_bottom = 143.0
 custom_constants/separation = 10
 
 [node name="TutorialContainer" type="HBoxContainer" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer"]
-margin_top = 150.0
+margin_top = 147.0
 margin_right = 480.0
-margin_bottom = 200.0
+margin_bottom = 197.0
 rect_min_size = Vector2( 0, 50 )
 
 [node name="ShowTutorial" type="Button" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer/TutorialContainer"]
-margin_right = 163.0
+margin_right = 186.0
 margin_bottom = 50.0
 mouse_filter = 1
 text = "  Show Tutorial  "
 
 [node name="Control" type="Control" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer"]
-margin_top = 204.0
+margin_top = 201.0
 margin_right = 480.0
-margin_bottom = 281.0
+margin_bottom = 286.0
 size_flags_vertical = 3
 
 [node name="LabelVersion" type="Label" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer"]
-margin_top = 285.0
+margin_top = 290.0
 margin_right = 480.0
-margin_bottom = 324.0
+margin_bottom = 328.0
 theme_type_variation = "LabelSubtitle"
 text = "v1.x.x"
 align = 2

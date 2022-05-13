@@ -41,11 +41,6 @@ func on_Column_Button_pressed(_column_no, _column):
 
 
 func about_to_show(dim := true):
-	# Set title
-	var title = "Column " + str(column_no+1)
-	$VBoxContainer/VBoxContainer/Label.text = title
-	
-	
 	# Make buttons visible
 	if column_no != main.column_index - 1 or main.column_index == 15:
 		$VBoxContainer/HBoxContainer/RemoveButton.disabled = true

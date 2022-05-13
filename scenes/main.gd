@@ -61,8 +61,6 @@ func _ready():
 		dir.make_dir("Projects")
 		Variables.user_dir = "user://saves/"
 
-	print(Engine.get_singleton("AndroidVersionGodot").getAPILevel())
-
 
 func on_theme_changed(new_theme):
 	theme = load("res://assets/themes/%s/%s.tres" % [new_theme, new_theme])

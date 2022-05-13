@@ -1,14 +1,17 @@
-[gd_resource type="Theme" load_steps=35 format=2]
+[gd_resource type="Theme" load_steps=36 format=2]
 
-[ext_resource path="res://assets/fonts/libel-suit-rg.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/themes/dark/radio_uncheck.png" type="Texture" id=2]
 [ext_resource path="res://assets/themes/dark/radio_check.png" type="Texture" id=3]
+[ext_resource path="res://assets/fonts/GidoleFont/Gidole-Regular.ttf" type="DynamicFontData" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
-font_data = ExtResource( 1 )
+extra_spacing_char = -2
+font_data = ExtResource( 4 )
 
 [sub_resource type="StyleBoxFlat" id=2]
+content_margin_left = 4.0
+content_margin_right = 4.0
 bg_color = Color( 0.309804, 0.8, 0.639216, 0.380392 )
 border_color = Color( 0.309804, 0.8, 0.639216, 0.380392 )
 corner_radius_top_left = 12
@@ -19,6 +22,8 @@ corner_radius_bottom_left = 12
 [sub_resource type="StyleBoxEmpty" id=3]
 
 [sub_resource type="StyleBoxFlat" id=4]
+content_margin_left = 4.0
+content_margin_right = 4.0
 bg_color = Color( 0.305882, 0.8, 0.639216, 1 )
 border_color = Color( 0.305882, 0.8, 0.639216, 1 )
 corner_radius_top_left = 12
@@ -27,6 +32,8 @@ corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
 [sub_resource type="StyleBoxFlat" id=5]
+content_margin_left = 4.0
+content_margin_right = 4.0
 bg_color = Color( 0.501961, 0.996078, 0.835294, 1 )
 border_color = Color( 0.423529, 0.917647, 0.756863, 1 )
 corner_radius_top_left = 12
@@ -53,7 +60,8 @@ color = Color( 1, 1, 1, 0.121569 )
 
 [sub_resource type="DynamicFont" id=11]
 size = 40
-font_data = ExtResource( 1 )
+extra_spacing_char = -2
+font_data = ExtResource( 4 )
 
 [sub_resource type="StyleBoxFlat" id=12]
 bg_color = Color( 0.223529, 0.243137, 0.27451, 1 )
@@ -62,15 +70,17 @@ bg_color = Color( 0.223529, 0.243137, 0.27451, 1 )
 
 [sub_resource type="DynamicFont" id=14]
 size = 48
-font_data = ExtResource( 1 )
+extra_spacing_char = -2
+font_data = ExtResource( 4 )
 
 [sub_resource type="DynamicFont" id=28]
 size = 32
-font_data = ExtResource( 1 )
+extra_spacing_char = -2
+font_data = ExtResource( 4 )
 
 [sub_resource type="DynamicFont" id=15]
 size = 32
-font_data = ExtResource( 1 )
+font_data = ExtResource( 4 )
 
 [sub_resource type="StyleBoxEmpty" id=16]
 
@@ -81,7 +91,8 @@ border_color = Color( 0.305882, 0.8, 0.639216, 1 )
 
 [sub_resource type="DynamicFont" id=27]
 size = 40
-font_data = ExtResource( 1 )
+extra_spacing_char = -2
+font_data = ExtResource( 4 )
 
 [sub_resource type="StyleBoxEmpty" id=29]
 
@@ -118,9 +129,15 @@ thickness = 5
 
 [sub_resource type="DynamicFont" id=23]
 size = 32
-font_data = ExtResource( 1 )
+extra_spacing_char = -2
+font_data = ExtResource( 4 )
 
 [sub_resource type="StyleBoxEmpty" id=31]
+
+[sub_resource type="DynamicFont" id=33]
+size = 20
+extra_spacing_char = -2
+font_data = ExtResource( 4 )
 
 [sub_resource type="StyleBoxLine" id=24]
 color = Color( 1, 1, 1, 0.270588 )
@@ -264,6 +281,8 @@ RichTextLabel/styles/focus = null
 RichTextLabel/styles/normal = null
 ShadowPanel/base_type = "Panel"
 ShadowPanel/styles/panel = SubResource( 31 )
+Text/base_type = "Label"
+Text/fonts/font = SubResource( 33 )
 Tile/colors/Chorus = Color( 1, 0.501961, 1, 1 )
 Tile/colors/Introduction = Color( 0.67451, 0.843137, 1, 1 )
 Tile/colors/Solo = Color( 1, 0.890196, 0.709804, 1 )
