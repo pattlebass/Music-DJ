@@ -31,6 +31,7 @@ func about_to_show(dim := true):
 func _on_CancelButton_pressed():
 	hide()
 	main.get_node("SaveDialog").is_cancelled = true
+	main.is_playing = false
 
 
 func _process(delta):

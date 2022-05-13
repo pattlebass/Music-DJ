@@ -213,7 +213,8 @@ func add_column(_column_no:int, add_to_song:bool = true):
 			g.append(0)
 	
 	return column
-	
+
+
 func _process(delta):
 	export_button.disabled = is_playing or used_columns.max() == -1
 	play_button.disabled = used_columns.max() == -1

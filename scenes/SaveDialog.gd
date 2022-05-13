@@ -63,6 +63,8 @@ func save():
 			print("Save failed!")
 		
 		is_cancelled = false
+		
+		last_name = entered_name
 
 
 func _on_OkButton_pressed():
