@@ -15,9 +15,11 @@ var once := false
 
 
 func _ready():
-	pass
-	
-	#regex.compile('[\\/:"*?<>|]+')
+	if !OS.is_ok_left_and_cancel_right():
+		$VBoxContainer/HBoxContainer.move_child(
+			$VBoxContainer/HBoxContainer/CancelButton,
+			0
+		)
 
 
 func save():

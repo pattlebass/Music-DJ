@@ -13,6 +13,15 @@ onready var audio_player = $AudioStreamPlayer
 
 
 func _ready():
+	if !OS.is_ok_left_and_cancel_right():
+		$VBoxContainer/HBoxContainer.move_child(
+			$VBoxContainer/HBoxContainer/CancelButton,
+			0
+		)
+		$VBoxContainer/HBoxContainer.move_child(
+			$VBoxContainer/HBoxContainer/OkButton,
+			2
+		)
 	
 	# Create list
 	var text = ["Groove 1", "Groove 2", "Salsa 1", "Salsa 2", "Reggae 1", "Reggae 2", "Techno 1", "Techno 2"]

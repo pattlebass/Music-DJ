@@ -6,6 +6,11 @@ var button_scene = preload("res://scenes/LoadButton.tscn")
 
 func _ready():
 	Variables.connect("theme_changed", self, "on_theme_changed")
+	if !OS.is_ok_left_and_cancel_right():
+		$VBoxContainer/HBoxContainer.move_child(
+			$VBoxContainer/HBoxContainer/CancelButton,
+			0
+		)
 
 
 func _on_OkButton_pressed():
