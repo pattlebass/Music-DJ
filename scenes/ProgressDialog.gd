@@ -23,7 +23,7 @@ func about_to_show(dim := true):
 		if path_text.ends_with(".mdj"):
 			$VBoxContainer/Label2.text = "You can find it in the project list or you can download it."
 		else:
-			$VBoxContainer/Label2.text = "Please keep this window focused. After it finishes click the download button"
+			$VBoxContainer/Label2.text = "Please keep this window focused."
 		after_saving = "stay"
 	.about_to_show()
 
