@@ -118,6 +118,13 @@ func play_column(_column_no, _single):
 		return
 
 
+func remove_column(_column_no):
+	for i in 4:
+		song[i].pop_back()
+	used_columns.erase(_column_no)
+	column_index -= 1
+
+
 func on_Tile_pressed(_column_no, _instrument):
 	if is_playing:
 		return

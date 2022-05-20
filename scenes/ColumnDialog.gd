@@ -84,11 +84,7 @@ func _on_CancelButton_pressed():
 func _on_RemoveButton_pressed():
 	column.remove()
 	
-	# Clear from song
-	main.used_columns.erase(column_no)
-	for i in 4:
-		main.song[i][column_no] = 0
-	main.column_index -= 1
+	main.remove_column(column.column_no)
 	
 	hide()
 
