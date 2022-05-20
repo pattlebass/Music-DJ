@@ -17,27 +17,12 @@ func on_Column_Button_pressed(_column_no, _column):
 	column = _column
 	column_no = _column_no
 	
-	var pos = _column.column_button.rect_global_position
-	pos.x -= rect_size.x/2 - _column.column_button.rect_size.x/2
-	pos.y += _column.column_button.rect_size.x
-	var viewport_size = get_viewport().get_visible_rect().size
-	var pos_plus_size = pos+rect_size+Vector2(16,16)
-	var pos_minus_size = pos-rect_size-Vector2(16,16)
-	if pos_plus_size.x > viewport_size.x:
-		pos.x -= pos_plus_size.x - viewport_size.x
-	elif pos.x < 0:
-		pos.x = 0 + 16
-		
-	rect_global_position = pos
-	
-	var sprite = get_node("Sprite")
-	var sprite_pos_x = _column.column_button.rect_global_position.x + \
-		_column.column_button.rect_size.x/2
-	sprite.global_position.x = sprite_pos_x
+#	var sprite = get_node("Sprite")
+#	var sprite_pos_x = _column.column_button.rect_global_position.x + \
+#		_column.column_button.rect_size.x/2
+#	sprite.global_position.x = sprite_pos_x
 	
 	popup()
-	
-	rect_pivot_offset = Vector2(sprite_pos_x - pos.x, 0)
 
 
 func about_to_show(dim := true):
@@ -58,7 +43,28 @@ func about_to_show(dim := true):
 		$VBoxContainer/HBoxContainer/ClearButton.disabled = false
 		$VBoxContainer/HBoxContainer/PlayButton.disabled = false
 	
+	set_as_minsize()
+	
+	# TODO: Clean-up
+	var pos = column.column_button.rect_global_position
+	pos.x -= rect_size.x/2 - column.column_button.rect_size.x/2
+	pos.y += column.column_button.rect_size.x
+	var viewport_size = get_viewport().get_visible_rect().size
+	var pos_plus_size = pos+rect_size+Vector2(16,16)
+	if pos_plus_size.x > viewport_size.x:
+		pos.x -= pos_plus_size.x - viewport_size.x
+	elif pos.x < 0:
+		pos.x = 0 + 16
+		
+	rect_global_position = pos
+	
+	var sprite_pos_x = column.column_button.rect_global_position.x + \
+		column.column_button.rect_size.x/2
+	$Sprite.global_position.x = sprite_pos_x
+	
 	.about_to_show()
+	
+	rect_pivot_offset = Vector2(sprite_pos_x - pos.x, 0)
 
 func _on_ClearButton_pressed():
 	column.clear()

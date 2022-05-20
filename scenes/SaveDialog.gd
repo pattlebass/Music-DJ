@@ -136,7 +136,7 @@ func download_file(_file_path, _file_name):
 	if _file_name.ends_with(".wav"):
 		mime_type = "audio/wav"
 	elif _file_name.ends_with(".mdj"):
-		mime_type = "text/plain"
+		mime_type = "application/json"
 
 	JavaScript.eval("""
 	var a = document.createElement('a');
@@ -145,13 +145,6 @@ func download_file(_file_path, _file_name):
 	a.target = '_blank'
 	a.click();
 	""" % [_file_name, mime_type, file_data_64])
-
-
-func _on_HTMLButton_pressed():
-	yield(get_tree(), "idle_frame")
-	var entered_text = JavaScript.eval("prompt('Save as...', '');")
-	line_edit.text = entered_text
-	_on_LineEdit_text_changed(entered_text)
 
 
 func _on_LineEdit_text_entered(new_text: String) -> void:

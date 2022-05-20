@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://scenes/main.gd" type="Script" id=1]
 [ext_resource path="res://assets/trumpet.png" type="Texture" id=2]
@@ -16,8 +16,6 @@
 [ext_resource path="res://assets/themes/white/column_tear.png" type="Texture" id=15]
 [ext_resource path="res://assets/tutorial/0.webm" type="VideoStream" id=16]
 [ext_resource path="res://scenes/CustomDialog.tscn" type="PackedScene" id=17]
-
-[sub_resource type="StyleBoxEmpty" id=1]
 
 [sub_resource type="StyleBoxEmpty" id=5]
 
@@ -239,7 +237,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ true ]
+"values": [ false ]
 }
 
 [sub_resource type="Animation" id=15]
@@ -322,57 +320,67 @@ size_flags_vertical = 3
 
 [node name="AudioStreamPlayer3" type="AudioStreamPlayer" parent="AudioPlayers"]
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="."]
+[node name="HBoxToolBar" type="HBoxContainer" parent="."]
 anchor_left = 0.024
 anchor_top = 0.03
 anchor_right = 0.976
 anchor_bottom = 0.03
 margin_left = 0.424
-margin_right = -0.424072
+margin_right = 0.575989
 margin_bottom = 60.0
 custom_constants/separation = 30
 
-[node name="Play" type="Button" parent="HBoxContainer2"]
-margin_right = 100.0
+[node name="Play" type="Button" parent="HBoxToolBar"]
+margin_right = 130.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 100, 60 )
 toggle_mode = true
-text = "Play"
+text = "BTN_PLAY"
 
-[node name="VSeparator" type="VSeparator" parent="HBoxContainer2"]
-margin_left = 130.0
-margin_right = 290.0
+[node name="Control" type="Control" parent="HBoxToolBar"]
+margin_left = 160.0
+margin_right = 160.0
 margin_bottom = 60.0
 size_flags_horizontal = 3
-custom_styles/separator = SubResource( 1 )
 
-[node name="Export" type="Button" parent="HBoxContainer2"]
-margin_left = 320.0
-margin_right = 420.0
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxToolBar"]
+margin_left = 190.0
+margin_right = 1128.0
+margin_bottom = 60.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 30
+
+[node name="Export" type="Button" parent="HBoxToolBar/HBoxContainer"]
+margin_right = 163.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 100, 0 )
-text = "Export"
+mouse_filter = 1
+text = "BTN_EXPORT"
 
-[node name="SaveProject" type="Button" parent="HBoxContainer2"]
-margin_left = 450.0
-margin_right = 603.0
+[node name="SaveProject" type="Button" parent="HBoxToolBar/HBoxContainer"]
+margin_left = 193.0
+margin_right = 443.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 150, 0 )
-text = "Save Project"
+mouse_filter = 1
+text = "BTN_SAVE_PROJECT"
 
-[node name="OpenProject" type="Button" parent="HBoxContainer2"]
-margin_left = 633.0
-margin_right = 793.0
+[node name="OpenProject" type="Button" parent="HBoxToolBar/HBoxContainer"]
+margin_left = 473.0
+margin_right = 727.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 150, 0 )
-text = "Open Project"
+mouse_filter = 1
+text = "BTN_OPEN_PROJECT"
 
-[node name="Settings" type="Button" parent="HBoxContainer2"]
-margin_left = 823.0
-margin_right = 973.0
+[node name="Settings" type="Button" parent="HBoxToolBar/HBoxContainer"]
+margin_left = 757.0
+margin_right = 938.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 150, 0 )
-text = "Settings"
+mouse_filter = 1
+text = "BTN_SETTINGS"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 anchor_left = 0.034
@@ -473,6 +481,7 @@ size_flags_vertical = 0
 text = "+"
 
 [node name="DimOverlay" type="Panel" parent="."]
+visible = false
 modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -480,7 +489,7 @@ mouse_filter = 2
 theme_type_variation = "ShadowPanel"
 
 [node name="SoundDialog" parent="." instance=ExtResource( 17 )]
-margin_right = 340.0
+margin_right = 447.0
 margin_bottom = 519.0
 script = ExtResource( 3 )
 
@@ -495,18 +504,18 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="SoundDialog/VBoxContainer"]
-margin_right = 340.0
+margin_right = 447.0
 margin_bottom = 55.0
-text = "Choose"
+text = "Bass, column 0"
 
 [node name="HSeparator" type="HSeparator" parent="SoundDialog/VBoxContainer"]
 margin_top = 59.0
-margin_right = 340.0
+margin_right = 447.0
 margin_bottom = 61.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="SoundDialog/VBoxContainer"]
 margin_top = 65.0
-margin_right = 340.0
+margin_right = 447.0
 margin_bottom = 445.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -518,19 +527,19 @@ __meta__ = {
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="SoundDialog/VBoxContainer/ScrollContainer"]
-margin_right = 340.0
+margin_right = 447.0
 size_flags_horizontal = 3
 
 [node name="HSeparator2" type="HSeparator" parent="SoundDialog/VBoxContainer"]
 modulate = Color( 1, 1, 1, 0 )
 margin_top = 449.0
-margin_right = 340.0
+margin_right = 447.0
 margin_bottom = 455.0
 custom_constants/separation = 6
 
 [node name="HBoxContainer" type="HBoxContainer" parent="SoundDialog/VBoxContainer"]
 margin_top = 459.0
-margin_right = 340.0
+margin_right = 447.0
 margin_bottom = 519.0
 rect_min_size = Vector2( 0, 25 )
 size_flags_horizontal = 3
@@ -545,17 +554,17 @@ text = "OK"
 
 [node name="ClearButton" type="Button" parent="SoundDialog/VBoxContainer/HBoxContainer"]
 margin_left = 120.0
-margin_right = 220.0
+margin_right = 265.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 100, 60 )
-text = "Clear"
+text = "BTN_CLEAR"
 
 [node name="CancelButton" type="Button" parent="SoundDialog/VBoxContainer/HBoxContainer"]
-margin_left = 240.0
-margin_right = 340.0
+margin_left = 285.0
+margin_right = 447.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 100, 60 )
-text = "Cancel"
+text = "BTN_CANCEL"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="SoundDialog"]
 
@@ -565,9 +574,6 @@ margin_top = 100.0
 margin_right = 739.0
 margin_bottom = 321.0
 script = ExtResource( 9 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="VBoxContainer" type="VBoxContainer" parent="SaveDialog"]
 anchor_right = 1.0
@@ -611,61 +617,62 @@ custom_constants/separation = 20
 alignment = 2
 
 [node name="OkButton" type="Button" parent="SaveDialog/VBoxContainer/HBoxContainer"]
-margin_left = 219.0
-margin_right = 319.0
+margin_left = 26.0
+margin_right = 257.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 100, 50 )
-text = "Save"
+text = "DIALOG_SAVE_BTN"
 
 [node name="CancelButton" type="Button" parent="SaveDialog/VBoxContainer/HBoxContainer"]
-margin_left = 339.0
+margin_left = 277.0
 margin_right = 439.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 100, 50 )
-text = "Cancel"
+text = "BTN_CANCEL"
 
 [node name="ColumnDialog" parent="." instance=ExtResource( 17 )]
 anchor_top = -0.001
 anchor_bottom = -0.001
 margin_top = 0.6
-margin_right = 287.0
+margin_right = 466.0
 margin_bottom = 50.6
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource( 12 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ColumnDialog"]
-anchor_right = 0.983
+anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = -0.053009
-size_flags_horizontal = 5
+size_flags_horizontal = 13
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ColumnDialog/VBoxContainer"]
-margin_right = 286.0
+margin_right = 466.0
 margin_bottom = 50.0
 custom_constants/separation = 10
 alignment = 1
 
 [node name="PlayButton" type="Button" parent="ColumnDialog/VBoxContainer/HBoxContainer"]
-margin_right = 80.0
+margin_right = 130.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 80, 50 )
 disabled = true
-text = "Play"
+text = "BTN_PLAY"
 
 [node name="ClearButton" type="Button" parent="ColumnDialog/VBoxContainer/HBoxContainer"]
-margin_left = 90.0
-margin_right = 170.0
+margin_left = 140.0
+margin_right = 285.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 80, 50 )
 disabled = true
-text = "Clear"
+text = "BTN_CLEAR"
 
 [node name="RemoveButton" type="Button" parent="ColumnDialog/VBoxContainer/HBoxContainer"]
-margin_left = 180.0
-margin_right = 286.0
+margin_left = 295.0
+margin_right = 466.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 80, 50 )
 disabled = true
-text = "Remove"
+text = "BTN_REMOVE"
 
 [node name="CancelButton" type="Button" parent="ColumnDialog/VBoxContainer/HBoxContainer"]
 visible = false
@@ -673,7 +680,7 @@ margin_left = 270.0
 margin_right = 370.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 100, 50 )
-text = "Cancel"
+text = "BTN_CANCEL"
 
 [node name="Sprite" type="Sprite" parent="ColumnDialog"]
 position = Vector2( 25, -16.3455 )
@@ -696,13 +703,13 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="ProgressDialog/VBoxContainer"]
-margin_right = 426.0
+margin_right = 554.0
 margin_bottom = 55.0
 text = "Saving..."
 
 [node name="Label2" type="Label" parent="ProgressDialog/VBoxContainer"]
 margin_top = 59.0
-margin_right = 426.0
+margin_right = 554.0
 margin_bottom = 83.0
 theme_type_variation = "Text"
 text = "documents/MusicDJ"
@@ -710,19 +717,19 @@ autowrap = true
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="ProgressDialog/VBoxContainer"]
 margin_top = 87.0
-margin_right = 426.0
+margin_right = 554.0
 margin_bottom = 151.0
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ProgressDialog/VBoxContainer/HBoxContainer2"]
-margin_right = 426.0
+margin_right = 554.0
 margin_bottom = 64.0
 size_flags_horizontal = 3
 alignment = 1
 
 [node name="ProgressBar" type="ProgressBar" parent="ProgressDialog/VBoxContainer/HBoxContainer2/VBoxContainer"]
 margin_top = 22.0
-margin_right = 426.0
+margin_right = 554.0
 margin_bottom = 41.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -730,19 +737,18 @@ step = 0.001
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ProgressDialog/VBoxContainer"]
 margin_top = 155.0
-margin_right = 426.0
+margin_right = 554.0
 margin_bottom = 219.0
 size_flags_vertical = 3
 custom_constants/separation = 20
 alignment = 2
 
 [node name="OpenButton" type="Button" parent="ProgressDialog/VBoxContainer/HBoxContainer"]
-margin_left = 127.0
-margin_right = 306.0
+margin_right = 372.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 100, 50 )
 disabled = true
-text = "  Open Folder  "
+text = "DIALOG_PROGRESS_BTN_OPEN"
 
 [node name="DownloadButton" type="Button" parent="ProgressDialog/VBoxContainer/HBoxContainer"]
 visible = false
@@ -754,94 +760,86 @@ disabled = true
 text = "  Download  "
 
 [node name="CancelButton" type="Button" parent="ProgressDialog/VBoxContainer/HBoxContainer"]
-margin_left = 326.0
-margin_right = 426.0
+margin_left = 392.0
+margin_right = 554.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 100, 50 )
-text = "Cancel"
+text = "BTN_CANCEL"
 
 [node name="LoadDialog" parent="." instance=ExtResource( 17 )]
 margin_right = 412.0
 margin_bottom = 547.0
 script = ExtResource( 11 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="VBoxContainer" type="VBoxContainer" parent="LoadDialog"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = -10.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="TitleHBox" type="HBoxContainer" parent="LoadDialog/VBoxContainer"]
-margin_right = 402.0
+margin_right = 493.0
 margin_bottom = 55.0
 
 [node name="Label" type="Label" parent="LoadDialog/VBoxContainer/TitleHBox"]
-margin_right = 240.0
+margin_right = 378.0
 margin_bottom = 55.0
-text = "Open project"
+text = "DIALOG_LOAD_TITLE"
 
 [node name="VSeparator" type="VSeparator" parent="LoadDialog/VBoxContainer/TitleHBox"]
-margin_left = 244.0
-margin_right = 398.0
+margin_left = 382.0
+margin_right = 489.0
 margin_bottom = 55.0
 size_flags_horizontal = 3
 custom_styles/separator = SubResource( 5 )
 
 [node name="OpenButton" type="Button" parent="LoadDialog/VBoxContainer/TitleHBox"]
-margin_left = 402.0
-margin_right = 402.0
+margin_left = 493.0
+margin_right = 493.0
 margin_bottom = 55.0
 theme_type_variation = "ListItem"
 
 [node name="HSeparator" type="HSeparator" parent="LoadDialog/VBoxContainer"]
 margin_top = 59.0
-margin_right = 402.0
+margin_right = 493.0
 margin_bottom = 61.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="LoadDialog/VBoxContainer"]
 margin_top = 65.0
-margin_right = 402.0
+margin_right = 493.0
 margin_bottom = 493.0
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
 scroll_deadzone = 30
 
 [node name="VBoxContainer" type="VBoxContainer" parent="LoadDialog/VBoxContainer/ScrollContainer"]
-margin_right = 402.0
+margin_right = 493.0
 margin_bottom = 38.0
 size_flags_horizontal = 3
 
 [node name="NoProjectsLabel" type="Label" parent="LoadDialog/VBoxContainer/ScrollContainer/VBoxContainer"]
-margin_right = 402.0
+margin_right = 493.0
 margin_bottom = 38.0
 theme_type_variation = "LabelSubtitle"
 text = "No saved projects"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="LoadDialog/VBoxContainer"]
 margin_top = 497.0
-margin_right = 402.0
+margin_right = 493.0
 margin_bottom = 547.0
 custom_constants/separation = 20
 alignment = 1
 
 [node name="OkButton" type="Button" parent="LoadDialog/VBoxContainer/HBoxContainer"]
-margin_left = 91.0
-margin_right = 191.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 100, 50 )
-text = "Open"
-
-[node name="CancelButton" type="Button" parent="LoadDialog/VBoxContainer/HBoxContainer"]
-margin_left = 211.0
 margin_right = 311.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 100, 50 )
-text = "Cancel"
+text = "DIALOG_LOAD_BTN_OPEN"
+
+[node name="CancelButton" type="Button" parent="LoadDialog/VBoxContainer/HBoxContainer"]
+margin_left = 331.0
+margin_right = 493.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 100, 50 )
+text = "BTN_CANCEL"
 
 [node name="TutorialDialog" parent="." instance=ExtResource( 17 )]
 margin_right = 715.0
@@ -857,7 +855,7 @@ margin_bottom = 0.102997
 [node name="Title" type="Label" parent="TutorialDialog/VBoxContainer"]
 margin_right = 715.0
 margin_bottom = 55.0
-text = "Tutorial"
+text = "DIALOG_TUTORIAL_TITLE"
 
 [node name="HSeparator" type="HSeparator" parent="TutorialDialog/VBoxContainer"]
 margin_top = 59.0
@@ -961,7 +959,7 @@ __meta__ = {
 [node name="Label" type="Label" parent="SettingsDialog/VBoxContainer"]
 margin_right = 480.0
 margin_bottom = 55.0
-text = "Settings"
+text = "DIALOG_SETTINGS_TITLE"
 
 [node name="HSeparator" type="HSeparator" parent="SettingsDialog/VBoxContainer"]
 margin_top = 59.0
@@ -991,7 +989,7 @@ margin_bottom = 129.0
 margin_right = 480.0
 margin_bottom = 38.0
 theme_type_variation = "LabelSubtitle"
-text = "Theme"
+text = "SETTING_THEME"
 
 [node name="VSeparator" type="VSeparator" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer/ThemeContainer"]
 margin_top = 42.0
@@ -1029,10 +1027,10 @@ margin_bottom = 197.0
 rect_min_size = Vector2( 0, 50 )
 
 [node name="ShowTutorial" type="Button" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer/TutorialContainer"]
-margin_right = 186.0
+margin_right = 406.0
 margin_bottom = 50.0
 mouse_filter = 1
-text = "  Show Tutorial  "
+text = "DIALOG_SETTINGS_BTN_TUTORIAL"
 
 [node name="Control" type="Control" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer"]
 margin_top = 201.0
@@ -1062,22 +1060,22 @@ margin_bottom = 479.0
 alignment = 1
 
 [node name="CloseButton" type="Button" parent="SettingsDialog/VBoxContainer/HBoxContainer2"]
-margin_left = 200.0
-margin_right = 280.0
+margin_left = 168.0
+margin_right = 312.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 80, 50 )
-text = "Close"
+text = "BTN_CLOSE"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 13 )
 anims/dim = SubResource( 15 )
 anims/undim = SubResource( 14 )
 
-[connection signal="toggled" from="HBoxContainer2/Play" to="." method="_on_Play_toggled"]
-[connection signal="pressed" from="HBoxContainer2/Export" to="." method="_on_Export_pressed"]
-[connection signal="pressed" from="HBoxContainer2/SaveProject" to="." method="_on_SaveProject_pressed"]
-[connection signal="pressed" from="HBoxContainer2/OpenProject" to="." method="_on_OpenProject_pressed"]
-[connection signal="pressed" from="HBoxContainer2/Settings" to="." method="_on_Settings_pressed"]
+[connection signal="toggled" from="HBoxToolBar/Play" to="." method="_on_Play_toggled"]
+[connection signal="pressed" from="HBoxToolBar/HBoxContainer/Export" to="." method="_on_Export_pressed"]
+[connection signal="pressed" from="HBoxToolBar/HBoxContainer/SaveProject" to="." method="_on_SaveProject_pressed"]
+[connection signal="pressed" from="HBoxToolBar/HBoxContainer/OpenProject" to="." method="_on_OpenProject_pressed"]
+[connection signal="pressed" from="HBoxToolBar/HBoxContainer/Settings" to="." method="_on_Settings_pressed"]
 [connection signal="pressed" from="HBoxContainer/StepContainer/HBoxContainer/VBoxContainer/AddButton" to="." method="_on_AddButton_pressed"]
 [connection signal="pressed" from="SoundDialog/VBoxContainer/HBoxContainer/OkButton" to="SoundDialog" method="_on_OkButton_pressed"]
 [connection signal="pressed" from="SoundDialog/VBoxContainer/HBoxContainer/ClearButton" to="SoundDialog" method="_on_ClearButton_pressed"]

@@ -7,9 +7,9 @@ var is_playing := false
 
 var column_scene = preload("res://scenes/Column.tscn")
 
-onready var play_button = $HBoxContainer2/Play
-onready var export_button = $HBoxContainer2/Export
-onready var save_button = $HBoxContainer2/SaveProject
+onready var play_button = $HBoxToolBar/Play
+onready var export_button = $HBoxToolBar/HBoxContainer/Export
+onready var save_button = $HBoxToolBar/HBoxContainer/SaveProject
 onready var save_dialog = $SaveDialog
 onready var audio_players = $AudioPlayers
 onready var animation = $AnimationPlayer
@@ -52,6 +52,10 @@ func _ready():
 		dir.make_dir("Projects")
 		dir.make_dir("Exports")
 		
+		if Engine.has_singleton("GodotOpenWith"):
+			var open_file = Engine.get_singleton("GodotOpenWith").getOpenFile()
+			if open_file:
+				$LoadDialog.load_song(null, parse_json(open_file))
 	else:
 		var dir = Directory.new()
 		dir.open("user://")
@@ -161,10 +165,10 @@ func on_Tile_held(_column_no, _instrument, _button):
 func _on_Play_toggled(button_pressed):
 	if button_pressed:
 		play_song()
-		play_button.text = "Stop"
+		play_button.text = "BTN_STOP"
 	else:
 		is_playing = false
-		play_button.text = "Play"
+		play_button.text = "BTN_PLAY"
 		
 		yield(get_tree(), "idle_frame")
 		for i in audio_players.get_children():
@@ -173,13 +177,13 @@ func _on_Play_toggled(button_pressed):
 
 func _on_Export_pressed():
 	if  used_columns.max() != -1:
-		save_dialog.title = "Export song as"
+		save_dialog.title = "DIALOG_SAVE_TITLE_EXPORT"
 		save_dialog.type_of_save = "export"
 		save_dialog.popup_centered()
 
 
 func _on_SaveProject_pressed():
-	save_dialog.title = "Save project as"
+	save_dialog.title = "DIALOG_SAVE_TITLE_PROJECT"
 	save_dialog.type_of_save = "project"
 	save_dialog.popup_centered()
 
@@ -238,19 +242,22 @@ func _files_dropped(_files, _screen):
 	var dialog_scene = preload("res://scenes/ConfirmationDialog.tscn")
 	
 	for i in _files:
-		if i.ends_with(".mdj") or i.ends_with(".mdjt"):
-			var split_slash = "\\"
-			if OS.get_name() == "HTML5":
-				split_slash = "/"
-			var filename = i.split(split_slash)[-1]
-			
-			if dir.file_exists(Variables.user_dir.plus_file("Projects/%s" % filename)):
-				var dialog = dialog_scene.instance()
-				add_child(dialog)
-				dialog.alert("Overwrite?","[color=#4ecca3]%s[/color] will be overwritten." %filename.substr(0, 20))
-				var choice = yield(dialog, "chose")
-				if choice == true:
-					dir.copy(i, Variables.user_dir.plus_file("Projects/%s" % filename))
-			else:
-				dir.copy(i, Variables.user_dir.plus_file("Projects/%s" % filename))
+		if not (i.ends_with(".mdj") or i.ends_with(".mdjt")):
+			continue
+		
+		var file_name = i.get_file()
+		
+		if dir.file_exists(Variables.user_dir.plus_file("Projects/%s" % file_name)):
+			var dialog = dialog_scene.instance()
+			add_child(dialog)
+			dialog.alert(
+				"DIALOG_CONFIRMATION_TITLE_OVERWRITE",
+				# TODO: Cleanup
+				tr("DIALOG_CONFIRMATION_BODY_OVERWRITE") % "[color=#4ecca3]%s[/color]" % file_name
+			)
+			var choice = yield(dialog, "chose")
+			if choice == true:
+				dir.copy(i, Variables.user_dir.plus_file("Projects/%s" % file_name))
+		else:
+			dir.copy(i, Variables.user_dir.plus_file("Projects/%s" % file_name))
 	$LoadDialog.popup_centered()

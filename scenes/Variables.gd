@@ -11,7 +11,13 @@ var timer
 var user_dir := ""
 
 const category_names = ["Introduction", "Verse", "Chorus", "Solo"]
-const instrument_names = ["Drums", "Bass", "Keys", "Trumpet"]
+const instrument_names = [
+	"INSTRUMENT_DRUMS",
+	"INSTRUMENT_BASS",
+	"INSTRUMENT_KEYS",
+	"INSTRUMENT_TRUMPET"
+]
+
 
 signal theme_changed
 

@@ -10,7 +10,7 @@ func about_to_show(dim := true):
 	progress_bar.value = 0
 	set_process(true)
 	$VBoxContainer/HBoxContainer/OpenButton.disabled = true
-	$VBoxContainer/Label.text = "Saving..."
+	$VBoxContainer/Label.text = "DIALOG_PROGRESS_TITLE"
 	$VBoxContainer/Label2.text = ProjectSettings.globalize_path(path_text)
 	progress_bar.visible = true
 	if OS.get_name() == "Android":
@@ -21,9 +21,9 @@ func about_to_show(dim := true):
 		$VBoxContainer/HBoxContainer/OpenButton.visible = false
 		$VBoxContainer/HBoxContainer/DownloadButton.visible = true
 		if path_text.ends_with(".mdj"):
-			$VBoxContainer/Label2.text = "You can find it in the project list or you can download it."
+			$VBoxContainer/Label2.text = "DIALOG_PROGRESS_AFTER_PROJECT"
 		else:
-			$VBoxContainer/Label2.text = "Please keep this window focused."
+			$VBoxContainer/Label2.text = "DIALOG_PROGRESS_KEEP_FOCUSED"
 		after_saving = "stay"
 	.about_to_show()
 
@@ -38,7 +38,7 @@ func _process(delta):
 	if progress_bar.value >= progress_bar.max_value:
 		$VBoxContainer/HBoxContainer/OpenButton.disabled = false
 		$VBoxContainer/HBoxContainer/DownloadButton.disabled = false
-		$VBoxContainer/Label.text = "Saved"
+		$VBoxContainer/Label.text = "DIALOG_PROGRESS_TITLE_DONE"
 		progress_bar.visible = false
 		
 		if after_saving == "close":

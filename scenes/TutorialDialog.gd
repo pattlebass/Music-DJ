@@ -1,11 +1,17 @@
 extends "res://scenes/DialogScript.gd"
 
 
-var panels = [{"title":"Tap and hold a tile to copy it.", "video":"res://assets/tutorial/0.webm", "index":0},
-{"title":"Tap the number of a column to open its menu.", "video":"res://assets/tutorial/1.webm", "index":1},
-{"title":"You can drag and drop project files into the App's window.", "video":"res://assets/tutorial/2.webm", "index":2},
-{"title":"Follow [color=#4ecca3][url=https://twitter.com/pattlebass_dev]@pattlebass_dev[/url][/color] on Twitter for updates.", "video":"res://assets/tutorial/3.webm", "index":3},]
+var panels = [
+	{"video":"res://assets/tutorial/0.webm", "placeholders": []},
+	{"video":"res://assets/tutorial/1.webm", "placeholders": []},
+	{"video":"res://assets/tutorial/2.webm", "placeholders": []},
+	{
+		"video":"res://assets/tutorial/3.webm",
+		"placeholders": ["[color=#4ecca3][url=https://twitter.com/pattlebass_dev]@pattlebass_dev[/url][/color]"]
+	},
+]
 var current = 0
+
 
 onready var video_player = $VBoxContainer/HBoxContainer2/VBoxContainer2/VideoPlayer
 onready var animation = $AnimationPlayer2
@@ -62,8 +68,13 @@ func change_panel(_panel_no, _previous_panel_no):
 	var panel = panels[_panel_no]
 	video_player.stream = load(panel["video"])
 	video_player.play()
-	$VBoxContainer/RichTextLabel.bbcode_text = panel["title"]
-	$VBoxContainer/PageLabel.text = str(panel["index"]+1)+"/"+str(panels.size())
+	
+	if panel.placeholders:
+		var text := "TUTORIAL" + str(_panel_no + 1)
+		$VBoxContainer/RichTextLabel.bbcode_text = tr(text) % panel.placeholders
+	else:
+		$VBoxContainer/RichTextLabel.bbcode_text = tr("TUTORIAL" + str(_panel_no + 1))
+	$VBoxContainer/PageLabel.text = str(_panel_no + 1)+"/"+str(panels.size())
 	
 	if _panel_no >= _previous_panel_no:
 		animation.play("fade_in_right_to_left")

@@ -25,7 +25,12 @@ func _ready():
 	
 	# Create list
 	var text = ["Groove 1", "Groove 2", "Salsa 1", "Salsa 2", "Reggae 1", "Reggae 2", "Techno 1", "Techno 2"]
-	var category = ["Introduction", "Verse", "Chorus", "Solo"]
+	var category = [
+		"SAMPLE_CAT_INTRODUCTION",
+		"SAMPLE_CAT_VERSE",
+		"SAMPLE_CAT_CHORUS",
+		"SAMPLE_CAT_SOLO"
+	]
 	var colors = Variables.colors
 	var button_index = -1
 	
@@ -79,8 +84,8 @@ func about_to_show(dim := true):
 	column = main.get_node("HBoxContainer/StepContainer/HBoxContainer").get_child(column_no)
 	
 	# Set title
-	var instrument = Variables.instrument_names[instrument_index]
-	$VBoxContainer/Label.text = instrument + ", column " + str(column_no + 1)
+	var instrument = tr(Variables.instrument_names[instrument_index])
+	$VBoxContainer/Label.text = tr("DIALOG_SOUND_TITLE") % [instrument, column_no + 1]
 	
 	# Set button states
 	var clear_button = get_node("VBoxContainer/HBoxContainer/ClearButton")

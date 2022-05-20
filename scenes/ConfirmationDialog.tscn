@@ -154,7 +154,7 @@ margin_left = 216.0
 margin_right = 316.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 100, 50 )
-text = "Yes"
+text = "OK"
 
 [node name="CancelButton" type="Button" parent="VBoxContainer/HBoxContainer"]
 margin_left = 336.0

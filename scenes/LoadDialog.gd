@@ -39,7 +39,8 @@ func load_song(_path, _song = null):
 			file.open(_path, File.WRITE)
 			file.store_var(main.song)
 			file.close()
-	
+		main.get_node("SaveDialog").last_name = _path.get_file().get_basename()
+		
 	# Add remaining columns
 	var song_column_index = main.song[0].size()
 	
@@ -59,7 +60,6 @@ func load_song(_path, _song = null):
 	main.used_columns.append(-1)
 	
 	# TODO: Cleanup
-	main.get_node("SaveDialog").last_name = _path.get_file().get_basename()
 	
 	for instrument in main.song.size():
 		for column_no in main.song[instrument].size():
@@ -68,41 +68,31 @@ func load_song(_path, _song = null):
 			var value = main.song[instrument][column_no]
 			
 			if value == 0:
-				button.text = ""
-				button.set("custom_styles/normal", null)
-				button.set("custom_styles/pressed", null)
-				button.set("custom_styles/disabled", null)
-				button.set("custom_styles/hover", null)
-				
+				column.clear_tile(instrument)
 				continue
 			
 			# Find last columns
 			if not main.used_columns.has(column_no):
 				main.used_columns.append(column_no)
-
+			
 			# Button
 			var text
-			var style_box = preload("res://assets/button_stylebox.tres").duplicate()
 			var colors = Variables.colors
+			var category: int
 			
-			if value >= 1 and value <= 8:
+			if value in range(1, 9):
 				text = value
-				style_box.bg_color = colors[0]
-			elif value >= 9 and value <= 16:
+				category = 0
+			elif value in range(9, 17):
 				text = value - 8
-				style_box.bg_color = colors[1]
-			elif value >= 17 and value <= 24:
+				category = 1
+			elif value in range(17, 25):
 				text = value - 16
-				style_box.bg_color = colors[2]
-			elif value >= 25 and value <= 32:
+				category = 2
+			elif value in range(25, 33):
 				text = value - 24
-				style_box.bg_color = colors[3]
-			
-			button.text = str(text)
-			button.set("custom_styles/normal", style_box)
-			button.set("custom_styles/pressed", style_box)
-			button.set("custom_styles/disabled", style_box)
-			button.set("custom_styles/hover", style_box)
+				category = 3
+			column.set_tile(instrument, category, str(text))
 			
 	hide()
 
@@ -201,17 +191,19 @@ func _on_OpenButton_pressed():
 
 func on_Button_deleted(_container):
 	var dir = Directory.new()
-	var _path = _container.get_child(0).text
+	var file_name = _container.get_child(0).text # TODO: Cleanup
 	var dialog = preload("res://scenes/ConfirmationDialog.tscn").instance()
 	
 	modulate = Color.transparent
 	
 	main.add_child(dialog)
-	dialog.alert("Delete project?",
-		"[color=#4ecca3]%s[/color] will be deleted." % _path.substr(0, 20))
+	dialog.alert(
+		"DIALOG_CONFIRMATION_TITLE_DELETE",
+		tr("DIALOG_CONFIRMATION_BODY_DELETE") % "[color=#4ecca3]%s[/color]" % file_name
+	)
 	var choice = yield(dialog, "chose")
 	if choice:
-		dir.remove(Variables.user_dir.plus_file("Projects/%s" % _path))
+		dir.remove(Variables.user_dir.plus_file("Projects/%s" % file_name))
 		_container.queue_free()
 	
 	yield(get_tree(), "idle_frame")
