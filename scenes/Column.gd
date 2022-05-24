@@ -9,9 +9,16 @@ onready var column_button = $ColumnButton
 func set_tile(instrument: int, sample_category: int, text: String) -> void:
 	var tile = get_node("Button" + str(instrument + 1))
 	
-	var style_box = preload("res://assets/button_stylebox.tres").duplicate()
+	tile.text = text
 	
-	style_box.bg_color = get_theme().get_color(
+	var inherited_theme = get_theme()
+	
+	if !inherited_theme:
+		return
+	
+	var style_box = inherited_theme.get_stylebox("normal", "Tile").duplicate()
+	
+	style_box.bg_color = inherited_theme.get_color(
 		Variables.category_names[sample_category],
 		"Tile"
 	)
@@ -20,8 +27,6 @@ func set_tile(instrument: int, sample_category: int, text: String) -> void:
 	tile.set("custom_styles/disabled", style_box)
 	tile.set("custom_styles/hover", style_box)
 	tile.set("custom_styles/focus", StyleBoxEmpty)
-	
-	tile.text = text
 
 
 func clear() -> void:
@@ -62,9 +67,9 @@ func remove() -> void:
 
 func get_theme():
 	var control = self
-	var theme = null
+	var _theme = null
 	while control != null && "theme" in control:
-		theme = control.theme
-		if theme != null: break
+		_theme = control.theme
+		if _theme != null: break
 		control = control.get_parent()
-	return theme
+	return _theme

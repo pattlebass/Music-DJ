@@ -4,7 +4,8 @@ var colors = [Color(0.678, 0.847, 90.2), Color(0.565, 0.933, 0.565), Color(1, 0.
 var current_tutorial_version = 1
 var options = {
 	"last_seen_tutorial": -1, # Hasn't seen the tutorial
-	"theme": "dark"
+	"theme": "dark",
+	"language": "",
 }
 var themes = ["dark", "white", "classic1", "classic2"]
 var timer
@@ -24,6 +25,7 @@ signal theme_changed
 var file = File.new()
 
 func _ready():
+	print()
 	# Options
 	timer = Timer.new()
 	timer.one_shot = true
@@ -53,6 +55,10 @@ func _ready():
 		return
 	
 	options = file_options
+	
+	if options.language:
+		TranslationServer.set_locale(options.language)
+	
 	print("Loaded options.json")
 
 

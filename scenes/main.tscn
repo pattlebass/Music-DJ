@@ -261,7 +261,7 @@ tracks/1/path = NodePath("DimOverlay:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
-tracks/1/enabled = false
+tracks/1/enabled = true
 tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
@@ -945,6 +945,7 @@ anims/fade_in_right_to_left = SubResource( 17 )
 anims/fade_out_right_to_left = SubResource( 19 )
 
 [node name="SettingsDialog" parent="." instance=ExtResource( 17 )]
+visible = true
 margin_right = 480.0
 margin_bottom = 479.0
 script = ExtResource( 14 )
@@ -976,31 +977,31 @@ scroll_horizontal_enabled = false
 scroll_deadzone = 30
 
 [node name="SettingsContainer" type="VBoxContainer" parent="SettingsDialog/VBoxContainer/ScrollContainer"]
-margin_right = 480.0
-margin_bottom = 328.0
+margin_right = 475.0
+margin_bottom = 341.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="ThemeContainer" type="VBoxContainer" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer"]
-margin_right = 480.0
+margin_right = 475.0
 margin_bottom = 129.0
 
 [node name="Label" type="Label" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer/ThemeContainer"]
-margin_right = 480.0
+margin_right = 475.0
 margin_bottom = 38.0
 theme_type_variation = "LabelSubtitle"
 text = "SETTING_THEME"
 
 [node name="VSeparator" type="VSeparator" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer/ThemeContainer"]
 margin_top = 42.0
-margin_right = 480.0
+margin_right = 475.0
 margin_bottom = 45.0
 size_flags_horizontal = 3
 custom_styles/separator = SubResource( 10 )
 
 [node name="Dark" type="CheckBox" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer/ThemeContainer"]
 margin_top = 49.0
-margin_right = 480.0
+margin_right = 475.0
 margin_bottom = 87.0
 mouse_filter = 1
 group = SubResource( 11 )
@@ -1008,7 +1009,7 @@ text = "Dark"
 
 [node name="White" type="CheckBox" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer/ThemeContainer"]
 margin_top = 91.0
-margin_right = 480.0
+margin_right = 475.0
 margin_bottom = 129.0
 mouse_filter = 1
 group = SubResource( 11 )
@@ -1016,14 +1017,38 @@ text = "White"
 
 [node name="HSeparator" type="HSeparator" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer"]
 margin_top = 133.0
-margin_right = 480.0
+margin_right = 475.0
 margin_bottom = 143.0
 custom_constants/separation = 10
 
-[node name="TutorialContainer" type="HBoxContainer" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer"]
+[node name="LangContainer" type="VBoxContainer" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer"]
+unique_name_in_owner = true
 margin_top = 147.0
-margin_right = 480.0
-margin_bottom = 197.0
+margin_right = 475.0
+margin_bottom = 227.0
+
+[node name="Label" type="Label" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer/LangContainer"]
+margin_right = 475.0
+margin_bottom = 38.0
+theme_type_variation = "LabelSubtitle"
+text = "SETTING_LANG"
+
+[node name="Auto" type="CheckBox" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer/LangContainer"]
+margin_top = 42.0
+margin_right = 475.0
+margin_bottom = 80.0
+text = "SETTING_LANG_AUTO"
+
+[node name="HSeparator2" type="HSeparator" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer"]
+margin_top = 231.0
+margin_right = 475.0
+margin_bottom = 241.0
+custom_constants/separation = 10
+
+[node name="TutorialContainer" type="HBoxContainer" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer"]
+margin_top = 245.0
+margin_right = 475.0
+margin_bottom = 295.0
 rect_min_size = Vector2( 0, 50 )
 
 [node name="ShowTutorial" type="Button" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer/TutorialContainer"]
@@ -1033,15 +1058,15 @@ mouse_filter = 1
 text = "DIALOG_SETTINGS_BTN_TUTORIAL"
 
 [node name="Control" type="Control" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer"]
-margin_top = 201.0
-margin_right = 480.0
-margin_bottom = 286.0
+margin_top = 299.0
+margin_right = 475.0
+margin_bottom = 299.0
 size_flags_vertical = 3
 
 [node name="LabelVersion" type="Label" parent="SettingsDialog/VBoxContainer/ScrollContainer/SettingsContainer"]
-margin_top = 290.0
-margin_right = 480.0
-margin_bottom = 328.0
+margin_top = 303.0
+margin_right = 475.0
+margin_bottom = 341.0
 theme_type_variation = "LabelSubtitle"
 text = "v1.x.x"
 align = 2

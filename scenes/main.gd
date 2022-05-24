@@ -84,8 +84,8 @@ func play_song():
 			play_button.pressed = false
 			is_playing = false
 			return
-		
-		
+
+
 func play_column(_column_no, _single):
 	is_playing = true
 	
@@ -116,13 +116,6 @@ func play_column(_column_no, _single):
 	
 	if not is_playing:
 		return
-
-
-func remove_column(_column_no):
-	for i in 4:
-		song[i].pop_back()
-	used_columns.erase(_column_no)
-	column_index -= 1
 
 
 func on_Tile_pressed(_column_no, _instrument):
@@ -224,6 +217,13 @@ func add_column(_column_no:int, add_to_song:bool = true):
 			g.append(0)
 	
 	return column
+
+
+func remove_column(_column_no) -> void:
+	for i in 4:
+		song[i].pop_back()
+	used_columns.erase(_column_no)
+	column_index -= 1
 
 
 func _process(delta):
