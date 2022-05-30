@@ -32,7 +32,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/AutoExportVersion/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/AutoExportVersion/plugin.cfg", "res://addons/Todo_Manager/plugin.cfg" )
 
 [input]
 
