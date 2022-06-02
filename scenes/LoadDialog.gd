@@ -92,7 +92,7 @@ func load_song(_path, _song = null):
 			elif value in range(25, 33):
 				text = value - 24
 				category = 3
-			column.set_tile(instrument, category, str(text))
+			column.set_tile(instrument, value)
 			
 	hide()
 

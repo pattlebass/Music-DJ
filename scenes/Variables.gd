@@ -19,6 +19,7 @@ const instrument_names = [
 	"INSTRUMENT_TRUMPET"
 ]
 
+onready var main = get_node("/root/main/")
 
 signal theme_changed
 

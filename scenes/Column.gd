@@ -1,22 +1,38 @@
 extends VBoxContainer
 
-var column_no := 0
+var column_no: int
 
 onready var anim_player = $AnimationPlayer
 onready var column_button = $ColumnButton
+var main
 
-
-func set_tile(instrument: int, sample_category: int, text: String) -> void:
+func set_tile(instrument: int, sample_index: int) -> void:
 	var tile = get_node("Button" + str(instrument + 1))
+	
+	if sample_index == 0:
+		clear_tile(instrument)
+		return
+	
+	var text := ""
+	var category: int
+	
+	if sample_index in range(1, 9):
+		text = str(sample_index)
+		sample_index = 0
+	elif sample_index in range(9, 17):
+		text = str(sample_index - 8)
+		category = 1
+	elif sample_index in range(17, 25):
+		text = str(sample_index - 16)
+		category = 2
+	elif sample_index in range(25, 33):
+		text = str(sample_index - 24)
+		category = 3
 	
 	tile.text = text
 	
-	var style_box = get_stylebox("normal", "Tile").duplicate()
-	
-	style_box.bg_color = get_color(
-		Variables.category_names[sample_category],
-		"Tile"
-	)
+	var style_box = get_stylebox(Variables.category_names[category], "Tile")
+
 	tile.set("custom_styles/normal", style_box)
 	tile.set("custom_styles/pressed", style_box)
 	tile.set("custom_styles/disabled", style_box)
@@ -58,3 +74,9 @@ func remove() -> void:
 	anim_player.play_backwards("fade_in")
 	yield(anim_player, "animation_finished")
 	queue_free()
+
+
+func _notification(what):
+	if what == NOTIFICATION_THEME_CHANGED and column_no != null and main:
+		for instrument in 4:
+			set_tile(instrument, main.song[instrument][column_no])

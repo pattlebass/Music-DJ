@@ -199,6 +199,7 @@ func add_column(_column_no:int, add_to_song:bool = true):
 	var column = column_scene.instance()
 	column_container.add_child(column)
 	column_container.move_child(column, column_container.get_child_count()-2)
+	column.main = self
 	column.add(_column_no)
 	
 	

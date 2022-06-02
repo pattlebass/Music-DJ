@@ -131,8 +131,7 @@ func _on_OkButton_pressed():
 
 	column.set_tile(
 		instrument_index,
-		sample_category,
-		str(genre_index + 1)
+		pressed_button_index+1
 	)
 	
 	main.song[instrument_index][column_no] = pressed_button_index+1

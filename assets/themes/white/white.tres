@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=42 format=2]
+[gd_resource type="Theme" load_steps=45 format=2]
 
 [ext_resource path="res://assets/fonts/GidoleFont/Gidole-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/themes/white/radio_check.png" type="Texture" id=2]
@@ -164,6 +164,28 @@ extra_spacing_char = -2
 font_data = ExtResource( 1 )
 
 [sub_resource type="StyleBoxFlat" id=38]
+bg_color = Color( 1, 0.501961, 1, 1 )
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id=39]
+bg_color = Color( 0.67451, 0.843137, 1, 1 )
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id=40]
+bg_color = Color( 1, 0.890196, 0.709804, 1 )
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id=41]
+bg_color = Color( 0.564706, 0.929412, 0.564706, 1 )
 corner_radius_top_left = 12
 corner_radius_top_right = 12
 corner_radius_bottom_right = 12
@@ -322,7 +344,10 @@ Tile/colors/Chorus = Color( 1, 0.501961, 1, 1 )
 Tile/colors/Introduction = Color( 0.67451, 0.843137, 1, 1 )
 Tile/colors/Solo = Color( 1, 0.890196, 0.709804, 1 )
 Tile/colors/Verse = Color( 0.564706, 0.929412, 0.564706, 1 )
-Tile/styles/normal = SubResource( 38 )
+Tile/styles/Chorus = SubResource( 38 )
+Tile/styles/Introduction = SubResource( 39 )
+Tile/styles/Solo = SubResource( 40 )
+Tile/styles/Verse = SubResource( 41 )
 VScrollBar/icons/decrement = null
 VScrollBar/icons/decrement_highlight = null
 VScrollBar/icons/increment = null
