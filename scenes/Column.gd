@@ -11,14 +11,9 @@ func set_tile(instrument: int, sample_category: int, text: String) -> void:
 	
 	tile.text = text
 	
-	var inherited_theme = get_theme()
+	var style_box = get_stylebox("normal", "Tile").duplicate()
 	
-	if !inherited_theme:
-		return
-	
-	var style_box = inherited_theme.get_stylebox("normal", "Tile").duplicate()
-	
-	style_box.bg_color = inherited_theme.get_color(
+	style_box.bg_color = get_color(
 		Variables.category_names[sample_category],
 		"Tile"
 	)
@@ -63,13 +58,3 @@ func remove() -> void:
 	anim_player.play_backwards("fade_in")
 	yield(anim_player, "animation_finished")
 	queue_free()
-
-
-func get_theme():
-	var control = self
-	var _theme = null
-	while control != null && "theme" in control:
-		_theme = control.theme
-		if _theme != null: break
-		control = control.get_parent()
-	return _theme

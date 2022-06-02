@@ -51,7 +51,7 @@ func _ready():
 		# Icon
 		var image = load("res://assets/mask.png")
 		var texture = ImageTexture.new()
-		var color = get_theme().get_color(
+		var color = get_color(
 			Variables.category_names[i],
 			"Tile"
 		)
@@ -170,12 +170,3 @@ func popup_hide(dim := true):
 		if i is Button:
 			i.pressed = false
 	.popup_hide()
-
-func get_theme():
-	var control = self
-	var theme = null
-	while control != null && "theme" in control:
-		theme = control.theme
-		if theme != null: break
-		control = control.get_parent()
-	return theme
