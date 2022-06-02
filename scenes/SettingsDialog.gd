@@ -7,7 +7,6 @@ func _ready():
 		Variables.options.theme.capitalize()).pressed = true
 	$VBoxContainer/ScrollContainer/SettingsContainer/LabelVersion.text = "%s" % load("res://version.gd").VERSION
 	
-	
 	var lang_btn_group = ButtonGroup.new()
 	
 	var lang_auto_btn = lang_container.get_node("Auto")
@@ -33,6 +32,11 @@ func _ready():
 
 func _on_CloseButton_pressed():
 	hide()
+
+
+func about_to_show(dim := true):
+	$VBoxContainer/ScrollContainer.scroll_vertical = 0
+	.about_to_show(dim)
 
 
 func _on_theme_chosen(button_pressed, theme_name):
