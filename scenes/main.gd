@@ -13,17 +13,15 @@ onready var save_button = $HBoxToolBar/HBoxContainer/SaveProject
 onready var save_dialog = $SaveDialog
 onready var audio_players = $AudioPlayers
 onready var animation = $AnimationPlayer
-onready var column_container = $HBoxContainer/StepContainer/HBoxContainer
-onready var scroll_container = $HBoxContainer/StepContainer
+onready var column_container = $HBoxContainer/ScrollContainer/HBoxContainer
+onready var scroll_container = $HBoxContainer/ScrollContainer
 
 # Notes:
 
-# * Beware! Old and bad coding habits ahead.
-# I will rewrite most of it at some point
+# I will refactor most of the code at some point
 
 # * "column" refers to the column node itself, while "column_no" refers
 # to the column as a number
-# * A few variables/nodes need renaming (column -> column_no, step -> column)
 # * Some signals are a bit messy
 
 
@@ -137,7 +135,7 @@ func on_Tile_held(_column_no, _instrument, _button):
 		_button.disabled = true
 		_button.disabled = false
 		
-		$HBoxContainer/StepContainer.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		$HBoxContainer/ScrollContainer.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		
 		var float_button_scene = preload("res://scenes/FloatButton.tscn")
 		var float_button_parent = float_button_scene.instance()

@@ -81,7 +81,7 @@ func _ready():
 
 
 func about_to_show(dim := true):
-	column = main.get_node("HBoxContainer/StepContainer/HBoxContainer").get_child(column_no)
+	column = main.get_node("HBoxContainer/ScrollContainer/HBoxContainer").get_child(column_no)
 	
 	# Set title
 	var instrument = tr(Variables.instrument_names[instrument_index])

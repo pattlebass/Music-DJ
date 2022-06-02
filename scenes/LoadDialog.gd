@@ -51,7 +51,7 @@ func load_song(_path, _song = null):
 
 	elif main.column_index > song_column_index:
 		for i in main.column_index - song_column_index:
-			main.get_node("HBoxContainer/StepContainer/HBoxContainer").get_child(main.column_index-1).queue_free()
+			main.get_node("HBoxContainer/ScrollContainer/HBoxContainer").get_child(main.column_index-1).queue_free()
 			main.column_index -= 1
 		
 		
@@ -63,7 +63,7 @@ func load_song(_path, _song = null):
 	
 	for instrument in main.song.size():
 		for column_no in main.song[instrument].size():
-			var column = main.get_node("HBoxContainer/StepContainer/HBoxContainer").get_child(column_no)
+			var column = main.get_node("HBoxContainer/ScrollContainer/HBoxContainer").get_child(column_no)
 			var button = column.get_child(instrument + 1)
 			var value = main.song[instrument][column_no]
 			
@@ -125,7 +125,7 @@ func about_to_show(dim := true):
 		load_button.text = i
 		load_button.connect("pressed", self, "on_Button_selected", [i])
 		
-		delete_button.connect("pressed", self, "on_Button_deleted", [button_container])
+		delete_button.connect("pressed", self, "on_Button_deleted", [button_container, i])
 		
 		if OS.get_name() == "HTML5":
 			download_button.connect("pressed", self, "on_Button_download", [button_container])
@@ -189,9 +189,8 @@ func _on_OpenButton_pressed():
 		OS.shell_open(ProjectSettings.globalize_path(Variables.user_dir))
 
 
-func on_Button_deleted(_container):
+func on_Button_deleted(_container, file_name):
 	var dir = Directory.new()
-	var file_name = _container.get_child(0).text # TODO: Cleanup
 	var dialog = preload("res://scenes/ConfirmationDialog.tscn").instance()
 	
 	modulate = Color.transparent

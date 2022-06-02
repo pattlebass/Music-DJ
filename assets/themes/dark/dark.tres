@@ -190,6 +190,7 @@ CheckBox/styles/hover = SubResource( 6 )
 CheckBox/styles/hover_pressed = SubResource( 6 )
 CheckBox/styles/normal = SubResource( 6 )
 CheckBox/styles/pressed = SubResource( 6 )
+ColumnContainer/constants/separation = 10
 HScrollBar/icons/decrement = null
 HScrollBar/icons/decrement_highlight = null
 HScrollBar/icons/increment = null

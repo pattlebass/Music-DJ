@@ -24,7 +24,7 @@ tracks/0/keys = {
 [node name="Column" type="VBoxContainer"]
 margin_right = 40.0
 margin_bottom = 40.0
-custom_constants/separation = 10
+theme_type_variation = "ColumnContainer"
 script = ExtResource( 1 )
 
 [node name="ColumnButton" type="Button" parent="."]
@@ -38,9 +38,9 @@ enabled_focus_mode = 0
 text = "0"
 
 [node name="Button1" type="Button" parent="."]
-margin_top = 69.0
+margin_top = 63.0
 margin_right = 80.0
-margin_bottom = 149.0
+margin_bottom = 143.0
 rect_min_size = Vector2( 80, 80 )
 focus_mode = 0
 mouse_filter = 1
@@ -55,9 +55,9 @@ position = Vector2( 40, 40 )
 shape = SubResource( 1 )
 
 [node name="Button2" type="Button" parent="."]
-margin_top = 159.0
+margin_top = 147.0
 margin_right = 80.0
-margin_bottom = 239.0
+margin_bottom = 227.0
 rect_min_size = Vector2( 80, 80 )
 focus_mode = 0
 mouse_filter = 1
@@ -72,9 +72,9 @@ position = Vector2( 40, 40 )
 shape = SubResource( 1 )
 
 [node name="Button3" type="Button" parent="."]
-margin_top = 249.0
+margin_top = 231.0
 margin_right = 80.0
-margin_bottom = 329.0
+margin_bottom = 311.0
 rect_min_size = Vector2( 80, 80 )
 focus_mode = 0
 mouse_filter = 1
@@ -89,9 +89,9 @@ position = Vector2( 40, 40 )
 shape = SubResource( 1 )
 
 [node name="Button4" type="Button" parent="."]
-margin_top = 339.0
+margin_top = 315.0
 margin_right = 80.0
-margin_bottom = 419.0
+margin_bottom = 395.0
 rect_min_size = Vector2( 80, 80 )
 focus_mode = 0
 mouse_filter = 1

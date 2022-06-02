@@ -22,6 +22,7 @@ func _ready():
 		var check_box = CheckBox.new()
 		check_box.text = i
 		check_box.group = lang_btn_group
+		check_box.mouse_filter = Control.MOUSE_FILTER_PASS
 		check_box.connect("pressed", self, "on_lang_chosen", [i])
 		
 		if Variables.options.language == i:

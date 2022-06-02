@@ -36,5 +36,5 @@ func _input(event):
 				main.used_columns.append(collided_column_no)
 			
 			
-		get_parent().get_node("HBoxContainer/StepContainer").mouse_filter = Control.MOUSE_FILTER_STOP
+		get_parent().get_node("HBoxContainer/ScrollContainer").mouse_filter = Control.MOUSE_FILTER_STOP
 		queue_free()
