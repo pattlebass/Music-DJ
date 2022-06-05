@@ -31,7 +31,6 @@ func _ready():
 		"SAMPLE_CAT_CHORUS",
 		"SAMPLE_CAT_SOLO"
 	]
-	var colors = Variables.colors
 	var button_index = -1
 	
 	for i in 4:
@@ -59,7 +58,7 @@ func _ready():
 		for v in 32:
 			for h in 32:
 				var current_pixel = image.get_pixel(h, v)
-				image.set_pixel(h, v, colors[i] * current_pixel)
+				image.set_pixel(h, v, color * current_pixel)
 		image.unlock()
 		texture.create_from_image(image)
 		
@@ -80,7 +79,7 @@ func _ready():
 			button_container.add_child(button_in_list)
 
 
-func about_to_show(dim := true):
+func about_to_show():
 	column = main.get_node("HBoxContainer/ScrollContainer/HBoxContainer").get_child(column_no)
 	
 	# Set title
@@ -157,7 +156,7 @@ func _on_CancelButton_pressed():
 	hide()
 
 
-func popup_hide(dim := true):
+func popup_hide():
 	$VBoxContainer/ScrollContainer.scroll_vertical = 0
 	
 	if button_group.get_pressed_button():

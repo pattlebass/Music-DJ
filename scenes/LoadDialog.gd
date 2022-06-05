@@ -51,20 +51,21 @@ func load_song(_path, _song = null):
 
 	elif main.column_index > song_column_index:
 		for i in main.column_index - song_column_index:
-			main.get_node("HBoxContainer/ScrollContainer/HBoxContainer").get_child(main.column_index-1).queue_free()
+			main.column_container.get_child(main.column_index-1).queue_free()
 			main.column_index -= 1
 		
-		
+	
 	# Clear used_columns
 	main.used_columns.clear()
 	main.used_columns.append(-1)
+	
+	main.scroll_container.scroll_horizontal = 0
 	
 	# TODO: Cleanup
 	
 	for instrument in main.song.size():
 		for column_no in main.song[instrument].size():
-			var column = main.get_node("HBoxContainer/ScrollContainer/HBoxContainer").get_child(column_no)
-			var button = column.get_child(instrument + 1)
+			var column = main.column_container.get_child(column_no)
 			var value = main.song[instrument][column_no]
 			
 			if value == 0:
@@ -75,23 +76,6 @@ func load_song(_path, _song = null):
 			if not main.used_columns.has(column_no):
 				main.used_columns.append(column_no)
 			
-			# Button
-			var text
-			var colors = Variables.colors
-			var category: int
-			
-			if value in range(1, 9):
-				text = value
-				category = 0
-			elif value in range(9, 17):
-				text = value - 8
-				category = 1
-			elif value in range(17, 25):
-				text = value - 16
-				category = 2
-			elif value in range(25, 33):
-				text = value - 24
-				category = 3
 			column.set_tile(instrument, value)
 			
 	hide()
@@ -101,7 +85,7 @@ func on_theme_changed(new_theme):
 	$VBoxContainer/TitleHBox/OpenButton.icon = load("res://assets/themes/%s/open_folder.png" % new_theme)
 
 
-func about_to_show(dim := true):
+func about_to_show():
 	if !Variables.has_storage_perms():
 		hide()
 	
@@ -171,7 +155,7 @@ func on_Button_selected(_path):
 				x.pressed = false
 
 
-func popup_hide(dim := true):
+func popup_hide():
 	.popup_hide()
 	for i in $VBoxContainer/ScrollContainer/VBoxContainer.get_children():
 		if i is HBoxContainer:

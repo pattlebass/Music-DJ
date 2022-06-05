@@ -8,6 +8,7 @@ var effect = AudioServer.get_bus_effect(0, 0)
 var is_cancelled = false
 
 onready var line_edit = $VBoxContainer/VBoxContainer/HBoxContainer/LineEdit
+onready var ok_button = $VBoxContainer/HBoxContainer/OkButton
 
 var once := false
 
@@ -75,7 +76,7 @@ func _on_CancelButton_pressed():
 	hide()
 
 
-func about_to_show(dim := true):
+func about_to_show():
 	if !Variables.has_storage_perms():
 		hide()
 	
@@ -102,11 +103,9 @@ func validate_filename(text: String) -> String:
 func _on_LineEdit_text_changed(new_text):
 	new_text = validate_filename(new_text)
 	
-	var line_edit = $VBoxContainer/VBoxContainer/HBoxContainer/LineEdit
 	line_edit.text = new_text
 	line_edit.caret_position = line_edit.text.length()
 	
-	var ok_button = $VBoxContainer/HBoxContainer/OkButton
 	if new_text == "" or new_text[0] == ".":
 		ok_button.disabled = true
 	else:
@@ -114,7 +113,7 @@ func _on_LineEdit_text_changed(new_text):
 		ok_button.disabled = false
 
 
-func _process(delta):
+func _process(_delta):
 	if OS.get_virtual_keyboard_height() == 0:
 		rect_position.y = get_viewport().get_visible_rect().size.y / 2 - rect_size.y / 2
 	else:
@@ -147,8 +146,8 @@ func download_file(_file_path, _file_name):
 	""" % [_file_name, mime_type, file_data_64])
 
 
-func _on_LineEdit_text_entered(new_text: String) -> void:
+func _on_LineEdit_text_entered(_new_text: String) -> void:
 	# Kinda hacky, but this is not an AcceptDialog so it doesn't have
 	# the register_text_enter() method
 	yield(get_tree().create_timer(0.1), "timeout")
-	$VBoxContainer/HBoxContainer/OkButton.emit_signal("pressed")
+	ok_button.emit_signal("pressed")

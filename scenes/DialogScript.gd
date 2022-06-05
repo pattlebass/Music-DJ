@@ -1,13 +1,13 @@
 extends PopupDialog
 
 onready var main = get_parent()
-
+var dim := true
 
 func _ready():
 	pass
 
 
-func about_to_show(dim := true):
+func about_to_show():
 	rect_pivot_offset = rect_size / 2
 	
 	if dim:
@@ -16,7 +16,7 @@ func about_to_show(dim := true):
 	$AnimationPlayer.play("fade_in")
 
 
-func popup_hide(dim := true):
+func popup_hide():
 	$AnimationPlayer.play("fade_out")
 	
 	if dim:

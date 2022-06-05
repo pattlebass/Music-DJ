@@ -2,14 +2,13 @@ extends "res://scenes/DialogScript.gd"
 
 signal chose
 
-
 func _ready():
 	if !OS.is_ok_left_and_cancel_right():
 		$VBoxContainer/HBoxContainer.move_child(
 			$VBoxContainer/HBoxContainer/CancelButton,
 			0
 		)
-
+	dim = false
 
 func alert(_title, _subtitle):
 	$VBoxContainer/Title.text = _title
@@ -27,12 +26,12 @@ func _on_CancelButton_pressed():
 	hide()
 
 
-func _on_ConfirmationDialog_about_to_show(dim := true):
-	about_to_show(false)
+func _on_ConfirmationDialog_about_to_show():
+	about_to_show()
 	$BackPanel.modulate = Color(1, 1, 1, 1)
 
 
 func _on_ConfirmationDialog_popup_hide():
-	popup_hide(false)
+	popup_hide()
 	yield(get_tree().create_timer(0.1), "timeout")
 	queue_free()

@@ -6,7 +6,7 @@ var path_text = ""
 var after_saving = "stay"
 
 
-func about_to_show(dim := true):
+func about_to_show():
 	progress_bar.value = 0
 	set_process(true)
 	$VBoxContainer/HBoxContainer/OpenButton.disabled = true

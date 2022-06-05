@@ -22,7 +22,7 @@ func _ready():
 		call_deferred("popup_centered")
 
 
-func about_to_show(dim := true):
+func about_to_show():
 	current = 0
 	change_panel(0, 0)
 	.about_to_show()

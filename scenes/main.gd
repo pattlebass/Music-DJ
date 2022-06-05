@@ -225,7 +225,7 @@ func remove_column(_column_no) -> void:
 	column_index -= 1
 
 
-func _process(delta):
+func _process(_delta):
 	export_button.disabled = is_playing or used_columns.max() == -1
 	play_button.disabled = used_columns.max() == -1
 	save_button.disabled = used_columns.max() == -1

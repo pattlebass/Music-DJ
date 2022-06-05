@@ -34,9 +34,9 @@ func _on_CloseButton_pressed():
 	hide()
 
 
-func about_to_show(dim := true):
+func about_to_show():
 	$VBoxContainer/ScrollContainer.scroll_vertical = 0
-	.about_to_show(dim)
+	.about_to_show()
 
 
 func _on_theme_chosen(button_pressed, theme_name):

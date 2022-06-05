@@ -25,7 +25,7 @@ func on_Column_Button_pressed(_column_no, _column):
 	popup()
 
 
-func about_to_show(dim := true):
+func about_to_show():
 	# Make buttons visible
 	if column_no != main.column_index - 1 or main.column_index == 15:
 		$VBoxContainer/HBoxContainer/RemoveButton.disabled = true
