@@ -10,6 +10,7 @@ var column
 
 onready var button_container = $VBoxContainer/ScrollContainer/VBoxContainer
 onready var audio_player = $AudioStreamPlayer
+onready var ok_button = $VBoxContainer/HBoxContainer/OkButton
 var button_group = ButtonGroup.new()
 
 func _ready():
@@ -19,7 +20,7 @@ func _ready():
 			0
 		)
 		$VBoxContainer/HBoxContainer.move_child(
-			$VBoxContainer/HBoxContainer/OkButton,
+			ok_button,
 			2
 		)
 	
@@ -88,7 +89,6 @@ func about_to_show():
 	
 	# Set button states
 	var clear_button = get_node("VBoxContainer/HBoxContainer/ClearButton")
-	var ok_button = get_node("VBoxContainer/HBoxContainer/OkButton")
 	
 	if main.song[instrument_index][column_no]:
 		var selected_button = button_container.get_node(
@@ -111,7 +111,7 @@ func on_Button_selected(index, _genre_index, _sample_category):
 	
 	audio_player.stream = load("res://sounds/"+str(instrument_index)+"/"+str(index+1)+".ogg")
 	audio_player.play()
-	$VBoxContainer/HBoxContainer/OkButton.disabled = false
+	ok_button.disabled = false
 	pressed_button_index = index
 	genre_index = _genre_index
 	sample_category = _sample_category

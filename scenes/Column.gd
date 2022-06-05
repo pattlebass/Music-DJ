@@ -4,7 +4,6 @@ var column_no: int
 
 onready var anim_player = $AnimationPlayer
 onready var column_button = $ColumnButton
-var main
 
 func set_tile(instrument: int, sample_index: int) -> void:
 	var tile = get_node("Button" + str(instrument + 1))
@@ -18,7 +17,7 @@ func set_tile(instrument: int, sample_index: int) -> void:
 	
 	if sample_index in range(1, 9):
 		text = str(sample_index)
-		sample_index = 0
+		category = 0
 	elif sample_index in range(9, 17):
 		text = str(sample_index - 8)
 		category = 1
@@ -30,6 +29,7 @@ func set_tile(instrument: int, sample_index: int) -> void:
 		category = 3
 	
 	tile.text = text
+	tile.set_meta("sample_index", sample_index)
 	
 	var style_box = get_stylebox(Variables.category_names[category], "Tile")
 
@@ -77,6 +77,9 @@ func remove() -> void:
 
 
 func _notification(what):
-	if what == NOTIFICATION_THEME_CHANGED and column_no != null and main:
+	if what == NOTIFICATION_THEME_CHANGED:
 		for instrument in 4:
-			set_tile(instrument, main.song[instrument][column_no])
+			var sample_index = 0
+			if get_child(instrument + 1).has_meta("sample_index"):
+				sample_index = get_child(instrument + 1).get_meta("sample_index")
+			set_tile(instrument, sample_index)
