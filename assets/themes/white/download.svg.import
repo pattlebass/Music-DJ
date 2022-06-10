@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/delete.png-0d97dab6da63897e21f30b3a06700044.stex"
+path="res://.import/download.svg-f29e96ced56f0e9f1324fd74a96bf1e4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/themes/white/delete.png"
-dest_files=[ "res://.import/delete.png-0d97dab6da63897e21f30b3a06700044.stex" ]
+source_file="res://assets/themes/white/download.svg"
+dest_files=[ "res://.import/download.svg-f29e96ced56f0e9f1324fd74a96bf1e4.stex" ]
 
 [params]
 
@@ -28,6 +28,7 @@ process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
+process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=true

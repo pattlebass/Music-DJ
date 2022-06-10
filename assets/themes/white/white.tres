@@ -1,8 +1,8 @@
 [gd_resource type="Theme" load_steps=45 format=2]
 
 [ext_resource path="res://assets/fonts/GidoleFont/Gidole-Regular.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://assets/themes/white/radio_check.png" type="Texture" id=2]
-[ext_resource path="res://assets/themes/white/radio_uncheck.png" type="Texture" id=3]
+[ext_resource path="res://assets/themes/white/radio_check.svg" type="Texture" id=2]
+[ext_resource path="res://assets/themes/white/radio_uncheck.svg" type="Texture" id=3]
 
 [sub_resource type="DynamicFont" id=1]
 size = 32

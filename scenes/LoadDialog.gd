@@ -48,7 +48,7 @@ func load_song(_path, _song = null):
 		for i in song_column_index - main.column_index:
 			main.add_column(main.column_index, false)
 			main.column_index += 1
-
+	
 	elif main.column_index > song_column_index:
 		for i in main.column_index - song_column_index:
 			main.column_container.get_child(main.column_index-1).queue_free()
@@ -68,13 +68,9 @@ func load_song(_path, _song = null):
 			var column = main.column_container.get_child(column_no)
 			var value = main.song[instrument][column_no]
 			
-			if value == 0:
-				column.clear_tile(instrument)
-				continue
-			
-			# Find last columns
-			if not main.used_columns.has(column_no):
-				main.used_columns.append(column_no)
+			if value != 0: # If not empty
+				if not main.used_columns.has(column_no):
+					main.used_columns.append(column_no)
 			
 			column.set_tile(instrument, value)
 			
@@ -82,7 +78,7 @@ func load_song(_path, _song = null):
 
 
 func on_theme_changed(new_theme):
-	$VBoxContainer/TitleHBox/OpenButton.icon = load("res://assets/themes/%s/open_folder.png" % new_theme)
+	$VBoxContainer/TitleHBox/OpenButton.icon = load("res://assets/themes/%s/open_folder.svg" % new_theme)
 
 
 func about_to_show():

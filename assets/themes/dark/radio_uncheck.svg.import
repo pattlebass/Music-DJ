@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/radio_uncheck.png-b488854f08aa330b31a6f10ac8a38eda.stex"
+path="res://.import/radio_uncheck.svg-8d06067269edf0c24372142a08c20c8d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/themes/white/radio_uncheck.png"
-dest_files=[ "res://.import/radio_uncheck.png-b488854f08aa330b31a6f10ac8a38eda.stex" ]
+source_file="res://assets/themes/dark/radio_uncheck.svg"
+dest_files=[ "res://.import/radio_uncheck.svg-8d06067269edf0c24372142a08c20c8d.stex" ]
 
 [params]
 

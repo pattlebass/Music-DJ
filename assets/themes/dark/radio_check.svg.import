@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/radio_check.png-573d758febbab68d36cdc1904d900425.stex"
+path="res://.import/radio_check.svg-c475af8fdc6bff904e520305114fed7d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/themes/white/radio_check.png"
-dest_files=[ "res://.import/radio_check.png-573d758febbab68d36cdc1904d900425.stex" ]
+source_file="res://assets/themes/dark/radio_check.svg"
+dest_files=[ "res://.import/radio_check.svg-c475af8fdc6bff904e520305114fed7d.stex" ]
 
 [params]
 
@@ -28,6 +28,7 @@ process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
+process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=true
