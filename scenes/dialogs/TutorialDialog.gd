@@ -1,4 +1,4 @@
-extends "res://scenes/DialogScript.gd"
+extends CustomDialog
 
 
 var panels = [
@@ -86,5 +86,5 @@ func _on_VideoPlayer_finished():
 	video_player.play()
 
 
-func _on_Label2_meta_clicked(meta):
+func _on_RichTextLabel_meta_clicked(meta):
 	OS.shell_open(meta)

@@ -1,4 +1,4 @@
-extends "res://scenes/DialogScript.gd"
+extends CustomDialog
 
 onready var progress_bar = get_node("VBoxContainer/HBoxContainer2/VBoxContainer/ProgressBar")
 
@@ -25,6 +25,9 @@ func about_to_show():
 		else:
 			$VBoxContainer/Label2.text = "DIALOG_PROGRESS_KEEP_FOCUSED"
 		after_saving = "stay"
+	
+	$VBoxContainer.rect_size = rect_size
+	
 	.about_to_show()
 
 
@@ -43,7 +46,7 @@ func _process(delta):
 		
 		if after_saving == "close":
 			hide()
-
+	
 		if OS.get_name() == "HTML5" and path_text.ends_with(".wav"):
 			_on_DownloadButton_pressed()
 	

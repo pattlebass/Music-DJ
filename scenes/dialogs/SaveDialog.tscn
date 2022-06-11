@@ -1,0 +1,73 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scenes/dialogs/SaveDialog.gd" type="Script" id=1]
+
+[node name="SaveDialog" type="PopupDialog"]
+margin_left = 300.0
+margin_top = 100.0
+margin_right = 739.0
+margin_bottom = 321.0
+input_pass_on_modal_close_click = false
+script = ExtResource( 1 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+margin_right = 439.0
+margin_bottom = 167.0
+size_flags_vertical = 3
+custom_constants/separation = 30
+
+[node name="Label" type="Label" parent="VBoxContainer/VBoxContainer"]
+margin_right = 439.0
+margin_bottom = 55.0
+text = "Save as"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer"]
+margin_top = 85.0
+margin_right = 439.0
+margin_bottom = 135.0
+alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/VBoxContainer/HBoxContainer"]
+margin_left = 19.0
+margin_right = 419.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 400, 50 )
+custom_colors/cursor_color = Color( 0, 0, 0, 0.5 )
+max_length = 100
+placeholder_text = "File name here"
+placeholder_alpha = 0.2
+caret_blink = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 171.0
+margin_right = 439.0
+margin_bottom = 221.0
+custom_constants/separation = 20
+alignment = 2
+
+[node name="OkButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+margin_left = 26.0
+margin_right = 257.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 100, 50 )
+text = "DIALOG_SAVE_BTN"
+
+[node name="CancelButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+margin_left = 277.0
+margin_right = 439.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 100, 50 )
+text = "BTN_CANCEL"
+
+[connection signal="text_changed" from="VBoxContainer/VBoxContainer/HBoxContainer/LineEdit" to="." method="_on_LineEdit_text_changed"]
+[connection signal="text_entered" from="VBoxContainer/VBoxContainer/HBoxContainer/LineEdit" to="." method="_on_LineEdit_text_entered"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/OkButton" to="." method="_on_OkButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/CancelButton" to="." method="_on_CancelButton_pressed"]

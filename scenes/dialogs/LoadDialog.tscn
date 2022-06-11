@@ -1,0 +1,89 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/dialogs/LoadDialog.gd" type="Script" id=1]
+
+[sub_resource type="StyleBoxEmpty" id=5]
+
+[node name="LoadDialog" type="PopupDialog"]
+margin_right = 412.0
+margin_bottom = 547.0
+input_pass_on_modal_close_click = false
+script = ExtResource( 1 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 81.0
+
+[node name="TitleHBox" type="HBoxContainer" parent="VBoxContainer"]
+margin_right = 493.0
+margin_bottom = 55.0
+
+[node name="Label" type="Label" parent="VBoxContainer/TitleHBox"]
+margin_right = 378.0
+margin_bottom = 55.0
+text = "DIALOG_LOAD_TITLE"
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/TitleHBox"]
+margin_left = 382.0
+margin_right = 489.0
+margin_bottom = 55.0
+size_flags_horizontal = 3
+custom_styles/separator = SubResource( 5 )
+
+[node name="OpenButton" type="Button" parent="VBoxContainer/TitleHBox"]
+margin_left = 493.0
+margin_right = 493.0
+margin_bottom = 55.0
+theme_type_variation = "ListItem"
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+margin_top = 59.0
+margin_right = 493.0
+margin_bottom = 61.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+margin_top = 65.0
+margin_right = 493.0
+margin_bottom = 493.0
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+scroll_deadzone = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
+margin_right = 493.0
+margin_bottom = 38.0
+size_flags_horizontal = 3
+
+[node name="NoProjectsLabel" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
+margin_right = 493.0
+margin_bottom = 38.0
+theme_type_variation = "LabelSubtitle"
+text = "No saved projects"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 497.0
+margin_right = 493.0
+margin_bottom = 547.0
+custom_constants/separation = 20
+alignment = 1
+
+[node name="OkButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+margin_right = 311.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 100, 50 )
+text = "DIALOG_LOAD_BTN_OPEN"
+
+[node name="CancelButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+margin_left = 331.0
+margin_right = 493.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 100, 50 )
+text = "BTN_CANCEL"
+
+[connection signal="pressed" from="VBoxContainer/TitleHBox/OpenButton" to="." method="_on_OpenButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/OkButton" to="." method="_on_OkButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/CancelButton" to="." method="_on_CancelButton_pressed"]

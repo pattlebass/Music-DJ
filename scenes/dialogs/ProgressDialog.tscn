@@ -1,0 +1,90 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scenes/dialogs/ProgressDialog.gd" type="Script" id=1]
+
+[node name="ProgressDialog" type="PopupDialog"]
+visible = true
+margin_right = 426.0
+margin_bottom = 219.0
+input_pass_on_modal_close_click = false
+popup_exclusive = true
+script = ExtResource( 1 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 128.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+margin_right = 554.0
+margin_bottom = 55.0
+text = "Saving..."
+
+[node name="Label2" type="Label" parent="VBoxContainer"]
+margin_top = 59.0
+margin_right = 554.0
+margin_bottom = 83.0
+theme_type_variation = "Text"
+text = "documents/MusicDJ"
+autowrap = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 87.0
+margin_right = 554.0
+margin_bottom = 151.0
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2"]
+margin_right = 554.0
+margin_bottom = 64.0
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="VBoxContainer/HBoxContainer2/VBoxContainer"]
+margin_top = 22.0
+margin_right = 554.0
+margin_bottom = 41.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+step = 0.001
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 155.0
+margin_right = 554.0
+margin_bottom = 219.0
+size_flags_vertical = 3
+custom_constants/separation = 20
+alignment = 2
+
+[node name="OpenButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+margin_right = 372.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 100, 50 )
+disabled = true
+text = "DIALOG_PROGRESS_BTN_OPEN"
+
+[node name="DownloadButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+visible = false
+margin_left = 184.0
+margin_right = 306.0
+margin_bottom = 62.0
+rect_min_size = Vector2( 100, 50 )
+disabled = true
+text = "  Download  "
+
+[node name="CancelButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+margin_left = 392.0
+margin_right = 554.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 100, 50 )
+text = "BTN_CANCEL"
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/OpenButton" to="." method="_on_OpenButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/DownloadButton" to="." method="_on_DownloadButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/CancelButton" to="." method="_on_CancelButton_pressed"]

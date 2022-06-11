@@ -1,4 +1,4 @@
-extends "res://scenes/DialogScript.gd"
+extends CustomDialog
 
 signal chose
 

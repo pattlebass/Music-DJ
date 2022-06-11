@@ -1,7 +1,6 @@
-extends "res://scenes/DialogScript.gd"
+extends CustomDialog
 
 var selected_file = ""
-var button_scene = preload("res://scenes/LoadButton.tscn")
 
 
 func _ready():
@@ -11,6 +10,7 @@ func _ready():
 			$VBoxContainer/HBoxContainer/CancelButton,
 			0
 		)
+	
 
 
 func _on_OkButton_pressed():
@@ -96,11 +96,30 @@ func about_to_show():
 	else:
 		$VBoxContainer/ScrollContainer/VBoxContainer/NoProjectsLabel.hide()
 	
+	var theme_path = "res://assets/themes/%s/" % Variables.options.theme
+	
 	for i in projects:
-		var button_container = button_scene.instance()
-		var load_button = button_container.get_node("LoadButton")
-		var delete_button = button_container.get_node("DeleteButton")
-		var download_button = button_container.get_node("DownloadButton")
+		var button_container = HBoxContainer.new()
+		
+		var load_button = Button.new()
+		load_button.name = "LoadButton"
+		load_button.align = Button.ALIGN_LEFT
+		load_button.size_flags_horizontal = Button.SIZE_EXPAND_FILL
+		load_button.theme_type_variation = "ListItem"
+		load_button.toggle_mode = true
+		button_container.add_child(load_button)
+		
+		var download_button = Button.new()
+		download_button.name = "DownloadButton"
+		download_button.icon = load(theme_path+"download.svg")
+		download_button.theme_type_variation = "ListItem"
+		button_container.add_child(download_button)
+		
+		var delete_button = Button.new()
+		delete_button.name = "DeleteButton"
+		delete_button.icon = load(theme_path+"delete.svg")
+		delete_button.theme_type_variation = "ListItem"
+		button_container.add_child(delete_button)
 		
 		load_button.text = i
 		load_button.connect("pressed", self, "on_Button_selected", [i])
@@ -113,6 +132,8 @@ func about_to_show():
 			download_button.hide()
 		
 		$VBoxContainer/ScrollContainer/VBoxContainer.add_child(button_container)
+	
+	$VBoxContainer.rect_size = rect_size
 	
 	.about_to_show()
 
@@ -171,7 +192,7 @@ func _on_OpenButton_pressed():
 
 func on_Button_deleted(_container, file_name):
 	var dir = Directory.new()
-	var dialog = preload("res://scenes/ConfirmationDialog.tscn").instance()
+	var dialog = preload("res://scenes/dialogs/ConfirmationDialog.tscn").instance()
 	
 	modulate = Color.transparent
 	

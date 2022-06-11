@@ -1,4 +1,4 @@
-extends "res://scenes/DialogScript.gd"
+extends CustomDialog
 
 var instrument_index
 var column_no

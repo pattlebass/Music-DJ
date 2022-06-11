@@ -244,7 +244,7 @@ func on_popup_hide():
 
 func _files_dropped(_files, _screen):
 	var dir = Directory.new()
-	var dialog_scene = preload("res://scenes/ConfirmationDialog.tscn")
+	var dialog_scene = preload("res://scenes/dialogs/ConfirmationDialog.tscn")
 	
 	for i in _files:
 		if not (i.ends_with(".mdj") or i.ends_with(".mdjt")):

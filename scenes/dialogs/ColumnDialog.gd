@@ -1,4 +1,4 @@
-extends "res://scenes/DialogScript.gd"
+extends CustomDialog
 
 var column
 var column_no
@@ -77,10 +77,6 @@ func _on_ClearButton_pressed():
 	hide()
 
 
-func _on_CancelButton_pressed():
-	hide()
-
-
 func _on_RemoveButton_pressed():
 	column.remove()
 	
@@ -93,4 +89,3 @@ func _on_PlayButton_pressed():
 	main.play_column(column_no, true)
 	main.get_node("SoundDialog/AudioStreamPlayer").stop()
 	hide()
-	

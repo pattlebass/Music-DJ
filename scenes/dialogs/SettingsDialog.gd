@@ -1,4 +1,4 @@
-extends "res://scenes/DialogScript.gd"
+extends CustomDialog
 
 onready var lang_container = $"%LangContainer"
 
@@ -59,4 +59,3 @@ func on_lang_chosen(lang):
 func _on_ShowTutorial_pressed():
 	hide()
 	main.get_node("TutorialDialog").popup_centered()
-	

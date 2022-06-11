@@ -1,0 +1,59 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/dialogs/ColumnDialog.gd" type="Script" id=1]
+[ext_resource path="res://assets/themes/white/column_tear.png" type="Texture" id=2]
+
+[node name="ColumnDialog" type="PopupDialog"]
+anchor_top = -0.001
+anchor_bottom = -0.001
+margin_top = 0.6
+margin_right = 466.0
+margin_bottom = 50.6
+input_pass_on_modal_close_click = false
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 1 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 13
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_right = 466.0
+margin_bottom = 50.0
+custom_constants/separation = 10
+alignment = 1
+
+[node name="PlayButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+margin_right = 130.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 80, 50 )
+disabled = true
+text = "BTN_PLAY"
+
+[node name="ClearButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+margin_left = 140.0
+margin_right = 285.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 80, 50 )
+disabled = true
+text = "BTN_CLEAR"
+
+[node name="RemoveButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+margin_left = 295.0
+margin_right = 466.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 80, 50 )
+disabled = true
+text = "BTN_REMOVE"
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 25, -16.3455 )
+texture = ExtResource( 2 )
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/PlayButton" to="." method="_on_PlayButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/ClearButton" to="." method="_on_ClearButton_pressed"]
