@@ -27,6 +27,8 @@ You might get warnings about this app not being safe. Like [this](https://i.stac
 
 On Android, you'll need to allow apps from unknown sources. If you don't know how to do that, search a tutorial for your specific Android version.
 
+## Contributing
+See [contributing.md](https://github.com/pattlebass/Music-DJ/blob/master/CONTRIBUTING.md) for instructions.
 
 ## Donate
 If you appreciate the work that has been put into making this app, consider donating.
