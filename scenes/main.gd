@@ -25,7 +25,7 @@ onready var scroll_container = $HBoxContainer/ScrollContainer
 # * Some signals are a bit messy
 
 
-func _ready():
+func _ready() -> void:
 	get_tree().connect("files_dropped", self, "_files_dropped")
 	Variables.connect("theme_changed", self, "on_theme_changed")
 	Variables.change_theme(Variables.options.theme)
@@ -64,11 +64,11 @@ func _ready():
 		Variables.user_dir = "user://saves/"
 
 
-func on_theme_changed(new_theme):
+func on_theme_changed(new_theme) -> void:
 	theme = load("res://assets/themes/%s/%s.tres" % [new_theme, new_theme])
 
 
-func play_song():
+func play_song() -> void:
 	is_playing = true
 	yield(get_tree(), "idle_frame")
 	$SoundDialog.audio_player.stop()
@@ -84,7 +84,7 @@ func play_song():
 			return
 
 
-func play_column(_column_no, _single):
+func play_column(_column_no, _single) -> void:
 	is_playing = true
 	
 	if _column_no > used_columns.max():
@@ -116,7 +116,7 @@ func play_column(_column_no, _single):
 		return
 
 
-func on_Tile_pressed(_column_no, _instrument):
+func on_Tile_pressed(_column_no, _instrument) -> void:
 	if is_playing:
 		return
 	var sound_dialog = $SoundDialog
@@ -125,7 +125,7 @@ func on_Tile_pressed(_column_no, _instrument):
 	sound_dialog.popup_centered(Vector2(500, 550))
 
 
-func on_Tile_held(_column_no, _instrument, _button):
+func on_Tile_held(_column_no, _instrument, _button) -> void:
 	# Needs cleanup
 	if is_playing:
 		return
@@ -151,16 +151,18 @@ func on_Tile_held(_column_no, _instrument, _button):
 		float_button.rect_size = rect_size * 1.5
 		float_button.set("custom_colors/font_color", Color.black)
 		float_button_parent.instrument = _instrument
-		float_button_parent.column_no = _column_no
+		float_button_parent.sample = song[_instrument][_column_no]
 		float_button_parent.global_position = get_global_mouse_position()
 		add_child(float_button_parent)
-		var rect_global_pos = _button.rect_global_position
-		float_button_parent.pos_y = rect_global_pos.y
 		
 		Input.vibrate_handheld(70)
+		
+		yield(float_button_parent, "released")
+		
+		$HBoxContainer/ScrollContainer.mouse_filter = Control.MOUSE_FILTER_STOP
 
 
-func _on_Play_toggled(button_pressed):
+func _on_Play_toggled(button_pressed) -> void:
 	if button_pressed:
 		play_song()
 		play_button.text = "BTN_STOP"
@@ -173,29 +175,29 @@ func _on_Play_toggled(button_pressed):
 			i.stop()
 
 
-func _on_Export_pressed():
+func _on_Export_pressed() -> void:
 	if  used_columns.max() != -1:
 		save_dialog.title = "DIALOG_SAVE_TITLE_EXPORT"
 		save_dialog.type_of_save = "export"
 		save_dialog.popup_centered()
 
 
-func _on_SaveProject_pressed():
+func _on_SaveProject_pressed() -> void:
 	save_dialog.title = "DIALOG_SAVE_TITLE_PROJECT"
 	save_dialog.type_of_save = "project"
 	save_dialog.popup_centered()
 
 
-func _on_OpenProject_pressed():
+func _on_OpenProject_pressed() -> void:
 	$LoadDialog.popup_centered()
 
 
-func _on_AddButton_pressed():
+func _on_AddButton_pressed() -> void:
 	column_index += 1
 	add_column(column_index-1).fade_in()
 
 
-func add_column(_column_no:int, add_to_song:bool = true):
+func add_column(_column_no:int, add_to_song:bool = true) -> Node2D:
 	var column = column_scene.instance()
 	column_container.add_child(column)
 	column_container.move_child(column, column_container.get_child_count()-2)
@@ -224,25 +226,25 @@ func remove_column(_column_no) -> void:
 	column_index -= 1
 
 
-func _process(_delta):
+func _process(_delta) -> void:
 	export_button.disabled = is_playing or used_columns.max() == -1
 	play_button.disabled = used_columns.max() == -1
 	save_button.disabled = used_columns.max() == -1
 
 
-func _on_Settings_pressed():
+func _on_Settings_pressed() -> void:
 	$SettingsDialog.popup_centered()
 
 
-func on_popup_show():
+func on_popup_show() -> void:
 	animation.play("dim")
 
 
-func on_popup_hide():
+func on_popup_hide() -> void:
 	animation.play("undim")
 
 
-func _files_dropped(_files, _screen):
+func _files_dropped(_files, _screen) -> void:
 	var dir = Directory.new()
 	var dialog_scene = preload("res://scenes/dialogs/ConfirmationDialog.tscn")
 	

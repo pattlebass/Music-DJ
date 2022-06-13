@@ -38,9 +38,9 @@ enabled_focus_mode = 0
 text = "0"
 
 [node name="Button1" type="Button" parent="."]
-margin_top = 63.0
+margin_top = 69.0
 margin_right = 80.0
-margin_bottom = 143.0
+margin_bottom = 149.0
 rect_min_size = Vector2( 80, 80 )
 focus_mode = 0
 mouse_filter = 1
@@ -50,14 +50,15 @@ enabled_focus_mode = 0
 
 [node name="Area2D" type="Area2D" parent="Button1"]
 position = Vector2( 40, 40 )
+monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Button1/Area2D"]
 shape = SubResource( 1 )
 
 [node name="Button2" type="Button" parent="."]
-margin_top = 147.0
+margin_top = 159.0
 margin_right = 80.0
-margin_bottom = 227.0
+margin_bottom = 239.0
 rect_min_size = Vector2( 80, 80 )
 focus_mode = 0
 mouse_filter = 1
@@ -67,14 +68,15 @@ enabled_focus_mode = 0
 
 [node name="Area2D" type="Area2D" parent="Button2"]
 position = Vector2( 40, 40 )
+monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Button2/Area2D"]
 shape = SubResource( 1 )
 
 [node name="Button3" type="Button" parent="."]
-margin_top = 231.0
+margin_top = 249.0
 margin_right = 80.0
-margin_bottom = 311.0
+margin_bottom = 329.0
 rect_min_size = Vector2( 80, 80 )
 focus_mode = 0
 mouse_filter = 1
@@ -84,14 +86,15 @@ enabled_focus_mode = 0
 
 [node name="Area2D" type="Area2D" parent="Button3"]
 position = Vector2( 40, 40 )
+monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Button3/Area2D"]
 shape = SubResource( 1 )
 
 [node name="Button4" type="Button" parent="."]
-margin_top = 315.0
+margin_top = 339.0
 margin_right = 80.0
-margin_bottom = 395.0
+margin_bottom = 419.0
 rect_min_size = Vector2( 80, 80 )
 focus_mode = 0
 mouse_filter = 1
@@ -101,6 +104,7 @@ enabled_focus_mode = 0
 
 [node name="Area2D" type="Area2D" parent="Button4"]
 position = Vector2( 40, 40 )
+monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Button4/Area2D"]
 shape = SubResource( 1 )
