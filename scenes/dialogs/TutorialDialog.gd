@@ -17,7 +17,7 @@ onready var video_player = $VBoxContainer/HBoxContainer2/VBoxContainer2/VideoPla
 onready var animation = $AnimationPlayer2
 
 
-func _ready():
+func _ready() -> void:
 	if Variables.current_tutorial_version > Variables.options["last_seen_tutorial"]:
 		call_deferred("popup_centered")
 

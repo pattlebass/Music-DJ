@@ -3,7 +3,7 @@ extends CustomDialog
 var selected_file = ""
 
 
-func _ready():
+func _ready() -> void:
 	Variables.connect("theme_changed", self, "on_theme_changed")
 	if !OS.is_ok_left_and_cancel_right():
 		$VBoxContainer/HBoxContainer.move_child(

@@ -4,7 +4,7 @@ var column
 var column_no
 
 
-func _ready():
+func _ready() -> void:
 	Variables.connect("theme_changed", self, "on_theme_changed")
 
 

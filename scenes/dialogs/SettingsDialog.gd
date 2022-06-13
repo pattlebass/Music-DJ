@@ -2,7 +2,7 @@ extends CustomDialog
 
 onready var lang_container = $"%LangContainer"
 
-func _ready():
+func _ready() -> void:
 	get_node("VBoxContainer/ScrollContainer/SettingsContainer/ThemeContainer/"+ \
 		Variables.options.theme.capitalize()).pressed = true
 	$VBoxContainer/ScrollContainer/SettingsContainer/LabelVersion.text = "%s" % load("res://version.gd").VERSION

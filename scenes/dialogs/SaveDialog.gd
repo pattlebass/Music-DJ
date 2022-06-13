@@ -15,7 +15,7 @@ var once := false
 #var regex = RegEx.new()
 
 
-func _ready():
+func _ready() -> void:
 	if !OS.is_ok_left_and_cancel_right():
 		$VBoxContainer/HBoxContainer.move_child(
 			$VBoxContainer/HBoxContainer/CancelButton,

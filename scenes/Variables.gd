@@ -1,14 +1,13 @@
 extends Node
 
-var colors = [Color(0.678, 0.847, 90.2), Color(0.565, 0.933, 0.565), Color(1, 0.502, 1), Color(1, 0.894, 0.71)]
-var current_tutorial_version = 1
 var options = {
 	"last_seen_tutorial": -1, # Hasn't seen the tutorial
 	"theme": "dark",
-	"language": "",
+	"language": "", # Auto
 }
-var themes = ["dark", "white", "classic1", "classic2"]
-var timer
+var current_tutorial_version = 1
+var timer: Timer
+var file := File.new()
 var user_dir := ""
 
 const category_names = ["Introduction", "Verse", "Chorus", "Solo"]
@@ -23,10 +22,8 @@ onready var main = get_node("/root/main/")
 
 signal theme_changed
 
-var file = File.new()
 
-func _ready():
-	print()
+func _ready() -> void:
 	# Options
 	timer = Timer.new()
 	timer.one_shot = true
@@ -63,18 +60,18 @@ func _ready():
 	print("Loaded options.json")
 
 
-func save_options(delay := 2):
+func save_options(delay := 2) -> void:
 	timer.start(delay)
 
 
-func on_timer_timeout():
+func on_timer_timeout() -> void:
 	file.open("user://options.json", File.WRITE)
 	file.store_string(to_json(options))
 	file.close()
 	print("Written to options.json")
 
 
-func change_theme(new_theme):
+func change_theme(new_theme) -> void:
 	emit_signal("theme_changed", new_theme)
 
 

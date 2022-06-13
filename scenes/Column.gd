@@ -5,6 +5,14 @@ var column_no: int
 onready var anim_player = $AnimationPlayer
 onready var column_button = $ColumnButton
 
+
+func _ready() -> void:
+	$Button1.set_meta("instrument", 0)
+	$Button2.set_meta("instrument", 1)
+	$Button3.set_meta("instrument", 2)
+	$Button4.set_meta("instrument", 3)
+
+
 func set_tile(instrument: int, sample_index: int) -> void:
 	var tile = get_node("Button" + str(instrument + 1))
 	
@@ -65,7 +73,7 @@ func on_play_ended() -> void:
 func fade_in() -> void:
 	anim_player.play("fade_in")
 
-func add(_column_no: int):
+func add(_column_no: int) -> void:
 	column_no = _column_no
 	column_button.text = str(_column_no + 1)
 
@@ -76,7 +84,7 @@ func remove() -> void:
 	queue_free()
 
 
-func _notification(what):
+func _notification(what) -> void:
 	if what == NOTIFICATION_THEME_CHANGED:
 		for instrument in 4:
 			var sample_index = 0
