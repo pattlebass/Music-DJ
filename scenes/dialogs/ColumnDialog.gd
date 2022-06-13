@@ -68,12 +68,8 @@ func about_to_show():
 
 func _on_ClearButton_pressed():
 	column.clear()
+	main.clear_column(column.column_no)
 	
-	# Clear from song
-	main.used_columns.erase(column_no)
-	for i in 4:
-		main.song[i][column_no] = 0
-
 	hide()
 
 

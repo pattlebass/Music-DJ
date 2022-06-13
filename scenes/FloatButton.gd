@@ -20,12 +20,7 @@ func _input(event: InputEvent) -> void:
 				queue_free()
 				return
 			collided_column.set_tile(instrument, sample)
-			
-			# Add to play list
-			
-			main.song[instrument][collided_column.column_no] = sample
-			if not main.used_columns.has(collided_column.column_no):
-				main.used_columns.append(collided_column.column_no)
+			main.set_tile(instrument, collided_column.column_no, sample)
 			
 		emit_signal("released")
 		queue_free()

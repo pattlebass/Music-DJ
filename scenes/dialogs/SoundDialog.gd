@@ -138,16 +138,7 @@ func _on_OkButton_pressed():
 
 func _on_ClearButton_pressed():
 	column.clear_tile(instrument_index)
-	
-	# If all buttons in a column are clear remove that column from the play list
-	var falses = -1
-	for i in 4:
-		if main.song[i][column_no]:
-			falses += 1
-	if falses == 0:
-		main.used_columns.erase(column_no)
-	
-	main.song[instrument_index][column_no] = 0
+	main.set_tile(instrument_index, column.column_no, 0)
 
 	hide()
 

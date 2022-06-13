@@ -116,6 +116,29 @@ func play_column(_column_no, _single) -> void:
 		return
 
 
+func set_tile(instrument: int, column_no:int, sample_index: int) -> void:
+	song[instrument][column_no] = sample_index
+	
+	if sample_index == 0:
+		# If all buttons in a column are clear remove that column from the play list
+		var uses = 0
+		for i in 4:
+			if song[i][column_no]:
+				uses += 1
+				break
+		if uses == 0:
+			used_columns.erase(column_no)
+	else:
+		if not used_columns.has(column_no):
+			used_columns.append(column_no)
+
+
+func clear_column(column_no: int) -> void:
+	used_columns.erase(column_no)
+	for i in 4:
+		song[i][column_no] = 0
+
+
 func on_Tile_pressed(_column_no, _instrument) -> void:
 	if is_playing:
 		return
