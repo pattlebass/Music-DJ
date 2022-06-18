@@ -4,6 +4,7 @@
 [ext_resource path="res://assets/themes/white/column_tear.png" type="Texture" id=2]
 
 [node name="ColumnDialog" type="PopupDialog"]
+visible = true
 anchor_top = -0.001
 anchor_bottom = -0.001
 margin_top = 0.6
@@ -57,3 +58,4 @@ texture = ExtResource( 2 )
 
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/PlayButton" to="." method="_on_PlayButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/ClearButton" to="." method="_on_ClearButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/RemoveButton" to="." method="_on_RemoveButton_pressed"]
