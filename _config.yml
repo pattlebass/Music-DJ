@@ -1,1 +1,4 @@
 remote_theme: pattlebass/pattlebass.github.io
+
+plugins:
+ - jekyll-feed
