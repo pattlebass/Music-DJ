@@ -29,7 +29,7 @@ var time_delay: float # in seconds
 
 
 func _ready() -> void:
-	time_delay = 0 #AudioServer.get_time_to_next_mix() + AudioServer.get_output_latency()
+	time_delay = AudioServer.get_time_to_next_mix() + AudioServer.get_output_latency()
 	get_tree().connect("files_dropped", self, "_files_dropped")
 	Variables.connect("theme_changed", self, "on_theme_changed")
 	Variables.change_theme(Variables.options.theme)
