@@ -54,8 +54,3 @@ func on_lang_chosen(lang):
 		TranslationServer.set_locale(lang)
 	else:
 		TranslationServer.set_locale(OS.get_locale_language())
-
-
-func _on_ShowTutorial_pressed():
-	hide()
-	main.get_node("TutorialDialog").popup_centered()

@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=45 format=2]
+[gd_resource type="Theme" load_steps=46 format=2]
 
 [ext_resource path="res://assets/fonts/GidoleFont/Gidole-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/themes/white/radio_check.svg" type="Texture" id=2]
@@ -136,6 +136,20 @@ expand_margin_top = 16.0
 expand_margin_bottom = 16.0
 shadow_color = Color( 0, 0, 0, 0.16 )
 shadow_size = 4
+shadow_offset = Vector2( 0, 4 )
+
+[sub_resource type="StyleBoxFlat" id=42]
+content_margin_left = 16.0
+content_margin_right = 16.0
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+bg_color = Color( 1, 1, 1, 1 )
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color( 0, 0, 0, 0.16 )
+shadow_size = 8
 shadow_offset = Vector2( 0, 4 )
 
 [sub_resource type="StyleBoxLine" id=22]
@@ -315,6 +329,15 @@ OptionButton/styles/normal = null
 OptionButton/styles/pressed = null
 Panel/styles/panel = SubResource( 20 )
 PopupDialog/styles/panel = SubResource( 21 )
+PopupMenu/colors/font_color = Color( 0, 0, 0, 0.6 )
+PopupMenu/colors/font_color_accel = Color( 0.901961, 0.901961, 0.901961, 0.2 )
+PopupMenu/colors/font_color_disabled = Color( 0, 0, 0, 1 )
+PopupMenu/colors/font_color_hover = Color( 0, 0, 0, 0.6 )
+PopupMenu/colors/font_color_separator = Color( 0, 0, 0, 0.6 )
+PopupMenu/constants/vseparation = 16
+PopupMenu/fonts/font = SubResource( 1 )
+PopupMenu/styles/hover = SubResource( 34 )
+PopupMenu/styles/panel = SubResource( 42 )
 ProgressBar/colors/font_color = Color( 0, 0, 0, 1 )
 ProgressBar/colors/font_color_shadow = Color( 0, 0, 0, 1 )
 ProgressBar/fonts/font = null

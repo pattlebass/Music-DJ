@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://scenes/main.gd" type="Script" id=1]
 [ext_resource path="res://assets/trumpet.png" type="Texture" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://scenes/dialogs/LoadDialog.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/dialogs/SettingsDialog.tscn" type="PackedScene" id=12]
 [ext_resource path="res://scenes/dialogs/TutorialDialog.tscn" type="PackedScene" id=13]
+[ext_resource path="res://assets/themes/dark/more.svg" type="Texture" id=15]
 
 [sub_resource type="Animation" id=13]
 length = 0.001
@@ -146,7 +147,7 @@ size_flags_horizontal = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxToolBar"]
 margin_left = 190.0
-margin_right = 1128.0
+margin_right = 1007.0
 margin_bottom = 60.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -175,13 +176,16 @@ rect_min_size = Vector2( 150, 0 )
 mouse_filter = 1
 text = "BTN_OPEN_PROJECT"
 
-[node name="Settings" type="Button" parent="HBoxToolBar/HBoxContainer"]
+[node name="More" type="MenuButton" parent="HBoxToolBar/HBoxContainer"]
 margin_left = 757.0
-margin_right = 938.0
+margin_right = 817.0
 margin_bottom = 60.0
-rect_min_size = Vector2( 150, 0 )
+rect_min_size = Vector2( 60, 60 )
 mouse_filter = 1
-text = "BTN_SETTINGS"
+icon = ExtResource( 15 )
+icon_align = 1
+expand_icon = true
+items = [ "BTN_SETTINGS", null, 0, false, false, 0, 0, null, "", false, "BTN_TUTORIAL", null, 0, false, false, 1, 0, null, "", false, "BTN_ABOUT", null, 0, false, false, 2, 0, null, "", false ]
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 anchor_left = 0.034
@@ -294,6 +298,7 @@ theme_type_variation = "ShadowPanel"
 [node name="SaveDialog" parent="." instance=ExtResource( 9 )]
 
 [node name="ColumnDialog" parent="." instance=ExtResource( 8 )]
+visible = false
 
 [node name="ProgressDialog" parent="." instance=ExtResource( 10 )]
 visible = false
@@ -313,5 +318,4 @@ anims/undim = SubResource( 14 )
 [connection signal="pressed" from="HBoxToolBar/HBoxContainer/Export" to="." method="_on_Export_pressed"]
 [connection signal="pressed" from="HBoxToolBar/HBoxContainer/SaveProject" to="." method="_on_SaveProject_pressed"]
 [connection signal="pressed" from="HBoxToolBar/HBoxContainer/OpenProject" to="." method="_on_OpenProject_pressed"]
-[connection signal="pressed" from="HBoxToolBar/HBoxContainer/Settings" to="." method="_on_Settings_pressed"]
 [connection signal="pressed" from="HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer/AddButton" to="." method="_on_AddButton_pressed"]

@@ -30,6 +30,10 @@ config/windows_native_icon="res://assets/icon/icon.ico"
 
 Variables="*res://scenes/Variables.gd"
 
+[debug]
+
+gdscript/warnings/return_value_discarded=false
+
 [display]
 
 window/energy_saving/keep_screen_on=false

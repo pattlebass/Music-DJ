@@ -10,11 +10,14 @@ var column_scene = preload("res://scenes/Column.tscn")
 onready var play_button = $HBoxToolBar/Play
 onready var export_button = $HBoxToolBar/HBoxContainer/Export
 onready var save_button = $HBoxToolBar/HBoxContainer/SaveProject
+onready var more_button = $HBoxToolBar/HBoxContainer/More
 onready var save_dialog = $SaveDialog
 onready var audio_players = $AudioPlayers
 onready var animation = $AnimationPlayer
 onready var column_container = $HBoxContainer/ScrollContainer/HBoxContainer
 onready var scroll_container = $HBoxContainer/ScrollContainer
+
+var time_delay: float # in seconds
 
 # Notes:
 
@@ -26,9 +29,12 @@ onready var scroll_container = $HBoxContainer/ScrollContainer
 
 
 func _ready() -> void:
+	time_delay = 0 #AudioServer.get_time_to_next_mix() + AudioServer.get_output_latency()
 	get_tree().connect("files_dropped", self, "_files_dropped")
 	Variables.connect("theme_changed", self, "on_theme_changed")
 	Variables.change_theme(Variables.options.theme)
+	
+	more_button.get_popup().connect("id_pressed", self, "more_item_pressed")
 	
 	randomize()
 	
@@ -66,6 +72,7 @@ func _ready() -> void:
 
 func on_theme_changed(new_theme) -> void:
 	theme = load("res://assets/themes/%s/%s.tres" % [new_theme, new_theme])
+	more_button.icon = load("res://assets/themes/%s/more.svg" % new_theme)
 
 
 func play_song() -> void:
@@ -76,7 +83,7 @@ func play_song() -> void:
 		if not is_playing:
 			return
 		play_column(i, false)
-		yield(get_tree().create_timer(3), "timeout")
+		yield(get_tree().create_timer(3 - time_delay), "timeout")
 	
 		if i >= used_columns.max():
 			play_button.pressed = false
@@ -96,24 +103,23 @@ func play_column(_column_no, _single) -> void:
 	column.on_play_started()
 	scroll_container.ensure_control_visible(column)
 	
+	var t = OS.get_ticks_usec()
 	# Play sounds
-	for a in 4:
-		if song[a][_column_no] == 0:
+	for instrument in 4:
+		if song[instrument][_column_no] == 0:
 			continue
 	
-		var audio_player = audio_players.get_child(a)
-		var sound = song[a][_column_no]
-		audio_player.stream = load("res://sounds/"+str(a)+"/"+str(sound)+".ogg")
+		var audio_player = audio_players.get_child(instrument)
+		var sound = song[instrument][_column_no]
+		audio_player.stream = load("res://sounds/"+str(instrument)+"/"+str(sound)+".ogg")
 		audio_player.play()
 	# Needs cleanup
-	yield(get_tree().create_timer(3), "timeout")
+	yield(get_tree().create_timer(3 - time_delay), "timeout")
+	print((OS.get_ticks_usec() - t) / 1000000.0)
 	column.on_play_ended()
-		
+	
 	if _single:
 		is_playing = false
-	
-	if not is_playing:
-		return
 
 
 func set_tile(instrument: int, column_no:int, sample_index: int) -> void:
@@ -291,3 +297,13 @@ func _files_dropped(_files, _screen) -> void:
 		else:
 			dir.copy(i, Variables.user_dir.plus_file("Projects/%s" % file_name))
 	$LoadDialog.popup_centered()
+
+
+func more_item_pressed(id) -> void:
+	match id:
+		0:
+			$SettingsDialog.popup_centered()
+		1:
+			$TutorialDialog.popup_centered()
+		2:
+			pass

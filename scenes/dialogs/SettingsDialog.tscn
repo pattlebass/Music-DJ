@@ -101,18 +101,6 @@ margin_right = 475.0
 margin_bottom = 234.0
 custom_constants/separation = 10
 
-[node name="TutorialContainer" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/SettingsContainer"]
-margin_top = 238.0
-margin_right = 475.0
-margin_bottom = 288.0
-rect_min_size = Vector2( 0, 50 )
-
-[node name="ShowTutorial" type="Button" parent="VBoxContainer/ScrollContainer/SettingsContainer/TutorialContainer"]
-margin_right = 406.0
-margin_bottom = 50.0
-mouse_filter = 1
-text = "DIALOG_SETTINGS_BTN_TUTORIAL"
-
 [node name="Control" type="Control" parent="VBoxContainer/ScrollContainer/SettingsContainer"]
 margin_top = 292.0
 margin_right = 475.0
@@ -149,5 +137,4 @@ text = "BTN_CLOSE"
 
 [connection signal="toggled" from="VBoxContainer/ScrollContainer/SettingsContainer/ThemeContainer/Dark" to="." method="_on_theme_chosen" binds= [ "dark" ]]
 [connection signal="toggled" from="VBoxContainer/ScrollContainer/SettingsContainer/ThemeContainer/White" to="." method="_on_theme_chosen" binds= [ "white" ]]
-[connection signal="pressed" from="VBoxContainer/ScrollContainer/SettingsContainer/TutorialContainer/ShowTutorial" to="." method="_on_ShowTutorial_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer2/CloseButton" to="." method="_on_CloseButton_pressed"]

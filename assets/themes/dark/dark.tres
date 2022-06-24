@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=40 format=2]
+[gd_resource type="Theme" load_steps=41 format=2]
 
 [ext_resource path="res://assets/themes/dark/radio_check.svg" type="Texture" id=1]
 [ext_resource path="res://assets/themes/dark/radio_uncheck.svg" type="Texture" id=2]
@@ -118,6 +118,17 @@ expand_margin_left = 16.0
 expand_margin_right = 16.0
 expand_margin_top = 16.0
 expand_margin_bottom = 16.0
+
+[sub_resource type="StyleBoxFlat" id=38]
+content_margin_left = 16.0
+content_margin_right = 16.0
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+bg_color = Color( 0.223529, 0.243137, 0.27451, 1 )
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
 
 [sub_resource type="StyleBoxLine" id=21]
 color = Color( 0.31, 0.8, 0.64, 0.37 )
@@ -285,6 +296,10 @@ OptionButton/styles/normal = SubResource( 18 )
 OptionButton/styles/pressed = null
 Panel/styles/panel = SubResource( 32 )
 PopupDialog/styles/panel = SubResource( 20 )
+PopupMenu/constants/vseparation = 16
+PopupMenu/fonts/font = SubResource( 1 )
+PopupMenu/styles/hover = SubResource( 30 )
+PopupMenu/styles/panel = SubResource( 38 )
 ProgressBar/colors/font_color = Color( 0.94, 0.94, 0.94, 1 )
 ProgressBar/colors/font_color_shadow = Color( 0, 0, 0, 1 )
 ProgressBar/fonts/font = null
