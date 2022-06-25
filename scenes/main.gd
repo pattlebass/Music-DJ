@@ -34,12 +34,14 @@ func _ready() -> void:
 	Variables.connect("theme_changed", self, "on_theme_changed")
 	Variables.change_theme(Variables.options.theme)
 	
-	more_button.get_popup().connect("id_pressed", self, "more_item_pressed")
-	more_button.get_popup().script = preload("res://scenes/dialogs/custom_dialog/DialogScript.gd")
-	more_button.get_popup().main = self
-	more_button.get_popup().dim = false
-	more_button.get_popup().rect_pivot_offset.x = more_button.get_popup().rect_size.x
-	more_button.get_popup().pivot_manual = true
+	var more_popup = more_button.get_popup()
+	more_popup.connect("id_pressed", self, "more_item_pressed")
+	more_popup.connect("about_to_show", self, "more_about_to_show", [more_popup])
+	more_popup.script = preload("res://scenes/dialogs/custom_dialog/DialogScript.gd")
+	more_popup.main = self
+	more_popup.dim = false
+	more_popup.rect_pivot_offset.x = more_popup.rect_size.x
+	more_popup.pivot_manual = true
 	
 	randomize()
 	
@@ -321,3 +323,10 @@ func more_item_pressed(id) -> void:
 			OS.shell_open(link)
 		3:
 			OS.shell_open("https://github.com/pattlebass/Music-DJ/issues/new?labels=enhancement&template=feature_request.yaml&title=%5BFeature%5D%3A+")
+
+
+func more_about_to_show(popup) -> void:
+	if not OS.has_feature("pc"):
+		popup.rect_position.y -= more_button.rect_size.y
+	# Padding. I don't know why but it seems to be 200px too big
+	popup.rect_position.x -= 220 

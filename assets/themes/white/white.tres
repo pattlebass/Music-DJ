@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=46 format=2]
+[gd_resource type="Theme" load_steps=48 format=2]
 
 [ext_resource path="res://assets/fonts/GidoleFont/Gidole-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/themes/white/radio_check.svg" type="Texture" id=2]
@@ -120,6 +120,15 @@ corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id=43]
+bg_color = Color( 0.960784, 0.960784, 0.960784, 1 )
+corner_radius_top_left = 90
+corner_radius_top_right = 90
+corner_radius_bottom_right = 90
+corner_radius_bottom_left = 90
+
+[sub_resource type="StyleBoxEmpty" id=44]
 
 [sub_resource type="StyleBoxFlat" id=20]
 bg_color = Color( 1, 1, 1, 1 )
@@ -307,6 +316,7 @@ LineEdit/styles/read_only = null
 ListItem/base_type = "Button"
 ListItem/colors/font_color = Color( 0, 0, 0, 0.6 )
 ListItem/colors/font_color_disabled = Color( 0.901961, 0.901961, 0.901961, 0.2 )
+ListItem/colors/font_color_focus = Color( 0, 0, 0, 0.6 )
 ListItem/colors/font_color_hover = Color( 0, 0, 0, 0.6 )
 ListItem/colors/font_color_pressed = Color( 0, 0, 0, 0.6 )
 ListItem/fonts/font = SubResource( 36 )
@@ -314,6 +324,10 @@ ListItem/styles/focus = SubResource( 31 )
 ListItem/styles/hover = SubResource( 32 )
 ListItem/styles/normal = SubResource( 33 )
 ListItem/styles/pressed = SubResource( 34 )
+MenuButtonIcon/base_type = "MenuButton"
+MenuButtonIcon/styles/hover = SubResource( 43 )
+MenuButtonIcon/styles/normal = SubResource( 44 )
+MenuButtonIcon/styles/pressed = SubResource( 43 )
 OptionButton/colors/font_color = Color( 0.88, 0.88, 0.88, 1 )
 OptionButton/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
 OptionButton/colors/font_color_hover = Color( 0.94, 0.94, 0.94, 1 )
