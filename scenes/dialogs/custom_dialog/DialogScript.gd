@@ -1,9 +1,10 @@
-extends PopupDialog
+extends Popup
 class_name CustomDialog
 
 onready var main = get_parent()
 onready var anim_player
 var dim := true
+var pivot_manual := false
 
 
 func _init():
@@ -22,7 +23,8 @@ func _init():
 
 
 func about_to_show():
-	rect_pivot_offset = rect_size / 2
+	if not pivot_manual:
+		rect_pivot_offset = rect_size / 2
 	
 	if dim:
 		main.on_popup_show()

@@ -35,6 +35,11 @@ func _ready() -> void:
 	Variables.change_theme(Variables.options.theme)
 	
 	more_button.get_popup().connect("id_pressed", self, "more_item_pressed")
+	more_button.get_popup().script = preload("res://scenes/dialogs/custom_dialog/DialogScript.gd")
+	more_button.get_popup().main = self
+	more_button.get_popup().dim = false
+	more_button.get_popup().rect_pivot_offset.x = more_button.get_popup().rect_size.x
+	more_button.get_popup().pivot_manual = true
 	
 	randomize()
 	
@@ -306,4 +311,13 @@ func more_item_pressed(id) -> void:
 		1:
 			$TutorialDialog.popup_centered()
 		2:
-			pass
+			var link = "https://github.com/pattlebass/Music-DJ/issues/new?labels=bug&template=bug_report.yaml&title=%5BBug%5D%3A+&version={version}&device={device}"
+			link = link.format(
+				{
+					"version": load("res://version.gd").VERSION.percent_encode(),
+					"device": OS.get_model_name().percent_encode() if OS.get_name() == "Android" else ""
+				}
+			)
+			OS.shell_open(link)
+		3:
+			OS.shell_open("https://github.com/pattlebass/Music-DJ/issues/new?labels=enhancement&template=feature_request.yaml&title=%5BFeature%5D%3A+")

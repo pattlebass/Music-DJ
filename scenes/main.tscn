@@ -185,7 +185,7 @@ mouse_filter = 1
 icon = ExtResource( 15 )
 icon_align = 1
 expand_icon = true
-items = [ "BTN_SETTINGS", null, 0, false, false, 0, 0, null, "", false, "BTN_TUTORIAL", null, 0, false, false, 1, 0, null, "", false, "BTN_ABOUT", null, 0, false, false, 2, 0, null, "", false ]
+items = [ "BTN_SETTINGS", null, 0, false, false, 0, 0, null, "", false, "BTN_TUTORIAL", null, 0, false, false, 1, 0, null, "", false, "BTN_SEND_BUG", null, 0, false, false, 2, 0, null, "", false, "BTN_SEND_PROPOSAL", null, 0, false, false, 3, 0, null, "", false, "BTN_ABOUT", null, 0, false, false, 4, 0, null, "", false ]
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 anchor_left = 0.034
