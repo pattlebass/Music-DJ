@@ -45,7 +45,7 @@ func set_tile(instrument: int, sample_index: int) -> void:
 	tile.set("custom_styles/pressed", style_box)
 	tile.set("custom_styles/disabled", style_box)
 	tile.set("custom_styles/hover", style_box)
-	tile.set("custom_styles/focus", StyleBoxEmpty)
+#	tile.set("custom_styles/focus", StyleBoxEmpty)
 
 
 func clear() -> void:

@@ -24,6 +24,10 @@ signal theme_changed
 
 
 func _ready() -> void:
+	traverse(main)
+	get_tree().connect("node_added", self, "_node_added")
+	get_tree().connect("node_removed", self, "_node_removed")
+	
 	# Options
 	timer = Timer.new()
 	timer.one_shot = true
@@ -79,3 +83,42 @@ func has_storage_perms() -> bool:
 	if OS.get_granted_permissions().empty() && OS.get_name() == "Android":
 		return OS.request_permissions()
 	return true
+
+
+# Keyboard focus
+
+var buttons := []
+var show_focus := false
+
+func _input(event: InputEvent) -> void:
+	if (event.is_action_pressed("ui_focus_next")
+		or event.is_action_pressed("ui_focus_prev")
+		or event.is_action_pressed("ui_left")
+		or event.is_action_pressed("ui_right")
+		or event.is_action_pressed("ui_up")
+		or event.is_action_pressed("ui_down")):
+		
+		show_focus = true
+		for i in buttons:
+			i.set("custom_styles/focus", null)
+	elif event.is_action_pressed("left_click"):
+		show_focus = false
+		for i in buttons:
+			i.set("custom_styles/focus", StyleBoxEmpty.new())
+
+
+func _node_added(node) -> void:
+	if node is Button:
+		if not show_focus:
+			node.set("custom_styles/focus", StyleBoxEmpty.new())
+		buttons.append(node)
+
+func _node_removed(node) -> void:
+	if node in buttons:
+		buttons.erase(node)
+
+
+func traverse(child) -> void:
+	for i in child.get_children():
+		traverse(i)
+	_node_added(child)

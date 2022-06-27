@@ -19,6 +19,7 @@ onready var scroll_container = $HBoxContainer/ScrollContainer
 
 var time_delay: float # in seconds
 
+
 # Notes:
 
 # I will refactor most of the code at some point
@@ -29,6 +30,7 @@ var time_delay: float # in seconds
 
 
 func _ready() -> void:
+	play_button.grab_focus()
 	time_delay = AudioServer.get_time_to_next_mix() + AudioServer.get_output_latency()
 	get_tree().connect("files_dropped", self, "_files_dropped")
 	Variables.connect("theme_changed", self, "on_theme_changed")

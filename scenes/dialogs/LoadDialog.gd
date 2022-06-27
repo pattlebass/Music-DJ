@@ -10,7 +10,6 @@ func _ready() -> void:
 			$VBoxContainer/HBoxContainer/CancelButton,
 			0
 		)
-	
 
 
 func _on_OkButton_pressed():

@@ -15,7 +15,8 @@ var current = 0
 
 onready var video_player = $VBoxContainer/HBoxContainer2/VBoxContainer2/VideoPlayer
 onready var animation = $AnimationPlayer2
-
+onready var previous_button = $VBoxContainer/HBoxContainer2/VBoxContainer/PreviousButton
+onready var next_button = $VBoxContainer/HBoxContainer2/VBoxContainer3/NextButton
 
 func _ready() -> void:
 	if Variables.current_tutorial_version > Variables.options["last_seen_tutorial"]:
@@ -23,6 +24,7 @@ func _ready() -> void:
 
 
 func about_to_show():
+	next_button.call_deferred("grab_focus")
 	current = 0
 	change_panel(0, 0)
 	.about_to_show()
@@ -46,8 +48,6 @@ func change_panel(_panel_no, _previous_panel_no):
 		hide()
 		return
 	
-	var previous_button = $VBoxContainer/HBoxContainer2/VBoxContainer/PreviousButton
-	#var next_button = $VBoxContainer/HBoxContainer2/VBoxContainer3/NextButton
 	if _panel_no == 0:
 		previous_button.disabled = true
 	else:

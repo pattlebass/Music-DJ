@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=43 format=2]
+[gd_resource type="Theme" load_steps=44 format=2]
 
 [ext_resource path="res://assets/themes/dark/radio_check.svg" type="Texture" id=1]
 [ext_resource path="res://assets/themes/dark/radio_uncheck.svg" type="Texture" id=2]
@@ -19,7 +19,17 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
-[sub_resource type="StyleBoxEmpty" id=3]
+[sub_resource type="StyleBoxFlat" id=41]
+bg_color = Color( 0, 0, 0, 0.5 )
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color( 0, 0.686275, 0.956863, 1 )
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
 
 [sub_resource type="StyleBoxFlat" id=4]
 content_margin_left = 4.0
@@ -102,6 +112,19 @@ corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id=42]
+bg_color = Color( 0, 0, 0, 0.5 )
+draw_center = false
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color( 0, 0.686275, 0.956863, 1 )
+corner_radius_top_left = 90
+corner_radius_top_right = 90
+corner_radius_bottom_right = 90
+corner_radius_bottom_left = 90
 
 [sub_resource type="StyleBoxFlat" id=39]
 bg_color = Color( 0.309804, 0.8, 0.639216, 0.368627 )
@@ -210,7 +233,7 @@ Button/colors/font_color_pressed = Color( 1, 1, 1, 1 )
 Button/constants/hseparation = 2
 Button/fonts/font = SubResource( 1 )
 Button/styles/disabled = SubResource( 2 )
-Button/styles/focus = SubResource( 3 )
+Button/styles/focus = SubResource( 41 )
 Button/styles/hover = SubResource( 4 )
 Button/styles/normal = SubResource( 4 )
 Button/styles/pressed = SubResource( 5 )
@@ -226,7 +249,7 @@ CheckBox/icons/radio_checked = ExtResource( 1 )
 CheckBox/icons/radio_unchecked = ExtResource( 2 )
 CheckBox/icons/unchecked = null
 CheckBox/styles/disabled = SubResource( 6 )
-CheckBox/styles/focus = SubResource( 6 )
+CheckBox/styles/focus = SubResource( 41 )
 CheckBox/styles/hover = SubResource( 6 )
 CheckBox/styles/hover_pressed = SubResource( 6 )
 CheckBox/styles/normal = SubResource( 6 )
@@ -286,11 +309,12 @@ LineEdit/styles/normal = SubResource( 17 )
 LineEdit/styles/read_only = null
 ListItem/base_type = "Button"
 ListItem/fonts/font = SubResource( 27 )
-ListItem/styles/focus = SubResource( 29 )
+ListItem/styles/focus = SubResource( 41 )
 ListItem/styles/hover = SubResource( 29 )
 ListItem/styles/normal = SubResource( 29 )
 ListItem/styles/pressed = SubResource( 30 )
 MenuButtonIcon/base_type = "MenuButton"
+MenuButtonIcon/styles/focus = SubResource( 42 )
 MenuButtonIcon/styles/hover = SubResource( 39 )
 MenuButtonIcon/styles/normal = SubResource( 40 )
 MenuButtonIcon/styles/pressed = SubResource( 39 )

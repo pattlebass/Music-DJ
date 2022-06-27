@@ -35,12 +35,13 @@ margin_top = 83.0
 margin_right = 480.0
 margin_bottom = 411.0
 size_flags_vertical = 3
+follow_focus = true
 scroll_horizontal_enabled = false
 scroll_deadzone = 30
 
 [node name="SettingsContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
 margin_right = 480.0
-margin_bottom = 334.0
+margin_bottom = 328.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 

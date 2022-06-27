@@ -74,7 +74,7 @@ func _ready() -> void:
 			button_in_list.mouse_filter = Button.MOUSE_FILTER_PASS
 			button_in_list.connect("pressed", self, "on_Button_selected", [button_index, g, i])
 			button_in_list.name = str(button_index)
-			button_in_list.focus_mode = Control.FOCUS_CLICK
+			button_in_list.focus_mode = Control.FOCUS_ALL
 			button_in_list.toggle_mode = true
 			button_in_list.group = button_group
 			button_container.add_child(button_in_list)
