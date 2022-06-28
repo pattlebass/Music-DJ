@@ -1,6 +1,6 @@
 keys,en_US,ro,pt_BR,id
 BTN_PLAY,Play,Redați,,Putar
-BTN_STOP,Stop,Stop,,Stop
+BTN_STOP,Stop,Stop,,Berhenti
 BTN_EXPORT,Export,Exportați,,Ekspor
 BTN_SAVE_PROJECT,Save project,Salvați,,Simpan proyek
 BTN_OPEN_PROJECT,Open project,Deschideți,,Buka proyek
@@ -11,7 +11,7 @@ BTN_CANCEL,Cancel,Anulare,,Batal
 BTN_CLOSE,Close,Închide,,Tutup
 BTN_TUTORIAL,Show tutorial,Arată tutorialul,,Buka tutorial
 BTN_ABOUT,About,Despre,,Tentang
-BTN_SEND_BUG,Send a bug report,Raportează un bug,,Laporkan bug
+BTN_SEND_BUG,Send a bug report,Raportează un bug,,Laporkan masalah
 BTN_SEND_PROPOSAL,Send a proposal,Trimite o îmbunătățire,,Kirimkan proposal
 DIALOG_SETTINGS_TITLE,Settings,Setări,,Pengaturan
 SETTING_THEME,Theme,Temă,,Tema
@@ -29,9 +29,9 @@ DIALOG_LOAD_BTN_OPEN,Open,Deschideți,,Buka
 DIALOG_PROGRESS_TITLE,Saving...,Se salvează...,,Menyimpan...
 DIALOG_PROGRESS_TITLE_DONE,Saved,Salvat,,Sudah disimpan
 DIALOG_PROGRESS_KEEP_FOCUSED,Please keep this window focused.,Nu părăsiți fereastra.,,Dimohon untuk tidak beranjak dari aplikasi ini.
-DIALOG_PROGRESS_AFTER_PROJECT,You can find it in the project list or you can download it.,Puteți să-l găsiți in lista de proiecte sau puteți să-l descărcați.,,Anda bisa menemukannya di daftar proyek atau anda bisa mendownloadnya.
+DIALOG_PROGRESS_AFTER_PROJECT,You can find it in the project list or you can download it.,Puteți să-l găsiți in lista de proiecte sau puteți să-l descărcați.,,Anda bisa menemukannya di daftar proyek atau anda bisa mengunduhnya.
 DIALOG_PROGRESS_BTN_OPEN,Open folder,Deschideți folderul,,Buka folder
-DIALOG_PROGRESS_BTN_DOWNLOAD,Download,Descărcați,,Download
+DIALOG_PROGRESS_BTN_DOWNLOAD,Download,Descărcați,,Unduh
 DIALOG_CONFIRMATION_TITLE_OVERWRITE,Overwrite?,Înlocuire?,,Timpa file?
 DIALOG_CONFIRMATION_BODY_OVERWRITE,%s will be overwritten.,%s va fi înlocuit.,,Anda akan menimpa %s.
 DIALOG_CONFIRMATION_TITLE_DELETE,Delete project?,Ștergeți proiectul?,,Hapus proyek?
