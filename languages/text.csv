@@ -35,7 +35,7 @@ DIALOG_PROGRESS_BTN_DOWNLOAD,Download,Descărcați,,Download
 DIALOG_CONFIRMATION_TITLE_OVERWRITE,Overwrite?,Înlocuire?,,Timpa file?
 DIALOG_CONFIRMATION_BODY_OVERWRITE,%s will be overwritten.,%s va fi înlocuit.,,Anda akan menimpa %s.
 DIALOG_CONFIRMATION_TITLE_DELETE,Delete project?,Ștergeți proiectul?,,Hapus proyek?
-DIALOG_CONFIRMATION_BODY_DELETE,%s will be deleted.,%s va fi șters.,,%s akan dihapus.
+DIALOG_CONFIRMATION_BODY_DELETE,%s will be deleted.,%s va fi șters.,,Anda akan menghapus %s.
 INSTRUMENT_DRUMS,Drums,Tobe,,Drum
 INSTRUMENT_BASS,Bass,Bas,,Bass
 INSTRUMENT_KEYS,Keys,Pian,,Piano
