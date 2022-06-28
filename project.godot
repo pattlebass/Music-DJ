@@ -32,6 +32,7 @@ Variables="*res://scenes/Variables.gd"
 
 [debug]
 
+gdscript/warnings/unused_class_variable=true
 gdscript/warnings/return_value_discarded=false
 
 [display]
@@ -67,7 +68,7 @@ ui_menu={
 }
 copy={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":true,"meta":false,"command":true,"pressed":false,"scancode":67,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":true,"meta":false,"command":true,"pressed":false,"scancode":0,"physical_scancode":67,"unicode":0,"echo":false,"script":null)
  ]
 }
 paste={
@@ -82,7 +83,7 @@ pointing/emulate_touch_from_mouse=true
 
 [locale]
 
-translations=PoolStringArray( "res://languages/text.en_US.translation", "res://languages/text.pt_BR.translation", "res://languages/text.ro.translation" )
+translations=PoolStringArray( "res://languages/text.en_US.translation", "res://languages/text.ro.translation" )
 
 [rendering]
 

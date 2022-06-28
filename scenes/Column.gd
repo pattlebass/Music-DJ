@@ -115,11 +115,12 @@ func on_tile_gui_input(event: InputEvent, button: Button) -> void:
 		add_child(menu)
 		menu.popup()
 	elif event.is_action_pressed("copy") and Variables.show_focus:
-		if instrument:
+		if sample_index:
 			Variables.clipboard = {"instrument": instrument, "sample": sample_index}
 	elif event.is_action_pressed("paste") and Variables.show_focus:
 		if Variables.clipboard:
 			set_tile(Variables.clipboard.instrument, Variables.clipboard.sample)
+
 
 func context_menu_pressed(id: int, instrument: int, sample_index: int) -> void:
 	match id:
