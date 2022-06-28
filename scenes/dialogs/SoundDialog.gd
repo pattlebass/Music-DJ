@@ -1,12 +1,11 @@
 extends CustomDialog
 
-var instrument_index
-var column_no
+var instrument
 var pressed_button_index = 0
-var genre_index = 0 # Index based on genre. Eg: button 0 of genre 2. genre_index would be 0
 var sample_category = 0
 
 var column
+var column_no
 
 onready var button_container = $VBoxContainer/ScrollContainer/VBoxContainer
 onready var audio_player = $AudioStreamPlayer
@@ -74,7 +73,8 @@ func _ready() -> void:
 			button_in_list.icon = texture
 			button_in_list.align = Button.ALIGN_LEFT
 			button_in_list.mouse_filter = Button.MOUSE_FILTER_PASS
-			button_in_list.connect("pressed", self, "on_Button_selected", [button_index, g, i])
+			button_in_list.connect("pressed", self, "on_Button_selected", [button_index])
+			button_in_list.connect("focus_entered", self, "on_Button_focused", [button_index])
 			button_in_list.name = str(button_index)
 			button_in_list.focus_mode = Control.FOCUS_ALL
 			button_in_list.toggle_mode = true
@@ -98,23 +98,25 @@ func _ready() -> void:
 
 
 func about_to_show():
-	column = main.get_node("HBoxContainer/ScrollContainer/HBoxContainer").get_child(column_no)
+	column_no = column.column_no
 	
 	# Set title
-	var instrument = tr(Variables.instrument_names[instrument_index])
-	$VBoxContainer/Label.text = tr("DIALOG_SOUND_TITLE") % [instrument, column_no + 1]
+	var instrument_name = tr(Variables.instrument_names[instrument])
+	$VBoxContainer/Label.text = tr("DIALOG_SOUND_TITLE") % [instrument_name, column_no + 1]
 	
 	# Set button states
 	var clear_button = get_node("VBoxContainer/HBoxContainer/ClearButton")
 	
-	if main.song[instrument_index][column_no]:
+	if main.song[instrument][column_no]:
 		var selected_button = button_container.get_node(
-			str(main.song[instrument_index][column_no] - 1)
+			str(main.song[instrument][column_no] - 1)
 		)
 		selected_button.pressed = true
-		selected_button.grab_focus()
 		clear_button.disabled = false
 		ok_button.disabled = false
+		
+		yield(get_tree(), "idle_frame")
+		selected_button.grab_focus()
 	else:
 		clear_button.disabled = true
 		ok_button.disabled = true
@@ -122,31 +124,37 @@ func about_to_show():
 	.about_to_show()
 
 
-func on_Button_selected(index, _genre_index, _sample_category):
+func on_Button_selected(index):
 	if index == pressed_button_index:
 		button_container.get_node(str(pressed_button_index)).pressed = true
 	
-	audio_player.stream = load("res://sounds/"+str(instrument_index)+"/"+str(index+1)+".ogg")
-	audio_player.play()
 	ok_button.disabled = false
 	pressed_button_index = index
-	genre_index = _genre_index
-	sample_category = _sample_category
+	
+	if Variables.show_focus:
+		_on_OkButton_pressed()
+	else:
+		audio_player.stream = load("res://sounds/%s/%s.ogg" % [instrument, index + 1])
+		audio_player.play()
+
+
+func on_Button_focused(sample_index):
+	if not Variables.show_focus:
+		return
+	audio_player.stream = load("res://sounds/%s/%s.ogg" % [instrument, sample_index + 1])
+	audio_player.play()
 
 
 func _on_OkButton_pressed():
-	if main.song[instrument_index][column_no] - 1 == pressed_button_index:
+	if main.song[instrument][column_no] - 1 == pressed_button_index:
 		hide()
 		return
-
+	
+	main.set_tile(instrument, column_no, pressed_button_index + 1)
 	column.set_tile(
-		instrument_index,
+		instrument,
 		pressed_button_index+1
 	)
-	
-	main.song[instrument_index][column_no] = pressed_button_index+1
-	if not main.used_columns.has(column_no):
-		main.used_columns.append(column_no)
 	
 	column_no = 0
 	
@@ -154,8 +162,8 @@ func _on_OkButton_pressed():
 
 
 func _on_ClearButton_pressed():
-	column.clear_tile(instrument_index)
-	main.set_tile(instrument_index, column.column_no, 0)
+	column.clear_tile(instrument)
+	main.set_tile(instrument, column.column_no, 0)
 
 	hide()
 

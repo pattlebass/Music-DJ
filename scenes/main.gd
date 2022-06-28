@@ -154,12 +154,12 @@ func clear_column(column_no: int) -> void:
 		song[i][column_no] = 0
 
 
-func on_Tile_pressed(_column_no, _instrument) -> void:
+func on_Tile_pressed(column, _instrument) -> void:
 	if is_playing:
 		return
 	var sound_dialog = $SoundDialog
-	sound_dialog.instrument_index = _instrument
-	sound_dialog.column_no = _column_no
+	sound_dialog.instrument = _instrument
+	sound_dialog.column = column
 	sound_dialog.popup_centered(Vector2(500, 550))
 
 
@@ -247,7 +247,7 @@ func add_column(_column_no:int, add_to_song:bool = true) -> Node2D:
 	# Signals
 	for b in 4:
 		var button = column.get_node("Button"+str(b+1))
-		button.connect("pressed", self, "on_Tile_pressed", [_column_no, b])
+		button.connect("pressed", self, "on_Tile_pressed", [column, b])
 		button.connect("button_down", self, "on_Tile_held", [_column_no, b, column.get_node("Button"+str(b+1))])
 	column.column_button.connect("pressed", $ColumnDialog, "on_Column_Button_pressed", [_column_no, column])
 	
