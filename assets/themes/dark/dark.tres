@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=44 format=2]
+[gd_resource type="Theme" load_steps=45 format=2]
 
 [ext_resource path="res://assets/themes/dark/radio_check.svg" type="Texture" id=1]
 [ext_resource path="res://assets/themes/dark/radio_uncheck.svg" type="Texture" id=2]
@@ -52,6 +52,11 @@ corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
 [sub_resource type="StyleBoxEmpty" id=6]
+
+[sub_resource type="DynamicFont" id=47]
+size = 30
+extra_spacing_char = -2
+font_data = ExtResource( 4 )
 
 [sub_resource type="StyleBoxLine" id=7]
 color = Color( 1, 1, 1, 0.270588 )
@@ -227,7 +232,7 @@ vertical = true
 
 [resource]
 Button/colors/font_color = Color( 0.933333, 0.933333, 0.933333, 1 )
-Button/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
+Button/colors/font_color_disabled = Color( 0.901961, 0.901961, 0.901961, 0.2 )
 Button/colors/font_color_hover = Color( 0.94, 0.94, 0.94, 1 )
 Button/colors/font_color_pressed = Color( 1, 1, 1, 1 )
 Button/constants/hseparation = 2
@@ -255,6 +260,9 @@ CheckBox/styles/hover_pressed = SubResource( 6 )
 CheckBox/styles/normal = SubResource( 6 )
 CheckBox/styles/pressed = SubResource( 6 )
 ColumnContainer/constants/separation = 10
+ContextMenu/base_type = "PopupMenu"
+ContextMenu/constants/vseparation = 8
+ContextMenu/fonts/font = SubResource( 47 )
 HScrollBar/icons/decrement = null
 HScrollBar/icons/decrement_highlight = null
 HScrollBar/icons/increment = null
@@ -333,6 +341,7 @@ OptionButton/styles/normal = SubResource( 18 )
 OptionButton/styles/pressed = null
 Panel/styles/panel = SubResource( 32 )
 PopupDialog/styles/panel = SubResource( 20 )
+PopupMenu/colors/font_color_disabled = Color( 0.901961, 0.901961, 0.901961, 0.2 )
 PopupMenu/constants/vseparation = 16
 PopupMenu/fonts/font = SubResource( 1 )
 PopupMenu/styles/hover = SubResource( 30 )

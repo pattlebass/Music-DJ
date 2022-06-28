@@ -9,6 +9,7 @@ var current_tutorial_version = 1
 var timer: Timer
 var file := File.new()
 var user_dir := ""
+var clipboard
 
 const category_names = ["Introduction", "Verse", "Chorus", "Solo"]
 const instrument_names = [
@@ -101,6 +102,11 @@ func _input(event: InputEvent) -> void:
 		show_focus = true
 		for i in buttons:
 			i.set("custom_styles/focus", null)
+		
+		if not main.get_focus_owner():
+			yield(get_tree(), "idle_frame")
+			main.play_button.grab_focus()
+		
 	elif event.is_action_pressed("left_click"):
 		show_focus = false
 		for i in buttons:

@@ -11,6 +11,7 @@ onready var play_button = $HBoxToolBar/Play
 onready var export_button = $HBoxToolBar/HBoxContainer/Export
 onready var save_button = $HBoxToolBar/HBoxContainer/SaveProject
 onready var more_button = $HBoxToolBar/HBoxContainer/More
+onready var add_button = $HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer/AddButton
 onready var save_dialog = $SaveDialog
 onready var audio_players = $AudioPlayers
 onready var animation = $AnimationPlayer
@@ -30,7 +31,6 @@ var time_delay: float # in seconds
 
 
 func _ready() -> void:
-	play_button.grab_focus()
 	time_delay = AudioServer.get_time_to_next_mix() + AudioServer.get_output_latency()
 	get_tree().connect("files_dropped", self, "_files_dropped")
 	Variables.connect("theme_changed", self, "on_theme_changed")
@@ -233,6 +233,8 @@ func _on_OpenProject_pressed() -> void:
 func _on_AddButton_pressed() -> void:
 	column_index += 1
 	add_column(column_index-1).fade_in()
+	yield(get_tree(), "idle_frame")
+	scroll_container.ensure_control_visible(add_button)
 
 
 func add_column(_column_no:int, add_to_song:bool = true) -> Node2D:
@@ -262,6 +264,8 @@ func remove_column(_column_no) -> void:
 		song[i].pop_back()
 	used_columns.erase(_column_no)
 	column_index -= 1
+	yield(get_tree(), "idle_frame")
+	add_button.grab_focus()
 
 
 func _process(_delta) -> void:
@@ -330,5 +334,5 @@ func more_item_pressed(id) -> void:
 func more_about_to_show(popup) -> void:
 	if not OS.has_feature("pc"):
 		popup.rect_position.y -= more_button.rect_size.y
-	# Padding. I don't know why but it seems to be 200px too big
-	popup.rect_position.x -= 220 
+	# Spacing
+	popup.rect_global_position.x = more_button.rect_global_position.x + more_button.rect_size.x - popup.rect_size.x

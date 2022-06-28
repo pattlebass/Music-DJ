@@ -4,13 +4,13 @@ var column_no: int
 
 onready var anim_player = $AnimationPlayer
 onready var column_button = $ColumnButton
-
+onready var tiles := [$Button1, $Button2, $Button3, $Button4]
 
 func _ready() -> void:
-	$Button1.set_meta("instrument", 0)
-	$Button2.set_meta("instrument", 1)
-	$Button3.set_meta("instrument", 2)
-	$Button4.set_meta("instrument", 3)
+	for i in tiles.size():
+		tiles[i].set_meta("instrument", i)
+		tiles[i].set_meta("sample_index", 0)
+		tiles[i].connect("gui_input", self, "on_tile_gui_input", [tiles[i]])
 
 
 func set_tile(instrument: int, sample_index: int) -> void:
@@ -45,7 +45,6 @@ func set_tile(instrument: int, sample_index: int) -> void:
 	tile.set("custom_styles/pressed", style_box)
 	tile.set("custom_styles/disabled", style_box)
 	tile.set("custom_styles/hover", style_box)
-#	tile.set("custom_styles/focus", StyleBoxEmpty)
 
 
 func clear() -> void:
@@ -82,6 +81,44 @@ func remove() -> void:
 	anim_player.play_backwards("fade_in")
 	yield(anim_player, "animation_finished")
 	queue_free()
+
+
+func on_tile_gui_input(event: InputEvent, button: Button) -> void:
+	if event.is_action_pressed("right_click") or event.is_action_pressed("ui_menu"):
+		var menu = PopupMenu.new()
+		menu.add_item("Copy")
+		menu.add_item("Paste")
+		menu.add_item("Clear")
+		
+		if not Variables.clipboard:
+			menu.set_item_disabled(1, true)
+		
+		if event.get("global_position"):
+			menu.rect_position = event.global_position
+		else:
+			menu.rect_position = button.rect_global_position + button.rect_size / 2
+		menu.theme_type_variation = "ContextMenu"
+		menu.script = preload("res://scenes/dialogs/custom_dialog/DialogScript.gd")
+		menu.dim = false
+		menu.rect_pivot_offset = Vector2.ZERO
+		menu.pivot_manual = true
+		
+		menu.connect("id_pressed", self, "context_menu_pressed", [button.get_meta("instrument"), button.get_meta("sample_index")])
+		menu.connect("popup_hide", menu, "queue_free")
+		
+		add_child(menu)
+		menu.popup()
+
+
+func context_menu_pressed(id: int, instrument: int, sample_index: int) -> void:
+	match id:
+		0: # Copy
+			Variables.clipboard = {"instrument": instrument, "sample": sample_index}
+		1: # Paste
+			if Variables.clipboard:
+				set_tile(Variables.clipboard.instrument, Variables.clipboard.sample)
+		2: # Clear
+			clear_tile(instrument)
 
 
 func _notification(what) -> void:
