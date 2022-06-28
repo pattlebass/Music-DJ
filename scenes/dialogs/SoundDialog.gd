@@ -11,12 +11,13 @@ var column
 onready var button_container = $VBoxContainer/ScrollContainer/VBoxContainer
 onready var audio_player = $AudioStreamPlayer
 onready var ok_button = $VBoxContainer/HBoxContainer/OkButton
+onready var cancel_button = $VBoxContainer/HBoxContainer/CancelButton
 var button_group = ButtonGroup.new()
 
 func _ready() -> void:
 	if !OS.is_ok_left_and_cancel_right():
 		$VBoxContainer/HBoxContainer.move_child(
-			$VBoxContainer/HBoxContainer/CancelButton,
+			cancel_button,
 			0
 		)
 		$VBoxContainer/HBoxContainer.move_child(
@@ -33,6 +34,7 @@ func _ready() -> void:
 		"SAMPLE_CAT_SOLO"
 	]
 	var button_index = -1
+	var buttons = []
 	
 	for i in 4:
 		var separator = HSeparator.new()
@@ -77,7 +79,22 @@ func _ready() -> void:
 			button_in_list.focus_mode = Control.FOCUS_ALL
 			button_in_list.toggle_mode = true
 			button_in_list.group = button_group
+			buttons.append(button_in_list)
 			button_container.add_child(button_in_list)
+	
+	# Keyboard focus
+	for i in buttons.size():
+		if i != 0:
+			buttons[i].focus_neighbour_top = buttons[i - 1].get_path()
+		else:
+			buttons[i].focus_neighbour_top = buttons[-1].get_path()
+		if i + 1 != buttons.size():
+			buttons[i].focus_neighbour_bottom = buttons[i + 1].get_path()
+		else:
+			buttons[i].focus_neighbour_bottom = buttons[0].get_path()
+		
+		buttons[i].focus_neighbour_right = ok_button.get_path()
+		buttons[i].focus_neighbour_left = cancel_button.get_path()
 
 
 func about_to_show():
