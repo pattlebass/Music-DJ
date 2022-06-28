@@ -84,6 +84,8 @@ func remove() -> void:
 
 
 func on_tile_gui_input(event: InputEvent, button: Button) -> void:
+	var instrument = button.get_meta("instrument")
+	var sample_index = button.get_meta("sample_index")
 	if event.is_action_pressed("right_click") or event.is_action_pressed("ui_menu"):
 		var menu = PopupMenu.new()
 		menu.add_item("Copy")
@@ -92,6 +94,10 @@ func on_tile_gui_input(event: InputEvent, button: Button) -> void:
 		
 		if not Variables.clipboard:
 			menu.set_item_disabled(1, true)
+		if not button.get_meta("sample_index"):
+			menu.set_item_disabled(0, true)
+			menu.set_item_disabled(2, true)
+		
 		
 		if event.get("global_position"):
 			menu.rect_position = event.global_position
@@ -103,12 +109,17 @@ func on_tile_gui_input(event: InputEvent, button: Button) -> void:
 		menu.rect_pivot_offset = Vector2.ZERO
 		menu.pivot_manual = true
 		
-		menu.connect("id_pressed", self, "context_menu_pressed", [button.get_meta("instrument"), button.get_meta("sample_index")])
+		menu.connect("id_pressed", self, "context_menu_pressed", [instrument, sample_index])
 		menu.connect("popup_hide", menu, "queue_free")
 		
 		add_child(menu)
 		menu.popup()
-
+	elif event.is_action_pressed("copy") and Variables.show_focus:
+		if instrument:
+			Variables.clipboard = {"instrument": instrument, "sample": sample_index}
+	elif event.is_action_pressed("paste") and Variables.show_focus:
+		if Variables.clipboard:
+			set_tile(Variables.clipboard.instrument, Variables.clipboard.sample)
 
 func context_menu_pressed(id: int, instrument: int, sample_index: int) -> void:
 	match id:
