@@ -1,5 +1,5 @@
-keys,en_US,ro,pt_BR
-BTN_PLAY,Play,Redați,
+keys,en_US,ro,pt_BR,id
+BTN_PLAY,Play,Redați,,Putar
 BTN_STOP,Stop,Stop,
 BTN_EXPORT,Export,Exportați,
 BTN_SAVE_PROJECT,Save project,Salvați,
