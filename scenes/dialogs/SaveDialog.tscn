@@ -3,7 +3,6 @@
 [ext_resource path="res://scenes/dialogs/SaveDialog.gd" type="Script" id=1]
 
 [node name="SaveDialog" type="PopupDialog"]
-visible = true
 margin_left = 300.0
 margin_top = 100.0
 margin_right = 739.0

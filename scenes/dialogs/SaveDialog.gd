@@ -95,6 +95,7 @@ func _on_LineEdit_text_changed(new_text):
 		
 		if new_text:
 			label_error.text = "Invalid file name: / \\ ? * \" | % < > :"
+		
 		return
 	
 	entered_name = new_text
