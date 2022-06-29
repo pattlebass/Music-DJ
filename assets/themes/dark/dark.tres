@@ -1,8 +1,10 @@
-[gd_resource type="Theme" load_steps=46 format=2]
+[gd_resource type="Theme" load_steps=48 format=2]
 
 [ext_resource path="res://assets/themes/dark/radio_check.svg" type="Texture" id=1]
 [ext_resource path="res://assets/themes/dark/radio_uncheck.svg" type="Texture" id=2]
+[ext_resource path="res://assets/themes/dark/checked_box.svg" type="Texture" id=3]
 [ext_resource path="res://assets/fonts/GidoleFont/Gidole-Regular.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://assets/themes/dark/unchecked_box.svg" type="Texture" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
@@ -263,9 +265,10 @@ CheckBox/colors/font_color_pressed = Color( 1, 1, 1, 1 )
 CheckBox/constants/check_vadjust = 0
 CheckBox/constants/hseparation = 10
 CheckBox/fonts/font = null
+CheckBox/icons/checked = ExtResource( 3 )
 CheckBox/icons/radio_checked = ExtResource( 1 )
 CheckBox/icons/radio_unchecked = ExtResource( 2 )
-CheckBox/icons/unchecked = null
+CheckBox/icons/unchecked = ExtResource( 5 )
 CheckBox/styles/disabled = SubResource( 6 )
 CheckBox/styles/hover = SubResource( 6 )
 CheckBox/styles/hover_pressed = SubResource( 6 )

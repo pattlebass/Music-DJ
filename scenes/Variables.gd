@@ -4,6 +4,7 @@ var options = {
 	"last_seen_tutorial": -1, # Hasn't seen the tutorial
 	"theme": "dark",
 	"language": "", # Auto
+	"check_updates": null,
 }
 var current_tutorial_version = 1
 var timer: Timer

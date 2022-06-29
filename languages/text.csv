@@ -20,6 +20,7 @@ SETTING_THEME_DARK,Dark,,,Gelap
 SETTING_THEME_WHITE,Light,,,Terang
 SETTING_LANG,Language,Limbă,,Bahasa
 SETTING_LANG_AUTO,Auto (%s),Auto (%s),,Otomatis (%s)
+SETTING_CHECK_UPDATES,Check for updates,Verificați actualizări,,
 DIALOG_TUTORIAL_TITLE,Tutorial,Tutorial,,Tutorial
 DIALOG_SAVE_TITLE_PROJECT,Save project as,Salvați ca,,Simpan proyek sebagai
 DIALOG_SAVE_TITLE_EXPORT,Export song as,Exportați ca,,Ekspor lagu sebagai
@@ -27,6 +28,16 @@ DIALOG_SAVE_BTN,Save,Salvați,,Simpan
 DIALOG_SOUND_TITLE,"%s, column %s","%s, coloana %s",,"%s, kolom %s"
 DIALOG_LOAD_TITLE,Open project,Deschideți,,Buka proyek
 DIALOG_LOAD_BTN_OPEN,Open,Deschideți,,Buka
+DIALOG_UPDATE_TITLE,New update,Actualizare nouă,,
+DIALOG_UPDATE_BODY,There's a new update available: %s,Există o noua versiune: %s,,
+DIALOG_UPDATE_BTN_OK,Download,Descărcați,,
+DIALOG_UPDATE_TITLE_ASK,Check for updates?,Verificați actualizări?,,
+DIALOG_UPDATE_BODY_ASK,"Check for updates on startup?
+This app uses the Github API to check for updates. Here's their [url=%s]Privacy Policy[/url].","Verificați actualizări când deschideți aplicația?
+Această aplicație folosește Github API. [url=%s]
+Politica de Confidențialitate[/url].",,
+DIALOG_UPDATE_BTN_ACCEPT,Yes,Da,,
+DIALOG_UPDATE_BTN_DENY,No,Nu,,
 DIALOG_PROGRESS_TITLE,Saving...,Se salvează...,,Menyimpan...
 DIALOG_PROGRESS_TITLE_DONE,Saved,Salvat,,Sudah disimpan
 DIALOG_PROGRESS_KEEP_FOCUSED,Please keep this window focused.,Nu părăsiți fereastra.,,Dimohon untuk tidak beranjak dari aplikasi ini.

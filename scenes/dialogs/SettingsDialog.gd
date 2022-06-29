@@ -7,6 +7,9 @@ func _ready() -> void:
 		Variables.options.theme.capitalize()).pressed = true
 	$VBoxContainer/ScrollContainer/SettingsContainer/LabelVersion.text = "%s" % load("res://version.gd").VERSION
 	
+	if Variables.options.check_updates != null:
+		$"%CheckUpdates".set_pressed_no_signal(Variables.options.check_updates)
+	
 	var lang_btn_group = ButtonGroup.new()
 	
 	var lang_auto_btn = lang_container.get_node("Auto")
@@ -54,3 +57,8 @@ func on_lang_chosen(lang):
 		TranslationServer.set_locale(lang)
 	else:
 		TranslationServer.set_locale(OS.get_locale_language())
+
+
+func _on_CheckUpdates_toggled(button_pressed: bool) -> void:
+	Variables.options.check_updates = button_pressed
+	Variables.save_options()

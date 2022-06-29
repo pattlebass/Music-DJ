@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://scenes/main.gd" type="Script" id=1]
 [ext_resource path="res://assets/trumpet.png" type="Texture" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://scenes/dialogs/LoadDialog.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/dialogs/SettingsDialog.tscn" type="PackedScene" id=12]
 [ext_resource path="res://scenes/dialogs/TutorialDialog.tscn" type="PackedScene" id=13]
+[ext_resource path="res://scenes/dialogs/UpdateDialog.tscn" type="PackedScene" id=14]
 [ext_resource path="res://assets/themes/dark/more.svg" type="Texture" id=15]
 
 [sub_resource type="Animation" id=13]
@@ -105,6 +106,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 7 )
 script = ExtResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 13 )
+anims/dim = SubResource( 15 )
+anims/undim = SubResource( 14 )
 
 [node name="BgPanel" type="Panel" parent="."]
 anchor_right = 1.0
@@ -320,14 +326,11 @@ visible = false
 
 [node name="LoadDialog" parent="." instance=ExtResource( 11 )]
 
+[node name="UpdateDialog" parent="." instance=ExtResource( 14 )]
+
 [node name="TutorialDialog" parent="." instance=ExtResource( 13 )]
 
 [node name="SettingsDialog" parent="." instance=ExtResource( 12 )]
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/RESET = SubResource( 13 )
-anims/dim = SubResource( 15 )
-anims/undim = SubResource( 14 )
 
 [connection signal="toggled" from="HBoxToolBar/Play" to="." method="_on_Play_toggled"]
 [connection signal="pressed" from="HBoxToolBar/HBoxContainer/Export" to="." method="_on_Export_pressed"]
