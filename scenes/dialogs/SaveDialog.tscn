@@ -3,10 +3,11 @@
 [ext_resource path="res://scenes/dialogs/SaveDialog.gd" type="Script" id=1]
 
 [node name="SaveDialog" type="PopupDialog"]
+visible = true
 margin_left = 300.0
 margin_top = 100.0
 margin_right = 739.0
-margin_bottom = 321.0
+margin_bottom = 365.0
 input_pass_on_modal_close_click = false
 script = ExtResource( 1 )
 __meta__ = {
@@ -20,19 +21,24 @@ size_flags_horizontal = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
 margin_right = 439.0
-margin_bottom = 167.0
+margin_bottom = 211.0
 size_flags_vertical = 3
-custom_constants/separation = 30
 
 [node name="Label" type="Label" parent="VBoxContainer/VBoxContainer"]
 margin_right = 439.0
 margin_bottom = 55.0
 text = "Save as"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer"]
-margin_top = 85.0
+[node name="Control" type="Control" parent="VBoxContainer/VBoxContainer"]
+margin_top = 59.0
 margin_right = 439.0
-margin_bottom = 135.0
+margin_bottom = 89.0
+rect_min_size = Vector2( 0, 30 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer"]
+margin_top = 93.0
+margin_right = 439.0
+margin_bottom = 143.0
 alignment = 1
 
 [node name="LineEdit" type="LineEdit" parent="VBoxContainer/VBoxContainer/HBoxContainer"]
@@ -46,10 +52,18 @@ placeholder_text = "File name here"
 placeholder_alpha = 0.2
 caret_blink = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 171.0
+[node name="LabelError" type="Label" parent="VBoxContainer/VBoxContainer"]
+margin_top = 147.0
 margin_right = 439.0
-margin_bottom = 221.0
+margin_bottom = 185.0
+theme_type_variation = "LabelSubtitle"
+custom_colors/font_color = Color( 1, 0.2, 0.290196, 1 )
+text = "Error"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 215.0
+margin_right = 439.0
+margin_bottom = 265.0
 custom_constants/separation = 20
 alignment = 2
 
