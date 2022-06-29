@@ -35,9 +35,8 @@ DIALOG_UPDATE_TITLE_ASK,Check for updates?,Verificați actualizări?,,Periksa pe
 DIALOG_UPDATE_BODY_ASK,"Check for updates on startup?
 This app uses the Github API to check for updates. Here's their [url=%s]Privacy Policy[/url].","Verificați actualizări când deschideți aplicația?
 Această aplicație folosește Github API. [url=%s]
-Politica de Confidențialitate[/url].",,Periksa pembaruan saat memulai aplikasi?
-Aplikasi ini menggunakan Github API untuk memeriksa pembaruan. [url=%s]
-Kebijakan Privasi[/url]."
+Politica de Confidențialitate[/url].",,"Periksa pembaruan saat memulai aplikasi?
+Aplikasi ini menggunakan Github API untuk memeriksa pembaruan. [url=%s]Kebijakan Privasi[/url]."
 DIALOG_UPDATE_BTN_ACCEPT,Yes,Da,,Ya
 DIALOG_UPDATE_BTN_DENY,No,Nu,,Tidak
 DIALOG_PROGRESS_TITLE,Saving...,Se salvează...,,Menyimpan...
