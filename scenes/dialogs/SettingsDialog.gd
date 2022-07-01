@@ -5,7 +5,7 @@ onready var lang_container = $"%LangContainer"
 func _ready() -> void:
 	get_node("VBoxContainer/ScrollContainer/SettingsContainer/ThemeContainer/"+ \
 		Variables.options.theme.capitalize()).pressed = true
-	$VBoxContainer/ScrollContainer/SettingsContainer/LabelVersion.text = "%s" % load("res://version.gd").VERSION
+	$VBoxContainer/ScrollContainer/SettingsContainer/LabelVersion.text = Variables.VERSION
 	
 	if Variables.options.check_updates != null:
 		$"%CheckUpdates".set_pressed_no_signal(Variables.options.check_updates)

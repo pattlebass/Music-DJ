@@ -322,13 +322,15 @@ func more_item_pressed(id) -> void:
 			var link = "https://github.com/pattlebass/Music-DJ/issues/new?labels=bug&template=bug_report.yaml&title=%5BBug%5D%3A+&version={version}&device={device}"
 			link = link.format(
 				{
-					"version": load("res://version.gd").VERSION.percent_encode(),
+					"version": Variables.VERSION.percent_encode(),
 					"device": OS.get_model_name().percent_encode() if OS.get_name() == "Android" else ""
 				}
 			)
 			OS.shell_open(link)
 		3:
 			OS.shell_open("https://github.com/pattlebass/Music-DJ/issues/new?labels=enhancement&template=feature_request.yaml&title=%5BFeature%5D%3A+")
+		4:
+			$AboutDialog.popup_centered()
 
 
 func more_about_to_show(popup) -> void:

@@ -28,7 +28,7 @@ func _on_HTTPRequest_request_completed(result: int, response_code: int, headers:
 	
 	var json_result = JSON.parse(body.get_string_from_utf8()).result
 	
-	if load("res://version.gd").VERSION != json_result.tag_name:
+	if Variables.VERSION != json_result.tag_name:
 		$VBoxContainer/Body.text = tr("DIALOG_UPDATE_BODY") % json_result.tag_name
 		popup_centered()
 

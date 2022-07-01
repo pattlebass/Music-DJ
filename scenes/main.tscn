@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://scenes/main.gd" type="Script" id=1]
 [ext_resource path="res://assets/trumpet.png" type="Texture" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://scenes/dialogs/TutorialDialog.tscn" type="PackedScene" id=13]
 [ext_resource path="res://scenes/dialogs/UpdateDialog.tscn" type="PackedScene" id=14]
 [ext_resource path="res://assets/themes/dark/more.svg" type="Texture" id=15]
+[ext_resource path="res://scenes/dialogs/AboutDialog.tscn" type="PackedScene" id=16]
 
 [sub_resource type="Animation" id=13]
 length = 0.001
@@ -331,6 +332,8 @@ visible = false
 [node name="TutorialDialog" parent="." instance=ExtResource( 13 )]
 
 [node name="SettingsDialog" parent="." instance=ExtResource( 12 )]
+
+[node name="AboutDialog" parent="." instance=ExtResource( 16 )]
 
 [connection signal="toggled" from="HBoxToolBar/Play" to="." method="_on_Play_toggled"]
 [connection signal="pressed" from="HBoxToolBar/HBoxContainer/Export" to="." method="_on_Export_pressed"]

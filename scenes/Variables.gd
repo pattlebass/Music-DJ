@@ -12,6 +12,8 @@ var file := File.new()
 var user_dir := ""
 var clipboard
 
+onready var VERSION = load("res://version.gd").VERSION
+
 const category_names = ["Introduction", "Verse", "Chorus", "Solo"]
 const instrument_names = [
 	"INSTRUMENT_DRUMS",
