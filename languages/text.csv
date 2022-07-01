@@ -1,64 +1,65 @@
-keys,en_US,ro,pt_BR,id
-LANG_NAME,English,Română,,Bahasa Indonesia
-BTN_PLAY,Play,Redați,,Putar
-BTN_STOP,Stop,Stop,,Berhenti
-BTN_EXPORT,Export,Exportați,,Ekspor
-BTN_SAVE_PROJECT,Save project,Salvați,,Simpan proyek
-BTN_OPEN_PROJECT,Open project,Deschideți,,Buka proyek
-BTN_SETTINGS,Settings,Setări,,Pengaturan
-BTN_CLEAR,Clear,Goliți,,Bersihkan
-BTN_REMOVE,Remove,Ștergeți,,Buang
-BTN_CANCEL,Cancel,Anulare,,Batal
-BTN_CLOSE,Close,Închide,,Tutup
-BTN_TUTORIAL,Show tutorial,Arată tutorialul,,Buka tutorial
-BTN_ABOUT,About,Despre,,Tentang
-BTN_SEND_BUG,Send a bug report,Raportează un bug,,Laporkan masalah
-BTN_SEND_PROPOSAL,Send a proposal,Trimite o îmbunătățire,,Kirimkan proposal
-DIALOG_SETTINGS_TITLE,Settings,Setări,,Pengaturan
-SETTING_THEME,Theme,Temă,,Tema
-SETTING_THEME_DARK,Dark,,,Gelap
-SETTING_THEME_WHITE,Light,,,Terang
-SETTING_LANG,Language,Limbă,,Bahasa
-SETTING_LANG_AUTO,Auto (%s),Auto (%s),,Otomatis (%s)
-SETTING_CHECK_UPDATES,Check for updates,Verificați actualizări,,Cek pembaruan
-DIALOG_TUTORIAL_TITLE,Tutorial,Tutorial,,Tutorial
-DIALOG_SAVE_TITLE_PROJECT,Save project as,Salvați ca,,Simpan proyek sebagai
-DIALOG_SAVE_TITLE_EXPORT,Export song as,Exportați ca,,Ekspor lagu sebagai
-DIALOG_SAVE_BTN,Save,Salvați,,Simpan
-DIALOG_SOUND_TITLE,"%s, column %s","%s, coloana %s",,"%s, kolom %s"
-DIALOG_LOAD_TITLE,Open project,Deschideți,,Buka proyek
-DIALOG_LOAD_BTN_OPEN,Open,Deschideți,,Buka
-DIALOG_UPDATE_TITLE,New update,Actualizare nouă,,Pembaruan baru
-DIALOG_UPDATE_BODY,There's a new update available: %s,Există o noua versiune: %s,,Ada versi baru yang tersedia: %s
-DIALOG_UPDATE_BTN_OK,Download,Descărcați,,Unduh
-DIALOG_UPDATE_TITLE_ASK,Check for updates?,Verificați actualizări?,,Periksa pembaruan?
+keys,en_US,ro,id
+LANG_NAME,English,Română,Bahasa Indonesia
+BTN_PLAY,Play,Redați,Putar
+BTN_STOP,Stop,Stop,Berhenti
+BTN_EXPORT,Export,Exportați,Ekspor
+BTN_SAVE_PROJECT,Save project,Salvați,Simpan proyek
+BTN_OPEN_PROJECT,Open project,Deschideți,Buka proyek
+BTN_SETTINGS,Settings,Setări,Pengaturan
+BTN_CLEAR,Clear,Goliți,Bersihkan
+BTN_REMOVE,Remove,Ștergeți,Buang
+BTN_CANCEL,Cancel,Anulare,Batal
+BTN_CLOSE,Close,Închide,Tutup
+BTN_TUTORIAL,Show tutorial,Arată tutorialul,Buka tutorial
+BTN_ABOUT,About,Despre,Tentang
+BTN_SEND_BUG,Send a bug report,Raportează un bug,Laporkan masalah
+BTN_SEND_PROPOSAL,Send a proposal,Trimite o îmbunătățire,Kirimkan proposal
+DIALOG_SETTINGS_TITLE,Settings,Setări,Pengaturan
+SETTING_THEME,Theme,Temă,Tema
+SETTING_THEME_DARK,Dark,,Gelap
+SETTING_THEME_WHITE,Light,,Terang
+SETTING_LANG,Language,Limbă,Bahasa
+SETTING_LANG_AUTO,Auto (%s),Auto (%s),Otomatis (%s)
+SETTING_CHECK_UPDATES,Check for updates,Verificați actualizări,Cek pembaruan
+DIALOG_TUTORIAL_TITLE,Tutorial,Tutorial,Tutorial
+DIALOG_SAVE_TITLE_PROJECT,Save project as,Salvați ca,Simpan proyek sebagai
+DIALOG_SAVE_TITLE_EXPORT,Export song as,Exportați ca,Ekspor lagu sebagai
+DIALOG_SAVE_BTN,Save,Salvați,Simpan
+DIALOG_SOUND_TITLE,"%s, column %s","%s, coloana %s","%s, kolom %s"
+DIALOG_LOAD_TITLE,Open project,Deschideți,Buka proyek
+DIALOG_LOAD_BTN_OPEN,Open,Deschideți,Buka
+DIALOG_ABOUT_TITLE,About,Despre,Tentang
+DIALOG_UPDATE_TITLE,New update,Actualizare nouă,Pembaruan baru
+DIALOG_UPDATE_BODY,There's a new update available: %s,Există o noua versiune: %s,Ada versi baru yang tersedia: %s
+DIALOG_UPDATE_BTN_OK,Download,Descărcați,Unduh
+DIALOG_UPDATE_TITLE_ASK,Check for updates?,Verificați actualizări?,Periksa pembaruan?
 DIALOG_UPDATE_BODY_ASK,"Check for updates on startup?
 This app uses the Github API to check for updates. Here's their [url=%s]Privacy Policy[/url].","Verificați actualizări când deschideți aplicația?
 Această aplicație folosește Github API. [url=%s]
-Politica de Confidențialitate[/url].",,"Periksa pembaruan saat memulai aplikasi?
+Politica de Confidențialitate[/url].","Periksa pembaruan saat memulai aplikasi?
 Aplikasi ini menggunakan Github API untuk memeriksa pembaruan. [url=%s]
 Kebijakan Privasi[/url]."
-DIALOG_UPDATE_BTN_ACCEPT,Yes,Da,,Ya
-DIALOG_UPDATE_BTN_DENY,No,Nu,,Tidak
-DIALOG_PROGRESS_TITLE,Saving...,Se salvează...,,Menyimpan...
-DIALOG_PROGRESS_TITLE_DONE,Saved,Salvat,,Sudah disimpan
-DIALOG_PROGRESS_KEEP_FOCUSED,Please keep this window focused.,Nu părăsiți fereastra.,,Dimohon untuk tidak beranjak dari aplikasi ini.
-DIALOG_PROGRESS_AFTER_PROJECT,You can find it in the project list or you can download it.,Puteți să-l găsiți in lista de proiecte sau puteți să-l descărcați.,,Anda bisa menemukannya di daftar proyek atau anda bisa mengunduhnya.
-DIALOG_PROGRESS_BTN_OPEN,Open folder,Deschideți folderul,,Buka folder
-DIALOG_PROGRESS_BTN_DOWNLOAD,Download,Descărcați,,Unduh
-DIALOG_CONFIRMATION_TITLE_OVERWRITE,Overwrite?,Înlocuire?,,Timpa file?
-DIALOG_CONFIRMATION_BODY_OVERWRITE,%s will be overwritten.,%s va fi înlocuit.,,Anda akan menimpa %s.
-DIALOG_CONFIRMATION_TITLE_DELETE,Delete project?,Ștergeți proiectul?,,Hapus proyek?
-DIALOG_CONFIRMATION_BODY_DELETE,%s will be deleted.,%s va fi șters.,,Anda akan menghapus %s.
-INSTRUMENT_DRUMS,Drums,Tobe,,Drum
-INSTRUMENT_BASS,Bass,Bas,,Bass
-INSTRUMENT_KEYS,Keys,Pian,,Piano
-INSTRUMENT_TRUMPET,Trumpet,Trompetă,,Terompet
-TUTORIAL1,Tap and hold a tile to copy it.,Țineți apăsat pe o celulă pentru a o copia.,,Ketuk dan tahan balok untuk menyalinnya.
-TUTORIAL2,Tap the number of a column to open its menu.,Apăsați pe numărul unei coloane pentru a-i deschide meniul.,,Ketuk nomor kolom untuk membuka menunya.
-TUTORIAL3,You can drag and drop project files into the App's window.,Puteți să trageți proiecte în fereastra aplicației.,,Anda bisa tarik file proyek langsung ke jendela aplikasi.
-TUTORIAL4,Follow %s on Twitter for updates.,Urmăriți %s pe Twitter pentru actualizări.,,Ikuti %s di Twitter untuk info terbaru.
-SAMPLE_CAT_INTRODUCTION,Introduction,Introducere,,Intro
-SAMPLE_CAT_VERSE,Verse,Strofă,,Bait
-SAMPLE_CAT_CHORUS,Chorus,Refren,,Refrain
-SAMPLE_CAT_SOLO,Solo,Solo,,Solo
+DIALOG_UPDATE_BTN_ACCEPT,Yes,Da,Ya
+DIALOG_UPDATE_BTN_DENY,No,Nu,Tidak
+DIALOG_PROGRESS_TITLE,Saving...,Se salvează...,Menyimpan...
+DIALOG_PROGRESS_TITLE_DONE,Saved,Salvat,Sudah disimpan
+DIALOG_PROGRESS_KEEP_FOCUSED,Please keep this window focused.,Nu părăsiți fereastra.,Dimohon untuk tidak beranjak dari aplikasi ini.
+DIALOG_PROGRESS_AFTER_PROJECT,You can find it in the project list or you can download it.,Puteți să-l găsiți in lista de proiecte sau puteți să-l descărcați.,Anda bisa menemukannya di daftar proyek atau anda bisa mengunduhnya.
+DIALOG_PROGRESS_BTN_OPEN,Open folder,Deschideți folderul,Buka folder
+DIALOG_PROGRESS_BTN_DOWNLOAD,Download,Descărcați,Unduh
+DIALOG_CONFIRMATION_TITLE_OVERWRITE,Overwrite?,Înlocuire?,Timpa file?
+DIALOG_CONFIRMATION_BODY_OVERWRITE,%s will be overwritten.,%s va fi înlocuit.,Anda akan menimpa %s.
+DIALOG_CONFIRMATION_TITLE_DELETE,Delete project?,Ștergeți proiectul?,Hapus proyek?
+DIALOG_CONFIRMATION_BODY_DELETE,%s will be deleted.,%s va fi șters.,Anda akan menghapus %s.
+INSTRUMENT_DRUMS,Drums,Tobe,Drum
+INSTRUMENT_BASS,Bass,Bas,Bass
+INSTRUMENT_KEYS,Keys,Pian,Piano
+INSTRUMENT_TRUMPET,Trumpet,Trompetă,Terompet
+TUTORIAL1,Tap and hold a tile to copy it.,Țineți apăsat pe o celulă pentru a o copia.,Ketuk dan tahan balok untuk menyalinnya.
+TUTORIAL2,Tap the number of a column to open its menu.,Apăsați pe numărul unei coloane pentru a-i deschide meniul.,Ketuk nomor kolom untuk membuka menunya.
+TUTORIAL3,You can drag and drop project files into the App's window.,Puteți să trageți proiecte în fereastra aplicației.,Anda bisa tarik file proyek langsung ke jendela aplikasi.
+TUTORIAL4,Follow %s on Twitter for updates.,Urmăriți %s pe Twitter pentru actualizări.,Ikuti %s di Twitter untuk info terbaru.
+SAMPLE_CAT_INTRODUCTION,Introduction,Introducere,Intro
+SAMPLE_CAT_VERSE,Verse,Strofă,Bait
+SAMPLE_CAT_CHORUS,Chorus,Refren,Refrain
+SAMPLE_CAT_SOLO,Solo,Solo,Solo
