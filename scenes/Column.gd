@@ -110,6 +110,7 @@ func on_tile_gui_input(event: InputEvent, button: Button) -> void:
 		menu.pivot_manual = true
 		
 		menu.connect("id_pressed", self, "context_menu_pressed", [instrument, sample_index])
+		menu.connect("visibility_changed", self, "context_menu_visibility_changed", [menu])
 		menu.connect("popup_hide", menu, "queue_free")
 		
 		add_child(menu)
@@ -131,6 +132,16 @@ func context_menu_pressed(id: int, instrument: int, sample_index: int) -> void:
 				set_tile(Variables.clipboard.instrument, Variables.clipboard.sample)
 		2: # Clear
 			clear_tile(instrument)
+
+# Work-around until https://github.com/godotengine/godot-proposals/issues/2663
+func context_menu_visibility_changed(menu: Control) -> void:
+	menu.grab_focus()
+	if menu.visible and Variables.show_focus:
+		var e := InputEventAction.new()
+		e.action = "ui_down"
+		e.pressed = true
+		Input.parse_input_event(e)
+		accept_event()
 
 
 func _notification(what) -> void:
