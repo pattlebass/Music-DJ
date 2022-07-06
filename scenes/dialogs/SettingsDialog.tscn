@@ -37,7 +37,6 @@ margin_bottom = 411.0
 size_flags_vertical = 3
 follow_focus = true
 scroll_horizontal_enabled = false
-scroll_deadzone = 30
 
 [node name="SettingsContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
 margin_right = 480.0
@@ -46,6 +45,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="ThemeContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/SettingsContainer"]
+unique_name_in_owner = true
 margin_right = 480.0
 margin_bottom = 122.0
 
@@ -61,7 +61,10 @@ margin_right = 480.0
 margin_bottom = 80.0
 mouse_filter = 1
 group = SubResource( 11 )
-text = "Dark"
+text = "SETTING_THEME_DARK"
+__meta__ = {
+"theme_name": "dark"
+}
 
 [node name="White" type="CheckBox" parent="VBoxContainer/ScrollContainer/SettingsContainer/ThemeContainer"]
 margin_top = 84.0
@@ -69,7 +72,10 @@ margin_right = 480.0
 margin_bottom = 122.0
 mouse_filter = 1
 group = SubResource( 11 )
-text = "White"
+text = "SETTING_THEME_WHITE"
+__meta__ = {
+"theme_name": "white"
+}
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer/ScrollContainer/SettingsContainer"]
 margin_top = 126.0
@@ -116,6 +122,7 @@ margin_bottom = 286.0
 size_flags_vertical = 3
 
 [node name="LabelVersion" type="Label" parent="VBoxContainer/ScrollContainer/SettingsContainer"]
+unique_name_in_owner = true
 margin_top = 290.0
 margin_right = 480.0
 margin_bottom = 328.0

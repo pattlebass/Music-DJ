@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "CustomDialog",
 "language": "GDScript",
 "path": "res://scenes/dialogs/custom_dialog/DialogScript.gd"
+}, {
+"base": "Object",
+"class": "TypeFormattingLogic",
+"language": "GDScript",
+"path": "res://addons/metadata_inspector/TypeFormattingLogic.gd"
 } ]
 _global_script_class_icons={
-"CustomDialog": ""
+"CustomDialog": "",
+"TypeFormattingLogic": ""
 }
 
 [application]
@@ -43,7 +49,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/AutoExportVersion/plugin.cfg", "res://addons/Todo_Manager/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/AutoExportVersion/plugin.cfg", "res://addons/Todo_Manager/plugin.cfg", "res://addons/metadata_inspector/plugin.cfg" )
 
 [gui]
 

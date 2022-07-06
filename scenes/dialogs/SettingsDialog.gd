@@ -3,16 +3,20 @@ extends CustomDialog
 onready var lang_container = $"%LangContainer"
 
 func _ready() -> void:
-	get_node("VBoxContainer/ScrollContainer/SettingsContainer/ThemeContainer/"+ \
-		Variables.options.theme.capitalize()).pressed = true
-	$VBoxContainer/ScrollContainer/SettingsContainer/LabelVersion.text = Variables.VERSION
+	for i in $"%ThemeContainer".get_children():
+		if i.has_meta("theme_name"):
+			if i.get_meta("theme_name") == Variables.options.theme:
+				i.set_pressed_no_signal(true)
+				break
+	
+	$"%LabelVersion".text = Variables.VERSION
 	
 	if Variables.options.check_updates != null:
 		$"%CheckUpdates".set_pressed_no_signal(Variables.options.check_updates)
 	
 	var lang_btn_group = ButtonGroup.new()
 	
-	# --------------- Get name of locale in its language
+	# ----------- Get name of locale in its language
 	# https://github.com/godotengine/godot-proposals/issues/2378
 	var file = File.new()
 	file.open("res://languages/text.csv", file.READ)
@@ -26,7 +30,7 @@ func _ready() -> void:
 	
 	file.close()
 	
-	# --------------
+	# -----------
 	
 	var lang_auto_btn = lang_container.get_node("Auto")
 	lang_auto_btn.text = tr("SETTING_LANG_AUTO") % locale_to_name[OS.get_locale()]
@@ -59,7 +63,7 @@ func about_to_show():
 
 
 func _on_theme_chosen(button_pressed, theme_name):
-	if button_pressed and visible:
+	if button_pressed:
 		Variables.change_theme(theme_name)
 		Variables.options.theme = theme_name
 		Variables.save_options()
