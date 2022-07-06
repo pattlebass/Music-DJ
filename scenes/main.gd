@@ -288,7 +288,6 @@ func on_popup_hide() -> void:
 
 func _files_dropped(_files, _screen) -> void:
 	var dir = Directory.new()
-	var dialog_scene = preload("res://scenes/dialogs/ConfirmationDialog.tscn")
 	
 	for i in _files:
 		if not (i.ends_with(".mdj") or i.ends_with(".mdjt")):
@@ -297,15 +296,8 @@ func _files_dropped(_files, _screen) -> void:
 		var file_name = i.get_file()
 		
 		if dir.file_exists(Variables.user_dir.plus_file("Projects/%s" % file_name)):
-			var dialog = dialog_scene.instance()
-			add_child(dialog)
-			dialog.alert(
-				"DIALOG_CONFIRMATION_TITLE_OVERWRITE",
-				# TODO: Cleanup
-				tr("DIALOG_CONFIRMATION_BODY_OVERWRITE") % "[color=#4ecca3]%s[/color]" % file_name
-			)
-			var choice = yield(dialog, "chose")
-			if choice == true:
+			var body = tr("DIALOG_CONFIRMATION_BODY_OVERWRITE") % "[color=#4ecca3]%s[/color]" % file_name
+			if yield(Variables.confirm_popup("DIALOG_CONFIRMATION_TITLE_OVERWRITE", body), "completed"):
 				dir.copy(i, Variables.user_dir.plus_file("Projects/%s" % file_name))
 		else:
 			dir.copy(i, Variables.user_dir.plus_file("Projects/%s" % file_name))

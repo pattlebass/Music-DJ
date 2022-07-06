@@ -89,6 +89,15 @@ func has_storage_perms() -> bool:
 	return true
 
 
+func confirm_popup(title: String, body: String) -> bool:
+	var dialog = preload("res://scenes/dialogs/ConfirmationDialog.tscn").instance()
+	
+	main.add_child(dialog)
+	dialog.alert(title, body)
+	
+	return yield(dialog, "chose")
+
+
 # Keyboard focus
 
 var buttons := []
