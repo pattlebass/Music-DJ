@@ -47,6 +47,7 @@ enabled=PoolStringArray( "res://addons/AutoExportVersion/plugin.cfg", "res://add
 
 [gui]
 
+common/default_scroll_deadzone=30
 theme/custom="res://assets/themes/dark/dark.tres"
 
 [input]

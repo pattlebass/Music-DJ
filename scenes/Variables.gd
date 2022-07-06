@@ -127,7 +127,7 @@ func _input(event: InputEvent) -> void:
 
 func _node_added(node) -> void:
 	if node is Button:
-		if not show_focus:
+		if not show_focus and node.focus_mode == Control.FOCUS_ALL:
 			node.set("custom_styles/focus", StyleBoxEmpty.new())
 		buttons.append(node)
 

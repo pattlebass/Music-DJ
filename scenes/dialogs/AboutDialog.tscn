@@ -3,8 +3,8 @@
 [ext_resource path="res://scenes/dialogs/AboutDialog.gd" type="Script" id=1]
 
 [node name="AboutDialog" type="PopupDialog"]
-margin_right = 449.0
-margin_bottom = 415.0
+margin_right = 492.0
+margin_bottom = 512.0
 input_pass_on_modal_close_click = false
 script = ExtResource( 1 )
 
@@ -13,19 +13,30 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="Label" type="Label" parent="VBoxContainer"]
-margin_right = 449.0
+margin_right = 492.0
 margin_bottom = 55.0
 text = "DIALOG_ABOUT_TITLE"
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
 margin_top = 59.0
-margin_right = 449.0
+margin_right = 492.0
 margin_bottom = 61.0
 
-[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
 margin_top = 65.0
-margin_right = 449.0
-margin_bottom = 373.0
+margin_right = 492.0
+margin_bottom = 444.0
+focus_neighbour_bottom = NodePath(".")
+focus_mode = 2
+mouse_filter = 1
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/ScrollContainer"]
+margin_right = 492.0
+margin_bottom = 780.0
+mouse_filter = 1
+size_flags_horizontal = 3
 size_flags_vertical = 3
 bbcode_enabled = true
 bbcode_text = "Developer:
@@ -34,28 +45,50 @@ bbcode_text = "Developer:
 Translators:
 - StarryWindy (Indonesian)
 
-I don't pretend to hold any copyright on the samples. If anyone at Sony is reading this you can email me [color=#4ecca3][url=mailto:pattlebass.dev@gmail.com]pattlebass.dev@gmail.com[/url][/color], but consider that this is a passion project made available for free."
+Credits and licenses:
+- [color=#4ecca3][url=https://github.com/pattlebass/Music-DJ/blob/main/LICENSE]MusicDJ[/url][/color] by pattlebass
+- [color=#4ecca3][url=https://godotengine.org/license]Godot Engine[/url][/color]
+- Icons made by [color=#4ecca3][url=https://www.flaticon.com/authors/freepik]Freepik[/url][/color] from [color=#4ecca3][url=https://www.flaticon.com/]www.flaticon.com[/url][/color].
+- Icons made by [color=#4ecca3][url=https://www.flaticon.com/authors/dave-gandy]Dave Gandy[/url][/color] from [color=#4ecca3][url=https://www.flaticon.com/]www.flaticon.com[/url][/color].
+
+I don't pretend to hold any copyright on the samples. If anyone at Sony is reading this, you can email me [color=#4ecca3][url=mailto:pattlebass.dev@gmail.com]pattlebass.dev@gmail.com[/url][/color], but consider that this is a passion project made available for free."
 text = "Developer:
 - pattlebass (@pattlebass_dev)
 
 Translators:
 - StarryWindy (Indonesian)
 
-I don't pretend to hold any copyright on the samples. If anyone at Sony is reading this you can email me pattlebass.dev@gmail.com, but consider that this is a passion project made available for free."
+Credits and licenses:
+- MusicDJ by pattlebass
+- Godot Engine
+- Icons made by Freepik from www.flaticon.com.
+- Icons made by Dave Gandy from www.flaticon.com.
+
+I don't pretend to hold any copyright on the samples. If anyone at Sony is reading this, you can email me pattlebass.dev@gmail.com, but consider that this is a passion project made available for free."
+fit_content_height = true
+scroll_active = false
 
 [node name="Control" type="Control" parent="VBoxContainer"]
-visible = false
-margin_top = 221.0
-margin_right = 405.0
-margin_bottom = 373.0
-size_flags_vertical = 3
+margin_top = 448.0
+margin_right = 492.0
+margin_bottom = 458.0
+rect_min_size = Vector2( 0, 10 )
 
-[node name="LabelVersion" type="Label" parent="VBoxContainer"]
-margin_top = 377.0
-margin_right = 449.0
-margin_bottom = 415.0
-theme_type_variation = "LabelSubtitle"
-text = "v1.x.x"
-align = 2
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 462.0
+margin_right = 492.0
+margin_bottom = 512.0
+alignment = 1
 
-[connection signal="meta_clicked" from="VBoxContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
+[node name="CloseButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+margin_left = 174.0
+margin_right = 318.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 80, 50 )
+text = "BTN_CLOSE"
+
+[connection signal="gui_input" from="VBoxContainer/ScrollContainer" to="." method="_on_ScrollContainer_gui_input"]
+[connection signal="scroll_ended" from="VBoxContainer/ScrollContainer" to="." method="_on_ScrollContainer_scroll_ended"]
+[connection signal="scroll_started" from="VBoxContainer/ScrollContainer" to="." method="_on_ScrollContainer_scroll_started"]
+[connection signal="meta_clicked" from="VBoxContainer/ScrollContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_CloseButton_pressed"]
