@@ -197,6 +197,7 @@ func on_Button_deleted(_container, file_name):
 	var body = tr("DIALOG_CONFIRMATION_BODY_DELETE") % "[color=#4ecca3]%s[/color]" % file_name
 	if yield(Variables.confirm_popup("DIALOG_CONFIRMATION_TITLE_DELETE", body), "completed"):
 		dir.remove(Variables.user_dir.plus_file("Projects/%s" % file_name))
+		$VBoxContainer/HBoxContainer/OkButton.disabled = _container.get_node("LoadButton").text == selected_file
 		_container.queue_free()
 	
 	modulate = Color.white
