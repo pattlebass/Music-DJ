@@ -40,7 +40,7 @@ func set_tile(instrument: int, sample_index: int) -> void:
 	tile.set_meta("sample_index", sample_index)
 	
 	var style_box = get_stylebox(Variables.category_names[category], "Tile")
-
+	
 	tile.set("custom_styles/normal", style_box)
 	tile.set("custom_styles/pressed", style_box)
 	tile.set("custom_styles/disabled", style_box)
@@ -98,7 +98,6 @@ func on_tile_gui_input(event: InputEvent, button: Button) -> void:
 			menu.set_item_disabled(0, true)
 			menu.set_item_disabled(2, true)
 		
-		
 		if event.get("global_position"):
 			menu.rect_position = event.global_position
 		else:
@@ -110,7 +109,7 @@ func on_tile_gui_input(event: InputEvent, button: Button) -> void:
 		menu.pivot_manual = true
 		
 		menu.connect("id_pressed", self, "context_menu_pressed", [instrument, sample_index])
-		menu.connect("visibility_changed", self, "context_menu_visibility_changed", [menu])
+		menu.connect("visibility_changed", self, "context_menu_visibility_changed", [menu, instrument])
 		menu.connect("popup_hide", menu, "queue_free")
 		
 		add_child(menu)
@@ -133,15 +132,21 @@ func context_menu_pressed(id: int, instrument: int, sample_index: int) -> void:
 		2: # Clear
 			clear_tile(instrument)
 
+
 # Work-around until https://github.com/godotengine/godot-proposals/issues/2663
-func context_menu_visibility_changed(menu: Control) -> void:
-	menu.grab_focus()
-	if menu.visible and Variables.show_focus:
+func context_menu_visibility_changed(menu: Control, instrument: int) -> void:
+	if not Variables.show_focus:
+		return
+	
+	if menu.visible:
+		menu.grab_focus()
 		var e := InputEventAction.new()
 		e.action = "ui_down"
 		e.pressed = true
 		Input.parse_input_event(e)
 		accept_event()
+	else:
+		tiles[instrument].grab_focus()
 
 
 func _notification(what) -> void:
