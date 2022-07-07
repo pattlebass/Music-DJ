@@ -2,6 +2,7 @@ extends CustomDialog
 
 onready var lang_container = $"%LangContainer"
 
+
 func _ready() -> void:
 	for i in $"%ThemeContainer".get_children():
 		if i.has_meta("theme_name"):
@@ -16,24 +17,15 @@ func _ready() -> void:
 	
 	var lang_btn_group = ButtonGroup.new()
 	
-	# ----------- Get name of locale in its language
-	# https://github.com/godotengine/godot-proposals/issues/2378
-	var file = File.new()
-	file.open("res://languages/text.csv", file.READ)
-	var locales = file.get_csv_line() # First line
-	var lang_names = file.get_csv_line() # Second line
-	
-	var locale_to_name = {}
-	
-	for i in locales.size():
-		locale_to_name[locales[i]] = lang_names[i]
-	
-	file.close()
-	
-	# -----------
+	# Work-around for https://github.com/godotengine/godot-proposals/issues/2378
+	var locale_names = {
+		"en_US": "English",
+		"ro": "Română",
+		"id": "Bahasa Indonesia",
+	}
 	
 	var lang_auto_btn = lang_container.get_node("Auto")
-	lang_auto_btn.text = tr("SETTING_LANG_AUTO") % locale_to_name[OS.get_locale()]
+	lang_auto_btn.text = tr("SETTING_LANG_AUTO") % locale_names[OS.get_locale()]
 	lang_auto_btn.group = lang_btn_group
 	lang_auto_btn.connect("pressed", self, "on_lang_chosen", [""])
 	
@@ -42,7 +34,7 @@ func _ready() -> void:
 	
 	for i in TranslationServer.get_loaded_locales():
 		var check_box = CheckBox.new()
-		check_box.text = locale_to_name[i]
+		check_box.text = locale_names[i]
 		check_box.group = lang_btn_group
 		check_box.mouse_filter = Control.MOUSE_FILTER_PASS
 		check_box.connect("pressed", self, "on_lang_chosen", [i])
