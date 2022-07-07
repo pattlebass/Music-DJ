@@ -16,8 +16,8 @@ BTN_SEND_BUG,Send a bug report,Raportează un bug,Laporkan masalah
 BTN_SEND_PROPOSAL,Send a proposal,Trimite o îmbunătățire,Kirimkan proposal
 DIALOG_SETTINGS_TITLE,Settings,Setări,Pengaturan
 SETTING_THEME,Theme,Temă,Tema
-SETTING_THEME_DARK,Dark,,Gelap
-SETTING_THEME_WHITE,Light,,Terang
+SETTING_THEME_DARK,Dark,Întunecată,Gelap
+SETTING_THEME_WHITE,Light,Deschisă,Terang
 SETTING_LANG,Language,Limbă,Bahasa
 SETTING_LANG_AUTO,Auto (%s),Auto (%s),Otomatis (%s)
 SETTING_CHECK_UPDATES,Check for updates,Verificați actualizări,
@@ -35,8 +35,8 @@ DIALOG_UPDATE_BTN_OK,Download,Descărcați,
 DIALOG_UPDATE_TITLE_ASK,Check for updates?,Verificați actualizări?,
 DIALOG_UPDATE_BODY_ASK,"Check for updates on startup?
 This app uses the Github API to check for updates. Here's their [url=%s]Privacy Policy[/url].","Verificați actualizări când deschideți aplicația?
-Această aplicație folosește Github API. [url=%s]
-Politica de Confidențialitate[/url].",
+Această aplicație folosește API-ul Github. [url=%s]
+Politica lor de Confidențialitate[/url].",
 DIALOG_UPDATE_BTN_ACCEPT,Yes,Da,
 DIALOG_UPDATE_BTN_DENY,No,Nu,
 DIALOG_PROGRESS_TITLE,Saving...,Se salvează...,Menyimpan...
@@ -53,10 +53,11 @@ INSTRUMENT_DRUMS,Drums,Tobe,Drum
 INSTRUMENT_BASS,Bass,Bas,Bass
 INSTRUMENT_KEYS,Keys,Pian,Piano
 INSTRUMENT_TRUMPET,Trumpet,Trompetă,Terompet
-TUTORIAL1,Tap and hold a tile to copy it.,Țineți apăsat pe o celulă pentru a o copia.,Ketuk dan tahan balok untuk menyalinnya.
-TUTORIAL2,Tap the number of a column to open its menu.,Apăsați pe numărul unei coloane pentru a-i deschide meniul.,Ketuk nomor kolom untuk membuka menunya.
-TUTORIAL3,You can drag and drop project files into the App's window.,Puteți să trageți proiecte în fereastra aplicației.,Anda bisa tarik file proyek langsung ke jendela aplikasi.
-TUTORIAL4,Follow %s on Twitter for updates.,Urmăriți %s pe Twitter pentru actualizări.,Ikuti %s di Twitter untuk info terbaru.
+TUTORIAL_HOLD_TILE,Tap and hold a tile to copy it.,Țineți apăsat pe o celulă pentru a o copia.,Ketuk dan tahan balok untuk menyalinnya.
+TUTORIAL_COLUMN_BTN,Tap the number of a column to open its menu.,Apăsați pe numărul unei coloane pentru a-i deschide meniul.,Ketuk nomor kolom untuk membuka menunya.
+TUTORIAL_DRAG_FILE,You can drag and drop project files into the App's window.,Puteți să trageți proiecte în fereastra aplicației.,Anda bisa tarik file proyek langsung ke jendela aplikasi.
+TUTORIAL_FOLLOW,Follow %s on Twitter for updates.,Urmăriți %s pe Twitter pentru actualizări.,Ikuti %s di Twitter untuk info terbaru.
+TUTORIAL_RIGHT_CLICK,Right-click a tile to open its context menu,Apăsați clic dreapta pe o celulă pentru a-i deschide menul,
 SAMPLE_CAT_INTRODUCTION,Introduction,Introducere,Intro
 SAMPLE_CAT_VERSE,Verse,Strofă,Bait
 SAMPLE_CAT_CHORUS,Chorus,Refren,Refrain
