@@ -1,4 +1,4 @@
-keys,en_US,ro,id
+keys,en,ro,id
 LANG_NAME,English,Română,Bahasa Indonesia
 BTN_PLAY,Play,Redați,Putar
 BTN_STOP,Stop,Stop,Berhenti
@@ -57,7 +57,7 @@ TUTORIAL_HOLD_TILE,Tap and hold a tile to copy it.,Țineți apăsat pe o celulă
 TUTORIAL_COLUMN_BTN,Tap the number of a column to open its menu.,Apăsați pe numărul unei coloane pentru a-i deschide meniul.,Ketuk nomor kolom untuk membuka menunya.
 TUTORIAL_DRAG_FILE,You can drag and drop project files into the App's window.,Puteți să trageți proiecte în fereastra aplicației.,Anda bisa tarik file proyek langsung ke jendela aplikasi.
 TUTORIAL_FOLLOW,Follow %s on Twitter for updates.,Urmăriți %s pe Twitter pentru actualizări.,Ikuti %s di Twitter untuk info terbaru.
-TUTORIAL_RIGHT_CLICK,Right-click a tile to open its context menu,Apăsați clic dreapta pe o celulă pentru a-i deschide menul,
+TUTORIAL_RIGHT_CLICK,Right-click a tile to open its context menu.,Apăsați clic dreapta pe o celulă pentru a-i deschide menul.,
 SAMPLE_CAT_INTRODUCTION,Introduction,Introducere,Intro
 SAMPLE_CAT_VERSE,Verse,Strofă,Bait
 SAMPLE_CAT_CHORUS,Chorus,Refren,Refrain

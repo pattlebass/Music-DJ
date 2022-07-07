@@ -2,7 +2,6 @@ extends CustomDialog
 
 var instrument
 var pressed_button_index = 0
-var sample_category = 0
 
 var column
 var column_no

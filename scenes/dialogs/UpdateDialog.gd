@@ -23,7 +23,7 @@ func _ready() -> void:
 		$HTTPRequest.request("https://api.github.com/repos/pattlebass/Music-DJ/releases/latest")
 
 
-func _on_HTTPRequest_request_completed(result: int, response_code: int, headers: PoolStringArray, body: PoolByteArray) -> void:
+func _on_HTTPRequest_request_completed(_result: int, response_code: int, _headers: PoolStringArray, body: PoolByteArray) -> void:
 	print("Received response code %s from Github" % response_code)
 	
 	var json_result = JSON.parse(body.get_string_from_utf8()).result

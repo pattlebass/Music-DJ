@@ -305,6 +305,7 @@ func _files_dropped(_files, _screen) -> void:
 
 
 func more_item_pressed(id) -> void:
+	#await navigator.userAgentData.getHighEntropyValues(["model", "platform", "platformVersion", "uaFullVersion"])
 	match id:
 		0:
 			$SettingsDialog.popup_centered()
