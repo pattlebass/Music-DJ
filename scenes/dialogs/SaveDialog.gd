@@ -114,28 +114,6 @@ func get_default_name() -> String:
 	return "Song " + str(randi() % 1000)
 
 
-func download_file(_file_path, _file_name):
-	var file = File.new()
-	file.open(_file_path, File.READ)
-	var file_data_raw = file.get_buffer(file.get_len())
-	var file_data_64 = Marshalls.raw_to_base64(file_data_raw)
-	file.close()
-	
-	var mime_type
-	if _file_name.ends_with(".wav"):
-		mime_type = "audio/wav"
-	elif _file_name.ends_with(".mdj"):
-		mime_type = "application/json"
-
-	JavaScript.eval("""
-	var a = document.createElement('a');
-	a.download = '%s';
-	a.href = 'data:%s;base64,%s';
-	a.target = '_blank'
-	a.click();
-	""" % [_file_name, mime_type, file_data_64])
-
-
 func _on_LineEdit_text_entered(_new_text: String) -> void:
 	# Kinda hacky, but this is not an AcceptDialog so it doesn't have
 	# the register_text_enter() method

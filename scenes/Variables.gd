@@ -89,6 +89,21 @@ func has_storage_perms() -> bool:
 	return true
 
 
+func download_file(_file_path, _file_name):
+	var file := File.new()
+	file.open(_file_path, File.READ)
+	var file_data_raw := file.get_buffer(file.get_len())
+	file.close()
+	
+	var mime_type
+	if _file_name.ends_with(".wav"):
+		mime_type = "audio/wav"
+	elif _file_name.ends_with(".mdj"):
+		mime_type = "application/json"
+	
+	JavaScript.download_buffer(file_data_raw, _file_name, mime_type)
+
+
 func confirm_popup(title: String, body: String) -> bool:
 	var dialog = preload("res://scenes/dialogs/ConfirmationDialog.tscn").instance()
 	

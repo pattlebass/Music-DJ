@@ -205,7 +205,7 @@ func on_Button_deleted(_container, file_name):
 
 func on_Button_download(_container):
 	var file_name = _container.get_child(0).text
-	main.get_node("SaveDialog").download_file(
+	Variables.download_file(
 		Variables.user_dir.plus_file("Projects/%s" % file_name),
 		file_name
 	)

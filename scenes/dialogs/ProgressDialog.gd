@@ -70,4 +70,4 @@ func _on_DownloadButton_pressed():
 		path = Variables.user_dir.plus_file("Projects/%s" % file_name)
 	elif file_name.ends_with(".wav"):
 		path = Variables.user_dir.plus_file("Exports/%s" % file_name)
-	main.get_node("SaveDialog").download_file(path, file_name)
+	Variables.download_file(path, file_name)
