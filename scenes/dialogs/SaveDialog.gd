@@ -9,10 +9,7 @@ var is_cancelled = false
 
 onready var line_edit = $VBoxContainer/VBoxContainer/HBoxContainer/LineEdit
 onready var ok_button = $VBoxContainer/HBoxContainer/OkButton
-
-var once := false
-
-#var regex = RegEx.new()
+onready var label_error = $VBoxContainer/VBoxContainer/LabelError
 
 
 func _ready() -> void:
@@ -24,9 +21,10 @@ func _ready() -> void:
 
 
 func save():
+	entered_name = entered_name.strip_edges()
 	if type_of_save == "project":
 		# Project save
-		var path = Variables.user_dir.plus_file("Projects/%s.mdj" % entered_name.strip_edges())
+		var path = Variables.user_dir.plus_file("Projects/%s.mdj" % entered_name)
 		var file = File.new()
 		file.open(path, File.WRITE)
 		file.store_string(to_json(main.song))
@@ -44,7 +42,7 @@ func save():
 		main.get_node("SoundDialog/AudioStreamPlayer").stop()
 		
 		# ProgressDialog
-		var path = Variables.user_dir.plus_file("Exports/%s.wav" % entered_name.strip_edges())
+		var path = Variables.user_dir.plus_file("Exports/%s.wav" % entered_name)
 		main.get_node("ProgressDialog").path_text = path
 		main.get_node("ProgressDialog").after_saving = "stay"
 		main.get_node("ProgressDialog").progress_bar.max_value = 3*(main.used_columns.max()+1) + 0.5
@@ -91,26 +89,18 @@ func about_to_show():
 	.about_to_show()
 
 
-func validate_filename(text: String) -> String:
-	var invalid_chars = ["<", ">", ":", "\"", "/", ")", "\\", "|", "?", "*", "#"]
-	
-	for i in invalid_chars:
-		text = text.replace(i, "")
-	
-	return text
-
-
 func _on_LineEdit_text_changed(new_text):
-	new_text = validate_filename(new_text)
-	
-	line_edit.text = new_text
-	line_edit.caret_position = line_edit.text.length()
-	
-	if new_text == "" or new_text[0] == ".":
+	if not new_text.strip_edges().is_valid_filename() or new_text[0] == ".":
 		ok_button.disabled = true
-	else:
-		entered_name = new_text
-		ok_button.disabled = false
+		
+		if new_text:
+			label_error.text = "Invalid file name: / \\ ? * \" | % < > :"
+		
+		return
+	
+	entered_name = new_text
+	ok_button.disabled = false
+	label_error.text = ""
 
 
 func _process(_delta):
@@ -124,30 +114,10 @@ func get_default_name() -> String:
 	return "Song " + str(randi() % 1000)
 
 
-func download_file(_file_path, _file_name):
-	var file = File.new()
-	file.open(_file_path, File.READ)
-	var file_data_raw = file.get_buffer(file.get_len())
-	var file_data_64 = Marshalls.raw_to_base64(file_data_raw)
-	file.close()
-	
-	var mime_type
-	if _file_name.ends_with(".wav"):
-		mime_type = "audio/wav"
-	elif _file_name.ends_with(".mdj"):
-		mime_type = "application/json"
-
-	JavaScript.eval("""
-	var a = document.createElement('a');
-	a.download = '%s';
-	a.href = 'data:%s;base64,%s';
-	a.target = '_blank'
-	a.click();
-	""" % [_file_name, mime_type, file_data_64])
-
-
 func _on_LineEdit_text_entered(_new_text: String) -> void:
 	# Kinda hacky, but this is not an AcceptDialog so it doesn't have
 	# the register_text_enter() method
+	if ok_button.disabled:
+		return
 	yield(get_tree().create_timer(0.1), "timeout")
 	ok_button.emit_signal("pressed")

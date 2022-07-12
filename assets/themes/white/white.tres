@@ -1,8 +1,10 @@
-[gd_resource type="Theme" load_steps=49 format=2]
+[gd_resource type="Theme" load_steps=52 format=2]
 
 [ext_resource path="res://assets/fonts/GidoleFont/Gidole-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/themes/white/radio_check.svg" type="Texture" id=2]
 [ext_resource path="res://assets/themes/white/radio_uncheck.svg" type="Texture" id=3]
+[ext_resource path="res://assets/themes/white/unchecked_box.svg" type="Texture" id=4]
+[ext_resource path="res://assets/themes/white/checked_box.svg" type="Texture" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
@@ -117,6 +119,19 @@ border_color = Color( 0.305882, 0.8, 0.639216, 1 )
 size = 40
 extra_spacing_char = -2
 font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=48]
+bg_color = Color( 0, 0, 0, 0.501961 )
+draw_center = false
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color( 0, 0.686275, 0.956863, 1 )
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
 
 [sub_resource type="StyleBoxFlat" id=32]
 bg_color = Color( 0.960784, 0.960784, 0.960784, 1 )
@@ -276,12 +291,11 @@ CheckBox/colors/font_color_pressed = Color( 0, 0, 0, 0.6 )
 CheckBox/constants/check_vadjust = 0
 CheckBox/constants/hseparation = 10
 CheckBox/fonts/font = null
-CheckBox/icons/checked = null
+CheckBox/icons/checked = ExtResource( 5 )
 CheckBox/icons/radio_checked = ExtResource( 2 )
 CheckBox/icons/radio_unchecked = ExtResource( 3 )
-CheckBox/icons/unchecked = null
+CheckBox/icons/unchecked = ExtResource( 4 )
 CheckBox/styles/disabled = SubResource( 6 )
-CheckBox/styles/focus = SubResource( 6 )
 CheckBox/styles/hover = SubResource( 6 )
 CheckBox/styles/hover_pressed = SubResource( 6 )
 CheckBox/styles/normal = SubResource( 6 )
@@ -349,7 +363,7 @@ ListItem/colors/font_color_focus = Color( 0, 0, 0, 0.6 )
 ListItem/colors/font_color_hover = Color( 0, 0, 0, 0.6 )
 ListItem/colors/font_color_pressed = Color( 0, 0, 0, 0.6 )
 ListItem/fonts/font = SubResource( 36 )
-ListItem/styles/focus = SubResource( 41 )
+ListItem/styles/focus = SubResource( 48 )
 ListItem/styles/hover = SubResource( 32 )
 ListItem/styles/normal = SubResource( 33 )
 ListItem/styles/pressed = SubResource( 34 )
@@ -374,7 +388,7 @@ OptionButton/styles/pressed = null
 Panel/styles/panel = SubResource( 20 )
 PopupDialog/styles/panel = SubResource( 21 )
 PopupMenu/colors/font_color = Color( 0, 0, 0, 0.6 )
-PopupMenu/colors/font_color_accel = Color( 0.901961, 0.901961, 0.901961, 0.2 )
+PopupMenu/colors/font_color_accel = Color( 0, 0, 0, 0.392157 )
 PopupMenu/colors/font_color_disabled = Color( 0.866667, 0.866667, 0.866667, 1 )
 PopupMenu/colors/font_color_hover = Color( 0, 0, 0, 0.6 )
 PopupMenu/colors/font_color_separator = Color( 0, 0, 0, 0.6 )

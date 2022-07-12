@@ -191,27 +191,21 @@ func _on_OpenButton_pressed():
 
 func on_Button_deleted(_container, file_name):
 	var dir = Directory.new()
-	var dialog = preload("res://scenes/dialogs/ConfirmationDialog.tscn").instance()
 	
 	modulate = Color.transparent
 	
-	main.add_child(dialog)
-	dialog.alert(
-		"DIALOG_CONFIRMATION_TITLE_DELETE",
-		tr("DIALOG_CONFIRMATION_BODY_DELETE") % "[color=#4ecca3]%s[/color]" % file_name
-	)
-	var choice = yield(dialog, "chose")
-	if choice:
+	var body = tr("DIALOG_CONFIRMATION_BODY_DELETE") % "[color=#4ecca3]%s[/color]" % file_name
+	if yield(Variables.confirm_popup("DIALOG_CONFIRMATION_TITLE_DELETE", body), "completed"):
 		dir.remove(Variables.user_dir.plus_file("Projects/%s" % file_name))
+		$VBoxContainer/HBoxContainer/OkButton.disabled = _container.get_node("LoadButton").text == selected_file
 		_container.queue_free()
 	
-	yield(get_tree(), "idle_frame")
 	modulate = Color.white
 
 
 func on_Button_download(_container):
 	var file_name = _container.get_child(0).text
-	main.get_node("SaveDialog").download_file(
+	Variables.download_file(
 		Variables.user_dir.plus_file("Projects/%s" % file_name),
 		file_name
 	)

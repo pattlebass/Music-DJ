@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "CustomDialog",
 "language": "GDScript",
 "path": "res://scenes/dialogs/custom_dialog/DialogScript.gd"
+}, {
+"base": "Object",
+"class": "TypeFormattingLogic",
+"language": "GDScript",
+"path": "res://addons/metadata_inspector/TypeFormattingLogic.gd"
 } ]
 _global_script_class_icons={
-"CustomDialog": ""
+"CustomDialog": "",
+"TypeFormattingLogic": ""
 }
 
 [application]
@@ -32,6 +38,7 @@ Variables="*res://scenes/Variables.gd"
 
 [debug]
 
+gdscript/warnings/unused_class_variable=true
 gdscript/warnings/return_value_discarded=false
 
 [display]
@@ -42,10 +49,11 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/AutoExportVersion/plugin.cfg", "res://addons/Todo_Manager/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/AutoExportVersion/plugin.cfg", "res://addons/Todo_Manager/plugin.cfg", "res://addons/metadata_inspector/plugin.cfg" )
 
 [gui]
 
+common/default_scroll_deadzone=30
 theme/custom="res://assets/themes/dark/dark.tres"
 
 [input]
@@ -67,7 +75,7 @@ ui_menu={
 }
 copy={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":true,"meta":false,"command":true,"pressed":false,"scancode":67,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":true,"meta":false,"command":true,"pressed":false,"scancode":0,"physical_scancode":67,"unicode":0,"echo":false,"script":null)
  ]
 }
 paste={
@@ -82,7 +90,8 @@ pointing/emulate_touch_from_mouse=true
 
 [locale]
 
-translations=PoolStringArray( "res://languages/text.en_US.translation", "res://languages/text.pt_BR.translation", "res://languages/text.ro.translation" )
+translations=PoolStringArray( "res://languages/text.ro.translation", "res://languages/text.id.translation", "res://languages/text.en.translation" )
+locale_filter=[ 0, [  ] ]
 
 [rendering]
 

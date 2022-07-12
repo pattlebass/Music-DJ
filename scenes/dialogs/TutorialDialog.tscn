@@ -1,14 +1,13 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scenes/dialogs/TutorialDialog.gd" type="Script" id=1]
-[ext_resource path="res://assets/tutorial/0.webm" type="VideoStream" id=2]
 
 [sub_resource type="StyleBoxEmpty" id=6]
 
 [sub_resource type="Animation" id=7]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("VBoxContainer/HBoxContainer2/VBoxContainer2/VideoPlayer:rect_position")
+tracks/0/path = NodePath("VBoxContainer/HBoxContainer/VBoxContainer2/Control:rect_position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -20,7 +19,7 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("VBoxContainer/HBoxContainer2/VBoxContainer2/VideoPlayer:modulate")
+tracks/1/path = NodePath("VBoxContainer/HBoxContainer/VBoxContainer2/Control:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -61,7 +60,7 @@ resource_name = "fade_in"
 length = 0.1
 step = 0.01
 tracks/0/type = "value"
-tracks/0/path = NodePath("VBoxContainer/HBoxContainer2/VBoxContainer2/VideoPlayer:modulate")
+tracks/0/path = NodePath("VBoxContainer/HBoxContainer/VBoxContainer2/Control:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -73,7 +72,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("VBoxContainer/HBoxContainer2/VBoxContainer2/VideoPlayer:rect_position")
+tracks/1/path = NodePath("VBoxContainer/HBoxContainer/VBoxContainer2/Control:rect_position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -90,7 +89,7 @@ resource_name = "fade_in_right_to_left"
 length = 0.1
 step = 0.01
 tracks/0/type = "value"
-tracks/0/path = NodePath("VBoxContainer/HBoxContainer2/VBoxContainer2/VideoPlayer:modulate")
+tracks/0/path = NodePath("VBoxContainer/HBoxContainer/VBoxContainer2/Control:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -102,7 +101,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("VBoxContainer/HBoxContainer2/VBoxContainer2/VideoPlayer:rect_position")
+tracks/1/path = NodePath("VBoxContainer/HBoxContainer/VBoxContainer2/Control:rect_position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -143,7 +142,7 @@ resource_name = "fade_out_right_to_left"
 length = 0.1
 step = 0.01
 tracks/0/type = "value"
-tracks/0/path = NodePath("VBoxContainer/HBoxContainer2/VBoxContainer2/VideoPlayer:modulate")
+tracks/0/path = NodePath("VBoxContainer/HBoxContainer/VBoxContainer2/Control:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -155,7 +154,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("VBoxContainer/HBoxContainer2/VBoxContainer2/VideoPlayer:rect_position")
+tracks/1/path = NodePath("VBoxContainer/HBoxContainer/VBoxContainer2/Control:rect_position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -203,8 +202,7 @@ __meta__ = {
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchor_right = 1.0
-anchor_bottom = 0.933
-margin_bottom = 0.102997
+anchor_bottom = 1.0
 
 [node name="Title" type="Label" parent="VBoxContainer"]
 margin_right = 715.0
@@ -217,9 +215,9 @@ margin_right = 715.0
 margin_bottom = 61.0
 
 [node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer"]
-margin_top = 69.0
+margin_top = 65.0
 margin_right = 715.0
-margin_bottom = 109.0
+margin_bottom = 105.0
 rect_min_size = Vector2( 0, 40 )
 bbcode_enabled = true
 text = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore. "
@@ -232,62 +230,74 @@ margin_bottom = 129.0
 custom_constants/separation = 20
 custom_styles/separator = SubResource( 6 )
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 133.0
 margin_right = 715.0
-margin_bottom = 433.0
+margin_bottom = 431.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 custom_constants/separation = 30
 alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2"]
-margin_left = 17.0
-margin_right = 77.0
-margin_bottom = 300.0
-alignment = 1
-
-[node name="PreviousButton" type="Button" parent="VBoxContainer/HBoxContainer2/VBoxContainer"]
-margin_top = 120.0
+[node name="PreviousButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+margin_top = 119.0
 margin_right = 60.0
-margin_bottom = 180.0
+margin_bottom = 179.0
 rect_min_size = Vector2( 60, 60 )
 size_flags_horizontal = 0
-size_flags_vertical = 0
+size_flags_vertical = 4
 text = "<"
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2"]
-margin_left = 107.0
-margin_right = 607.0
-margin_bottom = 300.0
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
+margin_left = 90.0
+margin_right = 625.0
+margin_bottom = 298.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 alignment = 1
 
-[node name="VideoPlayer" type="VideoPlayer" parent="VBoxContainer/HBoxContainer2/VBoxContainer2"]
-margin_right = 500.0
-margin_bottom = 300.0
-rect_min_size = Vector2( 500, 300 )
-stream = ExtResource( 2 )
+[node name="Control" type="Control" parent="VBoxContainer/HBoxContainer/VBoxContainer2"]
+margin_right = 535.0
+margin_bottom = 298.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
-[node name="VBoxContainer3" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2"]
-margin_left = 637.0
-margin_right = 697.0
-margin_bottom = 300.0
-alignment = 1
+[node name="VideoPlayer" type="VideoPlayer" parent="VBoxContainer/HBoxContainer/VBoxContainer2/Control"]
+unique_name_in_owner = true
+margin_right = 535.0
+margin_bottom = 294.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
-[node name="NextButton" type="Button" parent="VBoxContainer/HBoxContainer2/VBoxContainer3"]
-margin_top = 120.0
-margin_right = 60.0
-margin_bottom = 180.0
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/VBoxContainer2/Control"]
+unique_name_in_owner = true
+visible = false
+margin_right = 535.0
+margin_bottom = 294.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+expand = true
+
+[node name="NextButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+margin_left = 655.0
+margin_top = 119.0
+margin_right = 715.0
+margin_bottom = 179.0
 rect_min_size = Vector2( 60, 60 )
 size_flags_horizontal = 0
-size_flags_vertical = 0
+size_flags_vertical = 4
 text = ">"
 __meta__ = {
 "_editor_description_": ""
 }
 
 [node name="PageLabel" type="Label" parent="VBoxContainer"]
-margin_top = 437.0
+unique_name_in_owner = true
+margin_top = 435.0
 margin_right = 715.0
-margin_bottom = 475.0
+margin_bottom = 473.0
 theme_type_variation = "LabelSubtitle"
 text = "1/x"
 align = 1
@@ -299,6 +309,6 @@ anims/fade_in_right_to_left = SubResource( 9 )
 anims/fade_out_right_to_left = SubResource( 10 )
 
 [connection signal="meta_clicked" from="VBoxContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer2/VBoxContainer/PreviousButton" to="." method="_on_PreviousButton_pressed"]
-[connection signal="finished" from="VBoxContainer/HBoxContainer2/VBoxContainer2/VideoPlayer" to="." method="_on_VideoPlayer_finished"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer2/VBoxContainer3/NextButton" to="." method="_on_NextButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/PreviousButton" to="." method="_on_PreviousButton_pressed"]
+[connection signal="finished" from="VBoxContainer/HBoxContainer/VBoxContainer2/Control/VideoPlayer" to="." method="_on_VideoPlayer_finished"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/NextButton" to="." method="_on_NextButton_pressed"]

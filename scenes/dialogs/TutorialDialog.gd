@@ -1,26 +1,52 @@
 extends CustomDialog
 
 
-var panels = [
-	{"video":"res://assets/tutorial/0.webm", "placeholders": []},
-	{"video":"res://assets/tutorial/1.webm", "placeholders": []},
-	{"video":"res://assets/tutorial/2.webm", "placeholders": []},
+var all_panels = [
 	{
-		"video":"res://assets/tutorial/3.webm",
-		"placeholders": ["[color=#4ecca3][url=https://twitter.com/pattlebass_dev]@pattlebass_dev[/url][/color]"]
+		"key": "TUTORIAL_HOLD_TILE",
+		"video":"res://assets/tutorial/hold-tile.webm",
+		"condition": OS.has_feature("mobile") or OS.has_feature("web"),
+	},
+	{"key": "TUTORIAL_COLUMN_BTN", "video":"res://assets/tutorial/column-btn.webm"},
+	{
+		"key": "TUTORIAL_DRAG_FILE",
+		"video":"res://assets/tutorial/drag-file.webm",
+		"condition": OS.has_feature("pc") or OS.has_feature("web"),
+	},
+	{
+		"key": "TUTORIAL_RIGHT_CLICK",
+		"video": "res://assets/tutorial/right-click-tile.webm",
+		"condition": OS.has_feature("pc") or OS.has_feature("web"),
+	},
+	{
+		"key": "TUTORIAL_FOLLOW",
+		"image":"res://assets/tutorial/follow.jpg",
+		"placeholders": ["[color=#4ecca3][url=https://twitter.com/pattlebass_dev]@pattlebass_dev[/url][/color]"],
 	},
 ]
+
+var panels = []
+
 var current = 0
 
-
-onready var video_player = $VBoxContainer/HBoxContainer2/VBoxContainer2/VideoPlayer
+onready var video_player = $"%VideoPlayer"
+onready var texture_rect = $"%TextureRect"
 onready var animation = $AnimationPlayer2
-onready var previous_button = $VBoxContainer/HBoxContainer2/VBoxContainer/PreviousButton
-onready var next_button = $VBoxContainer/HBoxContainer2/VBoxContainer3/NextButton
+onready var previous_button = $"%PreviousButton"
+onready var next_button = $"%NextButton"
+
 
 func _ready() -> void:
 	if Variables.current_tutorial_version > Variables.options["last_seen_tutorial"]:
 		call_deferred("popup_centered")
+	
+	if OS.has_feature("standalone"):
+		for panel in all_panels:
+			if panel.has("condition") and not panel.condition:
+				continue
+			panels.append(panel)
+	else:
+		panels = all_panels
 
 
 func about_to_show():
@@ -48,10 +74,7 @@ func change_panel(_panel_no, _previous_panel_no):
 		hide()
 		return
 	
-	if _panel_no == 0:
-		previous_button.disabled = true
-	else:
-		previous_button.disabled = false
+	previous_button.disabled = _panel_no == 0
 	
 	# Note for future me:
 	# You can think backwards = opposite
@@ -66,14 +89,22 @@ func change_panel(_panel_no, _previous_panel_no):
 	animation.stop(false)
 	
 	var panel = panels[_panel_no]
-	video_player.stream = load(panel["video"])
-	video_player.play()
 	
-	if panel.placeholders:
-		var text := "TUTORIAL" + str(_panel_no + 1)
-		$VBoxContainer/RichTextLabel.bbcode_text = tr(text) % panel.placeholders
+	
+	if panel.has("video"):
+		texture_rect.hide()
+		video_player.show()
+		video_player.stream = load(panel["video"])
+		video_player.play()
 	else:
-		$VBoxContainer/RichTextLabel.bbcode_text = tr("TUTORIAL" + str(_panel_no + 1))
+		video_player.hide()
+		texture_rect.show()
+		texture_rect.texture = load(panel.image)
+	
+	if panel.has("placeholders"):
+		$VBoxContainer/RichTextLabel.bbcode_text = tr(panel.key) % panel.placeholders
+	else:
+		$VBoxContainer/RichTextLabel.bbcode_text = tr(panel.key)
 	$VBoxContainer/PageLabel.text = str(_panel_no + 1)+"/"+str(panels.size())
 	
 	if _panel_no >= _previous_panel_no:

@@ -4,12 +4,15 @@ var options = {
 	"last_seen_tutorial": -1, # Hasn't seen the tutorial
 	"theme": "dark",
 	"language": "", # Auto
+	"check_updates": null,
 }
 var current_tutorial_version = 1
 var timer: Timer
 var file := File.new()
 var user_dir := ""
 var clipboard
+
+onready var VERSION = load("res://version.gd").VERSION
 
 const category_names = ["Introduction", "Verse", "Chorus", "Solo"]
 const instrument_names = [
@@ -86,6 +89,30 @@ func has_storage_perms() -> bool:
 	return true
 
 
+func download_file(_file_path, _file_name):
+	var file := File.new()
+	file.open(_file_path, File.READ)
+	var file_data_raw := file.get_buffer(file.get_len())
+	file.close()
+	
+	var mime_type
+	if _file_name.ends_with(".wav"):
+		mime_type = "audio/wav"
+	elif _file_name.ends_with(".mdj"):
+		mime_type = "application/json"
+	
+	JavaScript.download_buffer(file_data_raw, _file_name, mime_type)
+
+
+func confirm_popup(title: String, body: String) -> bool:
+	var dialog = preload("res://scenes/dialogs/ConfirmationDialog.tscn").instance()
+	
+	main.add_child(dialog)
+	dialog.alert(title, body)
+	
+	return yield(dialog, "chose")
+
+
 # Keyboard focus
 
 var buttons := []
@@ -115,7 +142,7 @@ func _input(event: InputEvent) -> void:
 
 func _node_added(node) -> void:
 	if node is Button:
-		if not show_focus:
+		if not show_focus and node.focus_mode == Control.FOCUS_ALL:
 			node.set("custom_styles/focus", StyleBoxEmpty.new())
 		buttons.append(node)
 

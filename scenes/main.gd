@@ -154,12 +154,12 @@ func clear_column(column_no: int) -> void:
 		song[i][column_no] = 0
 
 
-func on_Tile_pressed(_column_no, _instrument) -> void:
+func on_Tile_pressed(column, _instrument) -> void:
 	if is_playing:
 		return
 	var sound_dialog = $SoundDialog
-	sound_dialog.instrument_index = _instrument
-	sound_dialog.column_no = _column_no
+	sound_dialog.instrument = _instrument
+	sound_dialog.column = column
 	sound_dialog.popup_centered(Vector2(500, 550))
 
 
@@ -247,7 +247,7 @@ func add_column(_column_no:int, add_to_song:bool = true) -> Node2D:
 	# Signals
 	for b in 4:
 		var button = column.get_node("Button"+str(b+1))
-		button.connect("pressed", self, "on_Tile_pressed", [_column_no, b])
+		button.connect("pressed", self, "on_Tile_pressed", [column, b])
 		button.connect("button_down", self, "on_Tile_held", [_column_no, b, column.get_node("Button"+str(b+1))])
 	column.column_button.connect("pressed", $ColumnDialog, "on_Column_Button_pressed", [_column_no, column])
 	
@@ -288,7 +288,6 @@ func on_popup_hide() -> void:
 
 func _files_dropped(_files, _screen) -> void:
 	var dir = Directory.new()
-	var dialog_scene = preload("res://scenes/dialogs/ConfirmationDialog.tscn")
 	
 	for i in _files:
 		if not (i.ends_with(".mdj") or i.ends_with(".mdjt")):
@@ -297,15 +296,8 @@ func _files_dropped(_files, _screen) -> void:
 		var file_name = i.get_file()
 		
 		if dir.file_exists(Variables.user_dir.plus_file("Projects/%s" % file_name)):
-			var dialog = dialog_scene.instance()
-			add_child(dialog)
-			dialog.alert(
-				"DIALOG_CONFIRMATION_TITLE_OVERWRITE",
-				# TODO: Cleanup
-				tr("DIALOG_CONFIRMATION_BODY_OVERWRITE") % "[color=#4ecca3]%s[/color]" % file_name
-			)
-			var choice = yield(dialog, "chose")
-			if choice == true:
+			var body = tr("DIALOG_CONFIRMATION_BODY_OVERWRITE") % "[color=#4ecca3]%s[/color]" % file_name
+			if yield(Variables.confirm_popup("DIALOG_CONFIRMATION_TITLE_OVERWRITE", body), "completed"):
 				dir.copy(i, Variables.user_dir.plus_file("Projects/%s" % file_name))
 		else:
 			dir.copy(i, Variables.user_dir.plus_file("Projects/%s" % file_name))
@@ -313,6 +305,7 @@ func _files_dropped(_files, _screen) -> void:
 
 
 func more_item_pressed(id) -> void:
+	#await navigator.userAgentData.getHighEntropyValues(["model", "platform", "platformVersion", "uaFullVersion"])
 	match id:
 		0:
 			$SettingsDialog.popup_centered()
@@ -322,13 +315,15 @@ func more_item_pressed(id) -> void:
 			var link = "https://github.com/pattlebass/Music-DJ/issues/new?labels=bug&template=bug_report.yaml&title=%5BBug%5D%3A+&version={version}&device={device}"
 			link = link.format(
 				{
-					"version": load("res://version.gd").VERSION.percent_encode(),
+					"version": Variables.VERSION.percent_encode(),
 					"device": OS.get_model_name().percent_encode() if OS.get_name() == "Android" else ""
 				}
 			)
 			OS.shell_open(link)
 		3:
 			OS.shell_open("https://github.com/pattlebass/Music-DJ/issues/new?labels=enhancement&template=feature_request.yaml&title=%5BFeature%5D%3A+")
+		4:
+			$AboutDialog.popup_centered()
 
 
 func more_about_to_show(popup) -> void:
