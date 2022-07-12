@@ -54,6 +54,9 @@ func clear() -> void:
 
 func clear_tile(instrument: int) -> void:
 	var tile = get_node("Button" + str(instrument + 1))
+	
+	tile.set_meta("sample_index", 0)
+	
 	tile.text = ""
 	tile.set("custom_styles/normal", null)
 	tile.set("custom_styles/pressed", null)
@@ -90,7 +93,7 @@ func on_tile_gui_input(event: InputEvent, button: Button) -> void:
 		var menu = PopupMenu.new()
 		menu.add_item("Copy")
 		menu.add_item("Paste")
-		menu.add_item("Clear")
+		menu.add_item("BTN_CLEAR")
 		
 		if not Variables.clipboard:
 			menu.set_item_disabled(1, true)
@@ -128,8 +131,10 @@ func context_menu_pressed(id: int, instrument: int, sample_index: int) -> void:
 			Variables.clipboard = {"instrument": instrument, "sample": sample_index}
 		1: # Paste
 			if Variables.clipboard:
+				Variables.main.set_tile(Variables.clipboard.instrument, column_no, Variables.clipboard.sample)
 				set_tile(Variables.clipboard.instrument, Variables.clipboard.sample)
 		2: # Clear
+			Variables.main.set_tile(instrument, column_no, 0)
 			clear_tile(instrument)
 
 

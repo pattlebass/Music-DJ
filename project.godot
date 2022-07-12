@@ -27,6 +27,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Music DJ"
+config/description="No Description"
 run/main_scene="res://scenes/main.tscn"
 run/low_processor_mode=true
 config/icon="res://assets/icon/icon.png"
