@@ -61,7 +61,7 @@ text = "BTN_CLOSE"
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
 body_size_limit = 20000
-timeout = 5.0
+timeout = 10.0
 
 [connection signal="meta_clicked" from="VBoxContainer/Body" to="." method="_on_Body_meta_clicked"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/OkButton" to="." method="_on_OkButton_pressed"]

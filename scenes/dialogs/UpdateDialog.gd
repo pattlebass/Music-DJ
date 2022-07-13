@@ -3,7 +3,7 @@ extends CustomDialog
 var asking_permission := true
 
 func _ready() -> void:
-	if not OS.has_feature("standalone"):
+	if not OS.has_feature("standalone") or OS.get_name() == "HTML5":
 		return
 	
 	if !OS.is_ok_left_and_cancel_right():
