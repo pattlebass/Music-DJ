@@ -2,6 +2,9 @@ extends CustomDialog
 
 var selected_file = ""
 
+onready var project_container: VBoxContainer = $VBoxContainer/ScrollContainer/VBoxContainer
+onready var open_folder: Button = $VBoxContainer/TitleHBox/OpenFolderButton
+
 
 func _ready() -> void:
 	Variables.connect("theme_changed", self, "on_theme_changed")
@@ -77,7 +80,7 @@ func load_song(_path, _song = null):
 
 
 func on_theme_changed(new_theme):
-	$VBoxContainer/TitleHBox/OpenButton.icon = load("res://assets/themes/%s/open_folder.svg" % new_theme)
+	open_folder.icon = load("res://assets/themes/%s/open_folder.svg" % new_theme)
 
 
 func about_to_show():
@@ -85,97 +88,101 @@ func about_to_show():
 		hide()
 	
 	if OS.get_name() == "HTML5":
-		$VBoxContainer/TitleHBox/OpenButton.hide()
+		open_folder.hide()
 	$VBoxContainer/HBoxContainer/OkButton.disabled = true
 	
-	var projects = list_files_in_directory(Variables.user_dir.plus_file("Projects/"))
-	
-	if projects.empty():
-		$VBoxContainer/ScrollContainer/VBoxContainer/NoProjectsLabel.show()
-	else:
-		$VBoxContainer/ScrollContainer/VBoxContainer/NoProjectsLabel.hide()
+	var projects = list_files_in_directory(
+		Variables.user_dir.plus_file("Projects/"),
+		["mdj", "mdjt"]
+	)
 	
 	var theme_path = "res://assets/themes/%s/" % Variables.options.theme
 	
-	for i in projects:
+	if projects.empty():
+		$"%NoProjectsLabel".show()
+	else:
+		$"%NoProjectsLabel".hide()
+	
+	var btn_group = ButtonGroup.new()
+	
+	for i in projects.size():
+		var project_path = projects[i]
 		var button_container = HBoxContainer.new()
+		
+		project_container.add_child(button_container)
 		
 		var load_button = Button.new()
 		load_button.name = "LoadButton"
+		load_button.text = project_path
 		load_button.align = Button.ALIGN_LEFT
 		load_button.size_flags_horizontal = Button.SIZE_EXPAND_FILL
 		load_button.theme_type_variation = "ListItem"
 		load_button.toggle_mode = true
+		load_button.group = btn_group
 		button_container.add_child(load_button)
+		if i == 0:
+			open_folder.focus_neighbour_bottom = load_button.get_path()
+			load_button.call_deferred("grab_focus")
 		
 		var download_button = Button.new()
 		download_button.name = "DownloadButton"
 		download_button.icon = load(theme_path+"download.svg")
 		download_button.theme_type_variation = "ListItem"
+		download_button.hide()
 		button_container.add_child(download_button)
 		
 		var delete_button = Button.new()
 		delete_button.name = "DeleteButton"
 		delete_button.icon = load(theme_path+"delete.svg")
 		delete_button.theme_type_variation = "ListItem"
+		delete_button.hide()
 		button_container.add_child(delete_button)
 		
-		load_button.text = i
-		load_button.connect("pressed", self, "on_Button_selected", [i])
+		load_button.connect("toggled", self, "on_Button_toggled", [button_container, project_path])
 		
-		delete_button.connect("pressed", self, "on_Button_deleted", [button_container, i])
+		delete_button.connect("pressed", self, "on_Button_deleted", [button_container, project_path])
+		
+		connect("popup_hide", button_container, "queue_free")
 		
 		if OS.get_name() == "HTML5":
 			download_button.connect("pressed", self, "on_Button_download", [button_container])
-		else:
-			download_button.hide()
-		
-		$VBoxContainer/ScrollContainer/VBoxContainer.add_child(button_container)
 	
 	$VBoxContainer.rect_size = rect_size
 	
 	.about_to_show()
 
 
-func list_files_in_directory(path):
+func list_files_in_directory(path: String, extensions := []) -> Array:
 	var files = []
 	var dir = Directory.new()
 	dir.open(path)
 	dir.list_dir_begin()
 
 	while true:
-		var file = dir.get_next()
+		var file: String = dir.get_next()
 		if file == "":
 			break
-		elif not file.begins_with(".") and (file.ends_with(".mdj") or file.ends_with(".mdjt")):
-			files.append(file)
+		elif not file.begins_with("."):
+			if file.get_extension() in extensions:
+				files.append(file)
 
 	dir.list_dir_end()
 	
 	return files
 
 
-func on_Button_selected(_path):
+func on_Button_toggled(button_pressed, button_container, _path):
+	button_container.get_node("DeleteButton").visible = button_pressed
+	button_container.get_node("DownloadButton").visible = button_pressed && OS.get_name() == "HTML5"
+	
+	if not button_pressed:
+		return
+	
 	if _path == selected_file:
-		for i in $VBoxContainer/ScrollContainer/VBoxContainer.get_children():
-			for x in i.get_children():
-				if x is Button and x.text == _path:
-					x.pressed = true
-	
-	selected_file = _path
-	$VBoxContainer/HBoxContainer/OkButton.disabled = false
-	
-	for i in $VBoxContainer/ScrollContainer/VBoxContainer.get_children():
-		for x in i.get_children():
-			if x is Button and x.text != _path:
-				x.pressed = false
-
-
-func popup_hide():
-	.popup_hide()
-	for i in $VBoxContainer/ScrollContainer/VBoxContainer.get_children():
-		if i is HBoxContainer:
-			i.queue_free()
+		button_container.get_node("LoadButton").set_pressed_no_signal(true)
+	else:
+		selected_file = _path
+		$VBoxContainer/HBoxContainer/OkButton.disabled = false
 
 
 func _on_CancelButton_pressed():
