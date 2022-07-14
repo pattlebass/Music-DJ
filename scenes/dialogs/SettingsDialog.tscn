@@ -39,6 +39,7 @@ follow_focus = true
 scroll_horizontal_enabled = false
 
 [node name="SettingsContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
+unique_name_in_owner = true
 margin_right = 480.0
 margin_bottom = 328.0
 size_flags_horizontal = 3
