@@ -91,6 +91,8 @@ func about_to_show():
 		open_folder.hide()
 	$VBoxContainer/HBoxContainer/OkButton.disabled = true
 	
+	selected_file = ""
+	
 	var projects = list_files_in_directory(
 		Variables.user_dir.plus_file("Projects/"),
 		["mdj", "mdjt"]
