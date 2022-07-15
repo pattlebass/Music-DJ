@@ -31,7 +31,6 @@ var time_delay: float # in seconds
 
 
 func _ready() -> void:
-	time_delay = AudioServer.get_time_to_next_mix() + AudioServer.get_output_latency()
 	get_tree().connect("files_dropped", self, "_files_dropped")
 	Variables.connect("theme_changed", self, "on_theme_changed")
 	Variables.change_theme(Variables.options.theme)
@@ -77,6 +76,9 @@ func _ready() -> void:
 		dir.make_dir("Exports")
 		dir.make_dir("Projects")
 		Variables.user_dir = "user://saves/"
+	
+	time_delay = AudioServer.get_time_to_next_mix() + AudioServer.get_output_latency()
+	time_delay = max(0, time_delay)
 
 
 func on_theme_changed(new_theme) -> void:
