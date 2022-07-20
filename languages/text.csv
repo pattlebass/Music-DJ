@@ -29,6 +29,7 @@ DIALOG_SAVE_BTN,Save,Salvați,Simpan
 DIALOG_SOUND_TITLE,"%s, column %s","%s, coloana %s","%s, kolom %s"
 DIALOG_LOAD_TITLE,Open project,Deschideți,Buka proyek
 DIALOG_LOAD_BTN_OPEN,Open,Deschideți,Buka
+DIALOG_LOAD_NO_PROJECTS,No saved projects,Niciun proiect salvat,Tidak ada proyek yang disimpan
 DIALOG_ABOUT_TITLE,About,Despre,Tentang
 DIALOG_UPDATE_TITLE,New update,Actualizare nouă,Pembaruan baru
 DIALOG_UPDATE_BODY,There's a new update available: %s,Există o noua versiune: %s,Ada versi baru yang tersedia: %s

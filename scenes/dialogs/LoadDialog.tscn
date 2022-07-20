@@ -63,7 +63,7 @@ unique_name_in_owner = true
 margin_right = 493.0
 margin_bottom = 38.0
 theme_type_variation = "LabelSubtitle"
-text = "No saved projects"
+text = "DIALOG_LOAD_NO_PROJECTS"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 497.0
