@@ -20,7 +20,7 @@ SETTING_THEME_DARK,Dark,Întunecată,Gelap
 SETTING_THEME_WHITE,Light,Deschisă,Terang
 SETTING_LANG,Language,Limbă,Bahasa
 SETTING_LANG_AUTO,Auto (%s),Auto (%s),Otomatis (%s)
-SETTING_CHECK_UPDATES,Check for updates,Verificați actualizări,Cek pembaruan
+SETTING_CHECK_UPDATES,Check for updates,Verificați actualizări,Periksa pembaruan
 SETTING_WEB_WARNING,Some settings are not available in the web version.,Unele setări nu sunt prezente în versiunea web.,Beberapa pengaturan tidak tersedia di versi web.
 DIALOG_TUTORIAL_TITLE,Tutorial,Tutorial,Tutorial
 DIALOG_SAVE_TITLE_PROJECT,Save project as,Salvați ca,Simpan proyek sebagai
