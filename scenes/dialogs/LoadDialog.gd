@@ -4,6 +4,7 @@ var selected_file = ""
 
 onready var project_container: VBoxContainer = $VBoxContainer/ScrollContainer/VBoxContainer
 onready var open_folder: Button = $VBoxContainer/TitleHBox/OpenFolderButton
+onready var ok_button: Button = $VBoxContainer/HBoxContainer/OkButton
 
 
 func _ready() -> void:
@@ -89,7 +90,7 @@ func about_to_show():
 	
 	if OS.get_name() == "HTML5":
 		open_folder.hide()
-	$VBoxContainer/HBoxContainer/OkButton.disabled = true
+	ok_button.disabled = true
 	
 	selected_file = ""
 	
@@ -142,7 +143,7 @@ func about_to_show():
 		
 		load_button.connect("toggled", self, "on_Button_toggled", [button_container, project_path])
 		
-		delete_button.connect("pressed", self, "on_Button_deleted", [button_container, project_path])
+		delete_button.connect("pressed", self, "on_Delete_pressed", [button_container, project_path])
 		
 		connect("popup_hide", button_container, "queue_free")
 		
@@ -184,7 +185,7 @@ func on_Button_toggled(button_pressed, button_container, _path):
 		button_container.get_node("LoadButton").set_pressed_no_signal(true)
 	else:
 		selected_file = _path
-		$VBoxContainer/HBoxContainer/OkButton.disabled = false
+		ok_button.disabled = false
 
 
 func _on_CancelButton_pressed():
@@ -198,15 +199,17 @@ func _on_OpenButton_pressed():
 		OS.shell_open(ProjectSettings.globalize_path(Variables.user_dir))
 
 
-func on_Button_deleted(_container, file_name):
-	var dir = Directory.new()
-	
+func on_Delete_pressed(_container, file_name):
 	modulate = Color.transparent
 	
 	var body = tr("DIALOG_CONFIRMATION_BODY_DELETE") % "[color=#4ecca3]%s[/color]" % file_name
 	if yield(Variables.confirm_popup("DIALOG_CONFIRMATION_TITLE_DELETE", body), "completed"):
-		dir.remove(Variables.user_dir.plus_file("Projects/%s" % file_name))
-		$VBoxContainer/HBoxContainer/OkButton.disabled = _container.get_node("LoadButton").text == selected_file
+		var path := Variables.user_dir.plus_file("Projects/%s" % file_name)
+		if OS.move_to_trash(ProjectSettings.globalize_path(path)) != OK:
+			var dir =  Directory.new()
+			dir.remove(ProjectSettings.globalize_path(path))
+		
+		ok_button.disabled = _container.get_node("LoadButton").text == selected_file
 		_container.queue_free()
 	
 	modulate = Color.white
