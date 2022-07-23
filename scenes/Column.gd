@@ -66,10 +66,16 @@ func clear_tile(instrument: int) -> void:
 
 func on_play_started() -> void:
 	column_button.set("custom_colors/font_color", Color.red)
+	column_button.set("custom_colors/font_color_focus", Color.red)
+	column_button.set("custom_colors/font_color_hover", Color.red)
+	column_button.set("custom_colors/font_color_pressed", Color.red)
 
 
 func on_play_ended() -> void:
 	column_button.set("custom_colors/font_color", null)
+	column_button.set("custom_colors/font_color_focus", null)
+	column_button.set("custom_colors/font_color_hover", null)
+	column_button.set("custom_colors/font_color_pressed", null)
 
 
 func fade_in() -> void:
