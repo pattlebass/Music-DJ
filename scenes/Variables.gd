@@ -28,9 +28,10 @@ signal theme_changed
 
 
 func _ready() -> void:
-	traverse(main)
 	get_tree().connect("node_added", self, "_node_added")
 	get_tree().connect("node_removed", self, "_node_removed")
+	
+	traverse(main)
 	
 	# Options
 	timer = Timer.new()
@@ -38,14 +39,21 @@ func _ready() -> void:
 	timer.connect("timeout", self, "on_timer_timeout")
 	add_child(timer)
 	
-	if !file.file_exists("user://options.json"):
+	if not file.file_exists("user://options.json"):
 		print("Created options.json")
 		save_options(0)
 		return
 	
 	file.open("user://options.json", File.READ)
-	var file_options: Dictionary = parse_json(file.get_as_text())
+	var json_result := JSON.parse(file.get_as_text())
 	file.close()
+	
+	if json_result.error:
+		printerr("Json parse error: ", json_result.error_string)
+		save_options(0)
+		return
+	
+	var file_options: Dictionary = json_result.result
 	
 	var file_keys = file_options.keys()
 	var options_keys = options.keys()
