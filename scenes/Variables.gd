@@ -21,6 +21,7 @@ const instrument_names = [
 	"INSTRUMENT_KEYS",
 	"INSTRUMENT_TRUMPET"
 ]
+const MINIMUM_DRAG = 100
 
 onready var main = get_node("/root/main/")
 

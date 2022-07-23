@@ -7,7 +7,7 @@
 [sub_resource type="Animation" id=7]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("VBoxContainer/HBoxContainer/VBoxContainer2/Control:rect_position")
+tracks/0/path = NodePath("VBoxContainer/HBoxContainer/VBoxMedia/HBoxMediaAnchor:rect_position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -19,7 +19,7 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("VBoxContainer/HBoxContainer/VBoxContainer2/Control:modulate")
+tracks/1/path = NodePath("VBoxContainer/HBoxContainer/VBoxMedia/HBoxMediaAnchor:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -60,7 +60,7 @@ resource_name = "fade_in"
 length = 0.1
 step = 0.01
 tracks/0/type = "value"
-tracks/0/path = NodePath("VBoxContainer/HBoxContainer/VBoxContainer2/Control:modulate")
+tracks/0/path = NodePath("VBoxContainer/HBoxContainer/VBoxMedia/HBoxMediaAnchor:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -72,7 +72,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("VBoxContainer/HBoxContainer/VBoxContainer2/Control:rect_position")
+tracks/1/path = NodePath("VBoxContainer/HBoxContainer/VBoxMedia/HBoxMediaAnchor:rect_position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -89,7 +89,7 @@ resource_name = "fade_in_right_to_left"
 length = 0.1
 step = 0.01
 tracks/0/type = "value"
-tracks/0/path = NodePath("VBoxContainer/HBoxContainer/VBoxContainer2/Control:modulate")
+tracks/0/path = NodePath("VBoxContainer/HBoxContainer/VBoxMedia/HBoxMediaAnchor:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -101,7 +101,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("VBoxContainer/HBoxContainer/VBoxContainer2/Control:rect_position")
+tracks/1/path = NodePath("VBoxContainer/HBoxContainer/VBoxMedia/HBoxMediaAnchor:rect_position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -142,7 +142,7 @@ resource_name = "fade_out_right_to_left"
 length = 0.1
 step = 0.01
 tracks/0/type = "value"
-tracks/0/path = NodePath("VBoxContainer/HBoxContainer/VBoxContainer2/Control:modulate")
+tracks/0/path = NodePath("VBoxContainer/HBoxContainer/VBoxMedia/HBoxMediaAnchor:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -154,7 +154,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("VBoxContainer/HBoxContainer/VBoxContainer2/Control:rect_position")
+tracks/1/path = NodePath("VBoxContainer/HBoxContainer/VBoxMedia/HBoxMediaAnchor:rect_position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -191,8 +191,11 @@ tracks/3/keys = {
 }
 
 [node name="TutorialDialog" type="PopupDialog"]
+visible = true
 margin_right = 715.0
 margin_bottom = 473.0
+focus_mode = 2
+mouse_filter = 1
 input_pass_on_modal_close_click = false
 popup_exclusive = true
 script = ExtResource( 1 )
@@ -203,22 +206,27 @@ __meta__ = {
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_bottom = 2.0
 
 [node name="Title" type="Label" parent="VBoxContainer"]
 margin_right = 715.0
 margin_bottom = 55.0
+mouse_filter = 1
 text = "DIALOG_TUTORIAL_TITLE"
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
 margin_top = 59.0
 margin_right = 715.0
 margin_bottom = 61.0
+mouse_filter = 1
 
 [node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer"]
-margin_top = 65.0
+unique_name_in_owner = true
+margin_top = 69.0
 margin_right = 715.0
-margin_bottom = 105.0
+margin_bottom = 109.0
 rect_min_size = Vector2( 0, 40 )
+mouse_filter = 1
 bbcode_enabled = true
 text = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore. "
 scroll_active = false
@@ -227,13 +235,14 @@ scroll_active = false
 margin_top = 109.0
 margin_right = 715.0
 margin_bottom = 129.0
+mouse_filter = 1
 custom_constants/separation = 20
 custom_styles/separator = SubResource( 6 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 133.0
 margin_right = 715.0
-margin_bottom = 431.0
+margin_bottom = 433.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 30
@@ -241,51 +250,56 @@ alignment = 1
 
 [node name="PreviousButton" type="Button" parent="VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_top = 119.0
+margin_top = 120.0
 margin_right = 60.0
-margin_bottom = 179.0
+margin_bottom = 180.0
 rect_min_size = Vector2( 60, 60 )
+focus_mode = 1
+mouse_filter = 1
 size_flags_horizontal = 0
 size_flags_vertical = 4
 text = "<"
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
+[node name="VBoxMedia" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
 margin_left = 90.0
 margin_right = 625.0
-margin_bottom = 298.0
+margin_bottom = 300.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
 
-[node name="Control" type="Control" parent="VBoxContainer/HBoxContainer/VBoxContainer2"]
+[node name="HBoxMediaAnchor" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxMedia"]
 margin_right = 535.0
-margin_bottom = 298.0
-size_flags_horizontal = 3
+margin_bottom = 300.0
 size_flags_vertical = 3
+alignment = 1
 
-[node name="VideoPlayer" type="VideoPlayer" parent="VBoxContainer/HBoxContainer/VBoxContainer2/Control"]
+[node name="VideoPlayer" type="VideoPlayer" parent="VBoxContainer/HBoxContainer/VBoxMedia/HBoxMediaAnchor"]
 unique_name_in_owner = true
-margin_right = 535.0
-margin_bottom = 294.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
+margin_left = 17.0
+margin_right = 517.0
+margin_bottom = 300.0
+rect_min_size = Vector2( 500, 300 )
+mouse_filter = 1
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/VBoxContainer2/Control"]
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/VBoxMedia/HBoxMediaAnchor"]
 unique_name_in_owner = true
 visible = false
-margin_right = 535.0
-margin_bottom = 294.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
+margin_left = 504.0
+margin_right = 1004.0
+margin_bottom = 300.0
+rect_min_size = Vector2( 500, 300 )
 expand = true
 
 [node name="NextButton" type="Button" parent="VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 margin_left = 655.0
-margin_top = 119.0
+margin_top = 120.0
 margin_right = 715.0
-margin_bottom = 179.0
+margin_bottom = 180.0
 rect_min_size = Vector2( 60, 60 )
+focus_mode = 1
+mouse_filter = 1
 size_flags_horizontal = 0
 size_flags_vertical = 4
 text = ">"
@@ -295,9 +309,10 @@ __meta__ = {
 
 [node name="PageLabel" type="Label" parent="VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 435.0
+margin_top = 437.0
 margin_right = 715.0
-margin_bottom = 473.0
+margin_bottom = 475.0
+mouse_filter = 1
 theme_type_variation = "LabelSubtitle"
 text = "1/x"
 align = 1
@@ -310,5 +325,6 @@ anims/fade_out_right_to_left = SubResource( 10 )
 
 [connection signal="meta_clicked" from="VBoxContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/PreviousButton" to="." method="_on_PreviousButton_pressed"]
-[connection signal="finished" from="VBoxContainer/HBoxContainer/VBoxContainer2/Control/VideoPlayer" to="." method="_on_VideoPlayer_finished"]
+[connection signal="gui_input" from="VBoxContainer/HBoxContainer/VBoxMedia" to="." method="_on_VBoxMedia_gui_input"]
+[connection signal="finished" from="VBoxContainer/HBoxContainer/VBoxMedia/HBoxMediaAnchor/VideoPlayer" to="." method="_on_VideoPlayer_finished"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/NextButton" to="." method="_on_NextButton_pressed"]
