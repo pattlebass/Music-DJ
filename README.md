@@ -37,7 +37,7 @@ If you appreciate the work that has been put into making this app, consider dona
 ## Credit for icons and fonts
 Icons made by [Freepik](https://www.flaticon.com/authors/freepik) from [www.flaticon.com](https://www.flaticon.com/).
 
-Icons made by [Dave Gandy](https://www.flaticon.com/authors/dave-gandy) from [www.flaticon.com](https://www.flaticon.com/) (slightly modified).
+Gidole Font by [Andreas Larsen](https://twitter.com/larsenwork). [License](/assets/fonts/GidoleFont/License.txt)
 
 ## Contact me
-If you have any questions or you want to contribute to this project, DM me on Twitter [@pattlebass_dev](https://twitter.com/pattlebass_dev).
+If you have any questions, DM me on Twitter [@pattlebass_dev](https://twitter.com/pattlebass_dev).
