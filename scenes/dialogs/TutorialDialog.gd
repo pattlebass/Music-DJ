@@ -48,10 +48,6 @@ func _ready() -> void:
 			panels.append(panel)
 	else:
 		panels = all_panels
-	
-	if OS.get_name() == "Android":
-		next_button.hide()
-		previous_button.hide()
 
 
 func about_to_show() -> void:
