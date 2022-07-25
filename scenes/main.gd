@@ -52,31 +52,6 @@ func _ready() -> void:
 	for i in column_index:
 		add_column(i)
 	
-	if OS.get_name() == "Android":
-		yield(get_tree(), "idle_frame")
-		Variables.has_storage_perms()
-		
-		Variables.user_dir = OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS).plus_file("MusicDJ")
-		var dir = Directory.new()
-		dir.open(OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS))
-		dir.make_dir("MusicDJ")
-		dir.open(Variables.user_dir)
-		dir.make_dir("Projects")
-		dir.make_dir("Exports")
-		
-		if Engine.has_singleton("GodotOpenWith"):
-			var open_file = Engine.get_singleton("GodotOpenWith").getOpenFile()
-			if open_file:
-				$LoadDialog.load_song(null, parse_json(open_file))
-	else:
-		var dir = Directory.new()
-		dir.open("user://")
-		dir.make_dir("saves")
-		dir.open("user://saves")
-		dir.make_dir("Exports")
-		dir.make_dir("Projects")
-		Variables.user_dir = "user://saves/"
-	
 	time_delay = AudioServer.get_time_to_next_mix() + AudioServer.get_output_latency()
 	time_delay = max(0, time_delay)
 
