@@ -224,17 +224,17 @@ func _on_CancelButton_pressed():
 func _on_OpenButton_pressed():
 	if OS.get_name() == "Android":
 		if android_picker:
-			android_picker.openFilePicker()
+			android_picker.openFilePicker("*/*")
 		else:
 			OS.alert(ProjectSettings.globalize_path(Variables.user_dir), "Folder location")
 	else:
 		OS.shell_open(ProjectSettings.globalize_path(Variables.user_dir))
 
 
-func file_picked(path: String) -> void:
+func file_picked(path: String, _mime_type: String) -> void:
 	if not (path.ends_with(".mdj") or path.ends_with(".mdjt")):
 		dir.remove(path)
-		print("%s is not a valid project" % path)
+		print("%s is not a valid project" % path.get_file())
 		return
 	
 	var new_path := "user://saves/Projects".plus_file(path.get_file())
