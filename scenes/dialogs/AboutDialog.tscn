@@ -34,7 +34,7 @@ scroll_horizontal_enabled = false
 
 [node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/ScrollContainer"]
 margin_right = 492.0
-margin_bottom = 780.0
+margin_bottom = 741.0
 mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -49,7 +49,7 @@ Credits and licenses:
 - [color=#4ecca3][url=https://github.com/pattlebass/Music-DJ/blob/main/LICENSE]MusicDJ[/url][/color] by pattlebass
 - [color=#4ecca3][url=https://godotengine.org/license]Godot Engine[/url][/color]
 - Icons made by [color=#4ecca3][url=https://www.flaticon.com/authors/freepik]Freepik[/url][/color] from [color=#4ecca3][url=https://www.flaticon.com/]www.flaticon.com[/url][/color].
-- Icons made by [color=#4ecca3][url=https://www.flaticon.com/authors/dave-gandy]Dave Gandy[/url][/color] from [color=#4ecca3][url=https://www.flaticon.com/]www.flaticon.com[/url][/color].
+- Gidole Font by [color=#4ecca3][url=https://twitter.com/larsenwork]Andreas Larsen[/url][/color]. [color=#4ecca3][url=https://github.com/pattlebass/Music-DJ/blob/main/assets/fonts/GidoleFont/License.txt]LICENSE[/url][/color]
 
 I don't pretend to hold any copyright on the samples. If anyone at Sony is reading this, you can email me [color=#4ecca3][url=mailto:pattlebass.dev@gmail.com]pattlebass.dev@gmail.com[/url][/color], but consider that this is a passion project made available for free."
 text = "Developer:
@@ -62,7 +62,7 @@ Credits and licenses:
 - MusicDJ by pattlebass
 - Godot Engine
 - Icons made by Freepik from www.flaticon.com.
-- Icons made by Dave Gandy from www.flaticon.com.
+- Gidole Font by Andreas Larsen. LICENSE
 
 I don't pretend to hold any copyright on the samples. If anyone at Sony is reading this, you can email me pattlebass.dev@gmail.com, but consider that this is a passion project made available for free."
 fit_content_height = true

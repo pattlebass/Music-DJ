@@ -9,7 +9,7 @@ var options = {
 var current_tutorial_version = 1
 var timer: Timer
 var file := File.new()
-var user_dir := ""
+var user_dir := "user://saves/"
 var clipboard
 
 onready var VERSION = load("res://version.gd").VERSION
@@ -21,6 +21,7 @@ const instrument_names = [
 	"INSTRUMENT_KEYS",
 	"INSTRUMENT_TRUMPET"
 ]
+const MINIMUM_DRAG = 100
 
 onready var main = get_node("/root/main/")
 
@@ -28,9 +29,15 @@ signal theme_changed
 
 
 func _ready() -> void:
-	traverse(main)
 	get_tree().connect("node_added", self, "_node_added")
 	get_tree().connect("node_removed", self, "_node_removed")
+	
+	traverse(main)
+	
+	# Make directories
+	var dir = Directory.new()
+	dir.make_dir_recursive("user://saves/Exports")
+	dir.make_dir_recursive("user://saves/Projects")
 	
 	# Options
 	timer = Timer.new()
@@ -38,14 +45,21 @@ func _ready() -> void:
 	timer.connect("timeout", self, "on_timer_timeout")
 	add_child(timer)
 	
-	if !file.file_exists("user://options.json"):
+	if not file.file_exists("user://options.json"):
 		print("Created options.json")
 		save_options(0)
 		return
 	
 	file.open("user://options.json", File.READ)
-	var file_options: Dictionary = parse_json(file.get_as_text())
+	var json_result := JSON.parse(file.get_as_text())
 	file.close()
+	
+	if json_result.error:
+		printerr("Json parse error: ", json_result.error_string)
+		save_options(0)
+		return
+	
+	var file_options: Dictionary = json_result.result
 	
 	var file_keys = file_options.keys()
 	var options_keys = options.keys()
@@ -90,18 +104,29 @@ func has_storage_perms() -> bool:
 
 
 func download_file(_file_path, _file_name):
-	var file := File.new()
-	file.open(_file_path, File.READ)
-	var file_data_raw := file.get_buffer(file.get_len())
-	file.close()
-	
-	var mime_type
-	if _file_name.ends_with(".wav"):
-		mime_type = "audio/wav"
-	elif _file_name.ends_with(".mdj"):
-		mime_type = "application/json"
-	
-	JavaScript.download_buffer(file_data_raw, _file_name, mime_type)
+	if OS.get_name() == "HTML5":
+		var file := File.new()
+		file.open(_file_path, File.READ)
+		var file_data_raw := file.get_buffer(file.get_len())
+		file.close()
+		
+		var mime_type
+		if _file_name.ends_with(".wav"):
+			mime_type = "audio/wav"
+		elif _file_name.ends_with(".mdj"):
+			mime_type = "application/json"
+		
+		JavaScript.download_buffer(file_data_raw, _file_name, mime_type)
+	else: # Android
+		var dir = Directory.new()
+		var destination_dir := OS.get_system_dir(OS.SYSTEM_DIR_DOWNLOADS).plus_file("MusicDJ")
+		dir.make_dir(destination_dir)
+		
+		var err = dir.copy(_file_path, destination_dir.plus_file(_file_name))
+		if err:
+			printerr("Failed to copy project (%s) to %s: " % [_file_name, destination_dir] + err)
+		else:
+			print("Copied project (%s) to %s" % [_file_name, destination_dir])
 
 
 func confirm_popup(title: String, body: String) -> bool:

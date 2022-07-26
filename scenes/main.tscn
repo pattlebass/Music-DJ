@@ -330,6 +330,7 @@ visible = false
 [node name="UpdateDialog" parent="." instance=ExtResource( 14 )]
 
 [node name="TutorialDialog" parent="." instance=ExtResource( 13 )]
+visible = false
 
 [node name="SettingsDialog" parent="." instance=ExtResource( 12 )]
 

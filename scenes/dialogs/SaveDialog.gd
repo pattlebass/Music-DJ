@@ -9,6 +9,7 @@ var is_cancelled = false
 
 onready var line_edit = $VBoxContainer/VBoxContainer/HBoxContainer/LineEdit
 onready var ok_button = $VBoxContainer/HBoxContainer/OkButton
+onready var label_title = $VBoxContainer/VBoxContainer/Label
 onready var label_error = $VBoxContainer/VBoxContainer/LabelError
 
 
@@ -78,7 +79,7 @@ func about_to_show():
 	if !Variables.has_storage_perms():
 		hide()
 	
-	$VBoxContainer/VBoxContainer/Label.text = title
+	label_title.text = title
 	
 	# Changing the text this way doesn't emit the signal
 	line_edit.text = last_name if last_name else get_default_name()
@@ -105,9 +106,10 @@ func _on_LineEdit_text_changed(new_text):
 
 func _process(_delta):
 	if OS.get_virtual_keyboard_height() == 0:
-		rect_position.y = get_viewport().get_visible_rect().size.y / 2 - rect_size.y / 2
+		rect_position.y = (get_viewport().get_visible_rect().size.y - rect_size.y) / 2
 	else:
-		rect_position.y = get_viewport().get_visible_rect().size.y/2 - rect_size.y / 2 - OS.get_virtual_keyboard_height()/4
+		# Hide title above viewport to make more space
+		rect_position.y = -label_title.rect_size.y 
 
 
 func get_default_name() -> String:

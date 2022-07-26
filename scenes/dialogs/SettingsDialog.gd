@@ -15,39 +15,51 @@ func _ready() -> void:
 	if Variables.options.check_updates != null:
 		$"%CheckUpdates".set_pressed_no_signal(Variables.options.check_updates)
 	
-	# Translating doesn't seem to work on HTML5
-	if OS.get_name() != "HTML5":
-		var lang_btn_group = ButtonGroup.new()
+	
+	# Languages
+	var lang_btn_group = ButtonGroup.new()
+	
+	# Work-around for https://github.com/godotengine/godot-proposals/issues/2378
+	var locale_names = {
+		"en": "English",
+		"ro": "Română",
+		"id": "Bahasa Indonesia",
+	}
+	
+	var lang_auto_btn = lang_container.get_node("Auto")
+	lang_auto_btn.text = tr("SETTING_LANG_AUTO") % locale_names[OS.get_locale_language().replace("-", "")] # Bug on HTML5
+	lang_auto_btn.group = lang_btn_group
+	lang_auto_btn.connect("pressed", self, "on_lang_chosen", [""])
+	
+	if Variables.options.language == "":
+		lang_auto_btn.set_pressed_no_signal(true)
+	
+	for i in TranslationServer.get_loaded_locales():
+		var check_box = CheckBox.new()
+		check_box.text = locale_names[i]
+		check_box.group = lang_btn_group
+		check_box.mouse_filter = Control.MOUSE_FILTER_PASS
+		check_box.connect("pressed", self, "on_lang_chosen", [i])
 		
-		# Work-around for https://github.com/godotengine/godot-proposals/issues/2378
-		var locale_names = {
-			"en": "English",
-			"ro": "Română",
-			"id": "Bahasa Indonesia",
-		}
+		if Variables.options.language == i:
+			check_box.set_pressed_no_signal(true)
 		
-		var lang_auto_btn = lang_container.get_node("Auto")
-		lang_auto_btn.text = tr("SETTING_LANG_AUTO") % locale_names[OS.get_locale_language()]
-		lang_auto_btn.group = lang_btn_group
-		lang_auto_btn.connect("pressed", self, "on_lang_chosen", [""])
+		lang_container.add_child(check_box)
+	
+	if OS.get_name() == "HTML5":
+		# Hide Check for update
+		$"%CheckUpdates".hide()
 		
-		if Variables.options.language == "":
-			lang_auto_btn.set_pressed_no_signal(true)
-		
-		for i in TranslationServer.get_loaded_locales():
-			var check_box = CheckBox.new()
-			check_box.text = locale_names[i]
-			check_box.group = lang_btn_group
-			check_box.mouse_filter = Control.MOUSE_FILTER_PASS
-			check_box.connect("pressed", self, "on_lang_chosen", [i])
-			
-			if Variables.options.language == i:
-				check_box.set_pressed_no_signal(true)
-			
-			lang_container.add_child(check_box)
-	else:
-		lang_container.hide()
-		$VBoxContainer/ScrollContainer/SettingsContainer/HSeparator2.hide()
+		# Warning for HTML5
+		var label_web_disable = Label.new()
+		label_web_disable.text = "SETTING_WEB_WARNING"
+		label_web_disable.autowrap = true
+		label_web_disable.theme_type_variation = "LabelSubtitle"
+		$"%SettingsContainer".add_child_below_node(
+			$VBoxContainer/ScrollContainer/SettingsContainer/HSeparator2,
+			label_web_disable
+		)
+
 
 func _on_CloseButton_pressed():
 	hide()

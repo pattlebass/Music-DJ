@@ -1,7 +1,7 @@
 extends CustomDialog
 
 
-var all_panels = [
+var all_panels := [
 	{
 		"key": "TUTORIAL_HOLD_TILE",
 		"video":"res://assets/tutorial/hold-tile.webm",
@@ -25,15 +25,16 @@ var all_panels = [
 	},
 ]
 
-var panels = []
+var panels := []
 
-var current = 0
+var current := 0
 
 onready var video_player = $"%VideoPlayer"
 onready var texture_rect = $"%TextureRect"
 onready var animation = $AnimationPlayer2
 onready var previous_button = $"%PreviousButton"
 onready var next_button = $"%NextButton"
+onready var body: RichTextLabel = $"%RichTextLabel"
 
 
 func _ready() -> void:
@@ -49,24 +50,25 @@ func _ready() -> void:
 		panels = all_panels
 
 
-func about_to_show():
-	next_button.call_deferred("grab_focus")
+func about_to_show() -> void:
 	current = 0
 	change_panel(0, 0)
 	.about_to_show()
 
 
-func _on_NextButton_pressed():
+func _on_NextButton_pressed() -> void:
 	current += 1
 	change_panel(current, current - 1)
 
 
-func _on_PreviousButton_pressed():
+func _on_PreviousButton_pressed() -> void:
+	if current == 0:
+		return
 	current -= 1
 	change_panel(current, current + 1)
 
 
-func change_panel(_panel_no, _previous_panel_no):
+func change_panel(_panel_no: int, _previous_panel_no: int) -> void:
 	if _panel_no >= panels.size():
 		if Variables.current_tutorial_version > Variables.options["last_seen_tutorial"]:
 			Variables.options["last_seen_tutorial"] = Variables.current_tutorial_version
@@ -102,9 +104,9 @@ func change_panel(_panel_no, _previous_panel_no):
 		texture_rect.texture = load(panel.image)
 	
 	if panel.has("placeholders"):
-		$VBoxContainer/RichTextLabel.bbcode_text = tr(panel.key) % panel.placeholders
+		body.bbcode_text = tr(panel.key) % panel.placeholders
 	else:
-		$VBoxContainer/RichTextLabel.bbcode_text = tr(panel.key)
+		body.bbcode_text = tr(panel.key)
 	$VBoxContainer/PageLabel.text = str(_panel_no + 1)+"/"+str(panels.size())
 	
 	if _panel_no >= _previous_panel_no:
@@ -113,9 +115,39 @@ func change_panel(_panel_no, _previous_panel_no):
 		animation.play_backwards("fade_out_right_to_left")
 
 
-func _on_VideoPlayer_finished():
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_left"):
+		_on_PreviousButton_pressed()
+	elif event.is_action_pressed("ui_right"):
+		_on_NextButton_pressed()
+
+
+func _on_VideoPlayer_finished() -> void:
 	video_player.play()
 
 
-func _on_RichTextLabel_meta_clicked(meta):
+func _on_RichTextLabel_meta_clicked(meta: String) -> void:
 	OS.shell_open(meta)
+
+
+# Swipe logic ------------------------
+
+var swipe_start: Vector2
+
+func _on_VBoxMedia_gui_input(event: InputEvent) -> void:
+	if event is InputEventScreenTouch:
+		if event.pressed:
+			swipe_start = event.get_position()
+		else:
+			_calculate_swipe(event.get_position())
+
+
+func _calculate_swipe(swipe_end):
+	if swipe_start == null: 
+		return
+	var swipe = swipe_end - swipe_start
+	if abs(swipe.x) > Variables.MINIMUM_DRAG:
+		if swipe.x > 0:
+			_on_PreviousButton_pressed()
+		else:
+			_on_NextButton_pressed()

@@ -32,16 +32,14 @@ func about_to_show():
 	else:
 		$VBoxContainer/HBoxContainer/RemoveButton.disabled = false
 	
-	var falses = -1
-	for i in column.get_children():
-		if i is Button and i.text != "":
-			falses += 1
-	if falses == 0:
-		$VBoxContainer/HBoxContainer/ClearButton.disabled = true
-		$VBoxContainer/HBoxContainer/PlayButton.disabled = true
-	else:
-		$VBoxContainer/HBoxContainer/ClearButton.disabled = false
-		$VBoxContainer/HBoxContainer/PlayButton.disabled = false
+	
+	var has_tiles_set := false
+	for i in 4:
+		if main.song[i][column.column_no]:
+			has_tiles_set = true
+			break
+	$VBoxContainer/HBoxContainer/PlayButton.disabled = !has_tiles_set || main.is_playing
+	$VBoxContainer/HBoxContainer/ClearButton.disabled = !has_tiles_set
 	
 	set_as_minsize()
 	

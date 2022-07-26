@@ -1,0 +1,5 @@
+[config]
+
+name="GodotFileSharing"
+binary_type="local"
+binary="GodotFileSharing.release.aar"
