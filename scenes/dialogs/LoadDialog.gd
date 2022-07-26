@@ -146,6 +146,7 @@ func about_to_show():
 		load_button.theme_type_variation = "ListItem"
 		load_button.toggle_mode = true
 		load_button.group = btn_group
+		load_button.mouse_filter = MOUSE_FILTER_PASS
 		load_button.connect("toggled", self, "on_Button_toggled", [button_container, project_path])
 		button_container.add_child(load_button)
 		if i == 0:
@@ -156,6 +157,7 @@ func about_to_show():
 		download_button.name = "DownloadButton"
 		download_button.icon = load(theme_path+"download.svg")
 		download_button.theme_type_variation = "ListItem"
+		download_button.mouse_filter = MOUSE_FILTER_PASS
 		download_button.hide()
 		download_button.connect("pressed", self, "on_Button_download", [project_path])
 		button_container.add_child(download_button)
@@ -164,6 +166,7 @@ func about_to_show():
 		share_button.name = "ShareButton"
 		share_button.icon = load(theme_path+"share.svg")
 		share_button.theme_type_variation = "ListItem"
+		share_button.mouse_filter = MOUSE_FILTER_PASS
 		share_button.hide()
 		share_button.connect("pressed", self, "on_Share_pressed", [project_path])
 		button_container.add_child(share_button)
@@ -172,6 +175,7 @@ func about_to_show():
 		delete_button.name = "DeleteButton"
 		delete_button.icon = load(theme_path+"delete.svg")
 		delete_button.theme_type_variation = "ListItem"
+		delete_button.mouse_filter = MOUSE_FILTER_PASS
 		delete_button.hide()
 		delete_button.connect("pressed", self, "on_Delete_pressed", [button_container, project_path])
 		button_container.add_child(delete_button)
