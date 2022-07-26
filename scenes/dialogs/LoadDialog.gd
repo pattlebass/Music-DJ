@@ -239,6 +239,25 @@ func file_picked(path: String, _mime_type: String) -> void:
 	
 	var new_path := "user://saves/Projects".plus_file(path.get_file())
 	
+	if dir.file_exists(new_path):
+		# Match file name with bracket numbering
+		# From stackoverflow.com/questions/7846389
+		var regex = RegEx.new()
+		regex.compile("^(.*?)(?:\\((\\d+)\\))?\\.(.+)$")
+		var result = regex.search(path.get_file())
+		
+		var groups = {
+				"file_name": result.strings[1],
+				"number": int(result.strings[2]) + 1 if result.strings[2] else 1,
+				"extension": result.strings[3]
+			}
+		var new_file_name = "{file_name} ({number}).{extension}".format(groups)
+		
+		while dir.file_exists(new_path):
+			groups.number += 1
+			new_file_name = "{file_name} ({number}).{extension}".format(groups)
+			new_path = "user://saves/Projects".plus_file(new_file_name)
+	
 	if dir.copy(path, new_path) == OK:
 		dir.remove(path)
 	
