@@ -6,7 +6,7 @@ BTN_EXPORT,Export,Exportați,Ekspor
 BTN_SAVE_PROJECT,Save project,Salvați,Simpan proyek
 BTN_OPEN_PROJECT,Open project,Deschideți,Buka proyek
 BTN_SETTINGS,Settings,Setări,Pengaturan
-BTN_CLEAR,Clear,Goliți,Bersihkan
+BTN_CLEAR,Clear,Goliți,Kosongkan
 BTN_REMOVE,Remove,Ștergeți,Buang
 BTN_CANCEL,Cancel,Anulare,Batal
 BTN_CLOSE,Close,Închide,Tutup
@@ -20,7 +20,7 @@ SETTING_THEME_DARK,Dark,Întunecată,Gelap
 SETTING_THEME_WHITE,Light,Deschisă,Terang
 SETTING_LANG,Language,Limbă,Bahasa
 SETTING_LANG_AUTO,Auto (%s),Auto (%s),Otomatis (%s)
-SETTING_CHECK_UPDATES,Check for updates,Verificați actualizări,Cek pembaruan
+SETTING_CHECK_UPDATES,Check for updates,Verificați actualizări,Periksa pembaruan
 SETTING_WEB_WARNING,Some settings are not available in the web version.,Unele setări nu sunt prezente în versiunea web.,Beberapa pengaturan tidak tersedia di versi web.
 DIALOG_TUTORIAL_TITLE,Tutorial,Tutorial,Tutorial
 DIALOG_SAVE_TITLE_PROJECT,Save project as,Salvați ca,Simpan proyek sebagai
@@ -45,7 +45,7 @@ DIALOG_UPDATE_BTN_ACCEPT,Yes,Da,Ya
 DIALOG_UPDATE_BTN_DENY,No,Nu,Tidak
 DIALOG_PROGRESS_TITLE,Saving...,Se salvează...,Menyimpan...
 DIALOG_PROGRESS_TITLE_DONE,Saved,Salvat,Sudah disimpan
-DIALOG_PROGRESS_KEEP_FOCUSED,Please keep this window focused.,Nu părăsiți fereastra.,Dimohon untuk tidak beranjak dari aplikasi ini.
+DIALOG_PROGRESS_KEEP_FOCUSED,Please keep this window focused.,Nu părăsiți fereastra.,Dimohon untuk tetap fokus di aplikasi ini.
 DIALOG_PROGRESS_AFTER_PROJECT,You can find it in the project list or you can download it.,Puteți să-l găsiți in lista de proiecte sau puteți să-l descărcați.,Anda bisa menemukannya di daftar proyek atau anda bisa mengunduhnya.
 DIALOG_PROGRESS_BTN_OPEN,Open folder,Deschideți folderul,Buka folder
 DIALOG_PROGRESS_BTN_DOWNLOAD,Download,Descărcați,Unduh
