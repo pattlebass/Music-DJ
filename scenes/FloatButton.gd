@@ -8,9 +8,10 @@ var sample
 signal released
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventScreenDrag or event is InputEventPanGesture or event is InputEventMouseMotion:
+	print(event)
+	if event is InputEventScreenDrag or event is InputEventMouseMotion:
 		global_position = get_global_mouse_position()
-	else:
+	elif event.is_action_released("left_click"):
 		if $Area2D.get_overlapping_areas():
 			var collided_tile = $Area2D.get_overlapping_areas()[0].get_parent()
 			var collided_column = collided_tile.get_parent()
@@ -22,5 +23,8 @@ func _input(event: InputEvent) -> void:
 			collided_column.set_tile(instrument, sample)
 			main.set_tile(instrument, collided_column.column_no, sample)
 			
+		emit_signal("released")
+		queue_free()
+	else:
 		emit_signal("released")
 		queue_free()
