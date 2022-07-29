@@ -1,0 +1,1 @@
+python -u "d:\Projects\Music-DJ\assets\themes\svg_import.py" --fill "#000000DE"
