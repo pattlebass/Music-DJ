@@ -30,6 +30,8 @@ config/name="Music DJ"
 config/description="No Description"
 run/main_scene="res://scenes/main.tscn"
 run/low_processor_mode=true
+boot_splash/image="res://assets/icon/icon.png"
+boot_splash/fullsize=false
 config/icon="res://assets/icon/icon.png"
 config/windows_native_icon="res://assets/icon/icon.ico"
 
