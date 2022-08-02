@@ -114,7 +114,7 @@ func download_file(_file_path, _file_name):
 		if _file_name.ends_with(".wav"):
 			mime_type = "audio/wav"
 		elif _file_name.ends_with(".mdj"):
-			mime_type = "application/json"
+			mime_type = "application/octet-stream"
 		
 		JavaScript.download_buffer(file_data_raw, _file_name, mime_type)
 	else: # Android
