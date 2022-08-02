@@ -27,7 +27,7 @@ func _ready() -> void:
 	}
 	
 	var lang_auto_btn = lang_container.get_node("Auto")
-	lang_auto_btn.text = tr("SETTING_LANG_AUTO") % locale_names[OS.get_locale_language().replace("-", "")] # Bug on HTML5
+	lang_auto_btn.text = tr("SETTING_LANG_AUTO") % locale_names[OS.get_locale_language()]
 	lang_auto_btn.group = lang_btn_group
 	lang_auto_btn.connect("pressed", self, "on_lang_chosen", [""])
 	
