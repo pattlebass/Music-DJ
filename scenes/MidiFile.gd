@@ -28,6 +28,10 @@ class MidiNote:
 	var velocity = 0
 	var start_time = 0
 	var duration = 0
+	
+	func equal_to(note: MidiNote) -> bool:
+		return key == note.key and velocity == note.velocity \
+				and start_time == note.start_time and duration == note.duration
 
 class MidiTrack:
 	var track_name: String
@@ -70,7 +74,11 @@ var tempo = 0
 var bpm = 0
 
 
-func parse_file(path: String) -> void:
+func parse(path: String, silent := false) -> void:
+	tracks = []
+	tempo = 0
+	bpm = 0
+	
 	var file := File.new()
 	file.open(path, File.READ_WRITE)
 	
@@ -88,13 +96,15 @@ func parse_file(path: String) -> void:
 	var divisions_word = buffer.get_u16()
 	var divisions_format = divisions_word & 0x8000
 	
-	if buffer.get_utf8_string(4) == "SEM1":
-		print("---SEM1---")
+	if buffer.get_utf8_string(4).begins_with("SEM"):
+		if not silent:
+			print("---SEM---")
 		var sem1_length = buffer.get_32()
 		buffer.seek(buffer.get_position() + sem1_length)
 	
 	for chunk in no_tracks:
-		print("---Track %s---" % chunk)
+		if not silent:
+			print("---Track %s---" % chunk)
 		var track_id = buffer.get_utf8_string(4)
 		var track_length = buffer.get_u32()
 		
@@ -210,8 +220,9 @@ func parse_file(path: String) -> void:
 								if tempo == 0:
 									tempo = get_u24(buffer)
 									bpm = 60_000_000 / tempo
-									print("Set tempo: %s" % tempo)
-									print("Set bpm: %s" % bpm)
+									if not silent:
+										print("Set tempo: %s" % tempo)
+										print("Set bpm: %s" % bpm)
 							_:
 								buffer.seek(buffer.get_position() + length)
 				_:
@@ -245,7 +256,7 @@ func parse_file(path: String) -> void:
 #		print("Time: %s | Vel: %s | Key: %s | Dur: %s" % [i.start_time, i.velocity, i.key, i.duration])
 	
 	# duration:383, key:75, start_time:0, velocity:77
-	print(inst2dict(tracks[1].notes[0]))
+#	print(inst2dict(tracks[1].notes[0]))
 	
 	pass
 
@@ -281,33 +292,3 @@ func get_u24(buffer: StreamPeerBuffer) -> int:
 	value |= buffer.get_u8() << 8
 	value |= buffer.get_u8() << 0
 	return value
-
-
-func int2bin(decimal_value: int) -> String:
-	var binary_string = "" 
-	var temp 
-	var count = 7
-	
-	if decimal_value > 255:
-		count = 15
-	elif decimal_value > pow(2, 16) - 1:
-		count = 31
-	
-	while(count >= 0):
-		temp = decimal_value >> count 
-		if(temp & 1):
-			binary_string += "1"
-		else:
-			binary_string += "0"
-		count -= 1
-	
-	return binary_string
-
-
-func bin2int(bin_str: String) -> int:
-	var out = 0
-	
-	for c in bin_str:
-		out = (out << 1) + int(c == "1")
-	
-	return out
