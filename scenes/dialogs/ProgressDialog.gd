@@ -1,54 +1,73 @@
 extends CustomDialog
 
 onready var progress_bar = get_node("VBoxContainer/HBoxContainer2/VBoxContainer/ProgressBar")
+onready var title: Label = $VBoxContainer/Title
+onready var body: Label = $VBoxContainer/Body
+onready var open_button: Button = $VBoxContainer/HBoxContainer/OpenButton
+onready var download_button: Button = $VBoxContainer/HBoxContainer/DownloadButton
 
-var path_text = ""
+var path = ""
 var after_saving = "stay"
+var type_of_save := ""
 
+# TODO: Refactor
 
-func about_to_show():
+func about_to_show() -> void:
 	progress_bar.value = 0
+	progress_bar.show()
+	
+	open_button.disabled = true
+	title.text = "DIALOG_PROGRESS_TITLE"
+	body.text = ""
+	
 	set_process(true)
-	$VBoxContainer/HBoxContainer/OpenButton.disabled = true
-	$VBoxContainer/Label.text = "DIALOG_PROGRESS_TITLE"
-	$VBoxContainer/Label2.text = ProjectSettings.globalize_path(path_text)
-	progress_bar.visible = true
+	
 	if OS.get_name() == "Android":
-		$VBoxContainer/HBoxContainer/OpenButton.visible = false
-		$VBoxContainer/HBoxContainer/DownloadButton.visible = false
-		after_saving = "close"
+		open_button.hide()
+		download_button.hide()
 	elif OS.get_name() == "HTML5":
-		$VBoxContainer/HBoxContainer/OpenButton.visible = false
-		$VBoxContainer/HBoxContainer/DownloadButton.visible = true
-		if path_text.ends_with(".mdj"):
-			$VBoxContainer/Label2.text = "DIALOG_PROGRESS_AFTER_PROJECT"
-		else:
-			$VBoxContainer/Label2.text = "DIALOG_PROGRESS_KEEP_FOCUSED"
+		open_button.hide()
+		download_button.show()
 		after_saving = "stay"
+		
+		if type_of_save == "project":
+			body.text = "DIALOG_PROGRESS_AFTER_PROJECT"
+		else:
+			body.text = "DIALOG_PROGRESS_KEEP_FOCUSED"
 	
 	$VBoxContainer.rect_size = rect_size
 	
 	.about_to_show()
 
 
-func _on_CancelButton_pressed():
+func error(code: int) -> void:
+	body.text = tr("DIALOG_PROGRESS_ERROR") % code
+	progress_bar.hide()
+	set_process(false)
+
+
+func _on_CancelButton_pressed() -> void:
 	hide()
 	main.get_node("SaveDialog").is_cancelled = true
 	main.is_playing = false
 
 
-func _process(delta):
+func _process(delta) -> void:
 	if progress_bar.value >= progress_bar.max_value:
-		$VBoxContainer/HBoxContainer/OpenButton.disabled = false
-		$VBoxContainer/HBoxContainer/DownloadButton.disabled = false
-		$VBoxContainer/Label.text = "DIALOG_PROGRESS_TITLE_DONE"
-		progress_bar.visible = false
+		open_button.disabled = false
+		download_button.disabled = false
+		title.text = "DIALOG_PROGRESS_TITLE_DONE"
+		
+		progress_bar.hide()
 		
 		if after_saving == "close":
 			hide()
 	
-		if OS.get_name() == "HTML5" and path_text.ends_with(".wav"):
-			_on_DownloadButton_pressed()
+		if type_of_save == "export":
+			if OS.get_name() == "HTML5":
+				_on_DownloadButton_pressed()
+			else:
+				body.text = tr("DIALOG_PROGRESS_AFTER_EXPORT") % ProjectSettings.globalize_path(path)
 	
 		set_process(false)
 		
@@ -56,18 +75,10 @@ func _process(delta):
 		progress_bar.value += delta
 
 
-func _on_OpenButton_pressed():
-	if OS.get_name() == "Android":
-		OS.alert(ProjectSettings.globalize_path(Variables.user_dir), "Folder location")
-	else:
-		OS.shell_open(ProjectSettings.globalize_path(Variables.user_dir))
+func _on_OpenButton_pressed() -> void:
+	OS.shell_open(ProjectSettings.globalize_path(Variables.user_dir))
 
 
-func _on_DownloadButton_pressed():
-	var file_name = path_text.split("/")[-1]
-	var path
-	if file_name.ends_with(".mdj"):
-		path = Variables.user_dir.plus_file("Projects/%s" % file_name)
-	elif file_name.ends_with(".wav"):
-		path = Variables.user_dir.plus_file("Exports/%s" % file_name)
+func _on_DownloadButton_pressed() -> void:
+	var file_name = path.get_file()
 	Variables.download_file(path, file_name)

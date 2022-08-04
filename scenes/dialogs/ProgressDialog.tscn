@@ -21,12 +21,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="VBoxContainer"]
+[node name="Title" type="Label" parent="VBoxContainer"]
 margin_right = 554.0
 margin_bottom = 55.0
 text = "Saving..."
 
-[node name="Label2" type="Label" parent="VBoxContainer"]
+[node name="Body" type="Label" parent="VBoxContainer"]
 margin_top = 59.0
 margin_right = 554.0
 margin_bottom = 83.0

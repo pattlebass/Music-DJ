@@ -47,6 +47,8 @@ DIALOG_PROGRESS_TITLE,Saving...,Se salvează...,Menyimpan...
 DIALOG_PROGRESS_TITLE_DONE,Saved,Salvat,Sudah disimpan
 DIALOG_PROGRESS_KEEP_FOCUSED,Please keep this window focused.,Nu părăsiți fereastra.,Dimohon untuk tetap fokus di aplikasi ini.
 DIALOG_PROGRESS_AFTER_PROJECT,You can find it in the project list or you can download it.,Puteți să-l găsiți in lista de proiecte sau puteți să-l descărcați.,Anda bisa menemukannya di daftar proyek atau anda bisa mengunduhnya.
+DIALOG_PROGRESS_AFTER_EXPORT,You can find the recording here: %s,Puteți găsi înregistrarea aici: %s,Anda bisa menemukan hasil rekaman di sini: %s
+DIALOG_PROGRESS_ERROR,An error occured. Make sure you gave all the necessary permissions. Error code: %s.,A apărut o eroare. Verificați permisiunile. Cod: %s.,Terjadi kesalahan. Pastikan anda memberikan semua izin yang diperlukan. Kode kesalahan: %s.
 DIALOG_PROGRESS_BTN_OPEN,Open folder,Deschideți folderul,Buka folder
 DIALOG_PROGRESS_BTN_DOWNLOAD,Download,Descărcați,Unduh
 DIALOG_CONFIRMATION_TITLE_OVERWRITE,Overwrite?,Înlocuire?,Timpa file?

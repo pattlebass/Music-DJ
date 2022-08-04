@@ -27,25 +27,31 @@ func save():
 		# Project save
 		var path = Variables.user_dir.plus_file("Projects/%s.mdj" % entered_name)
 		var file = File.new()
-		file.open(path, File.WRITE)
+		var err = file.open(path, File.WRITE)
 		file.store_string(to_json(main.song))
 		file.close()
 		
 		# ProgressDialog
-		main.get_node("ProgressDialog").path_text = path
+		main.get_node("ProgressDialog").path = path
 		main.get_node("ProgressDialog").after_saving = "close"
+		main.get_node("ProgressDialog").type_of_save = type_of_save
 		main.get_node("ProgressDialog").progress_bar.max_value = 0.2
 		main.get_node("ProgressDialog").popup_centered()
+		
+		if err:
+			main.get_node("ProgressDialog").error(err)
 		
 		last_name = entered_name
 	else:
 		is_cancelled = false
+		last_name = entered_name
 		main.get_node("SoundDialog/AudioStreamPlayer").stop()
 		
 		# ProgressDialog
 		var path = Variables.user_dir.plus_file("Exports/%s.wav" % entered_name)
-		main.get_node("ProgressDialog").path_text = path
+		main.get_node("ProgressDialog").path = path
 		main.get_node("ProgressDialog").after_saving = "stay"
+		main.get_node("ProgressDialog").type_of_save = type_of_save
 		main.get_node("ProgressDialog").progress_bar.max_value = 3*(main.used_columns.max()+1) + 0.5
 		main.get_node("ProgressDialog").popup_centered()
 		
@@ -56,15 +62,16 @@ func save():
 		
 		# Saving
 		var recording = effect.get_recording()
-		if recording and not is_cancelled:
-			recording.save_to_wav(path)
-			print("Save successful!")
-		else:
+		if not recording or is_cancelled:
+			print("Canceled recording.")
+			return
+		
+		var err = recording.save_to_wav(path)
+		if err:
+			main.get_node("ProgressDialog").error(err)
 			print("Save failed!")
-		
-		is_cancelled = false
-		
-		last_name = entered_name
+		else:
+			print("Save successful!")
 
 
 func _on_OkButton_pressed():
