@@ -9,7 +9,9 @@ var options = {
 var current_tutorial_version = 1
 var timer: Timer
 var file := File.new()
-var user_dir := "user://saves/"
+var saves_dir := "user://saves/"
+var projects_dir := "user://saves/Projects/"
+var exports_dir := "user://saves/Exports/"
 var clipboard
 
 onready var VERSION = load("res://version.gd").VERSION
@@ -34,10 +36,15 @@ func _ready() -> void:
 	
 	traverse(main)
 	
+	# Set directories
+	if OS.get_name() == "Android":
+		has_storage_perms()
+		exports_dir = OS.get_system_dir(OS.SYSTEM_DIR_MUSIC).plus_file("MusicDJ")
+	
 	# Make directories
 	var dir = Directory.new()
-	dir.make_dir_recursive("user://saves/Exports")
-	dir.make_dir_recursive("user://saves/Projects")
+	dir.make_dir_recursive(projects_dir)
+	dir.make_dir_recursive(exports_dir)
 	
 	# Options
 	timer = Timer.new()

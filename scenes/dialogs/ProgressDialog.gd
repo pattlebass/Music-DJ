@@ -76,7 +76,7 @@ func _process(delta) -> void:
 
 
 func _on_OpenButton_pressed() -> void:
-	OS.shell_open(ProjectSettings.globalize_path(Variables.user_dir))
+	OS.shell_open(ProjectSettings.globalize_path(Variables.saves_dir))
 
 
 func _on_DownloadButton_pressed() -> void:

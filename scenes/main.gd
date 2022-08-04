@@ -272,12 +272,12 @@ func _files_dropped(_files, _screen) -> void:
 		
 		var file_name = i.get_file()
 		
-		if dir.file_exists(Variables.user_dir.plus_file("Projects/%s" % file_name)):
+		if dir.file_exists(Variables.saves_dir.plus_file("Projects/%s" % file_name)):
 			var body = tr("DIALOG_CONFIRMATION_BODY_OVERWRITE") % "[color=#4ecca3]%s[/color]" % file_name
 			if yield(Variables.confirm_popup("DIALOG_CONFIRMATION_TITLE_OVERWRITE", body), "completed"):
-				dir.copy(i, Variables.user_dir.plus_file("Projects/%s" % file_name))
+				dir.copy(i, Variables.projects_dir.plus_file("%s" % file_name))
 		else:
-			dir.copy(i, Variables.user_dir.plus_file("Projects/%s" % file_name))
+			dir.copy(i, Variables.projects_dir.plus_file("%s" % file_name))
 	$LoadDialog.popup_centered()
 
 

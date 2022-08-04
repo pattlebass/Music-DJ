@@ -25,7 +25,7 @@ func save():
 	entered_name = entered_name.strip_edges()
 	if type_of_save == "project":
 		# Project save
-		var path = Variables.user_dir.plus_file("Projects/%s.mdj" % entered_name)
+		var path = Variables.projects_dir.plus_file("%s.mdj" % entered_name)
 		var file = File.new()
 		var err = file.open(path, File.WRITE)
 		file.store_string(to_json(main.song))
@@ -48,7 +48,8 @@ func save():
 		main.get_node("SoundDialog/AudioStreamPlayer").stop()
 		
 		# ProgressDialog
-		var path = Variables.user_dir.plus_file("Exports/%s.wav" % entered_name)
+		var path = Variables.exports_dir.plus_file("%s.wav" % entered_name)
+		
 		main.get_node("ProgressDialog").path = path
 		main.get_node("ProgressDialog").after_saving = "stay"
 		main.get_node("ProgressDialog").type_of_save = type_of_save
@@ -66,13 +67,35 @@ func save():
 			print("Canceled recording.")
 			return
 		
-		var err = recording.save_to_wav(path)
+		# HACK: Save directly to path when bug is fixed
+		# https://github.com/godotengine/godot/issues/63949
+		var dir = Directory.new()
+		dir.make_dir("user://_temp/")
+		var err = recording.save_to_wav("user://_temp/".plus_file(path.get_file()))
+		
 		if err:
 			main.get_node("ProgressDialog").error(err)
-			print("Save failed!")
+			print("Recording failed. Code: %s" % err)
 		else:
-			print("Save successful!")
-
+			if OS.get_name() == "Android":
+				var download_dir = OS.get_system_dir(OS.SYSTEM_DIR_DOWNLOADS).plus_file("MusicDJ")
+				dir.make_dir(download_dir)
+				
+				print("Android export-----------")
+				print(recording.save_to_wav(download_dir.plus_file("Song.wav")))
+				print(dir.file_exists(download_dir.plus_file("Song.wav")))
+				print(dir.rename(download_dir.plus_file("Song.wav"), path))
+				print("Android export end-----------")
+				
+				if not dir.file_exists(path):
+					main.get_node("ProgressDialog").error(1234)
+					print("Exporting didn't work.")
+			else:
+				var err2 = dir.rename("user://_temp/".plus_file(path.get_file()), path)
+				if err2:
+					main.get_node("ProgressDialog").error(4321)
+					print("Non Android export failed: %s" % err2)
+			dir.remove("user://_temp/".plus_file(path.get_file()))
 
 func _on_OkButton_pressed():
 	hide()

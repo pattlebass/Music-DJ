@@ -39,7 +39,7 @@ func _ready() -> void:
 
 
 func _on_OkButton_pressed():
-	load_song(Variables.user_dir.plus_file("Projects/%s" % selected_file))
+	load_song(Variables.projects_dir.plus_file("%s" % selected_file))
 
 
 func load_song(_path, _song = null):
@@ -230,9 +230,9 @@ func _on_OpenButton_pressed():
 		if android_picker:
 			android_picker.openFilePicker("*/*")
 		else:
-			OS.alert(ProjectSettings.globalize_path(Variables.user_dir), "Folder location")
+			OS.alert(ProjectSettings.globalize_path(Variables.saves_dir), "Folder location")
 	else:
-		OS.shell_open(ProjectSettings.globalize_path(Variables.user_dir))
+		OS.shell_open(ProjectSettings.globalize_path(Variables.saves_dir))
 
 
 func file_picked(path: String, _mime_type: String) -> void:
@@ -273,7 +273,7 @@ func on_Delete_pressed(_container, file_name):
 	
 	var body = tr("DIALOG_CONFIRMATION_BODY_DELETE") % "[color=#4ecca3]%s[/color]" % file_name
 	if yield(Variables.confirm_popup("DIALOG_CONFIRMATION_TITLE_DELETE", body), "completed"):
-		var path := Variables.user_dir.plus_file("Projects/%s" % file_name)
+		var path := Variables.projects_dir.plus_file("%s" % file_name)
 		if OS.move_to_trash(ProjectSettings.globalize_path(path)) != OK:
 			dir.remove(ProjectSettings.globalize_path(path))
 		
@@ -295,6 +295,6 @@ func on_Share_pressed(file_name) -> void:
 
 func on_Button_download(file_name):
 	Variables.download_file(
-		Variables.user_dir.plus_file("Projects/%s" % file_name),
+		Variables.saves_dir.plus_file("Projects/%s" % file_name),
 		file_name
 	)
