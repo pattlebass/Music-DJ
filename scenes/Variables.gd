@@ -136,6 +136,25 @@ func download_file(_file_path, _file_name):
 			print("Copied project (%s) to %s" % [_file_name, destination_dir])
 
 
+func list_files_in_directory(path: String, extensions := [""]) -> Array:
+	var files = []
+	var dir = Directory.new()
+	dir.open(path)
+	dir.list_dir_begin()
+	
+	while true:
+		var file: String = dir.get_next()
+		if file == "":
+			break
+		elif not file.begins_with("."):
+			if file.get_extension() in extensions:
+				files.append(file)
+	
+	dir.list_dir_end()
+	
+	return files
+
+
 func confirm_popup(title: String, body: String) -> bool:
 	var dialog = preload("res://scenes/dialogs/ConfirmationDialog.tscn").instance()
 	

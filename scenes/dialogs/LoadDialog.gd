@@ -30,7 +30,7 @@ func _ready() -> void:
 	if OS.get_name() == "Android":
 		var old_dir := OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS).plus_file("MusicDJ/Projects")
 		if dir.file_exists(old_dir):
-			for project in list_files_in_directory(old_dir, ["mdj", "mdjt"]):
+			for project in Variables.list_files_in_directory(old_dir, ["mdj", "mdjt"]):
 				var old_project := old_dir.plus_file(project)
 				var new_project := "user://saves/Projects/".plus_file(project)
 				if dir.copy(old_project, new_project) == OK:
@@ -118,7 +118,7 @@ func about_to_show():
 	
 	selected_file = ""
 	
-	var projects = list_files_in_directory(
+	var projects = Variables.list_files_in_directory(
 		"user://saves/Projects/",
 		["mdj", "mdjt"]
 	)
@@ -185,25 +185,6 @@ func about_to_show():
 	$VBoxContainer.rect_size = rect_size
 	
 	.about_to_show()
-
-
-func list_files_in_directory(path: String, extensions := []) -> Array:
-	var files = []
-	var dir = Directory.new()
-	dir.open(path)
-	dir.list_dir_begin()
-	
-	while true:
-		var file: String = dir.get_next()
-		if file == "":
-			break
-		elif not file.begins_with("."):
-			if file.get_extension() in extensions:
-				files.append(file)
-	
-	dir.list_dir_end()
-	
-	return files
 
 
 func on_Button_toggled(button_pressed, button_container, _path):
