@@ -19,6 +19,8 @@ func _ready() -> void:
 			$VBoxContainer/HBoxContainer/CancelButton,
 			0
 		)
+	Variables.connect("virtual_keyboard_visible", self, "_on_virtual_kb_visible")
+	Variables.connect("virtual_keyboard_hidden", self, "_on_virtual_kb_hidden")
 
 
 func save():
@@ -97,15 +99,17 @@ func save():
 					print("Non Android export failed: %s" % err2)
 			dir.remove("user://_temp/".plus_file(path.get_file()))
 
-func _on_OkButton_pressed():
+
+func _on_OkButton_pressed() -> void:
 	hide()
 	save()
 
-func _on_CancelButton_pressed():
+
+func _on_CancelButton_pressed() -> void:
 	hide()
 
 
-func about_to_show():
+func about_to_show() -> void:
 	if !Variables.has_storage_perms():
 		hide()
 	
@@ -120,6 +124,16 @@ func about_to_show():
 	.about_to_show()
 
 
+func _on_virtual_kb_visible() -> void:
+	# Hide title above viewport to make more space
+	rect_position.y = -label_title.rect_size.y 
+
+
+func _on_virtual_kb_hidden() -> void:
+	yield(get_tree().create_timer(0.2), "timeout")
+	rect_position.y = (get_viewport().get_visible_rect().size.y - rect_size.y) / 2
+
+
 func _on_LineEdit_text_changed(new_text):
 	if not new_text.strip_edges().is_valid_filename() or new_text[0] == ".":
 		ok_button.disabled = true
@@ -132,14 +146,6 @@ func _on_LineEdit_text_changed(new_text):
 	entered_name = new_text
 	ok_button.disabled = false
 	label_error.text = ""
-
-
-func _process(_delta):
-	if OS.get_virtual_keyboard_height() == 0:
-		rect_position.y = (get_viewport().get_visible_rect().size.y - rect_size.y) / 2
-	else:
-		# Hide title above viewport to make more space
-		rect_position.y = -label_title.rect_size.y 
 
 
 func get_default_name() -> String:

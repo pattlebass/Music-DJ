@@ -28,6 +28,8 @@ const MINIMUM_DRAG = 100
 onready var main = get_node("/root/main/")
 
 signal theme_changed
+signal virtual_keyboard_visible
+signal virtual_keyboard_hidden
 
 
 func _ready() -> void:
@@ -162,6 +164,21 @@ func confirm_popup(title: String, body: String) -> bool:
 	dialog.alert(title, body)
 	
 	return yield(dialog, "chose")
+
+
+# Virtual keyboard signals
+
+var virtual_kb_up := false
+
+func _process(_delta):
+	if OS.get_virtual_keyboard_height() == 0:
+		if virtual_kb_up:
+			virtual_kb_up = false
+			emit_signal("virtual_keyboard_hidden")
+	else:
+		if not virtual_kb_up:
+			virtual_kb_up = true
+			emit_signal("virtual_keyboard_visible")
 
 
 # Keyboard focus
