@@ -9,7 +9,7 @@ onready var ok_button: Button = $VBoxContainer/HBoxContainer/OkButton
 var dir := Directory.new()
 
 var android_picker
-var android_share
+var share_service
 
 
 func _ready() -> void:
@@ -23,8 +23,6 @@ func _ready() -> void:
 	if Engine.has_singleton("GodotFilePicker"):
 		android_picker = Engine.get_singleton("GodotFilePicker")
 		android_picker.connect("file_picked", self, "file_picked")
-	if Engine.has_singleton("GodotFileSharing"):
-		android_share = Engine.get_singleton("GodotFileSharing")
 	
 	# DEPRECATED v1.0-stable: Move projects on Android to internal app storage
 	if OS.get_name() == "Android":
@@ -189,7 +187,7 @@ func about_to_show():
 
 func on_Button_toggled(button_pressed, button_container, _path):
 	button_container.get_node("DeleteButton").visible = button_pressed
-	button_container.get_node("ShareButton").visible = button_pressed and android_share
+	button_container.get_node("ShareButton").visible = button_pressed and share_service == null
 	button_container.get_node("DownloadButton").visible = button_pressed and (OS.get_name() == "HTML5" or OS.get_name() == "Android")
 	
 	if not button_pressed:
@@ -265,12 +263,8 @@ func on_Delete_pressed(_container, file_name):
 
 
 func on_Share_pressed(file_name) -> void:
-	android_share.shareFile(
-		ProjectSettings.globalize_path("user://saves/Projects/".plus_file(file_name)),
-		"",
-		"",
-		"",
-		"application/json"
+	Variables.share_file(
+		"user://saves/Projects/".plus_file(file_name), "", "", "", "application/json"
 	)
 
 

@@ -5,6 +5,7 @@ onready var title: Label = $VBoxContainer/Title
 onready var body: Label = $VBoxContainer/Body
 onready var open_button: Button = $VBoxContainer/HBoxContainer/OpenButton
 onready var download_button: Button = $VBoxContainer/HBoxContainer/DownloadButton
+onready var share_button: Button = $VBoxContainer/HBoxContainer/ShareButton
 
 var path = ""
 var after_saving = "stay"
@@ -17,15 +18,18 @@ func about_to_show() -> void:
 	progress_bar.show()
 	
 	open_button.disabled = true
+	share_button.disabled = true
 	title.text = "DIALOG_PROGRESS_TITLE"
 	body.text = ""
 	
 	set_process(true)
 	
 	if OS.get_name() == "Android":
+		share_button.show()
 		open_button.hide()
 		download_button.hide()
 	elif OS.get_name() == "HTML5":
+		share_button.hide()
 		open_button.hide()
 		download_button.show()
 		after_saving = "stay"
@@ -43,6 +47,11 @@ func about_to_show() -> void:
 func error(code: int) -> void:
 	body.text = tr("DIALOG_PROGRESS_ERROR") % code
 	progress_bar.hide()
+	
+	share_button.hide()
+	open_button.hide()
+	download_button.hide()
+	
 	set_process(false)
 
 
@@ -54,6 +63,7 @@ func _on_CancelButton_pressed() -> void:
 
 func _process(delta) -> void:
 	if progress_bar.value >= progress_bar.max_value:
+#		share_button.disabled = false
 		open_button.disabled = false
 		download_button.disabled = false
 		title.text = "DIALOG_PROGRESS_TITLE_DONE"
@@ -82,3 +92,7 @@ func _on_OpenButton_pressed() -> void:
 func _on_DownloadButton_pressed() -> void:
 	var file_name = path.get_file()
 	Variables.download_file(path, file_name)
+
+
+func _on_ShareButton_pressed() -> void:
+	Variables.share_file(path, "", "", "", "audio/wav")

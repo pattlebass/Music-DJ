@@ -14,6 +14,8 @@ var projects_dir := "user://saves/Projects/"
 var exports_dir := "user://saves/Exports/"
 var clipboard
 
+var share_service
+
 onready var VERSION = load("res://version.gd").VERSION
 
 const category_names = ["Introduction", "Verse", "Chorus", "Solo"]
@@ -37,6 +39,10 @@ func _ready() -> void:
 	get_tree().connect("node_removed", self, "_node_removed")
 	
 	traverse(main)
+	
+	# Singletons
+	if Engine.has_singleton("GodotFileSharing"):
+		share_service = Engine.get_singleton("GodotFileSharing")
 	
 	# Set directories
 	if OS.get_name() == "Android":
@@ -136,6 +142,12 @@ func download_file(_file_path, _file_name):
 			printerr("Failed to copy project (%s) to %s: " % [_file_name, destination_dir] + err)
 		else:
 			print("Copied project (%s) to %s" % [_file_name, destination_dir])
+
+
+func share_file(path: String, title: String, subject: String, text: String, mimeType: String) -> void:
+	if share_service == null:
+		return
+	share_service.shareFile(ProjectSettings.globalize_path(path), title, subject, text, mimeType)
 
 
 func list_files_in_directory(path: String, extensions := [""]) -> Array:

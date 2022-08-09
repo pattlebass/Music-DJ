@@ -124,6 +124,16 @@ func about_to_show() -> void:
 	.about_to_show()
 
 
+func popup_hide() -> void:
+	.popup_hide()
+#	var dir = Directory.new()
+#	if OS.get_name() == "HTML5":
+#		for path in Variables.list_files_in_directory(Variables.exports_dir, ["wav"]):
+#			print(path)
+#			print(dir.remove(path))
+#			print(dir.remove("user://options.json"))
+
+
 func _on_virtual_kb_visible() -> void:
 	# Hide title above viewport to make more space
 	rect_position.y = -label_title.rect_size.y 
