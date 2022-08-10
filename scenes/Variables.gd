@@ -54,6 +54,10 @@ func _ready() -> void:
 	dir.make_dir_recursive(projects_dir)
 	dir.make_dir_recursive(exports_dir)
 	
+	# Demo song
+	if not dir.file_exists(projects_dir.plus_file("Demo.mdj")):
+		dir.copy("res://demo.mdj", projects_dir.plus_file("Demo.mdj"))
+	
 	# Options
 	timer = Timer.new()
 	timer.one_shot = true
