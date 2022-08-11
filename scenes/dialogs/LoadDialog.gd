@@ -187,7 +187,7 @@ func about_to_show():
 
 func on_Button_toggled(button_pressed, button_container, _path):
 	button_container.get_node("DeleteButton").visible = button_pressed
-	button_container.get_node("ShareButton").visible = button_pressed and share_service == null
+	button_container.get_node("ShareButton").visible = button_pressed and share_service != null
 	button_container.get_node("DownloadButton").visible = button_pressed and (OS.get_name() == "HTML5" or OS.get_name() == "Android")
 	
 	if not button_pressed:
