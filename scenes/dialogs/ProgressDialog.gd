@@ -25,7 +25,7 @@ func about_to_show() -> void:
 	set_process(true)
 	
 	if OS.get_name() == "Android":
-		share_button.show()
+#		share_button.show()
 		open_button.hide()
 		download_button.hide()
 	elif OS.get_name() == "HTML5":
