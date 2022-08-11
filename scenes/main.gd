@@ -97,7 +97,7 @@ func play_column(_column_no, _single) -> void:
 	
 		var audio_player = audio_players.get_child(instrument)
 		var sound = song[instrument][_column_no]
-		audio_player.stream = load("res://sounds/"+str(instrument)+"/"+str(sound)+".ogg")
+		audio_player.stream = Variables.sounds[instrument][sound]
 		audio_player.play()
 	# Needs cleanup
 	yield(get_tree().create_timer(3 - time_delay), "timeout")

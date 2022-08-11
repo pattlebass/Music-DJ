@@ -133,14 +133,14 @@ func on_Button_selected(index):
 	if Variables.show_focus:
 		_on_OkButton_pressed()
 	else:
-		audio_player.stream = load("res://sounds/%s/%s.ogg" % [instrument, index + 1])
+		audio_player.stream = Variables.sounds[instrument][index + 1]
 		audio_player.play()
 
 
 func on_Button_focused(sample_index):
 	if not Variables.show_focus:
 		return
-	audio_player.stream = load("res://sounds/%s/%s.ogg" % [instrument, sample_index + 1])
+	audio_player.stream = Variables.sounds[instrument][sample_index + 1]
 	audio_player.play()
 
 

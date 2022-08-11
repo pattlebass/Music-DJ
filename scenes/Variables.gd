@@ -26,6 +26,7 @@ const instrument_names = [
 	"INSTRUMENT_TRUMPET"
 ]
 const MINIMUM_DRAG = 100
+var sounds := [[0], [0], [0], [0]]
 
 onready var main = get_node("/root/main/")
 
@@ -57,6 +58,11 @@ func _ready() -> void:
 	# Demo song
 	if not dir.file_exists(projects_dir.plus_file("Demo.mdj")):
 		dir.copy("res://demo.mdj", projects_dir.plus_file("Demo.mdj"))
+	
+	# Preload all sounds
+	for instrument in 4:
+		for sample in 32:
+			sounds[instrument].append(load("res://sounds/%s/%s.ogg" % [instrument, sample + 1]))
 	
 	# Options
 	timer = Timer.new()

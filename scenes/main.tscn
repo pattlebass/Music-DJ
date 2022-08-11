@@ -323,7 +323,6 @@ theme_type_variation = "ShadowPanel"
 visible = false
 
 [node name="ProgressDialog" parent="." instance=ExtResource( 10 )]
-visible = false
 
 [node name="LoadDialog" parent="." instance=ExtResource( 11 )]
 
