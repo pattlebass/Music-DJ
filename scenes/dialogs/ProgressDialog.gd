@@ -75,6 +75,7 @@ func _process(delta) -> void:
 	
 		if type_of_save == "export":
 			if OS.get_name() == "HTML5":
+				yield(get_tree().create_timer(0.1), "timeout")
 				_on_DownloadButton_pressed()
 			else:
 				body.text = tr("DIALOG_PROGRESS_AFTER_EXPORT") % ProjectSettings.globalize_path(path)
