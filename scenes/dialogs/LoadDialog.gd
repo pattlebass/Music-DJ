@@ -83,6 +83,9 @@ func load_song(_path, _song = null):
 	
 	main.scroll_container.scroll_horizontal = 0
 	
+	# HACK: Fix when you move playing logic in _process()
+	main._on_Play_toggled(false)
+	
 	# TODO: Cleanup
 	
 	for instrument in main.song.size():
