@@ -259,6 +259,10 @@ func on_Delete_pressed(_container, file_name):
 		if OS.move_to_trash(ProjectSettings.globalize_path(path)) != OK:
 			dir.remove(ProjectSettings.globalize_path(path))
 		
+		# HACK: Until https://github.com/godotengine/godot/issues/63995 is fixed
+		if OS.get_name() == "HTML5":
+			Variables.save_options(0)
+		
 		ok_button.disabled = _container.get_node("LoadButton").text == selected_file
 		_container.queue_free()
 	

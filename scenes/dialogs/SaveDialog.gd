@@ -126,12 +126,15 @@ func about_to_show() -> void:
 
 func popup_hide() -> void:
 	.popup_hide()
-#	var dir = Directory.new()
-#	if OS.get_name() == "HTML5":
-#		for path in Variables.list_files_in_directory(Variables.exports_dir, ["wav"]):
-#			print(path)
-#			print(dir.remove(path))
-#			print(dir.remove("user://options.json"))
+	var dir = Directory.new()
+	if OS.get_name() == "HTML5":
+		for path in Variables.list_files_in_directory(Variables.exports_dir, ["wav"]):
+			print("Removing %s. Code: %s" % [
+				"user://_temp".plus_file(path),
+				dir.remove("user://_temp".plus_file(path))
+			])
+		# HACK: Until https://github.com/godotengine/godot/issues/63995 is fixed
+		Variables.save_options(0)
 
 
 func _on_virtual_kb_visible() -> void:
