@@ -59,7 +59,7 @@ margin_right = 554.0
 margin_bottom = 219.0
 size_flags_vertical = 3
 custom_constants/separation = 20
-alignment = 2
+alignment = 1
 
 [node name="OpenButton" type="Button" parent="VBoxContainer/HBoxContainer"]
 margin_right = 372.0

@@ -4,6 +4,7 @@ onready var progress_bar = get_node("VBoxContainer/HBoxContainer2/VBoxContainer/
 onready var title: Label = $VBoxContainer/Title
 onready var body: Label = $VBoxContainer/Body
 onready var open_button: Button = $VBoxContainer/HBoxContainer/OpenButton
+onready var cancel_button: Button = $VBoxContainer/HBoxContainer/CancelButton
 onready var download_button: Button = $VBoxContainer/HBoxContainer/DownloadButton
 onready var share_button: Button = $VBoxContainer/HBoxContainer/ShareButton
 
@@ -21,6 +22,7 @@ func about_to_show() -> void:
 	share_button.disabled = true
 	title.text = "DIALOG_PROGRESS_TITLE"
 	body.text = ""
+	cancel_button.text = "BTN_CANCEL"
 	
 	set_process(true)
 	
@@ -67,6 +69,7 @@ func _process(delta) -> void:
 		open_button.disabled = false
 		download_button.disabled = false
 		title.text = "DIALOG_PROGRESS_TITLE_DONE"
+		cancel_button.text = "BTN_CLOSE"
 		
 		progress_bar.hide()
 		
