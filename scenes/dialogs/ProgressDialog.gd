@@ -75,16 +75,12 @@ func _process(delta) -> void:
 		
 		if after_saving == "close":
 			hide()
-	
-		if type_of_save == "export":
-			if OS.get_name() == "HTML5":
-				yield(get_tree().create_timer(0.1), "timeout")
-				_on_DownloadButton_pressed()
-			else:
-				body.text = tr("DIALOG_PROGRESS_AFTER_EXPORT") % ProjectSettings.globalize_path(path)
-	
-		set_process(false)
 		
+		if type_of_save == "export":
+			if OS.get_name() != "HTML5":
+				body.text = tr("DIALOG_PROGRESS_AFTER_EXPORT") % ProjectSettings.globalize_path(path)
+		
+		set_process(false)
 	else:
 		progress_bar.value += delta
 
