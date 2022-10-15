@@ -1,4 +1,7 @@
 extends VBoxContainer
+class_name Column
+
+const scene = "res://scenes/Column.tscn"
 
 var column_no: int
 
@@ -64,14 +67,14 @@ func clear_tile(instrument: int) -> void:
 	tile.set("custom_styles/hover", null)
 
 
-func on_play_started() -> void:
+func start_play() -> void:
 	column_button.set("custom_colors/font_color", Color.red)
 	column_button.set("custom_colors/font_color_focus", Color.red)
 	column_button.set("custom_colors/font_color_hover", Color.red)
 	column_button.set("custom_colors/font_color_pressed", Color.red)
 
 
-func on_play_ended() -> void:
+func end_play() -> void:
 	column_button.set("custom_colors/font_color", null)
 	column_button.set("custom_colors/font_color_focus", null)
 	column_button.set("custom_colors/font_color_hover", null)
@@ -137,10 +140,10 @@ func context_menu_pressed(id: int, instrument: int, sample_index: int) -> void:
 			Variables.clipboard = {"instrument": instrument, "sample": sample_index}
 		1: # Paste
 			if Variables.clipboard:
-				Variables.main.set_tile(Variables.clipboard.instrument, column_no, Variables.clipboard.sample)
+				BoomBox.set_tile(Variables.clipboard.instrument, column_no, Variables.clipboard.sample)
 				set_tile(Variables.clipboard.instrument, Variables.clipboard.sample)
 		2: # Clear
-			Variables.main.set_tile(instrument, column_no, 0)
+			BoomBox.set_tile(instrument, column_no, 0)
 			clear_tile(instrument)
 
 

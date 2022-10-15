@@ -56,10 +56,10 @@ func _ready() -> void:
 			"Tile"
 		)
 		image.lock()
-		for v in 32:
-			for h in 32:
-				var current_pixel = image.get_pixel(h, v)
-				image.set_pixel(h, v, color * current_pixel)
+		for y in 32:
+			for x in 32:
+				var current_pixel = image.get_pixel(x, y)
+				image.set_pixel(x, y, color * current_pixel)
 		image.unlock()
 		texture.create_from_image(image)
 		
@@ -94,6 +94,8 @@ func _ready() -> void:
 		
 		buttons[i].focus_neighbour_right = ok_button.get_path()
 		buttons[i].focus_neighbour_left = cancel_button.get_path()
+	
+	BoomBox.connect("play_started", audio_player, "stop")
 
 
 func about_to_show():
@@ -106,9 +108,9 @@ func about_to_show():
 	# Set button states
 	var clear_button = get_node("VBoxContainer/HBoxContainer/ClearButton")
 	
-	if main.song[instrument][column_no]:
+	if BoomBox.song[instrument][column_no]:
 		var selected_button = button_container.get_node(
-			str(main.song[instrument][column_no] - 1)
+			str(BoomBox.song[instrument][column_no] - 1)
 		)
 		selected_button.pressed = true
 		clear_button.disabled = false
@@ -133,23 +135,23 @@ func on_Button_selected(index):
 	if Variables.show_focus:
 		_on_OkButton_pressed()
 	else:
-		audio_player.stream = Variables.sounds[instrument][index + 1]
+		audio_player.stream = BoomBox.sounds[instrument][index + 1]
 		audio_player.play()
 
 
 func on_Button_focused(sample_index):
 	if not Variables.show_focus:
 		return
-	audio_player.stream = Variables.sounds[instrument][sample_index + 1]
+	audio_player.stream = BoomBox.sounds[instrument][sample_index + 1]
 	audio_player.play()
 
 
 func _on_OkButton_pressed():
-	if main.song[instrument][column_no] - 1 == pressed_button_index:
+	if BoomBox.song[instrument][column_no] - 1 == pressed_button_index:
 		hide()
 		return
 	
-	main.set_tile(instrument, column_no, pressed_button_index + 1)
+	BoomBox.set_tile(instrument, column_no, pressed_button_index + 1)
 	column.set_tile(
 		instrument,
 		pressed_button_index+1
@@ -162,7 +164,7 @@ func _on_OkButton_pressed():
 
 func _on_ClearButton_pressed():
 	column.clear_tile(instrument)
-	main.set_tile(instrument, column.column_no, 0)
+	BoomBox.set_tile(instrument, column.column_no, 0)
 
 	hide()
 

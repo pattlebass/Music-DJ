@@ -30,7 +30,7 @@ func save():
 		var path = Variables.projects_dir.plus_file("%s.mdj" % entered_name)
 		var file = File.new()
 		var err = file.open(path, File.WRITE)
-		file.store_string(to_json(main.song))
+		file.store_string(to_json(BoomBox.song))
 		file.close()
 		
 		# ProgressDialog
@@ -55,12 +55,13 @@ func save():
 		main.get_node("ProgressDialog").path = path
 		main.get_node("ProgressDialog").after_saving = "stay"
 		main.get_node("ProgressDialog").type_of_save = type_of_save
-		main.get_node("ProgressDialog").progress_bar.max_value = 3*(main.used_columns.max()+1) + 0.5
+		main.get_node("ProgressDialog").progress_bar.max_value = 3*(BoomBox.used_columns.max()+1) + 0.5
 		main.get_node("ProgressDialog").popup_centered()
 		
 		# Export
 		effect.set_recording_active(true)
-		yield(main.play_song(), "completed")
+		BoomBox.play_song()
+		yield(BoomBox, "play_ended")
 		effect.set_recording_active(false)
 		
 		# Saving

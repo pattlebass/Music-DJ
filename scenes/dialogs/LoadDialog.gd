@@ -42,60 +42,56 @@ func _on_OkButton_pressed():
 
 func load_song(_path, _song = null):
 	if _song:
-		main.song = _song
+		BoomBox.song = _song
 	else:
 		var file = File.new()
 		file.open(_path, File.READ)
 		if _path.ends_with(".mdj"):
 			var json_result = JSON.parse(file.get_as_text())
 			if json_result.error: # DEPRECATED v1.0-stable: Godot dictionary
-				main.song = file.get_var()
+				BoomBox.song = file.get_var()
 			else: # JSON format
-				main.song = json_result.result
+				BoomBox.song = json_result.result
 			file.close()
 		elif _path.ends_with(".mdjt"): # DEPRECATED v1.0-stable: mdjt
-			main.song = str2var(file.get_as_text())
+			BoomBox.song = str2var(file.get_as_text())
 			file.close()
 			dir.remove(_path)
 			_path.erase(_path.length()-1, 1)
 			file.open(_path, File.WRITE)
-			file.store_var(main.song)
+			file.store_var(BoomBox.song)
 			file.close()
 		main.get_node("SaveDialog").last_name = _path.get_file().get_basename()
 		
 	# Add remaining columns
-	var song_column_index = main.song[0].size()
+	var song_column_index = BoomBox.song[0].size()
 	
-	if main.column_index < song_column_index:
-		for i in song_column_index - main.column_index:
-			main.add_column(main.column_index, false)
-			main.column_index += 1
+	if BoomBox.column_index < song_column_index:
+		for i in song_column_index - BoomBox.column_index:
+			main.add_column(BoomBox.column_index, false)
+			BoomBox.column_index += 1
 	
-	elif main.column_index > song_column_index:
-		for i in main.column_index - song_column_index:
-			main.column_container.get_child(main.column_index-1).queue_free()
-			main.column_index -= 1
+	elif BoomBox.column_index > song_column_index:
+		for i in BoomBox.column_index - song_column_index:
+			main.column_container.get_child(BoomBox.column_index-1).queue_free()
+			BoomBox.column_index -= 1
 		
 	
-	# Clear used_columns
-	main.used_columns.clear()
-	main.used_columns.append(-1)
+	BoomBox.used_columns = [-1]
 	
 	main.scroll_container.scroll_horizontal = 0
-	
-	# HACK: Fix when you move playing logic in _process()
-	main._on_Play_toggled(false)
+	main.play_button.pressed = false
 	
 	# TODO: Cleanup
 	
-	for instrument in main.song.size():
-		for column_no in main.song[instrument].size():
+	for instrument in BoomBox.song.size():
+		for column_no in BoomBox.song[instrument].size():
 			var column = main.column_container.get_child(column_no)
-			var value = main.song[instrument][column_no]
+			var value = BoomBox.song[instrument][column_no]
 			
 			if value != 0: # If not empty
-				if not main.used_columns.has(column_no):
-					main.used_columns.append(column_no)
+				if not BoomBox.used_columns.has(column_no):
+					BoomBox.used_columns.append(column_no)
 			
 			column.set_tile(instrument, value)
 			

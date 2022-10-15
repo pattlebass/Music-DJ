@@ -26,7 +26,6 @@ const instrument_names = [
 	"INSTRUMENT_TRUMPET"
 ]
 const MINIMUM_DRAG = 100
-var sounds := [[0], [0], [0], [0]]
 
 onready var main = get_node("/root/main/")
 
@@ -58,11 +57,6 @@ func _ready() -> void:
 	# Demo song
 	if not dir.file_exists(projects_dir.plus_file("Demo.mdj")):
 		dir.copy("res://demo.mdj", projects_dir.plus_file("Demo.mdj"))
-	
-	# Preload all sounds
-	for instrument in 4:
-		for sample in 32:
-			sounds[instrument].append(load("res://sounds/%s/%s.ogg" % [instrument, sample + 1]))
 	
 	# Options
 	timer = Timer.new()
@@ -130,7 +124,6 @@ func has_storage_perms() -> bool:
 
 func download_file(_file_path, _file_name):
 	if OS.get_name() == "HTML5":
-		var file := File.new()
 		file.open(_file_path, File.READ)
 		var file_data_raw := file.get_buffer(file.get_len())
 		file.close()
@@ -221,8 +214,7 @@ func _input(event: InputEvent) -> void:
 			i.set("custom_styles/focus", null)
 		
 		if not main.get_focus_owner():
-			yield(get_tree(), "idle_frame")
-			main.play_button.grab_focus()
+			main.play_button.call_deferred("grab_focus")
 		
 	elif event.is_action_pressed("left_click"):
 		show_focus = false

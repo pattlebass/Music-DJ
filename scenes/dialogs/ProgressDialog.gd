@@ -58,7 +58,7 @@ func error(code: int) -> void:
 func _on_CancelButton_pressed() -> void:
 	hide()
 	main.get_node("SaveDialog").is_cancelled = true
-	main.is_playing = false
+	BoomBox.is_playing = false
 
 
 func _process(delta) -> void:
