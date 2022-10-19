@@ -130,14 +130,14 @@ func about_to_show():
 	var btn_group = ButtonGroup.new()
 	
 	for i in projects.size():
-		var project_path = projects[i]
+		var project_path: String = projects[i]
 		var button_container = HBoxContainer.new()
 		
 		project_container.add_child(button_container)
 		
 		var load_button = Button.new()
+		load_button.text = Variables.truncate(project_path, 22)
 		load_button.name = "LoadButton"
-		load_button.text = project_path
 		load_button.align = Button.ALIGN_LEFT
 		load_button.size_flags_horizontal = Button.SIZE_EXPAND_FILL
 		load_button.theme_type_variation = "ListItem"
@@ -249,9 +249,11 @@ func file_picked(path: String, _mime_type: String) -> void:
 func on_Delete_pressed(_container, file_name):
 	modulate = Color.transparent
 	
-	var body = tr("DIALOG_CONFIRMATION_BODY_DELETE") % "[color=#4ecca3]%s[/color]" % file_name
+	var body = tr("DIALOG_CONFIRMATION_BODY_DELETE") % "[color=#4ecca3]%s[/color]" % Variables.truncate(file_name, 22)
+	
 	if yield(Variables.confirm_popup("DIALOG_CONFIRMATION_TITLE_DELETE", body), "completed"):
 		var path := Variables.projects_dir.plus_file("%s" % file_name)
+		
 		if OS.move_to_trash(ProjectSettings.globalize_path(path)) != OK:
 			dir.remove(ProjectSettings.globalize_path(path))
 		
@@ -259,7 +261,7 @@ func on_Delete_pressed(_container, file_name):
 		if OS.get_name() == "HTML5":
 			Variables.save_options(0)
 		
-		ok_button.disabled = _container.get_node("LoadButton").text == selected_file
+		ok_button.disabled = file_name == selected_file
 		_container.queue_free()
 	
 	modulate = Color.white

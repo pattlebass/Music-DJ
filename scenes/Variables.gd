@@ -181,6 +181,12 @@ func confirm_popup(title: String, body: String) -> bool:
 	return yield(dialog, "chose")
 
 
+func truncate(string: String, max_length: int) -> String:
+	if string.length() > max_length:
+		return string.left(max_length - 3) + "..."
+	return string
+
+
 # Virtual keyboard signals
 
 var virtual_kb_up := false
