@@ -3,8 +3,8 @@ extends CustomDialog
 var selected_file = ""
 
 onready var project_container: VBoxContainer = $VBoxContainer/ScrollContainer/VBoxContainer
+onready var scroll_container: ScrollContainer = $VBoxContainer/ScrollContainer
 onready var open_folder: Button = $VBoxContainer/TitleHBox/OpenFolderButton
-onready var ok_button: Button = $VBoxContainer/HBoxContainer/OkButton
 
 var dir := Directory.new()
 
@@ -111,7 +111,6 @@ func about_to_show():
 	
 	if OS.get_name() == "HTML5":
 		open_folder.hide()
-	ok_button.disabled = true
 	
 	selected_file = ""
 	
@@ -131,72 +130,21 @@ func about_to_show():
 	
 	for i in projects.size():
 		var project_path: String = projects[i]
-		var button_container = HBoxContainer.new()
 		
-		project_container.add_child(button_container)
-		
-		var load_button = Button.new()
-		load_button.text = Variables.truncate(project_path, 22)
-		load_button.name = "LoadButton"
-		load_button.align = Button.ALIGN_LEFT
-		load_button.size_flags_horizontal = Button.SIZE_EXPAND_FILL
-		load_button.theme_type_variation = "ListItem"
-		load_button.toggle_mode = true
-		load_button.group = btn_group
-		load_button.mouse_filter = MOUSE_FILTER_PASS
-		load_button.connect("toggled", self, "on_Button_toggled", [button_container, project_path])
-		button_container.add_child(load_button)
-		if i == 0:
-			open_folder.focus_neighbour_bottom = load_button.get_path()
-			load_button.call_deferred("grab_focus")
-		
-		var download_button = Button.new()
-		download_button.name = "DownloadButton"
-		download_button.icon = load(theme_path+"download.svg")
-		download_button.theme_type_variation = "ListItem"
-		download_button.mouse_filter = MOUSE_FILTER_PASS
-		download_button.hide()
-		download_button.connect("pressed", self, "on_Button_download", [project_path])
-		button_container.add_child(download_button)
-		
-		var share_button = Button.new()
-		share_button.name = "ShareButton"
-		share_button.icon = load(theme_path+"share.svg")
-		share_button.theme_type_variation = "ListItem"
-		share_button.mouse_filter = MOUSE_FILTER_PASS
-		share_button.hide()
-		share_button.connect("pressed", self, "on_Share_pressed", [project_path])
-		button_container.add_child(share_button)
-		
-		var delete_button = Button.new()
-		delete_button.name = "DeleteButton"
-		delete_button.icon = load(theme_path+"delete.svg")
-		delete_button.theme_type_variation = "ListItem"
-		delete_button.mouse_filter = MOUSE_FILTER_PASS
-		delete_button.hide()
-		delete_button.connect("pressed", self, "on_Delete_pressed", [button_container, project_path])
-		button_container.add_child(delete_button)
-		
-		connect("popup_hide", button_container, "queue_free")
-		
+		var item = preload("res://scenes/dialogs/load_dialog/LoadItem.tscn").instance()
+		project_container.add_child(item)
+		item.connect("expanded", scroll_container, "ensure_control_visible", [item])
+		item.button.text = Variables.truncate(project_path, 25)
+		item.open_button.connect("pressed", self, "load_song", [Variables.projects_dir.plus_file(project_path)])
+		item.delete_button.connect("pressed", self, "_on_Delete_pressed", [item, project_path])
+		item.download_button.connect("pressed", self, "_on_Download_pressed", [project_path])
+		item.share_button.connect("pressed", self, "_on_Share_pressed", [project_path])
+		connect("popup_hide", item, "queue_free")
+		item.download_button.visible = OS.get_name() == "HTML5" or OS.get_name() == "Android"
+		item.share_button.visible = share_service != null
+	
 	$VBoxContainer.rect_size = rect_size
-	
 	.about_to_show()
-
-
-func on_Button_toggled(button_pressed, button_container, _path):
-	button_container.get_node("DeleteButton").visible = button_pressed
-	button_container.get_node("ShareButton").visible = button_pressed and share_service != null
-	button_container.get_node("DownloadButton").visible = button_pressed and (OS.get_name() == "HTML5" or OS.get_name() == "Android")
-	
-	if not button_pressed:
-		return
-	
-	if _path == selected_file:
-		button_container.get_node("LoadButton").set_pressed_no_signal(true)
-	else:
-		selected_file = _path
-		ok_button.disabled = false
 
 
 func _on_CancelButton_pressed():
@@ -246,7 +194,7 @@ func file_picked(path: String, _mime_type: String) -> void:
 	load_song(new_path)
 
 
-func on_Delete_pressed(_container, file_name):
+func _on_Delete_pressed(item, file_name):
 	modulate = Color.transparent
 	
 	var body = tr("DIALOG_CONFIRMATION_BODY_DELETE") % "[color=#4ecca3]%s[/color]" % Variables.truncate(file_name, 22)
@@ -261,19 +209,18 @@ func on_Delete_pressed(_container, file_name):
 		if OS.get_name() == "HTML5":
 			Variables.save_options(0)
 		
-		ok_button.disabled = file_name == selected_file
-		_container.queue_free()
+		item.queue_free()
 	
 	modulate = Color.white
 
 
-func on_Share_pressed(file_name) -> void:
+func _on_Share_pressed(file_name) -> void:
 	Variables.share_file(
 		"user://saves/Projects/".plus_file(file_name), "", "", "", "application/json"
 	)
 
 
-func on_Button_download(file_name):
+func _on_Download_pressed(file_name):
 	Variables.download_file(
 		Variables.saves_dir.plus_file("Projects/%s" % file_name),
 		file_name
