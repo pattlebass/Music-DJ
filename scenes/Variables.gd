@@ -13,6 +13,7 @@ var saves_dir := "user://saves/"
 var projects_dir := "user://saves/Projects/"
 var exports_dir := "user://saves/Exports/"
 var clipboard
+var opened_file := ""
 
 var share_service
 

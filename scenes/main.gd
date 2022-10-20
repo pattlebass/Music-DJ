@@ -6,6 +6,7 @@ onready var save_button = $HBoxToolBar/HBoxContainer/SaveProject
 onready var more_button = $HBoxToolBar/HBoxContainer/More
 onready var add_button = $HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer/AddButton
 onready var save_dialog = $SaveDialog
+onready var load_dialog = $LoadDialog
 onready var animation = $AnimationPlayer
 onready var column_container = $HBoxContainer/ScrollContainer/HBoxContainer
 onready var scroll_container = $HBoxContainer/ScrollContainer
@@ -27,6 +28,8 @@ func _ready() -> void:
 	BoomBox.connect("play_ended", self, "_on_play_ended")
 	BoomBox.connect("play_started", self, "_on_play_started")
 	BoomBox.connect("column_play_started", scroll_container, "ensure_control_visible")
+	
+	load_dialog.connect("project_selected", self, "load_song")
 	
 	var more_popup = more_button.get_popup()
 	more_popup.connect("id_pressed", self, "more_item_pressed")
@@ -168,6 +171,63 @@ func add_column(_column_no: int, add_to_song: bool = true) -> Node2D:
 func remove_column(column_no) -> void:
 	BoomBox.remove_column(column_no)
 	add_button.call_deferred("grab_focus")
+
+
+func load_song(path, song = null):
+	var dir = Directory.new()
+	if song:
+		BoomBox.song = song
+	else:
+		var file = File.new()
+		file.open(path, File.READ)
+		if path.ends_with(".mdj"):
+			var json_result = JSON.parse(file.get_as_text())
+			if json_result.error: # DEPRECATED v1.0-stable: Godot dictionary
+				BoomBox.song = file.get_var()
+			else: # JSON format
+				BoomBox.song = json_result.result
+			file.close()
+		elif path.ends_with(".mdjt"): # DEPRECATED v1.0-stable: mdjt
+			BoomBox.song = str2var(file.get_as_text())
+			file.close()
+			dir.remove(path)
+			path.erase(path.length()-1, 1)
+			file.open(path, File.WRITE)
+			file.store_var(BoomBox.song)
+			file.close()
+		Variables.opened_file = path.get_file().get_basename()
+		
+	# Add remaining columns
+	var song_column_index = BoomBox.song[0].size()
+	
+	if BoomBox.column_index < song_column_index:
+		for i in song_column_index - BoomBox.column_index:
+			add_column(BoomBox.column_index, false)
+			BoomBox.column_index += 1
+	
+	elif BoomBox.column_index > song_column_index:
+		for i in BoomBox.column_index - song_column_index:
+			column_container.get_child(BoomBox.column_index-1).queue_free()
+			BoomBox.column_index -= 1
+		
+	
+	BoomBox.used_columns = [-1]
+	
+	scroll_container.scroll_horizontal = 0
+	play_button.pressed = false
+	
+	# TODO: Cleanup
+	
+	for instrument in BoomBox.song.size():
+		for column_no in BoomBox.song[instrument].size():
+			var column = column_container.get_child(column_no)
+			var value = BoomBox.song[instrument][column_no]
+			
+			if value != 0: # If not empty
+				if not BoomBox.used_columns.has(column_no):
+					BoomBox.used_columns.append(column_no)
+			
+			column.set_tile(instrument, value)
 
 
 func _on_Settings_pressed() -> void:

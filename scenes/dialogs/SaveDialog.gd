@@ -2,7 +2,6 @@ extends CustomDialog
 
 var title := "Title"
 var entered_name := ""
-var last_name := ""
 var type_of_save := "project"
 var effect = AudioServer.get_bus_effect(0, 0)
 var is_cancelled = false
@@ -43,10 +42,10 @@ func save():
 		if err:
 			main.get_node("ProgressDialog").error(err)
 		
-		last_name = entered_name
+		Variables.opened_file = entered_name
 	else:
 		is_cancelled = false
-		last_name = entered_name
+		Variables.opened_file = entered_name
 		main.get_node("SoundDialog/AudioStreamPlayer").stop()
 		
 		# ProgressDialog
@@ -117,7 +116,7 @@ func about_to_show() -> void:
 	label_title.text = title
 	
 	# Changing the text this way doesn't emit the signal
-	line_edit.text = last_name if last_name else get_default_name()
+	line_edit.text = Variables.opened_file if Variables.opened_file else get_default_name()
 	_on_LineEdit_text_changed(line_edit.text)
 	
 	line_edit.caret_position = line_edit.text.length()

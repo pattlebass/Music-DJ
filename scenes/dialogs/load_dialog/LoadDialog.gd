@@ -11,6 +11,8 @@ var dir := Directory.new()
 var android_picker
 var share_service
 
+signal project_selected
+
 
 func _ready() -> void:
 	Variables.connect("theme_changed", self, "on_theme_changed")
@@ -22,7 +24,7 @@ func _ready() -> void:
 	
 	if Engine.has_singleton("GodotFilePicker"):
 		android_picker = Engine.get_singleton("GodotFilePicker")
-		android_picker.connect("file_picked", self, "file_picked")
+		android_picker.connect("file_picked", self, "_on_file_picked")
 	
 	# DEPRECATED v1.0-stable: Move projects on Android to internal app storage
 	if OS.get_name() == "Android":
@@ -36,65 +38,8 @@ func _ready() -> void:
 					dir.remove(old_project)
 
 
-func _on_OkButton_pressed():
-	load_song(Variables.projects_dir.plus_file("%s" % selected_file))
-
-
-func load_song(_path, _song = null):
-	if _song:
-		BoomBox.song = _song
-	else:
-		var file = File.new()
-		file.open(_path, File.READ)
-		if _path.ends_with(".mdj"):
-			var json_result = JSON.parse(file.get_as_text())
-			if json_result.error: # DEPRECATED v1.0-stable: Godot dictionary
-				BoomBox.song = file.get_var()
-			else: # JSON format
-				BoomBox.song = json_result.result
-			file.close()
-		elif _path.ends_with(".mdjt"): # DEPRECATED v1.0-stable: mdjt
-			BoomBox.song = str2var(file.get_as_text())
-			file.close()
-			dir.remove(_path)
-			_path.erase(_path.length()-1, 1)
-			file.open(_path, File.WRITE)
-			file.store_var(BoomBox.song)
-			file.close()
-		main.get_node("SaveDialog").last_name = _path.get_file().get_basename()
-		
-	# Add remaining columns
-	var song_column_index = BoomBox.song[0].size()
-	
-	if BoomBox.column_index < song_column_index:
-		for i in song_column_index - BoomBox.column_index:
-			main.add_column(BoomBox.column_index, false)
-			BoomBox.column_index += 1
-	
-	elif BoomBox.column_index > song_column_index:
-		for i in BoomBox.column_index - song_column_index:
-			main.column_container.get_child(BoomBox.column_index-1).queue_free()
-			BoomBox.column_index -= 1
-		
-	
-	BoomBox.used_columns = [-1]
-	
-	main.scroll_container.scroll_horizontal = 0
-	main.play_button.pressed = false
-	
-	# TODO: Cleanup
-	
-	for instrument in BoomBox.song.size():
-		for column_no in BoomBox.song[instrument].size():
-			var column = main.column_container.get_child(column_no)
-			var value = BoomBox.song[instrument][column_no]
-			
-			if value != 0: # If not empty
-				if not BoomBox.used_columns.has(column_no):
-					BoomBox.used_columns.append(column_no)
-			
-			column.set_tile(instrument, value)
-			
+func load_song(path):
+	emit_signal("project_selected", path)
 	hide()
 
 
@@ -161,7 +106,7 @@ func _on_OpenButton_pressed():
 		OS.shell_open(ProjectSettings.globalize_path(Variables.saves_dir))
 
 
-func file_picked(path: String, _mime_type: String) -> void:
+func _on_file_picked(path: String, _mime_type: String) -> void:
 	if not (path.ends_with(".mdj") or path.ends_with(".mdjt")):
 		dir.remove(path)
 		print("%s is not a valid project" % path.get_file())
