@@ -4,14 +4,16 @@ var selected_file = ""
 
 onready var project_container: VBoxContainer = $VBoxContainer/ScrollContainer/VBoxContainer
 onready var scroll_container: ScrollContainer = $VBoxContainer/ScrollContainer
-onready var open_folder: Button = $VBoxContainer/TitleHBox/OpenFolderButton
+onready var new_project: Button = $"%NewProjectButton"
+onready var open_folder: Button = $"%OpenFolderButton"
 
 var dir := Directory.new()
 
 var android_picker
 var share_service
 
-signal project_selected
+signal project_selected(path)
+signal new_project
 
 
 func _ready() -> void:
@@ -48,6 +50,7 @@ func on_theme_changed(new_theme):
 		open_folder.icon = load("res://assets/themes/%s/open_file.svg" % new_theme)
 	else:
 		open_folder.icon = load("res://assets/themes/%s/open_folder.svg" % new_theme)
+	new_project.icon = load("res://assets/themes/%s/add.svg" % new_theme)
 
 
 func about_to_show():
@@ -170,3 +173,7 @@ func _on_Download_pressed(file_name):
 		Variables.saves_dir.plus_file("Projects/%s" % file_name),
 		file_name
 	)
+
+
+func _on_NewProjectButton_pressed() -> void:
+	emit_signal("new_project")

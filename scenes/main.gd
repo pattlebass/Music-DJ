@@ -230,6 +230,17 @@ func load_song(path, song = null):
 			column.set_tile(instrument, value)
 
 
+func new_song() -> void:
+	var empty_song = [[], [], [], []]
+	
+	for i in 4:
+		for j in 15:
+			empty_song[i].append(0)
+	
+	load_song(null, empty_song)
+	Variables.opened_file = ""
+
+
 func _on_Settings_pressed() -> void:
 	$SettingsDialog.popup_centered()
 
@@ -287,3 +298,13 @@ func more_about_to_show(popup) -> void:
 		popup.rect_position.y -= more_button.rect_size.y
 	# Spacing
 	popup.rect_global_position.x = more_button.rect_global_position.x + more_button.rect_size.x - popup.rect_size.x
+
+
+func _on_LoadDialog_new_project() -> void:
+	if yield(
+		Variables.confirm_popup(
+			"DIALOG_CONFIRMATION_TITLE_NEW_PROJECT", tr("DIALOG_CONFIRMATION_BODY_NEW_PROJECT")
+		), "completed"
+	):
+		new_song()
+		load_dialog.hide()

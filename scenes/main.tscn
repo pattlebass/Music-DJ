@@ -340,3 +340,4 @@ visible = false
 [connection signal="pressed" from="HBoxToolBar/HBoxContainer/SaveProject" to="." method="_on_SaveProject_pressed"]
 [connection signal="pressed" from="HBoxToolBar/HBoxContainer/OpenProject" to="." method="_on_OpenProject_pressed"]
 [connection signal="pressed" from="HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer/AddButton" to="." method="_on_AddButton_pressed"]
+[connection signal="new_project" from="LoadDialog" to="." method="_on_LoadDialog_new_project"]
