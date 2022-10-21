@@ -32,6 +32,8 @@ func _on_Button_toggled(button_pressed: bool) -> void:
 		tween.tween_callback($ActionsContainer, "show")
 		tween.tween_callback(self, "emit_signal", ["expanded"])
 		tween.tween_property($ActionsContainer, "modulate", Color.white, 0.1)
+		
+		open_button.call_deferred("grab_focus")
 	else:
 		var tween = create_tween()
 		tween.tween_property($ActionsContainer, "modulate", Color.transparent, 0.1)

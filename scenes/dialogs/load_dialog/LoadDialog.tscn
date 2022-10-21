@@ -79,6 +79,7 @@ margin_left = 331.0
 margin_right = 493.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 100, 50 )
+focus_mode = 1
 text = "BTN_CANCEL"
 
 [connection signal="pressed" from="VBoxContainer/TitleHBox/OpenFolderButton" to="." method="_on_OpenButton_pressed"]
