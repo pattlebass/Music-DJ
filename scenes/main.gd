@@ -7,6 +7,8 @@ onready var more_button = $HBoxToolBar/HBoxContainer/More
 onready var add_button = $HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer/AddButton
 onready var save_dialog = $SaveDialog
 onready var load_dialog = $LoadDialog
+onready var sound_dialog = $SoundDialog
+onready var progress_dialog = $ProgressDialog
 onready var animation = $AnimationPlayer
 onready var column_container = $HBoxContainer/ScrollContainer/HBoxContainer
 onready var scroll_container = $HBoxContainer/ScrollContainer
@@ -17,7 +19,6 @@ onready var scroll_container = $HBoxContainer/ScrollContainer
 
 # * "column" refers to the column node itself, while "column_no" refers
 # to the column as a number
-# * Some signals are a bit messy
 
 
 func _ready() -> void:
@@ -80,7 +81,6 @@ func _on_play_ended() -> void:
 func on_Tile_pressed(column, _instrument) -> void:
 	if BoomBox.is_playing:
 		return
-	var sound_dialog = $SoundDialog
 	sound_dialog.instrument = _instrument
 	sound_dialog.column = column
 	sound_dialog.popup_centered(Vector2(500, 550))
@@ -124,14 +124,11 @@ func on_Tile_held(_column_no, _instrument, _button) -> void:
 
 
 func _on_Export_pressed() -> void:
-	if  BoomBox.used_columns.max() != -1:
-		save_dialog.title = "DIALOG_SAVE_TITLE_EXPORT"
-		save_dialog.type_of_save = "export"
-		save_dialog.popup_centered()
+	save_dialog.type_of_save = "export"
+	save_dialog.popup_centered()
 
 
 func _on_SaveProject_pressed() -> void:
-	save_dialog.title = "DIALOG_SAVE_TITLE_PROJECT"
 	save_dialog.type_of_save = "project"
 	save_dialog.popup_centered()
 
@@ -171,6 +168,95 @@ func add_column(_column_no: int, add_to_song: bool = true) -> Node2D:
 func remove_column(column_no) -> void:
 	BoomBox.remove_column(column_no)
 	add_button.call_deferred("grab_focus")
+
+
+func save_project(file_name: String) -> void:
+	file_name = file_name.strip_edges()
+	# Project save
+	var path = Variables.projects_dir.plus_file("%s.mdj" % file_name)
+	var file = File.new()
+	var err = file.open(path, File.WRITE)
+	file.store_string(to_json(BoomBox.song))
+	file.close()
+	
+	# ProgressDialog
+	
+	progress_dialog.path = path
+	progress_dialog.after_saving = "close"
+	progress_dialog.type_of_save = "project"
+	progress_dialog.progress_bar.max_value = 0.2
+	progress_dialog.popup_centered()
+	
+	if err:
+		progress_dialog.error(err)
+	
+	Variables.opened_file = file_name
+
+
+var _recording_cancelled = false
+
+func _on_ProgressDialog_cancelled() -> void:
+	_recording_cancelled = true
+	BoomBox.stop()
+
+func export_song(file_name: String) -> void:
+	_recording_cancelled = false
+	file_name = file_name.strip_edges()
+	Variables.opened_file = file_name
+	
+	sound_dialog.audio_player.stop()
+	
+	# ProgressDialog
+	var path = Variables.exports_dir.plus_file(file_name + ".wav")
+	
+	progress_dialog.path = path
+	progress_dialog.after_saving = "stay"
+	progress_dialog.type_of_save = "export"
+	progress_dialog.progress_bar.max_value = 3*(BoomBox.used_columns.max()+1) + 0.5
+	progress_dialog.popup_centered()
+	
+	# Export
+	var effect = AudioServer.get_bus_effect(0, 0)
+	effect.set_recording_active(true)
+	BoomBox.play_song()
+	yield(BoomBox, "play_ended")
+	effect.set_recording_active(false)
+	
+	# Saving
+	var recording = effect.get_recording()
+	if not recording or _recording_cancelled:
+		print("Canceled recording.")
+		return
+	
+	# HACK: Save directly to path when bug is fixed
+	# https://github.com/godotengine/godot/issues/63949
+	var dir = Directory.new()
+	dir.make_dir("user://_temp/")
+	var err = recording.save_to_wav("user://_temp/".plus_file(path.get_file()))
+	
+	if err:
+		progress_dialog.error(err)
+		print("Recording failed. Code: %s" % err)
+	else:
+		if OS.get_name() == "Android":
+			var download_dir = OS.get_system_dir(OS.SYSTEM_DIR_DOWNLOADS).plus_file("MusicDJ")
+			dir.make_dir(download_dir)
+			
+			print("Android export-----------")
+			print(recording.save_to_wav(download_dir.plus_file("Song.wav")))
+			print(dir.file_exists(download_dir.plus_file("Song.wav")))
+			print(dir.rename(download_dir.plus_file("Song.wav"), path))
+			print("Android export end-----------")
+			
+			if not dir.file_exists(path):
+				progress_dialog.error(1234)
+				print("Exporting didn't work.")
+		else:
+			var err2 = dir.rename("user://_temp/".plus_file(path.get_file()), path)
+			if err2:
+				progress_dialog.error(4321)
+				print("Non Android export failed: %s" % err2)
+		dir.remove("user://_temp/".plus_file(path.get_file()))
 
 
 func load_song(path, song = null):

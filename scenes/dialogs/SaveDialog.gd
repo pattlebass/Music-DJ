@@ -1,15 +1,14 @@
 extends CustomDialog
 
-var title := "Title"
-var entered_name := ""
 var type_of_save := "project"
-var effect = AudioServer.get_bus_effect(0, 0)
-var is_cancelled = false
 
 onready var line_edit = $VBoxContainer/VBoxContainer/HBoxContainer/LineEdit
 onready var ok_button = $VBoxContainer/HBoxContainer/OkButton
 onready var label_title = $VBoxContainer/VBoxContainer/Label
 onready var label_error = $VBoxContainer/VBoxContainer/LabelError
+
+signal project_name_picked(file_name)
+signal song_name_picked(file_name)
 
 
 func _ready() -> void:
@@ -22,87 +21,13 @@ func _ready() -> void:
 	Variables.connect("virtual_keyboard_hidden", self, "_on_virtual_kb_hidden")
 
 
-func save():
-	entered_name = entered_name.strip_edges()
-	if type_of_save == "project":
-		# Project save
-		var path = Variables.projects_dir.plus_file("%s.mdj" % entered_name)
-		var file = File.new()
-		var err = file.open(path, File.WRITE)
-		file.store_string(to_json(BoomBox.song))
-		file.close()
-		
-		# ProgressDialog
-		main.get_node("ProgressDialog").path = path
-		main.get_node("ProgressDialog").after_saving = "close"
-		main.get_node("ProgressDialog").type_of_save = type_of_save
-		main.get_node("ProgressDialog").progress_bar.max_value = 0.2
-		main.get_node("ProgressDialog").popup_centered()
-		
-		if err:
-			main.get_node("ProgressDialog").error(err)
-		
-		Variables.opened_file = entered_name
-	else:
-		is_cancelled = false
-		Variables.opened_file = entered_name
-		main.get_node("SoundDialog/AudioStreamPlayer").stop()
-		
-		# ProgressDialog
-		var path = Variables.exports_dir.plus_file("%s.wav" % entered_name)
-		
-		main.get_node("ProgressDialog").path = path
-		main.get_node("ProgressDialog").after_saving = "stay"
-		main.get_node("ProgressDialog").type_of_save = type_of_save
-		main.get_node("ProgressDialog").progress_bar.max_value = 3*(BoomBox.used_columns.max()+1) + 0.5
-		main.get_node("ProgressDialog").popup_centered()
-		
-		# Export
-		effect.set_recording_active(true)
-		BoomBox.play_song()
-		yield(BoomBox, "play_ended")
-		effect.set_recording_active(false)
-		
-		# Saving
-		var recording = effect.get_recording()
-		if not recording or is_cancelled:
-			print("Canceled recording.")
-			return
-		
-		# HACK: Save directly to path when bug is fixed
-		# https://github.com/godotengine/godot/issues/63949
-		var dir = Directory.new()
-		dir.make_dir("user://_temp/")
-		var err = recording.save_to_wav("user://_temp/".plus_file(path.get_file()))
-		
-		if err:
-			main.get_node("ProgressDialog").error(err)
-			print("Recording failed. Code: %s" % err)
-		else:
-			if OS.get_name() == "Android":
-				var download_dir = OS.get_system_dir(OS.SYSTEM_DIR_DOWNLOADS).plus_file("MusicDJ")
-				dir.make_dir(download_dir)
-				
-				print("Android export-----------")
-				print(recording.save_to_wav(download_dir.plus_file("Song.wav")))
-				print(dir.file_exists(download_dir.plus_file("Song.wav")))
-				print(dir.rename(download_dir.plus_file("Song.wav"), path))
-				print("Android export end-----------")
-				
-				if not dir.file_exists(path):
-					main.get_node("ProgressDialog").error(1234)
-					print("Exporting didn't work.")
-			else:
-				var err2 = dir.rename("user://_temp/".plus_file(path.get_file()), path)
-				if err2:
-					main.get_node("ProgressDialog").error(4321)
-					print("Non Android export failed: %s" % err2)
-			dir.remove("user://_temp/".plus_file(path.get_file()))
-
-
 func _on_OkButton_pressed() -> void:
+	if type_of_save == "project":
+		emit_signal("project_name_picked", line_edit.text)
+	elif type_of_save == "export":
+		emit_signal("song_name_picked", line_edit.text)
+	
 	hide()
-	save()
 
 
 func _on_CancelButton_pressed() -> void:
@@ -112,8 +37,12 @@ func _on_CancelButton_pressed() -> void:
 func about_to_show() -> void:
 	if !Variables.has_storage_perms():
 		hide()
+		return
 	
-	label_title.text = title
+	if type_of_save == "project":
+		label_title.text = "DIALOG_SAVE_TITLE_PROJECT"
+	elif type_of_save == "export":
+		label_title.text = "DIALOG_SAVE_TITLE_EXPORT"
 	
 	# Changing the text this way doesn't emit the signal
 	line_edit.text = Variables.opened_file if Variables.opened_file else get_default_name()
@@ -156,7 +85,6 @@ func _on_LineEdit_text_changed(new_text):
 		
 		return
 	
-	entered_name = new_text
 	ok_button.disabled = false
 	label_error.text = ""
 

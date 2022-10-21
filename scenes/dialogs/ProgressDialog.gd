@@ -12,6 +12,8 @@ var path = ""
 var after_saving = "stay"
 var type_of_save := ""
 
+signal cancelled
+
 # TODO: Refactor
 
 func about_to_show() -> void:
@@ -58,9 +60,8 @@ func error(code: int) -> void:
 
 
 func _on_CancelButton_pressed() -> void:
+	emit_signal("cancelled")
 	hide()
-	main.get_node("SaveDialog").is_cancelled = true
-	BoomBox.is_playing = false
 
 
 func _process(delta) -> void:
