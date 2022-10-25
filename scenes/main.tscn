@@ -10,7 +10,7 @@
 [ext_resource path="res://scenes/dialogs/ColumnDialog.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/dialogs/SaveDialog.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/dialogs/ProgressDialog.tscn" type="PackedScene" id=10]
-[ext_resource path="res://scenes/dialogs/LoadDialog.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/dialogs/load_dialog/LoadDialog.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/dialogs/SettingsDialog.tscn" type="PackedScene" id=12]
 [ext_resource path="res://scenes/dialogs/TutorialDialog.tscn" type="PackedScene" id=13]
 [ext_resource path="res://scenes/dialogs/UpdateDialog.tscn" type="PackedScene" id=14]
@@ -324,7 +324,6 @@ theme_type_variation = "ShadowPanel"
 visible = false
 
 [node name="ProgressDialog" parent="." instance=ExtResource( 10 )]
-visible = false
 
 [node name="LoadDialog" parent="." instance=ExtResource( 11 )]
 
@@ -345,3 +344,7 @@ script = ExtResource( 17 )
 [connection signal="pressed" from="HBoxToolBar/HBoxContainer/SaveProject" to="." method="_on_SaveProject_pressed"]
 [connection signal="pressed" from="HBoxToolBar/HBoxContainer/OpenProject" to="." method="_on_OpenProject_pressed"]
 [connection signal="pressed" from="HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer/AddButton" to="." method="_on_AddButton_pressed"]
+[connection signal="project_name_picked" from="SaveDialog" to="." method="save_project"]
+[connection signal="song_name_picked" from="SaveDialog" to="." method="export_song"]
+[connection signal="cancelled" from="ProgressDialog" to="." method="_on_ProgressDialog_cancelled"]
+[connection signal="new_project" from="LoadDialog" to="." method="_on_LoadDialog_new_project"]

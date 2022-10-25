@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "VBoxContainer",
+"class": "Column",
+"language": "GDScript",
+"path": "res://scenes/Column.gd"
+}, {
 "base": "Popup",
 "class": "CustomDialog",
 "language": "GDScript",
@@ -25,6 +30,7 @@ _global_script_classes=[ {
 "path": "res://addons/metadata_inspector/TypeFormattingLogic.gd"
 } ]
 _global_script_class_icons={
+"Column": "",
 "CustomDialog": "",
 "MidiFile": "",
 "TypeFormattingLogic": ""
@@ -36,12 +42,15 @@ config/name="Music DJ"
 config/description="No Description"
 run/main_scene="res://scenes/main.tscn"
 run/low_processor_mode=true
+boot_splash/image="res://assets/icon/icon.png"
+boot_splash/fullsize=false
 config/icon="res://assets/icon/icon.png"
 config/windows_native_icon="res://assets/icon/icon.ico"
 
 [autoload]
 
 Variables="*res://scenes/Variables.gd"
+BoomBox="*res://scenes/BoomBox.gd"
 
 [debug]
 
@@ -52,6 +61,7 @@ gdscript/warnings/return_value_discarded=false
 
 window/dpi/allow_hidpi=true
 window/energy_saving/keep_screen_on=false
+window/handheld/orientation="sensor_landscape"
 window/stretch/mode="2d"
 window/stretch/aspect="expand"
 

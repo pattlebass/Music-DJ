@@ -27,7 +27,7 @@ func on_Column_Button_pressed(_column_no, _column):
 
 func about_to_show():
 	# Make buttons visible
-	if column_no != main.column_index - 1 or main.column_index == 15:
+	if column_no != BoomBox.column_index - 1 or BoomBox.column_index == 15:
 		$VBoxContainer/HBoxContainer/RemoveButton.disabled = true
 	else:
 		$VBoxContainer/HBoxContainer/RemoveButton.disabled = false
@@ -35,10 +35,10 @@ func about_to_show():
 	
 	var has_tiles_set := false
 	for i in 4:
-		if main.song[i][column.column_no]:
+		if BoomBox.song[i][column.column_no]:
 			has_tiles_set = true
 			break
-	$VBoxContainer/HBoxContainer/PlayButton.disabled = !has_tiles_set || main.is_playing
+	$VBoxContainer/HBoxContainer/PlayButton.disabled = !has_tiles_set || BoomBox.is_playing
 	$VBoxContainer/HBoxContainer/ClearButton.disabled = !has_tiles_set
 	
 	set_as_minsize()
@@ -64,22 +64,21 @@ func about_to_show():
 	
 	rect_pivot_offset = Vector2(sprite_pos_x - pos.x, 0)
 
+
 func _on_ClearButton_pressed():
 	column.clear()
-	main.clear_column(column.column_no)
+	BoomBox.clear_column(column.column_no)
 	
 	hide()
 
 
 func _on_RemoveButton_pressed():
 	column.remove()
-	
 	main.remove_column(column.column_no)
 	
 	hide()
 
 
 func _on_PlayButton_pressed():
-	main.play_column(column_no, true)
-	main.get_node("SoundDialog/AudioStreamPlayer").stop()
+	BoomBox.play_column(column_no)
 	hide()

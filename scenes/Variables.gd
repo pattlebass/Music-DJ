@@ -9,8 +9,13 @@ var options = {
 var current_tutorial_version = 1
 var timer: Timer
 var file := File.new()
-var user_dir := "user://saves/"
+var saves_dir := "user://saves/"
+var projects_dir := "user://saves/Projects/"
+var exports_dir := "user://saves/Exports/"
 var clipboard
+var opened_file := ""
+
+var share_service
 
 onready var VERSION = load("res://version.gd").VERSION
 
@@ -26,6 +31,8 @@ const MINIMUM_DRAG = 100
 onready var main = get_node("/root/main/")
 
 signal theme_changed
+signal virtual_keyboard_visible
+signal virtual_keyboard_hidden
 
 
 func _ready() -> void:
@@ -34,10 +41,23 @@ func _ready() -> void:
 	
 	traverse(main)
 	
+	# Singletons
+	if Engine.has_singleton("GodotFileSharing"):
+		share_service = Engine.get_singleton("GodotFileSharing")
+	
+	# Set directories
+	if OS.get_name() == "Android":
+		has_storage_perms()
+		exports_dir = OS.get_system_dir(OS.SYSTEM_DIR_MUSIC).plus_file("MusicDJ")
+	
 	# Make directories
 	var dir = Directory.new()
-	dir.make_dir_recursive("user://saves/Exports")
-	dir.make_dir_recursive("user://saves/Projects")
+	dir.make_dir_recursive(projects_dir)
+	dir.make_dir_recursive(exports_dir)
+	
+	# Demo song
+	if not dir.file_exists(projects_dir.plus_file("Demo.mdj")):
+		dir.copy("res://demo.mdj", projects_dir.plus_file("Demo.mdj"))
 	
 	# Options
 	timer = Timer.new()
@@ -105,7 +125,6 @@ func has_storage_perms() -> bool:
 
 func download_file(_file_path, _file_name):
 	if OS.get_name() == "HTML5":
-		var file := File.new()
 		file.open(_file_path, File.READ)
 		var file_data_raw := file.get_buffer(file.get_len())
 		file.close()
@@ -129,6 +148,31 @@ func download_file(_file_path, _file_name):
 			print("Copied project (%s) to %s" % [_file_name, destination_dir])
 
 
+func share_file(path: String, title: String, subject: String, text: String, mimeType: String) -> void:
+	if share_service == null:
+		return
+	share_service.shareFile(ProjectSettings.globalize_path(path), title, subject, text, mimeType)
+
+
+func list_files_in_directory(path: String, extensions := [""]) -> Array:
+	var files = []
+	var dir = Directory.new()
+	dir.open(path)
+	dir.list_dir_begin()
+	
+	while true:
+		var file: String = dir.get_next()
+		if file == "":
+			break
+		elif not file.begins_with("."):
+			if file.get_extension() in extensions:
+				files.append(file)
+	
+	dir.list_dir_end()
+	
+	return files
+
+
 func confirm_popup(title: String, body: String) -> bool:
 	var dialog = preload("res://scenes/dialogs/ConfirmationDialog.tscn").instance()
 	
@@ -136,6 +180,27 @@ func confirm_popup(title: String, body: String) -> bool:
 	dialog.alert(title, body)
 	
 	return yield(dialog, "chose")
+
+
+func truncate(string: String, max_length: int) -> String:
+	if string.length() > max_length:
+		return string.left(max_length - 3) + "..."
+	return string
+
+
+# Virtual keyboard signals
+
+var virtual_kb_up := false
+
+func _process(_delta):
+	if OS.get_virtual_keyboard_height() == 0:
+		if virtual_kb_up:
+			virtual_kb_up = false
+			emit_signal("virtual_keyboard_hidden")
+	else:
+		if not virtual_kb_up:
+			virtual_kb_up = true
+			emit_signal("virtual_keyboard_visible")
 
 
 # Keyboard focus
@@ -156,8 +221,7 @@ func _input(event: InputEvent) -> void:
 			i.set("custom_styles/focus", null)
 		
 		if not main.get_focus_owner():
-			yield(get_tree(), "idle_frame")
-			main.play_button.grab_focus()
+			main.play_button.call_deferred("grab_focus")
 		
 	elif event.is_action_pressed("left_click"):
 		show_focus = false

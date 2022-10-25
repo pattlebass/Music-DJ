@@ -1,16 +1,14 @@
 extends CustomDialog
 
-var title := "Title"
-var entered_name := ""
-var last_name := ""
 var type_of_save := "project"
-var effect = AudioServer.get_bus_effect(0, 0)
-var is_cancelled = false
 
 onready var line_edit = $VBoxContainer/VBoxContainer/HBoxContainer/LineEdit
 onready var ok_button = $VBoxContainer/HBoxContainer/OkButton
 onready var label_title = $VBoxContainer/VBoxContainer/Label
 onready var label_error = $VBoxContainer/VBoxContainer/LabelError
+
+signal project_name_picked(file_name)
+signal song_name_picked(file_name)
 
 
 func _ready() -> void:
@@ -19,75 +17,63 @@ func _ready() -> void:
 			$VBoxContainer/HBoxContainer/CancelButton,
 			0
 		)
+	Variables.connect("virtual_keyboard_visible", self, "_on_virtual_kb_visible")
+	Variables.connect("virtual_keyboard_hidden", self, "_on_virtual_kb_hidden")
 
 
-func save():
-	entered_name = entered_name.strip_edges()
+func _on_OkButton_pressed() -> void:
 	if type_of_save == "project":
-		# Project save
-		var path = Variables.user_dir.plus_file("Projects/%s.mdj" % entered_name)
-		var file = File.new()
-		file.open(path, File.WRITE)
-		file.store_string(to_json(main.song))
-		file.close()
-		
-		# ProgressDialog
-		main.get_node("ProgressDialog").path_text = path
-		main.get_node("ProgressDialog").after_saving = "close"
-		main.get_node("ProgressDialog").progress_bar.max_value = 0.2
-		main.get_node("ProgressDialog").popup_centered()
-		
-		last_name = entered_name
-	else:
-		is_cancelled = false
-		main.get_node("SoundDialog/AudioStreamPlayer").stop()
-		
-		# ProgressDialog
-		var path = Variables.user_dir.plus_file("Exports/%s.wav" % entered_name)
-		main.get_node("ProgressDialog").path_text = path
-		main.get_node("ProgressDialog").after_saving = "stay"
-		main.get_node("ProgressDialog").progress_bar.max_value = 3*(main.used_columns.max()+1) + 0.5
-		main.get_node("ProgressDialog").popup_centered()
-		
-		# Export
-		effect.set_recording_active(true)
-		yield(main.play_song(), "completed")
-		effect.set_recording_active(false)
-		
-		# Saving
-		var recording = effect.get_recording()
-		if recording and not is_cancelled:
-			recording.save_to_wav(path)
-			print("Save successful!")
-		else:
-			print("Save failed!")
-		
-		is_cancelled = false
-		
-		last_name = entered_name
-
-
-func _on_OkButton_pressed():
-	hide()
-	save()
-
-func _on_CancelButton_pressed():
+		emit_signal("project_name_picked", line_edit.text)
+	elif type_of_save == "export":
+		emit_signal("song_name_picked", line_edit.text)
+	
 	hide()
 
 
-func about_to_show():
+func _on_CancelButton_pressed() -> void:
+	hide()
+
+
+func about_to_show() -> void:
 	if !Variables.has_storage_perms():
 		hide()
+		return
 	
-	label_title.text = title
+	if type_of_save == "project":
+		label_title.text = "DIALOG_SAVE_TITLE_PROJECT"
+	elif type_of_save == "export":
+		label_title.text = "DIALOG_SAVE_TITLE_EXPORT"
 	
 	# Changing the text this way doesn't emit the signal
-	line_edit.text = last_name if last_name else get_default_name()
+	line_edit.text = Variables.opened_file if Variables.opened_file else get_default_name()
 	_on_LineEdit_text_changed(line_edit.text)
 	
 	line_edit.caret_position = line_edit.text.length()
 	
 	.about_to_show()
+
+
+func popup_hide() -> void:
+	.popup_hide()
+	var dir = Directory.new()
+	if OS.get_name() == "HTML5":
+		for path in Variables.list_files_in_directory(Variables.exports_dir, ["wav"]):
+			print("Removing %s. Code: %s" % [
+				"user://_temp".plus_file(path),
+				dir.remove("user://_temp".plus_file(path))
+			])
+		# HACK: Until https://github.com/godotengine/godot/issues/63995 is fixed
+		Variables.save_options(0)
+
+
+func _on_virtual_kb_visible() -> void:
+	# Hide title above viewport to make more space
+	rect_position.y = -label_title.rect_size.y 
+
+
+func _on_virtual_kb_hidden() -> void:
+	yield(get_tree().create_timer(0.2), "timeout")
+	rect_position.y = (get_viewport().get_visible_rect().size.y - rect_size.y) / 2
 
 
 func _on_LineEdit_text_changed(new_text):
@@ -99,17 +85,8 @@ func _on_LineEdit_text_changed(new_text):
 		
 		return
 	
-	entered_name = new_text
 	ok_button.disabled = false
 	label_error.text = ""
-
-
-func _process(_delta):
-	if OS.get_virtual_keyboard_height() == 0:
-		rect_position.y = (get_viewport().get_visible_rect().size.y - rect_size.y) / 2
-	else:
-		# Hide title above viewport to make more space
-		rect_position.y = -label_title.rect_size.y 
 
 
 func get_default_name() -> String:

@@ -3,7 +3,6 @@
 [ext_resource path="res://scenes/dialogs/ProgressDialog.gd" type="Script" id=1]
 
 [node name="ProgressDialog" type="PopupDialog"]
-visible = true
 margin_right = 426.0
 margin_bottom = 219.0
 input_pass_on_modal_close_click = false
@@ -21,12 +20,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="VBoxContainer"]
+[node name="Title" type="Label" parent="VBoxContainer"]
 margin_right = 554.0
 margin_bottom = 55.0
 text = "Saving..."
 
-[node name="Label2" type="Label" parent="VBoxContainer"]
+[node name="Body" type="Label" parent="VBoxContainer"]
 margin_top = 59.0
 margin_right = 554.0
 margin_bottom = 83.0
@@ -60,7 +59,7 @@ margin_right = 554.0
 margin_bottom = 219.0
 size_flags_vertical = 3
 custom_constants/separation = 20
-alignment = 2
+alignment = 1
 
 [node name="OpenButton" type="Button" parent="VBoxContainer/HBoxContainer"]
 margin_right = 372.0
@@ -71,12 +70,21 @@ text = "DIALOG_PROGRESS_BTN_OPEN"
 
 [node name="DownloadButton" type="Button" parent="VBoxContainer/HBoxContainer"]
 visible = false
-margin_left = 184.0
-margin_right = 306.0
-margin_bottom = 62.0
+margin_left = 392.0
+margin_right = 545.0
+margin_bottom = 64.0
 rect_min_size = Vector2( 100, 50 )
 disabled = true
 text = "  Download  "
+
+[node name="ShareButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+visible = false
+margin_left = 392.0
+margin_right = 492.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 100, 50 )
+disabled = true
+text = "Share"
 
 [node name="CancelButton" type="Button" parent="VBoxContainer/HBoxContainer"]
 margin_left = 392.0
@@ -87,4 +95,5 @@ text = "BTN_CANCEL"
 
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/OpenButton" to="." method="_on_OpenButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/DownloadButton" to="." method="_on_DownloadButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/ShareButton" to="." method="_on_ShareButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/CancelButton" to="." method="_on_CancelButton_pressed"]

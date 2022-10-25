@@ -29,6 +29,8 @@ func _on_CancelButton_pressed():
 func _on_ConfirmationDialog_about_to_show():
 	about_to_show()
 	$BackPanel.modulate = Color(1, 1, 1, 1)
+	yield(get_tree(), "idle_frame")
+	rect_min_size.x = $VBoxContainer.rect_size.x
 
 
 func _on_ConfirmationDialog_popup_hide():

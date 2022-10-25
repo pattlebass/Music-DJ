@@ -1,7 +1,5 @@
 extends Node2D
 
-onready var main = get_parent()
-
 var instrument
 var sample
 
@@ -20,7 +18,7 @@ func _input(event: InputEvent) -> void:
 				queue_free()
 				return
 			collided_column.set_tile(instrument, sample)
-			main.set_tile(instrument, collided_column.column_no, sample)
+			BoomBox.set_tile(instrument, collided_column.column_no, sample)
 			
 		emit_signal("released")
 		queue_free()

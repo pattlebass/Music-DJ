@@ -4,13 +4,13 @@ var instrument
 var pressed_button_index = 0
 
 var column
-var column_no
 
 onready var button_container = $VBoxContainer/ScrollContainer/VBoxContainer
 onready var audio_player = $AudioStreamPlayer
 onready var ok_button = $VBoxContainer/HBoxContainer/OkButton
 onready var cancel_button = $VBoxContainer/HBoxContainer/CancelButton
 var button_group = ButtonGroup.new()
+
 
 func _ready() -> void:
 	if !OS.is_ok_left_and_cancel_right():
@@ -56,10 +56,10 @@ func _ready() -> void:
 			"Tile"
 		)
 		image.lock()
-		for v in 32:
-			for h in 32:
-				var current_pixel = image.get_pixel(h, v)
-				image.set_pixel(h, v, color * current_pixel)
+		for y in 32:
+			for x in 32:
+				var current_pixel = image.get_pixel(x, y)
+				image.set_pixel(x, y, color * current_pixel)
 		image.unlock()
 		texture.create_from_image(image)
 		
@@ -94,31 +94,36 @@ func _ready() -> void:
 		
 		buttons[i].focus_neighbour_right = ok_button.get_path()
 		buttons[i].focus_neighbour_left = cancel_button.get_path()
+	
+	BoomBox.connect("play_started", audio_player, "stop")
 
 
 func about_to_show():
-	column_no = column.column_no
-	
 	# Set title
 	var instrument_name = tr(Variables.instrument_names[instrument])
-	$VBoxContainer/Label.text = tr("DIALOG_SOUND_TITLE") % [instrument_name, column_no + 1]
+	$VBoxContainer/Label.text = tr("DIALOG_SOUND_TITLE") % \
+		[instrument_name, column.column_no + 1]
 	
 	# Set button states
 	var clear_button = get_node("VBoxContainer/HBoxContainer/ClearButton")
 	
-	if main.song[instrument][column_no]:
+	if button_group.get_pressed_button():
+		button_group.get_pressed_button().pressed = false
+	
+	if BoomBox.song[instrument][column.column_no]:
 		var selected_button = button_container.get_node(
-			str(main.song[instrument][column_no] - 1)
+			str(BoomBox.song[instrument][column.column_no] - 1)
 		)
 		selected_button.pressed = true
 		clear_button.disabled = false
 		ok_button.disabled = false
 		
-		yield(get_tree(), "idle_frame")
-		selected_button.grab_focus()
+		selected_button.call_deferred("grab_focus")
 	else:
 		clear_button.disabled = true
 		ok_button.disabled = true
+	
+	$VBoxContainer/ScrollContainer.scroll_vertical = 0
 	
 	.about_to_show()
 
@@ -133,48 +138,36 @@ func on_Button_selected(index):
 	if Variables.show_focus:
 		_on_OkButton_pressed()
 	else:
-		audio_player.stream = load("res://sounds/%s/%s.ogg" % [instrument, index + 1])
+		audio_player.stream = BoomBox.sounds[instrument][index + 1]
 		audio_player.play()
 
 
 func on_Button_focused(sample_index):
 	if not Variables.show_focus:
 		return
-	audio_player.stream = load("res://sounds/%s/%s.ogg" % [instrument, sample_index + 1])
+	audio_player.stream = BoomBox.sounds[instrument][sample_index + 1]
 	audio_player.play()
 
 
 func _on_OkButton_pressed():
-	if main.song[instrument][column_no] - 1 == pressed_button_index:
+	if BoomBox.song[instrument][column.column_no] - 1 == pressed_button_index:
 		hide()
 		return
 	
-	main.set_tile(instrument, column_no, pressed_button_index + 1)
+	BoomBox.set_tile(instrument, column.column_no, pressed_button_index + 1)
 	column.set_tile(
 		instrument,
 		pressed_button_index+1
 	)
-	
-	column_no = 0
 	
 	hide()
 
 
 func _on_ClearButton_pressed():
 	column.clear_tile(instrument)
-	main.set_tile(instrument, column.column_no, 0)
-
+	BoomBox.set_tile(instrument, column.column_no, 0)
 	hide()
 
 
 func _on_CancelButton_pressed():
 	hide()
-
-
-func popup_hide():
-	$VBoxContainer/ScrollContainer.scroll_vertical = 0
-	
-	if button_group.get_pressed_button():
-		button_group.get_pressed_button().pressed = false
-	
-	.popup_hide()
