@@ -23,25 +23,10 @@ func set_tile(instrument: int, sample_index: int) -> void:
 		clear_tile(instrument)
 		return
 	
-	var text := ""
-	var category: int
-	
-	if sample_index in range(1, 9):
-		text = str(sample_index)
-		category = 0
-	elif sample_index in range(9, 17):
-		text = str(sample_index - 8)
-		category = 1
-	elif sample_index in range(17, 25):
-		text = str(sample_index - 16)
-		category = 2
-	elif sample_index in range(25, 33):
-		text = str(sample_index - 24)
-		category = 3
-	
-	tile.text = text
+	tile.text = str(sample_index)
 	tile.set_meta("sample_index", sample_index)
 	
+	var category = (sample_index - 1) / 8
 	var style_box = get_stylebox(Variables.category_names[category], "Tile")
 	
 	tile.set("custom_styles/normal", style_box)
