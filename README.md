@@ -6,14 +6,14 @@ This is a recreation of the app with the same name found on Sony Ericsson device
 
 ## Features
 * Create songs using the original samples
-* You can export the songs to the .wav format
-* You can save the project you're working on for later
+* Open original MusicDJ MIDI files
+* Export the songs to the .wav format
+* Save the project you're working on for later
 * Both a Dark and a White theme are available, more in the future
 
 ## To be added
 * Higher quality samples
-* MIDI player
-* Tempo changer
+* Custom tempo
 
 ## Download
 
@@ -39,5 +39,5 @@ Icons made by [Freepik](https://www.flaticon.com/authors/freepik) from [www.flat
 
 Gidole Font by [Andreas Larsen](https://twitter.com/larsenwork). [License](/assets/fonts/GidoleFont/License.txt)
 
-## Contact me
-If you have any questions, DM me on Twitter [@pattlebass_dev](https://twitter.com/pattlebass_dev).
+## Social media
+* Twitter [@pattlebass_dev](https://twitter.com/pattlebass_dev).
