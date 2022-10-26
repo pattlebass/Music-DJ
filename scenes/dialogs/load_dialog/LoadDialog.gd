@@ -110,12 +110,15 @@ func _on_OpenButton_pressed():
 
 
 func _on_file_picked(path: String, _mime_type: String) -> void:
-	if not (path.ends_with(".mdj") or path.ends_with(".mdjt")):
+	if not path.get_extension() in ["mdj", "mdjt", "mid"]:
 		dir.remove(path)
 		print("%s is not a valid project" % path.get_file())
 		return
 	
 	var new_path := "user://saves/Projects".plus_file(path.get_file())
+	
+	if path.get_extension() == "mid":
+		new_path += ".mdj"
 	
 	if dir.file_exists(new_path):
 		# Match file name with bracket numbering
@@ -136,8 +139,16 @@ func _on_file_picked(path: String, _mime_type: String) -> void:
 			new_file_name = "{file_name} ({number}).{extension}".format(groups)
 			new_path = "user://saves/Projects".plus_file(new_file_name)
 	
-	if dir.copy(path, new_path) == OK:
+	if path.get_extension() == "mid":
+		var file = File.new()
+		file.open(new_path, File.WRITE)
+		file.store_string(to_json(MidiFile.to_mdj(path)))
+		file.close()
+		
 		dir.remove(path)
+	else:
+		if dir.copy(path, new_path) == OK:
+			dir.remove(path)
 	
 	load_song(new_path)
 

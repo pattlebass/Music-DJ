@@ -261,6 +261,97 @@ func parse(path: String, silent := false) -> void:
 	pass
 
 
+func from_mdj(song):
+	var buffer := StreamPeerBuffer.new()
+	buffer.big_endian = true
+	
+	# MThd header
+	var mtdh_buffer := StreamPeerBuffer.new()
+	mtdh_buffer.big_endian = true
+	mtdh_buffer.put_data("MThd".to_ascii())
+	mtdh_buffer.put_32(6) # header length
+	mtdh_buffer.put_16(1) # format
+	mtdh_buffer.put_16(2) # number of tracks
+	mtdh_buffer.put_16(0x00C0) # divisions format
+	var mthd = mtdh_buffer.data_array
+	
+	# Sem1
+	var sem1 = PoolByteArray([0x53, 0x45, 0x4D, 0x31])
+	
+	var sem1_data = PoolByteArray()
+	for instrument in 4:
+		for column in song[instrument].size():
+			var rest_of_song = song[instrument].slice(column, song[instrument].size()-1)
+			if rest_of_song.count(0) != rest_of_song.size():
+				var sample = song[instrument][column]
+				sem1_data.append(sample)
+				sem1_data.append((sample - 1) / 8)
+		sem1_data.append(255)
+	
+	var sem1_size = PoolByteArray([0x0, 0x0, 0x0, sem1_data.size() + 2]) # 2 = checksum
+	
+	sem1.append_array(sem1_size)
+	sem1.append_array(sem1_data)
+	var sem1_checksum = crc16(sem1)
+	sem1.append_array(sem1_checksum)
+	
+	buffer.put_data(mthd)
+	buffer.put_data(sem1)
+	
+	return buffer.data_array
+
+
+static func to_mdj(midi_path):
+	var song = [[], [], [], []]
+	
+	var file := File.new()
+	file.open(midi_path, File.READ_WRITE)
+	
+	var buffer := StreamPeerBuffer.new()
+	buffer.data_array = file.get_buffer(file.get_len())
+	buffer.big_endian = true
+	
+	file.close()
+	
+	# Header chunk
+	var file_id = buffer.get_utf8_string(4)
+	var header_length = buffer.get_u32()
+	var format = buffer.get_u16()
+	var no_tracks = buffer.get_u16()
+	var divisions_word = buffer.get_u16()
+	var divisions_format = divisions_word & 0x8000
+	
+	if buffer.get_utf8_string(4).begins_with("SEM"):
+		var sem1_length = buffer.get_32()
+		
+		var instrument = 0
+		
+		while instrument < 4:
+			if buffer.get_u8() == 0xFF:
+				instrument += 1
+				continue
+			
+			buffer.seek(buffer.get_position() - 1)
+			
+			var sample = buffer.get_u8()
+			var category = buffer.get_u8()
+			
+			song[instrument].append(sample)
+	else:
+		return song
+	
+	var max_columns = 15
+	for instrument in 4:
+		if song[instrument].size() > max_columns:
+			max_columns = song[instrument].size()
+	
+	for instrument in 4:
+		for i in max_columns - song[instrument].size():
+			song[instrument].append(0)
+	
+	return song
+
+
 func read_value(buffer: StreamPeerBuffer) -> int:
 	var value :=0
 	var byte := 0
@@ -292,3 +383,21 @@ func get_u24(buffer: StreamPeerBuffer) -> int:
 	value |= buffer.get_u8() << 8
 	value |= buffer.get_u8() << 0
 	return value
+
+
+# Adapted from https://gist.github.com/pintoXD/a90e398bba5a1b6c121de4e1265d9a29
+func crc16(data: PoolByteArray, big_endian := true):
+	var crc = 0x0000
+	
+	for i in data.size():
+		crc ^= data[i]
+		for j in 8:
+			if (crc & 0x0001) > 0:
+				crc = (crc >> 1) ^ 0xA001
+			else:
+				crc = crc >> 1
+	var stream = StreamPeerBuffer.new()
+	stream.big_endian = big_endian
+	stream.put_16(crc)
+	
+	return stream.data_array

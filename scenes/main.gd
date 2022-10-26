@@ -343,17 +343,28 @@ func _files_dropped(_files, _screen) -> void:
 	var dir = Directory.new()
 	
 	for i in _files:
-		if not (i.ends_with(".mdj") or i.ends_with(".mdjt")):
+		if not i.get_extension() in ["mdj", "mdjt", "mid"]:
 			continue
 		
 		var file_name = i.get_file()
 		
+		if file_name.get_extension() == "mid":
+			file_name += ".mdj"
+		
+		var can_overwrite = true
 		if dir.file_exists(Variables.saves_dir.plus_file("Projects/%s" % file_name)):
 			var body = tr("DIALOG_CONFIRMATION_BODY_OVERWRITE") % "[color=#4ecca3]%s[/color]" % file_name
-			if yield(Variables.confirm_popup("DIALOG_CONFIRMATION_TITLE_OVERWRITE", body), "completed"):
-				dir.copy(i, Variables.projects_dir.plus_file("%s" % file_name))
-		else:
-			dir.copy(i, Variables.projects_dir.plus_file("%s" % file_name))
+			can_overwrite = yield(Variables.confirm_popup("DIALOG_CONFIRMATION_TITLE_OVERWRITE", body), "completed")
+		
+		if can_overwrite:
+			if i.get_extension() == "mid":
+				var file = File.new()
+				file.open(Variables.projects_dir.plus_file(file_name), File.WRITE)
+				file.store_string(to_json(MidiFile.to_mdj(i)))
+				file.close()
+			else:
+				dir.copy(i, Variables.projects_dir.plus_file(file_name))
+	
 	$LoadDialog.popup_centered()
 
 
