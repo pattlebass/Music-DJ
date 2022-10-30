@@ -2,7 +2,8 @@
 
 This is a recreation of the app with the same name found on Sony Ericsson devices of the 2000s.
 
-![MusicDJ image](https://i.imgur.com/aUPec4l.png)
+![MusicDJ image](https://user-images.githubusercontent.com/49322676/198876697-d3a7e75d-c21b-44d5-90d2-3104591055af.jpg)
+
 
 ## Features
 * Create songs using the original samples
