@@ -9,7 +9,6 @@ This is a recreation of the app with the same name found on Sony Ericsson device
 * Create songs using the original samples
 * Open original MusicDJ MIDI files
 * Export the songs to the .wav format
-* Save the project you're working on for later
 * Both a Dark and a White theme are available, more in the future
 
 ## To be added
@@ -24,7 +23,7 @@ This is a recreation of the app with the same name found on Sony Ericsson device
 * [Linux](https://github.com/pattlebass/Music-Dj/releases/latest/download/MusicDJ.Linux.zip) (You may have to give it executable permissions)
 * [HTML5 (Browser)](https://pattlebass.itch.io/musicdj) (Can be buggy on mobile devices)
 
-You might get warnings about this app not being safe. Like [this](https://i.stack.imgur.com/LlLiX.png) and [this](https://i.imgur.com/VlnKgTB.png). That's because I'm not a verified publisher and there is nothing I can do at the moment.
+You might get warnings about this app not being safe. That's because I'm not a verified publisher and there is nothing I can do at the moment.
 
 On Android, you'll need to allow apps from unknown sources. If you don't know how to do that, search a tutorial for your specific Android version.
 
