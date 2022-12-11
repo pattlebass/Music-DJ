@@ -4,7 +4,6 @@
 [ext_resource path="res://assets/themes/white/column_tear.png" type="Texture" id=2]
 
 [node name="ColumnDialog" type="PopupDialog"]
-visible = true
 anchor_top = -0.001
 anchor_bottom = -0.001
 margin_top = 0.6
@@ -30,6 +29,7 @@ custom_constants/separation = 10
 alignment = 1
 
 [node name="PlayButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 margin_right = 130.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 80, 50 )
@@ -37,6 +37,7 @@ disabled = true
 text = "BTN_PLAY"
 
 [node name="ClearButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 margin_left = 140.0
 margin_right = 285.0
 margin_bottom = 50.0
@@ -45,6 +46,7 @@ disabled = true
 text = "BTN_CLEAR"
 
 [node name="RemoveButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 margin_left = 295.0
 margin_right = 466.0
 margin_bottom = 50.0
@@ -52,7 +54,7 @@ rect_min_size = Vector2( 80, 50 )
 disabled = true
 text = "BTN_REMOVE"
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="Tear" type="Sprite" parent="."]
 position = Vector2( 25, -16.3455 )
 texture = ExtResource( 2 )
 

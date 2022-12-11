@@ -64,15 +64,12 @@ func about_to_show():
 	
 	var projects = Variables.list_files_in_directory(
 		"user://saves/Projects/",
-		["mdj", "mdjt"]
+		["mdj"]
 	)
 	
 	var theme_path = "res://assets/themes/%s/" % Variables.options.theme
 	
-	if projects.empty():
-		$"%NoProjectsLabel".show()
-	else:
-		$"%NoProjectsLabel".hide()
+	$"%NoProjectsLabel".visible = projects.empty()
 	
 	var btn_group = ButtonGroup.new()
 	

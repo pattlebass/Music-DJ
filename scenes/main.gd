@@ -12,6 +12,7 @@ onready var progress_dialog = $ProgressDialog
 onready var animation = $AnimationPlayer
 onready var column_container = $HBoxContainer/ScrollContainer/HBoxContainer
 onready var scroll_container = $HBoxContainer/ScrollContainer
+var available_columns := 0
 
 # Notes:
 
@@ -46,8 +47,27 @@ func _ready() -> void:
 	OS.min_window_size.x = ProjectSettings.get("display/window/size/width") * 0.75
 	OS.min_window_size.y = ProjectSettings.get("display/window/size/height") * 0.75
 	
-	for i in BoomBox.column_index:
+	for i in 15:
 		add_column(i)
+	
+	# DEPRECATED v1.0-stable: Convert projects
+	for project in Variables.list_files_in_directory(Variables.projects_dir, ["mdj", "mdjt"]):
+		var converted_project = BoomBox.convert_project(Variables.projects_dir.plus_file(project)).convert_to_json()
+		
+		var file = File.new()
+		var file_name = Variables.projects_dir.plus_file(project.get_basename() + ".mdj")
+		var err = file.open(file_name, File.WRITE)
+		
+		if err:
+			printerr(err)
+			return
+		
+		if project.get_extension() == "mdjt":
+			var dir = Directory.new()
+			dir.remove(Variables.projects_dir.plus_file(project))
+		
+		file.store_string(converted_project)
+		file.close()
 
 
 func on_theme_changed(new_theme) -> void:
@@ -56,9 +76,9 @@ func on_theme_changed(new_theme) -> void:
 
 
 func _process(_delta) -> void:
-	export_button.disabled = BoomBox.is_playing or BoomBox.used_columns.max() == -1
-	play_button.disabled = BoomBox.used_columns.max() == -1
-	save_button.disabled = BoomBox.used_columns.max() == -1
+	export_button.disabled = BoomBox.is_playing or BoomBox.song.used_columns.max() == -1
+	play_button.disabled = BoomBox.song.used_columns.max() == -1
+	save_button.disabled = BoomBox.song.used_columns.max() == -1
 
 
 func _on_Play_toggled(button_pressed) -> void:
@@ -112,7 +132,7 @@ func on_Tile_held(_column_no, _instrument, _button) -> void:
 		float_button.rect_size = rect_size * 1.5
 		float_button.set("custom_colors/font_color", Color.black)
 		float_button_parent.instrument = _instrument
-		float_button_parent.sample = BoomBox.song[_instrument][_column_no]
+		float_button_parent.sample = BoomBox.song.data[_instrument][_column_no]
 		float_button_parent.global_position = get_global_mouse_position()
 		add_child(float_button_parent)
 		
@@ -138,35 +158,36 @@ func _on_OpenProject_pressed() -> void:
 
 
 func _on_AddButton_pressed() -> void:
-	BoomBox.column_index += 1
-	add_column(BoomBox.column_index-1).fade_in()
+	add_column().fade_in()
 	yield(get_tree(), "idle_frame")
 	scroll_container.ensure_control_visible(add_button)
 
 
-func add_column(_column_no: int, add_to_song: bool = true) -> Node2D:
+func add_column(_column_no: int = 1, add_to_song: bool = true) -> Node2D:
 	var column = load(Column.scene).instance()
 	column_container.add_child(column)
 	column_container.move_child(column, column_container.get_child_count()-2)
-	column.add(_column_no)
-	
+	column.add(available_columns)
 	
 	# Signals
 	for b in 4:
 		var button = column.get_node("Button"+str(b+1))
 		button.connect("pressed", self, "on_Tile_pressed", [column, b])
-		button.connect("button_down", self, "on_Tile_held", [_column_no, b, column.get_node("Button"+str(b+1))])
-	column.column_button.connect("pressed", $ColumnDialog, "on_Column_Button_pressed", [_column_no, column])
+		button.connect("button_down", self, "on_Tile_held", [available_columns, b, column.get_node("Button"+str(b+1))])
+	column.column_button.connect("pressed", $ColumnDialog, "on_Column_Button_pressed", [available_columns, column])
 	
 	# Add to song
 	if add_to_song:
-		BoomBox.add_column()
+		BoomBox.song.add_column()
+	
+	available_columns += 1
 	
 	return column
 
 
 func remove_column(column_no) -> void:
-	BoomBox.remove_column(column_no)
+	available_columns -= 1
+	BoomBox.song.remove_column(column_no)
 	add_button.call_deferred("grab_focus")
 
 
@@ -176,7 +197,7 @@ func save_project(file_name: String) -> void:
 	var path = Variables.projects_dir.plus_file("%s.mdj" % file_name)
 	var file = File.new()
 	var err = file.open(path, File.WRITE)
-	file.store_string(to_json(BoomBox.song))
+	file.store_string(BoomBox.song.convert_to_json())
 	file.close()
 	
 	# ProgressDialog
@@ -212,7 +233,7 @@ func export_song(file_name: String) -> void:
 	progress_dialog.path = path
 	progress_dialog.after_saving = "stay"
 	progress_dialog.type_of_save = "export"
-	progress_dialog.progress_bar.max_value = 3*(BoomBox.used_columns.max()+1) + 0.5
+	progress_dialog.progress_bar.max_value = 3*(BoomBox.song.used_columns.max()+1) + 0.5
 	progress_dialog.popup_centered()
 	
 	# Export
@@ -266,62 +287,43 @@ func load_song(path, song = null):
 	else:
 		var file = File.new()
 		file.open(path, File.READ)
-		if path.ends_with(".mdj"):
-			var json_result = JSON.parse(file.get_as_text())
-			if json_result.error: # DEPRECATED v1.0-stable: Godot dictionary
-				BoomBox.song = file.get_var()
-			else: # JSON format
-				BoomBox.song = json_result.result
-			file.close()
-		elif path.ends_with(".mdjt"): # DEPRECATED v1.0-stable: mdjt
-			BoomBox.song = str2var(file.get_as_text())
-			file.close()
-			dir.remove(path)
-			path.erase(path.length()-1, 1)
-			file.open(path, File.WRITE)
-			file.store_var(BoomBox.song)
-			file.close()
+		var json_result = JSON.parse(file.get_as_text())
+		file.close()
+		if json_result.error: 
+			pass
+		else:
+			BoomBox.song = Song.new().from(json_result.result)
 		Variables.opened_file = path.get_file().get_basename()
-		
-	# Add remaining columns
-	var song_column_index = BoomBox.song[0].size()
 	
-	if BoomBox.column_index < song_column_index:
-		for i in song_column_index - BoomBox.column_index:
-			add_column(BoomBox.column_index, false)
-			BoomBox.column_index += 1
+	for column in column_container.get_children():
+		if column is Column:
+			 column.clear()
 	
-	elif BoomBox.column_index > song_column_index:
-		for i in BoomBox.column_index - song_column_index:
-			column_container.get_child(BoomBox.column_index-1).queue_free()
-			BoomBox.column_index -= 1
-		
-	
-	BoomBox.used_columns = [-1]
+	BoomBox.song.used_columns = [-1]
+	for instrument in BoomBox.song.data.size():
+		for column_no in BoomBox.song.data[instrument].size():
+			if column_no >= available_columns:
+				add_column(column_no, false)
+			
+			var column = column_container.get_child(column_no)
+			var value = BoomBox.song.data[instrument][column_no]
+			
+			if value != 0: # If not empty
+				if not BoomBox.song.used_columns.has(column_no):
+					BoomBox.song.used_columns.append(column_no)
+			
+			column.set_tile(instrument, value)
 	
 	scroll_container.scroll_horizontal = 0
 	play_button.pressed = false
-	
-	# TODO: Cleanup
-	
-	for instrument in BoomBox.song.size():
-		for column_no in BoomBox.song[instrument].size():
-			var column = column_container.get_child(column_no)
-			var value = BoomBox.song[instrument][column_no]
-			
-			if value != 0: # If not empty
-				if not BoomBox.used_columns.has(column_no):
-					BoomBox.used_columns.append(column_no)
-			
-			column.set_tile(instrument, value)
 
 
 func new_song() -> void:
-	var empty_song = [[], [], [], []]
+	var empty_song := Song.new()
 	
 	for i in 4:
 		for j in 15:
-			empty_song[i].append(0)
+			empty_song.data[i].append(0)
 	
 	load_song(null, empty_song)
 	Variables.opened_file = ""

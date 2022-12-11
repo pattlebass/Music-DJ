@@ -125,10 +125,10 @@ func context_menu_pressed(id: int, instrument: int, sample_index: int) -> void:
 			Variables.clipboard = {"instrument": instrument, "sample": sample_index}
 		1: # Paste
 			if Variables.clipboard:
-				BoomBox.set_tile(Variables.clipboard.instrument, column_no, Variables.clipboard.sample)
+				BoomBox.song.set_tile(Variables.clipboard.instrument, column_no, Variables.clipboard.sample)
 				set_tile(Variables.clipboard.instrument, Variables.clipboard.sample)
 		2: # Clear
-			BoomBox.set_tile(instrument, column_no, 0)
+			BoomBox.song.set_tile(instrument, column_no, 0)
 			clear_tile(instrument)
 
 

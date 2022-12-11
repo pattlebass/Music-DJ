@@ -1,9 +1,7 @@
 # The audio and song manager
 extends Node
 
-var song := [[], [], [], []]
-var used_columns := [-1]
-var column_index := 15
+var song := Song.new()
 var is_playing := false
 
 var time_delay: float # in seconds
@@ -53,7 +51,7 @@ func _process(delta) -> void:
 		current_column += 1
 		time -= bar_length
 		
-		if current_column - 1 >= used_columns[-1] or single:
+		if current_column - 1 >= song.used_columns[-1] or single:
 			is_playing = false
 			yield(get_tree().create_timer(bar_length), "timeout")
 			emit_signal("play_ended")
@@ -91,51 +89,43 @@ func _play_column(_column_no) -> void:
 	
 	# Play sounds
 	for instrument in 4:
-		if song[instrument][_column_no] == 0:
+		if song.data[instrument][_column_no] == 0:
 			continue
 		
 		var audio_player = audio_players.get_child(instrument)
-		var sound = song[instrument][_column_no]
+		var sound = song.data[instrument][_column_no]
 		audio_player.stream = sounds[instrument][sound]
 		audio_player.play()
-
-
-func set_tile(instrument: int, column_no:int, sample_index: int) -> void:
-	BoomBox.song[instrument][column_no] = sample_index
-	
-	if sample_index == 0:
-		# If all buttons in a column are clear remove that column from the play list
-		var uses = 0
-		for i in 4:
-			if BoomBox.song[i][column_no]:
-				uses += 1
-				break
-		if uses == 0:
-			BoomBox.used_columns.erase(column_no)
-	else:
-		if not BoomBox.used_columns.has(column_no):
-			BoomBox.used_columns.append(column_no)
-
-
-func add_column() -> void:
-	for i in song:
-		i.append(0)
-
-
-func remove_column(column_no: int) -> void:
-	column_index -= 1
-	for i in 4:
-		song[i].pop_back()
-		used_columns.erase(column_no)
-
-
-func clear_column(column_no: int) -> void:
-	used_columns.erase(column_no)
-	for i in 4:
-		song[i][column_no] = 0
 
 
 func _on_play_ended() -> void:
 	for i in column_container.get_children():
 		if i is Column:
 			i.end_play()
+
+
+func convert_project(old_project: String) -> Song:
+	# DEPRECATED v1.0-stable: Convert projects
+	var file := File.new()
+	file.open(old_project, File.READ)
+	var song := Song.new()
+	
+	var json_result = JSON.parse(file.get_as_text())
+	
+	if json_result.error:
+		song.data = file.get_var()
+		return song
+	
+	file.close()
+	
+	if json_result.result is Array:
+		song.data = json_result.result
+		return song
+	
+	if json_result.result is Dictionary:
+		if json_result.result.format == 1:
+			song.format = json_result.result.format
+			song.bpm = json_result.result.bpm
+			song.data = json_result.result.data
+	
+	return song

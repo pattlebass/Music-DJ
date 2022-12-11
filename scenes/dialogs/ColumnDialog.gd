@@ -1,5 +1,9 @@
 extends CustomDialog
 
+onready var play_button: Button = $"%PlayButton"
+onready var clear_button: Button = $"%ClearButton"
+onready var remove_button: Button = $"%RemoveButton"
+
 var column
 var column_no
 
@@ -10,36 +14,31 @@ func _ready() -> void:
 
 func on_theme_changed(new_theme):
 	var path = "res://assets/themes/%s/" % new_theme
-	$Sprite.texture = load(path.plus_file("column_tear.png"))
+	$Tear.texture = load(path.plus_file("column_tear.png"))
 
 
 func on_Column_Button_pressed(_column_no, _column):
 	column = _column
 	column_no = _column_no
 	
-#	var sprite = get_node("Sprite")
-#	var sprite_pos_x = _column.column_button.rect_global_position.x + \
+#	var tear = get_node("Tear")
+#	var tear_pos_x = _column.column_button.rect_global_position.x + \
 #		_column.column_button.rect_size.x/2
-#	sprite.global_position.x = sprite_pos_x
+#	tear.global_position.x = tear_pos_x
 	
 	popup()
 
 
 func about_to_show():
-	# Make buttons visible
-	if column_no != BoomBox.column_index - 1 or BoomBox.column_index == 15:
-		$VBoxContainer/HBoxContainer/RemoveButton.disabled = true
-	else:
-		$VBoxContainer/HBoxContainer/RemoveButton.disabled = false
-	
-	
 	var has_tiles_set := false
 	for i in 4:
-		if BoomBox.song[i][column.column_no]:
+		if BoomBox.song.data[i][column.column_no]:
 			has_tiles_set = true
 			break
-	$VBoxContainer/HBoxContainer/PlayButton.disabled = !has_tiles_set || BoomBox.is_playing
-	$VBoxContainer/HBoxContainer/ClearButton.disabled = !has_tiles_set
+	
+	remove_button.disabled = column_no != main.available_columns - 1 or main.available_columns == 15
+	play_button.disabled = !has_tiles_set || BoomBox.is_playing
+	clear_button.disabled = !has_tiles_set
 	
 	set_as_minsize()
 	
@@ -56,18 +55,18 @@ func about_to_show():
 		
 	rect_global_position = pos
 	
-	var sprite_pos_x = column.column_button.rect_global_position.x + \
+	var tear_pos_x = column.column_button.rect_global_position.x + \
 		column.column_button.rect_size.x/2
-	$Sprite.global_position.x = sprite_pos_x
+	$Tear.global_position.x = tear_pos_x
 	
 	.about_to_show()
 	
-	rect_pivot_offset = Vector2(sprite_pos_x - pos.x, 0)
+	rect_pivot_offset = Vector2(tear_pos_x - pos.x, 0)
 
 
 func _on_ClearButton_pressed():
 	column.clear()
-	BoomBox.clear_column(column.column_no)
+	BoomBox.song.remove_column(column.column_no)
 	
 	hide()
 

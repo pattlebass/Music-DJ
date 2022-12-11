@@ -110,9 +110,9 @@ func about_to_show():
 	if button_group.get_pressed_button():
 		button_group.get_pressed_button().pressed = false
 	
-	if BoomBox.song[instrument][column.column_no]:
+	if BoomBox.song.data[instrument][column.column_no]:
 		var selected_button = button_container.get_node(
-			str(BoomBox.song[instrument][column.column_no] - 1)
+			str(BoomBox.song.data[instrument][column.column_no] - 1)
 		)
 		selected_button.pressed = true
 		clear_button.disabled = false
@@ -150,11 +150,11 @@ func on_Button_focused(sample_index):
 
 
 func _on_OkButton_pressed():
-	if BoomBox.song[instrument][column.column_no] - 1 == pressed_button_index:
+	if BoomBox.song.data[instrument][column.column_no] - 1 == pressed_button_index:
 		hide()
 		return
 	
-	BoomBox.set_tile(instrument, column.column_no, pressed_button_index + 1)
+	BoomBox.song.set_tile(instrument, column.column_no, pressed_button_index + 1)
 	column.set_tile(
 		instrument,
 		pressed_button_index+1
@@ -165,7 +165,7 @@ func _on_OkButton_pressed():
 
 func _on_ClearButton_pressed():
 	column.clear_tile(instrument)
-	BoomBox.set_tile(instrument, column.column_no, 0)
+	BoomBox.song.set_tile(instrument, column.column_no, 0)
 	hide()
 
 
