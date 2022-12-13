@@ -32,6 +32,7 @@ DIALOG_LOAD_TITLE,Open project,Deschideți,Buka proyek
 DIALOG_LOAD_BTN_OPEN,Open,Deschideți,Buka
 DIALOG_LOAD_BTN_DOWNLOAD,Download,Descărcați,Unduh
 DIALOG_LOAD_BTN_SHARE,Share,Distribuiți,Bagikan
+DIALOG_LOAD_BTN_LINK,Copy link,Copiați link-ul,
 DIALOG_LOAD_BTN_DELETE,Delete,Ștergeți,Hapus
 DIALOG_LOAD_NO_PROJECTS,No saved projects,Niciun proiect salvat,Tidak ada proyek yang disimpan
 DIALOG_ABOUT_TITLE,About,Despre,Tentang

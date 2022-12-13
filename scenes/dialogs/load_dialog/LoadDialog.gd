@@ -84,6 +84,7 @@ func about_to_show():
 		item.delete_button.connect("pressed", self, "_on_Delete_pressed", [item, project_path])
 		item.download_button.connect("pressed", self, "_on_Download_pressed", [project_path])
 		item.share_button.connect("pressed", self, "_on_Share_pressed", [project_path])
+		item.link_button.connect("pressed", self, "_on_Link_pressed", [project_path])
 		connect("popup_hide", item, "queue_free")
 		item.download_button.visible = OS.get_name() == "HTML5" or OS.get_name() == "Android"
 		item.share_button.visible = share_service != null
@@ -174,6 +175,17 @@ func _on_Share_pressed(file_name) -> void:
 	Variables.share_file(
 		"user://saves/Projects/".plus_file(file_name), "", "", "", "application/json"
 	)
+
+
+func _on_Link_pressed(file_name) -> void:
+	var file = File.new()
+	file.open("user://saves/Projects/".plus_file(file_name), File.READ)
+	var project_string = file.get_as_text()
+	file.close()
+	
+	var url = "https://pattlebass.itch.io/musicdj?song=" + project_string.percent_encode()
+	OS.clipboard = url
+	Variables.toast("Copied link to clipboard", Toast.LENGTH_SHORT)
 
 
 func _on_Download_pressed(file_name):
