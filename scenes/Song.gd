@@ -17,9 +17,12 @@ func convert_to_json() -> String:
 
 
 func from(song: Dictionary):
-	format = song.format
-	bpm = song.bpm
-	data = song.data
+	if song.has("format"):
+		format = song.format
+	if song.has("bpm"):
+		bpm = song.bpm
+	if song.has("data"):
+		data = song.data
 	
 	return self
 

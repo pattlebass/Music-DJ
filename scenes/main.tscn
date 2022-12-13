@@ -320,7 +320,6 @@ theme_type_variation = "ShadowPanel"
 [node name="SaveDialog" parent="." instance=ExtResource( 9 )]
 
 [node name="ColumnDialog" parent="." instance=ExtResource( 8 )]
-visible = false
 
 [node name="ProgressDialog" parent="." instance=ExtResource( 10 )]
 

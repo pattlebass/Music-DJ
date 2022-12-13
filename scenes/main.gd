@@ -68,6 +68,31 @@ func _ready() -> void:
 		
 		file.store_string(converted_project)
 		file.close()
+	
+	# HTML5: Get project from URL and remove query parameters
+	var url_song_json = JavaScript.eval(\
+		"""
+		(function getParams() {
+			const urlString = (window.location != window.parent.location)
+						? document.referrer
+						: document.location.href;
+			const url = new URL(urlString);
+			const song = url.searchParams.get("song");
+			
+			url.search = "";
+			history.replaceState(null, "", url.toString())
+			
+			return song;
+		}())
+		"""
+	)
+	if url_song_json:
+		var json_result = JSON.parse(url_song_json)
+		if json_result.error: 
+			pass
+		else:
+			var url_song = Song.new().from(json_result.result)
+			load_song(null, url_song)
 
 
 func on_theme_changed(new_theme) -> void:
