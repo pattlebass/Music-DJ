@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=48 format=2]
+[gd_resource type="Theme" load_steps=49 format=2]
 
 [ext_resource path="res://assets/themes/dark/radio_check.svg" type="Texture" id=1]
 [ext_resource path="res://assets/themes/dark/radio_uncheck.svg" type="Texture" id=2]
@@ -230,6 +230,17 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
+[sub_resource type="StyleBoxFlat" id=49]
+content_margin_left = 8.0
+content_margin_right = 8.0
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+bg_color = Color( 0.0745098, 0.0784314, 0.0588235, 1 )
+corner_radius_top_left = 90
+corner_radius_top_right = 90
+corner_radius_bottom_right = 90
+corner_radius_bottom_left = 90
+
 [sub_resource type="StyleBoxLine" id=24]
 color = Color( 1, 1, 1, 0.270588 )
 thickness = 5
@@ -395,6 +406,7 @@ Tile/styles/Chorus = SubResource( 34 )
 Tile/styles/Introduction = SubResource( 35 )
 Tile/styles/Solo = SubResource( 36 )
 Tile/styles/Verse = SubResource( 37 )
+Toast/styles/panel = SubResource( 49 )
 VScrollBar/icons/decrement = null
 VScrollBar/icons/decrement_highlight = null
 VScrollBar/icons/increment = null

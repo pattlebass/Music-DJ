@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=52 format=2]
+[gd_resource type="Theme" load_steps=53 format=2]
 
 [ext_resource path="res://assets/fonts/GidoleFont/Gidole-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/themes/white/radio_check.svg" type="Texture" id=2]
@@ -198,7 +198,7 @@ corner_radius_top_left = 12
 corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
-shadow_color = Color( 0, 0, 0, 0.16 )
+shadow_color = Color( 0, 0, 0, 0.160784 )
 shadow_size = 8
 shadow_offset = Vector2( 0, 4 )
 
@@ -254,6 +254,20 @@ corner_radius_top_left = 12
 corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id=49]
+content_margin_left = 8.0
+content_margin_right = 8.0
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+bg_color = Color( 1, 1, 1, 1 )
+corner_radius_top_left = 90
+corner_radius_top_right = 90
+corner_radius_bottom_right = 90
+corner_radius_bottom_left = 90
+shadow_color = Color( 0, 0, 0, 0.160784 )
+shadow_size = 8
+shadow_offset = Vector2( 0, 4 )
 
 [sub_resource type="StyleBoxLine" id=27]
 color = Color( 0, 0, 0, 0.25098 )
@@ -429,6 +443,7 @@ Tile/styles/Chorus = SubResource( 38 )
 Tile/styles/Introduction = SubResource( 39 )
 Tile/styles/Solo = SubResource( 40 )
 Tile/styles/Verse = SubResource( 46 )
+Toast/styles/panel = SubResource( 49 )
 VScrollBar/icons/decrement = null
 VScrollBar/icons/decrement_highlight = null
 VScrollBar/icons/increment = null

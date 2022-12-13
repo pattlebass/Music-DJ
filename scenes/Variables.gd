@@ -39,7 +39,8 @@ func _ready() -> void:
 	get_tree().connect("node_added", self, "_node_added")
 	get_tree().connect("node_removed", self, "_node_removed")
 	
-	traverse(main)
+	if main:
+		traverse(main)
 	
 	# Singletons
 	if Engine.has_singleton("GodotFileSharing"):
@@ -75,7 +76,7 @@ func _ready() -> void:
 	file.close()
 	
 	if json_result.error:
-		printerr("Json parse error: ", json_result.error_string)
+		printerr("options.json parse error: ", json_result.error_string)
 		save_options(0)
 		return
 	
@@ -152,6 +153,15 @@ func share_file(path: String, title: String, subject: String, text: String, mime
 	if share_service == null:
 		return
 	share_service.shareFile(ProjectSettings.globalize_path(path), title, subject, text, mimeType)
+
+
+func toast(p_text: String, p_duration: int = Toast.LENGTH_LONG) -> void:
+	var toast = load(Toast.scene_path).instance()
+	toast.text = p_text
+	toast.duration = p_duration
+	
+	main.add_child(toast)
+	toast.popup()
 
 
 func list_files_in_directory(path: String, extensions := [""]) -> Array:

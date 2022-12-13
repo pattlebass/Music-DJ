@@ -88,8 +88,8 @@ func _ready() -> void:
 	)
 	if url_song_json:
 		var json_result = JSON.parse(url_song_json)
-		if json_result.error: 
-			pass
+		if json_result.error:
+			Variables.toast("Error parsing project from URL (code: %s)" % json_result.error)
 		else:
 			var url_song = Song.new().from(json_result.result)
 			load_song(null, url_song)
@@ -314,8 +314,10 @@ func load_song(path, song = null):
 		file.open(path, File.READ)
 		var json_result = JSON.parse(file.get_as_text())
 		file.close()
-		if json_result.error: 
-			pass
+		if json_result.error:
+			var err = "Error opening project (code: %s)" % json_result.error
+			Variables.toast(err)
+			printerr(err)
 		else:
 			BoomBox.song = Song.new().from(json_result.result)
 		Variables.opened_file = path.get_file().get_basename()
