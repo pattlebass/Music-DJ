@@ -6,6 +6,7 @@ var pressed_button_index = 0
 var column
 
 onready var button_container = $VBoxContainer/ScrollContainer/VBoxContainer
+onready var scroll_container = $VBoxContainer/ScrollContainer
 onready var audio_player = $AudioStreamPlayer
 onready var ok_button = $VBoxContainer/HBoxContainer/OkButton
 onready var cancel_button = $VBoxContainer/HBoxContainer/CancelButton
@@ -104,6 +105,8 @@ func about_to_show():
 	$VBoxContainer/Label.text = tr("DIALOG_SOUND_TITLE") % \
 		[instrument_name, column.column_no + 1]
 	
+	scroll_container.scroll_vertical = 0
+	
 	# Set button states
 	var clear_button = get_node("VBoxContainer/HBoxContainer/ClearButton")
 	
@@ -123,7 +126,6 @@ func about_to_show():
 		clear_button.disabled = true
 		ok_button.disabled = true
 	
-	$VBoxContainer/ScrollContainer.scroll_vertical = 0
 	
 	.about_to_show()
 
