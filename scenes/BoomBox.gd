@@ -50,8 +50,7 @@ func _process(delta) -> void:
 		
 		current_column += 1
 		time -= bar_length
-		
-		if current_column - 1 >= song.used_columns[-1] or single:
+		if current_column - 1 >= song.used_columns.max() or single:
 			is_playing = false
 			yield(get_tree().create_timer(bar_length), "timeout")
 			emit_signal("play_ended")

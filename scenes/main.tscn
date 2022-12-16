@@ -153,7 +153,7 @@ text = "BTN_PLAY"
 
 [node name="BPMHbox" type="HBoxContainer" parent="HBoxToolBar"]
 margin_left = 160.0
-margin_right = 298.0
+margin_right = 284.0
 margin_bottom = 60.0
 
 [node name="Label" type="Label" parent="HBoxToolBar/BPMHbox"]
@@ -165,7 +165,7 @@ text = "BPM"
 
 [node name="BPMSpinBox" type="SpinBox" parent="HBoxToolBar/BPMHbox"]
 margin_left = 59.0
-margin_right = 138.0
+margin_right = 124.0
 margin_bottom = 60.0
 theme = SubResource( 16 )
 min_value = 50.0
@@ -174,14 +174,14 @@ value = 80.0
 align = 1
 
 [node name="Control" type="Control" parent="HBoxToolBar"]
-margin_left = 328.0
-margin_right = 328.0
+margin_left = 314.0
+margin_right = 314.0
 margin_bottom = 60.0
 size_flags_horizontal = 3
 
 [node name="Export" type="Button" parent="HBoxToolBar"]
-margin_left = 358.0
-margin_right = 521.0
+margin_left = 344.0
+margin_right = 507.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 100, 0 )
 focus_neighbour_left = NodePath("../Play")
@@ -190,8 +190,8 @@ mouse_filter = 1
 text = "BTN_EXPORT"
 
 [node name="SaveProject" type="Button" parent="HBoxToolBar"]
-margin_left = 551.0
-margin_right = 801.0
+margin_left = 537.0
+margin_right = 787.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 150, 0 )
 focus_neighbour_left = NodePath("../Export")
@@ -200,8 +200,8 @@ mouse_filter = 1
 text = "BTN_SAVE_PROJECT"
 
 [node name="OpenProject" type="Button" parent="HBoxToolBar"]
-margin_left = 831.0
-margin_right = 1085.0
+margin_left = 817.0
+margin_right = 1071.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 150, 0 )
 focus_neighbour_left = NodePath("../SaveProject")
@@ -210,8 +210,8 @@ mouse_filter = 1
 text = "BTN_OPEN_PROJECT"
 
 [node name="More" type="MenuButton" parent="HBoxToolBar"]
-margin_left = 1115.0
-margin_right = 1175.0
+margin_left = 1101.0
+margin_right = 1161.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 60, 60 )
 focus_neighbour_left = NodePath("../OpenProject")
