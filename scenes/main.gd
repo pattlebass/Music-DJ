@@ -1,10 +1,11 @@
 extends Control
 
 onready var play_button = $HBoxToolBar/Play
-onready var export_button = $HBoxToolBar/HBoxContainer/Export
-onready var save_button = $HBoxToolBar/HBoxContainer/SaveProject
-onready var more_button = $HBoxToolBar/HBoxContainer/More
+onready var export_button = $HBoxToolBar/Export
+onready var save_button = $HBoxToolBar/SaveProject
+onready var more_button = $HBoxToolBar/More
 onready var add_button = $HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer/AddButton
+onready var bpm_spinbox = $HBoxToolBar/BPMHbox/BPMSpinBox
 onready var save_dialog = $SaveDialog
 onready var load_dialog = $LoadDialog
 onready var sound_dialog = $SoundDialog
@@ -98,12 +99,17 @@ func _ready() -> void:
 func on_theme_changed(new_theme) -> void:
 	theme = load("res://assets/themes/%s/%s.tres" % [new_theme, new_theme])
 	more_button.icon = load("res://assets/themes/%s/more.svg" % new_theme)
+	
+	# HACK: I know it's horrible, but the theme doesn't properly update
+	bpm_spinbox.value += 1
+	bpm_spinbox.value -= 1
 
 
 func _process(_delta) -> void:
 	export_button.disabled = BoomBox.is_playing or BoomBox.song.used_columns.max() == -1
 	play_button.disabled = BoomBox.song.used_columns.max() == -1
 	save_button.disabled = BoomBox.song.used_columns.max() == -1
+	bpm_spinbox.editable = not BoomBox.is_playing
 
 
 func _on_Play_toggled(button_pressed) -> void:
@@ -341,6 +347,7 @@ func load_song(path, song = null):
 			
 			column.set_tile(instrument, value)
 	
+	bpm_spinbox.value = BoomBox.song.bpm
 	scroll_container.scroll_horizontal = 0
 	play_button.pressed = false
 
@@ -354,6 +361,11 @@ func new_song() -> void:
 	
 	load_song(null, empty_song)
 	Variables.opened_file = ""
+
+
+func _on_BPMSpinBox_value_changed(value: int) -> void:
+	BoomBox.song.bpm = value
+	BoomBox.update_pitch()
 
 
 func _on_Settings_pressed() -> void:

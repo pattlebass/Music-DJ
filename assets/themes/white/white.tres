@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=53 format=2]
+[gd_resource type="Theme" load_steps=54 format=2]
 
 [ext_resource path="res://assets/fonts/GidoleFont/Gidole-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/themes/white/radio_check.svg" type="Texture" id=2]
@@ -114,6 +114,11 @@ font_data = ExtResource( 1 )
 draw_center = false
 border_width_bottom = 2
 border_color = Color( 0.305882, 0.8, 0.639216, 1 )
+
+[sub_resource type="StyleBoxFlat" id=50]
+draw_center = false
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 0.42 )
 
 [sub_resource type="DynamicFont" id=36]
 size = 40
@@ -362,14 +367,14 @@ LineEdit/colors/clear_button_color_pressed = Color( 1, 1, 1, 1 )
 LineEdit/colors/cursor_color = Color( 0.94, 0.94, 0.94, 1 )
 LineEdit/colors/font_color = Color( 0, 0, 0, 1 )
 LineEdit/colors/font_color_selected = Color( 0, 0, 0, 1 )
-LineEdit/colors/font_color_uneditable = Color( 0.88, 0.88, 0.88, 0.5 )
+LineEdit/colors/font_color_uneditable = Color( 0, 0, 0, 0.380392 )
 LineEdit/colors/selection_color = Color( 0.49, 0.49, 0.49, 1 )
 LineEdit/constants/minimum_spaces = 12
 LineEdit/fonts/font = SubResource( 17 )
 LineEdit/icons/clear = null
 LineEdit/styles/focus = SubResource( 18 )
 LineEdit/styles/normal = SubResource( 19 )
-LineEdit/styles/read_only = null
+LineEdit/styles/read_only = SubResource( 50 )
 ListItem/base_type = "Button"
 ListItem/colors/font_color = Color( 0, 0, 0, 0.6 )
 ListItem/colors/font_color_disabled = Color( 0.901961, 0.901961, 0.901961, 0.2 )

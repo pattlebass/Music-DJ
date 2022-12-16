@@ -171,3 +171,7 @@ func _on_ClearButton_pressed():
 
 func _on_CancelButton_pressed():
 	hide()
+
+
+func _on_BPMSpinBox_value_changed(value: int) -> void:
+	audio_player.pitch_scale = value / 80.0

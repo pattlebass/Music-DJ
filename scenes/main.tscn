@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://scenes/main.gd" type="Script" id=1]
 [ext_resource path="res://assets/trumpet.png" type="Texture" id=2]
@@ -102,6 +102,9 @@ tracks/1/keys = {
 "values": [ true, false ]
 }
 
+[sub_resource type="Theme" id=16]
+LineEdit/constants/minimum_spaces = 7
+
 [node name="main" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -143,37 +146,52 @@ custom_constants/separation = 30
 margin_right = 130.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 100, 60 )
-focus_neighbour_left = NodePath("../HBoxContainer/More")
-focus_neighbour_right = NodePath("../HBoxContainer/Export")
+focus_neighbour_left = NodePath("../More")
+focus_neighbour_right = NodePath("../Export")
 toggle_mode = true
 text = "BTN_PLAY"
 
-[node name="Control" type="Control" parent="HBoxToolBar"]
+[node name="BPMHbox" type="HBoxContainer" parent="HBoxToolBar"]
 margin_left = 160.0
-margin_right = 160.0
+margin_right = 298.0
+margin_bottom = 60.0
+
+[node name="Label" type="Label" parent="HBoxToolBar/BPMHbox"]
+margin_top = 11.0
+margin_right = 55.0
+margin_bottom = 49.0
+theme_type_variation = "LabelSubtitle"
+text = "BPM"
+
+[node name="BPMSpinBox" type="SpinBox" parent="HBoxToolBar/BPMHbox"]
+margin_left = 59.0
+margin_right = 138.0
+margin_bottom = 60.0
+theme = SubResource( 16 )
+min_value = 50.0
+max_value = 150.0
+value = 80.0
+align = 1
+
+[node name="Control" type="Control" parent="HBoxToolBar"]
+margin_left = 328.0
+margin_right = 328.0
 margin_bottom = 60.0
 size_flags_horizontal = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxToolBar"]
-margin_left = 190.0
-margin_right = 1007.0
-margin_bottom = 60.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_constants/separation = 30
-
-[node name="Export" type="Button" parent="HBoxToolBar/HBoxContainer"]
-margin_right = 163.0
+[node name="Export" type="Button" parent="HBoxToolBar"]
+margin_left = 358.0
+margin_right = 521.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 100, 0 )
-focus_neighbour_left = NodePath("../../Play")
+focus_neighbour_left = NodePath("../Play")
 focus_neighbour_right = NodePath("../SaveProject")
 mouse_filter = 1
 text = "BTN_EXPORT"
 
-[node name="SaveProject" type="Button" parent="HBoxToolBar/HBoxContainer"]
-margin_left = 193.0
-margin_right = 443.0
+[node name="SaveProject" type="Button" parent="HBoxToolBar"]
+margin_left = 551.0
+margin_right = 801.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 150, 0 )
 focus_neighbour_left = NodePath("../Export")
@@ -181,9 +199,9 @@ focus_neighbour_right = NodePath("../OpenProject")
 mouse_filter = 1
 text = "BTN_SAVE_PROJECT"
 
-[node name="OpenProject" type="Button" parent="HBoxToolBar/HBoxContainer"]
-margin_left = 473.0
-margin_right = 727.0
+[node name="OpenProject" type="Button" parent="HBoxToolBar"]
+margin_left = 831.0
+margin_right = 1085.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 150, 0 )
 focus_neighbour_left = NodePath("../SaveProject")
@@ -191,13 +209,13 @@ focus_neighbour_right = NodePath("../More")
 mouse_filter = 1
 text = "BTN_OPEN_PROJECT"
 
-[node name="More" type="MenuButton" parent="HBoxToolBar/HBoxContainer"]
-margin_left = 757.0
-margin_right = 817.0
+[node name="More" type="MenuButton" parent="HBoxToolBar"]
+margin_left = 1115.0
+margin_right = 1175.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 60, 60 )
 focus_neighbour_left = NodePath("../OpenProject")
-focus_neighbour_right = NodePath("../../Play")
+focus_neighbour_right = NodePath("../Play")
 focus_mode = 2
 mouse_filter = 1
 theme_type_variation = "MenuButtonIcon"
@@ -335,9 +353,11 @@ visible = false
 [node name="AboutDialog" parent="." instance=ExtResource( 16 )]
 
 [connection signal="toggled" from="HBoxToolBar/Play" to="." method="_on_Play_toggled"]
-[connection signal="pressed" from="HBoxToolBar/HBoxContainer/Export" to="." method="_on_Export_pressed"]
-[connection signal="pressed" from="HBoxToolBar/HBoxContainer/SaveProject" to="." method="_on_SaveProject_pressed"]
-[connection signal="pressed" from="HBoxToolBar/HBoxContainer/OpenProject" to="." method="_on_OpenProject_pressed"]
+[connection signal="value_changed" from="HBoxToolBar/BPMHbox/BPMSpinBox" to="." method="_on_BPMSpinBox_value_changed"]
+[connection signal="value_changed" from="HBoxToolBar/BPMHbox/BPMSpinBox" to="SoundDialog" method="_on_BPMSpinBox_value_changed"]
+[connection signal="pressed" from="HBoxToolBar/Export" to="." method="_on_Export_pressed"]
+[connection signal="pressed" from="HBoxToolBar/SaveProject" to="." method="_on_SaveProject_pressed"]
+[connection signal="pressed" from="HBoxToolBar/OpenProject" to="." method="_on_OpenProject_pressed"]
 [connection signal="pressed" from="HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer/AddButton" to="." method="_on_AddButton_pressed"]
 [connection signal="project_name_picked" from="SaveDialog" to="." method="save_project"]
 [connection signal="song_name_picked" from="SaveDialog" to="." method="export_song"]

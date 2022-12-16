@@ -6,7 +6,7 @@ var is_playing := false
 
 var time_delay: float # in seconds
 
-var bar_length := 3
+var bar_length: float = 3.0
 var sounds := [[0], [0], [0], [0]]
 
 onready var column_container = get_node("/root/main/HBoxContainer/ScrollContainer/HBoxContainer")
@@ -38,11 +38,11 @@ func _process(delta) -> void:
 		return
 	
 	time += delta
-	print(time)
+#	print(time)
 	
 	if time - time_delay > bar_length:
 		# Bar
-		print("Current column: ", current_column)
+#		print("Current column: ", current_column)
 		if current_column > 0:
 			column_container.get_child(current_column - 1).end_play()
 		
@@ -58,6 +58,7 @@ func _process(delta) -> void:
 
 
 func play_song() -> void:
+	update_pitch()
 	time = bar_length
 	current_column = 0
 	is_playing = true
@@ -74,6 +75,7 @@ func stop() -> void:
 
 
 func play_column(p_column_no) -> void:
+	update_pitch()
 	time = bar_length
 	current_column = p_column_no
 	single = true
@@ -81,19 +83,20 @@ func play_column(p_column_no) -> void:
 	emit_signal("play_started")
 
 
-func _play_column(_column_no) -> void:
+func _play_column(p_column_no) -> void:
 	# Visuals
-	var column = column_container.get_child(_column_no)
+	var column = column_container.get_child(p_column_no)
 	column.start_play()
 	emit_signal("column_play_started", column)
 	
 	# Play sounds
 	for instrument in 4:
-		if song.data[instrument][_column_no] == 0:
+		if song.data[instrument][p_column_no] == 0:
 			continue
 		
 		var audio_player = audio_players.get_child(instrument)
-		var sound = song.data[instrument][_column_no]
+		var sound = song.data[instrument][p_column_no]
+		audio_player.pitch_scale = song.bpm / 80.0
 		audio_player.stream = sounds[instrument][sound]
 		audio_player.play()
 
@@ -102,6 +105,16 @@ func _on_play_ended() -> void:
 	for i in column_container.get_children():
 		if i is Column:
 			i.end_play()
+
+
+func update_pitch() -> void:
+	bar_length = (60.0/song.bpm) * 4
+	
+	var pitch = song.bpm / 80.0
+	var shift = AudioServer.get_bus_effect(0, 1)
+	shift.pitch_scale = 1.0 / pitch
+	
+	AudioServer.set_bus_effect_enabled(0, 1, shift.pitch_scale != 1)
 
 
 func convert_project(old_project: String) -> Song:
