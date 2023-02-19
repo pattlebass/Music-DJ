@@ -16,5 +16,9 @@ data_*/
 android/build/
 
 # Other
-bin/
+bin/*
+!bin/.gdignore
+!bin/after_export.cmd
+!bin/Before Android export.md
+
 *.zip
