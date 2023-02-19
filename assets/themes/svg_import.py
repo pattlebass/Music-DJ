@@ -25,7 +25,7 @@ for path in listdir(getcwd()):
             svg["viewBox"] = "0 0 24 24"
             print(path + ": added viewbox")
 
-        if svg["height"] != "36" or svg["height"] != "36":
+        if svg["height"] != "36" or svg["width"] != "36":
             svg["height"] = "36"
             svg["width"] = "36"
             print(path + ": set dimentions")
