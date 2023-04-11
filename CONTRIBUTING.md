@@ -5,7 +5,7 @@ Here are the rules if you want to contribute to this repository.
 2. When writing code, make sure to follow the [style guide](#gdscript-style-guide).
 
 ## GDScript style guide
-It's basically [this](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_styleguide.html) but with a few changes.
+It's basically [this](https://docs.godotengine.org/en/3.6/tutorials/scripting/gdscript/gdscript_styleguide.html) but with a few changes.
 
 ### Summary 
 1. Use snake_case for variable names, functions and signals.
