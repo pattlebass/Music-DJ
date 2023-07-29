@@ -4,6 +4,7 @@
 [ext_resource path="res://assets/themes/white/column_tear.png" type="Texture" id=2]
 
 [node name="ColumnDialog" type="PopupDialog"]
+visible = true
 anchor_top = -0.001
 anchor_bottom = -0.001
 margin_top = 0.6
@@ -22,34 +23,43 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 13
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer"]
 margin_right = 466.0
-margin_bottom = 50.0
+margin_bottom = 230.0
 custom_constants/separation = 10
 alignment = 1
 
-[node name="PlayButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+[node name="PlayButton" type="Button" parent="VBoxContainer/VBoxContainer2"]
 unique_name_in_owner = true
-margin_right = 130.0
+margin_right = 466.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 80, 50 )
 disabled = true
 text = "BTN_PLAY"
 
-[node name="ClearButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+[node name="PlayColumnButton" type="Button" parent="VBoxContainer/VBoxContainer2"]
 unique_name_in_owner = true
-margin_left = 140.0
-margin_right = 285.0
-margin_bottom = 50.0
+margin_top = 60.0
+margin_right = 466.0
+margin_bottom = 110.0
+rect_min_size = Vector2( 80, 50 )
+disabled = true
+text = "BTN_PLAY_COLUMN"
+
+[node name="ClearButton" type="Button" parent="VBoxContainer/VBoxContainer2"]
+unique_name_in_owner = true
+margin_top = 120.0
+margin_right = 466.0
+margin_bottom = 170.0
 rect_min_size = Vector2( 80, 50 )
 disabled = true
 text = "BTN_CLEAR"
 
-[node name="RemoveButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+[node name="RemoveButton" type="Button" parent="VBoxContainer/VBoxContainer2"]
 unique_name_in_owner = true
-margin_left = 295.0
+margin_top = 180.0
 margin_right = 466.0
-margin_bottom = 50.0
+margin_bottom = 230.0
 rect_min_size = Vector2( 80, 50 )
 disabled = true
 text = "BTN_REMOVE"
@@ -58,6 +68,7 @@ text = "BTN_REMOVE"
 position = Vector2( 25, -16.3455 )
 texture = ExtResource( 2 )
 
-[connection signal="pressed" from="VBoxContainer/HBoxContainer/PlayButton" to="." method="_on_PlayButton_pressed"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer/ClearButton" to="." method="_on_ClearButton_pressed"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer/RemoveButton" to="." method="_on_RemoveButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer2/PlayButton" to="." method="_on_PlayButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer2/PlayColumnButton" to="." method="_on_PlayColumnButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer2/ClearButton" to="." method="_on_ClearButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer2/RemoveButton" to="." method="_on_RemoveButton_pressed"]

@@ -192,8 +192,8 @@ tracks/3/keys = {
 
 [node name="TutorialDialog" type="PopupDialog"]
 visible = true
-margin_right = 715.0
-margin_bottom = 473.0
+margin_right = 730.0
+margin_bottom = 500.0
 focus_mode = 2
 mouse_filter = 1
 input_pass_on_modal_close_click = false
@@ -209,40 +209,41 @@ anchor_bottom = 1.0
 margin_bottom = 2.0
 
 [node name="Title" type="Label" parent="VBoxContainer"]
-margin_right = 715.0
+margin_right = 730.0
 margin_bottom = 55.0
 mouse_filter = 1
 text = "DIALOG_TUTORIAL_TITLE"
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
 margin_top = 59.0
-margin_right = 715.0
+margin_right = 730.0
 margin_bottom = 61.0
 mouse_filter = 1
 
 [node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer"]
 unique_name_in_owner = true
 margin_top = 69.0
-margin_right = 715.0
-margin_bottom = 109.0
+margin_right = 730.0
+margin_bottom = 147.0
 rect_min_size = Vector2( 0, 40 )
 mouse_filter = 1
 bbcode_enabled = true
 text = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore. "
+fit_content_height = true
 scroll_active = false
 
 [node name="HSeparator2" type="HSeparator" parent="VBoxContainer"]
-margin_top = 109.0
-margin_right = 715.0
-margin_bottom = 129.0
+margin_top = 147.0
+margin_right = 730.0
+margin_bottom = 167.0
 mouse_filter = 1
 custom_constants/separation = 20
 custom_styles/separator = SubResource( 6 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 133.0
-margin_right = 715.0
-margin_bottom = 433.0
+margin_top = 171.0
+margin_right = 730.0
+margin_bottom = 471.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 30
@@ -262,22 +263,22 @@ text = "<"
 
 [node name="VBoxMedia" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
 margin_left = 90.0
-margin_right = 625.0
+margin_right = 640.0
 margin_bottom = 300.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
 
 [node name="HBoxMediaAnchor" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxMedia"]
-margin_right = 535.0
+margin_right = 550.0
 margin_bottom = 300.0
 size_flags_vertical = 3
 alignment = 1
 
 [node name="VideoPlayer" type="VideoPlayer" parent="VBoxContainer/HBoxContainer/VBoxMedia/HBoxMediaAnchor"]
 unique_name_in_owner = true
-margin_left = 17.0
-margin_right = 517.0
+margin_left = 25.0
+margin_right = 525.0
 margin_bottom = 300.0
 rect_min_size = Vector2( 500, 300 )
 mouse_filter = 1
@@ -293,9 +294,9 @@ expand = true
 
 [node name="NextButton" type="Button" parent="VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 655.0
+margin_left = 670.0
 margin_top = 120.0
-margin_right = 715.0
+margin_right = 730.0
 margin_bottom = 180.0
 rect_min_size = Vector2( 60, 60 )
 focus_mode = 1
@@ -309,9 +310,9 @@ __meta__ = {
 
 [node name="PageLabel" type="Label" parent="VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 437.0
-margin_right = 715.0
-margin_bottom = 475.0
+margin_top = 475.0
+margin_right = 730.0
+margin_bottom = 513.0
 mouse_filter = 1
 theme_type_variation = "LabelSubtitle"
 text = "1/x"

@@ -24,6 +24,7 @@ func _ready() -> void:
 		"en": "English",
 		"ro": "Română",
 		"id": "Bahasa Indonesia",
+		"pl": "Polski",
 	}
 	
 	var lang_auto_btn = lang_container.get_node("Auto")

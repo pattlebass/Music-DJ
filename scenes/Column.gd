@@ -85,8 +85,8 @@ func on_tile_gui_input(event: InputEvent, button: Button) -> void:
 	var sample_index = button.get_meta("sample_index")
 	if event.is_action_pressed("right_click") or event.is_action_pressed("ui_menu"):
 		var menu = PopupMenu.new()
-		menu.add_item("Copy")
-		menu.add_item("Paste")
+		menu.add_item("BTN_COPY")
+		menu.add_item("BTN_PASTE")
 		menu.add_item("BTN_CLEAR")
 		
 		if not Variables.clipboard:

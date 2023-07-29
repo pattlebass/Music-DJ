@@ -1,6 +1,7 @@
 extends CustomDialog
 
 onready var play_button: Button = $"%PlayButton"
+onready var play_column_button: Button = $"%PlayColumnButton"
 onready var clear_button: Button = $"%ClearButton"
 onready var remove_button: Button = $"%RemoveButton"
 
@@ -38,6 +39,7 @@ func about_to_show():
 	
 	remove_button.disabled = column_no != main.available_columns - 1 or main.available_columns == 15
 	play_button.disabled = !has_tiles_set || BoomBox.is_playing
+	play_column_button.disabled = !has_tiles_set || BoomBox.is_playing
 	clear_button.disabled = !has_tiles_set
 	
 	set_as_minsize()
@@ -79,5 +81,10 @@ func _on_RemoveButton_pressed():
 
 
 func _on_PlayButton_pressed():
+	BoomBox.play_from_column(column_no)
+	hide()
+
+
+func _on_PlayColumnButton_pressed():
 	BoomBox.play_column(column_no)
 	hide()
