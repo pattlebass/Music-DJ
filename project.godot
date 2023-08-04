@@ -120,7 +120,7 @@ pointing/emulate_touch_from_mouse=true
 
 [locale]
 
-translations=PoolStringArray( "res://languages/text.ro.translation", "res://languages/text.id.translation", "res://languages/text.en.translation" )
+translations=PoolStringArray( "res://languages/text.ro.translation", "res://languages/text.id.translation", "res://languages/text.en.translation", "res://languages/text.pl.translation" )
 locale_filter=[ 0, [  ] ]
 
 [rendering]
