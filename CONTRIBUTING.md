@@ -2,7 +2,8 @@
 Here are the rules if you want to contribute to this repository.
 
 1. You should first open an issue describing the changes you want. You should also mention that you want to open a pull request.
-2. When writing code, make sure to follow the [style guide](#gdscript-style-guide).
+2. One feature per issue/PR. It makes reviewing and merging easier.
+3. When writing code, make sure to follow the [style guide](#gdscript-style-guide).
 
 ## GDScript style guide
 It's basically [this](https://docs.godotengine.org/en/3.6/tutorials/scripting/gdscript/gdscript_styleguide.html) but with a few changes.
