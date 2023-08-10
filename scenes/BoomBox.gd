@@ -82,6 +82,15 @@ func play_column(p_column_no) -> void:
 	emit_signal("play_started")
 
 
+func play_from_column(p_column_no) -> void:
+	update_pitch()
+	time = bar_length
+	current_column = p_column_no
+	single = false
+	is_playing = true
+	emit_signal("play_started")
+
+
 func _play_column(p_column_no) -> void:
 	# Visuals
 	var column = column_container.get_child(p_column_no)
