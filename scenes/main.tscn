@@ -152,6 +152,7 @@ toggle_mode = true
 text = "BTN_PLAY"
 
 [node name="BPMHbox" type="HBoxContainer" parent="HBoxToolBar"]
+visible = false
 margin_left = 160.0
 margin_right = 284.0
 margin_bottom = 60.0
@@ -174,14 +175,14 @@ value = 80.0
 align = 1
 
 [node name="Control" type="Control" parent="HBoxToolBar"]
-margin_left = 314.0
-margin_right = 314.0
+margin_left = 160.0
+margin_right = 160.0
 margin_bottom = 60.0
 size_flags_horizontal = 3
 
 [node name="Export" type="Button" parent="HBoxToolBar"]
-margin_left = 344.0
-margin_right = 507.0
+margin_left = 190.0
+margin_right = 353.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 100, 0 )
 focus_neighbour_left = NodePath("../Play")
@@ -190,8 +191,8 @@ mouse_filter = 1
 text = "BTN_EXPORT"
 
 [node name="SaveProject" type="Button" parent="HBoxToolBar"]
-margin_left = 537.0
-margin_right = 787.0
+margin_left = 383.0
+margin_right = 633.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 150, 0 )
 focus_neighbour_left = NodePath("../Export")
@@ -200,8 +201,8 @@ mouse_filter = 1
 text = "BTN_SAVE_PROJECT"
 
 [node name="OpenProject" type="Button" parent="HBoxToolBar"]
-margin_left = 817.0
-margin_right = 1071.0
+margin_left = 663.0
+margin_right = 917.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 150, 0 )
 focus_neighbour_left = NodePath("../SaveProject")
@@ -210,8 +211,8 @@ mouse_filter = 1
 text = "BTN_OPEN_PROJECT"
 
 [node name="More" type="MenuButton" parent="HBoxToolBar"]
-margin_left = 1101.0
-margin_right = 1161.0
+margin_left = 947.0
+margin_right = 1007.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 60, 60 )
 focus_neighbour_left = NodePath("../OpenProject")
