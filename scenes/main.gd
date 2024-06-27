@@ -282,6 +282,12 @@ func export_song(file_name: String) -> void:
 func load_song(song: Song) -> void:
 	BoomBox.song = song
 	
+	for i in range(columns.size() - 1, -1, -1):
+		var column: Column = columns[i]
+		if column.column_no >= BoomBox.song.get_length():
+			column.queue_free()
+			columns.remove_at(i)
+	
 	for column in columns:
 		column.clear()
 	
