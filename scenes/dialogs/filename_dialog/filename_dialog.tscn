@@ -1,0 +1,68 @@
+[gd_scene load_steps=2 format=3 uid="uid://c6x7qgd6xh3mr"]
+
+[ext_resource type="Script" path="res://scenes/dialogs/filename_dialog/filename_dialog.gd" id="1"]
+
+[node name="FilenameDialog" type="PanelContainer" node_paths=PackedStringArray("_ok_button", "_cancel_button")]
+offset_right = 480.0
+offset_bottom = 243.0
+script = ExtResource("1")
+_ok_button = NodePath("VBoxContainer/HBoxContainer/OkButton")
+_cancel_button = NodePath("VBoxContainer/HBoxContainer/CancelButton")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Title" type="Label" parent="VBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"LabelTitle"
+text = "Save as"
+
+[node name="Control" type="Control" parent="VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 50)
+layout_mode = 2
+placeholder_text = "File name here"
+max_length = 100
+caret_blink = true
+
+[node name="Error" type="Label" parent="VBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"LabelSubtitle"
+theme_override_colors/font_color = Color(1, 0.2, 0.290196, 1)
+text = "Invalid file name: / \\ ? * \" | % < > :"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 2
+
+[node name="OkButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+text = "DIALOG_SAVE_BTN"
+
+[node name="CancelButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+text = "BTN_CANCEL"
+
+[connection signal="text_changed" from="VBoxContainer/VBoxContainer/HBoxContainer/LineEdit" to="." method="_on_LineEdit_text_changed"]
+[connection signal="text_submitted" from="VBoxContainer/VBoxContainer/HBoxContainer/LineEdit" to="." method="_on_LineEdit_text_entered"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/OkButton" to="." method="_on_OkButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/CancelButton" to="." method="_on_CancelButton_pressed"]

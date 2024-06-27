@@ -1,122 +1,38 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=19 format=3 uid="uid://bltvfi1s08p8i"]
 
-[ext_resource path="res://scenes/main.gd" type="Script" id=1]
-[ext_resource path="res://assets/trumpet.png" type="Texture" id=2]
-[ext_resource path="res://scenes/dialogs/SoundDialog.tscn" type="PackedScene" id=3]
-[ext_resource path="res://assets/piano.png" type="Texture" id=4]
-[ext_resource path="res://assets/drum.png" type="Texture" id=5]
-[ext_resource path="res://assets/guitar.png" type="Texture" id=6]
-[ext_resource path="res://assets/themes/dark/dark.tres" type="Theme" id=7]
-[ext_resource path="res://scenes/dialogs/ColumnDialog.tscn" type="PackedScene" id=8]
-[ext_resource path="res://scenes/dialogs/SaveDialog.tscn" type="PackedScene" id=9]
-[ext_resource path="res://scenes/dialogs/ProgressDialog.tscn" type="PackedScene" id=10]
-[ext_resource path="res://scenes/dialogs/load_dialog/LoadDialog.tscn" type="PackedScene" id=11]
-[ext_resource path="res://scenes/dialogs/SettingsDialog.tscn" type="PackedScene" id=12]
-[ext_resource path="res://scenes/dialogs/TutorialDialog.tscn" type="PackedScene" id=13]
-[ext_resource path="res://scenes/dialogs/UpdateDialog.tscn" type="PackedScene" id=14]
-[ext_resource path="res://assets/themes/dark/more.svg" type="Texture" id=15]
-[ext_resource path="res://scenes/dialogs/AboutDialog.tscn" type="PackedScene" id=16]
+[ext_resource type="Script" path="res://scenes/main.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://ctcdj70gy8cjk" path="res://scenes/dialogs/sound_dialog/sound_dialog.tscn" id="3"]
+[ext_resource type="Script" path="res://scenes/more_button.gd" id="3_gwbec"]
+[ext_resource type="Texture2D" uid="uid://40aobio0y13d" path="res://assets/themes/dark/more.svg" id="3_y7whg"]
+[ext_resource type="Texture2D" uid="uid://dhooe3adxpeog" path="res://assets/drum.png" id="5_ioqei"]
+[ext_resource type="Texture2D" uid="uid://dps6grd6p3qrh" path="res://assets/guitar.png" id="6_tdh5i"]
+[ext_resource type="Theme" uid="uid://c4u5j7fm8hehe" path="res://assets/themes/dark/dark.tres" id="7"]
+[ext_resource type="Texture2D" uid="uid://cn2vpe0ceeqdc" path="res://assets/piano.png" id="7_ye766"]
+[ext_resource type="PackedScene" uid="uid://bhwn5w0b5pfsb" path="res://scenes/dialogs/column_dialog/column_dialog.tscn" id="8"]
+[ext_resource type="Texture2D" uid="uid://bma8j042fadt8" path="res://assets/trumpet.png" id="8_mj0ld"]
+[ext_resource type="PackedScene" uid="uid://c6x7qgd6xh3mr" path="res://scenes/dialogs/filename_dialog/filename_dialog.tscn" id="9"]
+[ext_resource type="PackedScene" uid="uid://b856d6b7lcmnb" path="res://scenes/dialogs/progress_dialog/progress_dialog.tscn" id="10"]
+[ext_resource type="PackedScene" uid="uid://c04t7hvga6qed" path="res://scenes/dialogs/load_dialog/load_dialog.tscn" id="11"]
+[ext_resource type="PackedScene" uid="uid://c5fivptia1eum" path="res://scenes/dialogs/settings_dialog/settings_dialog.tscn" id="12"]
+[ext_resource type="PackedScene" uid="uid://d3mp71v2tbwwq" path="res://scenes/dialogs/tutorial_dialog/tutorial_dialog.tscn" id="13"]
+[ext_resource type="PackedScene" uid="uid://c8yhh7y4x3ra7" path="res://scenes/dialogs/update_dialog/update_dialog.tscn" id="14"]
+[ext_resource type="PackedScene" uid="uid://deqkupbh7ke6w" path="res://scenes/dialogs/about_dialog/about_dialog.tscn" id="16"]
 
-[sub_resource type="Animation" id=13]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath("DimOverlay:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("DimOverlay:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ false ]
-}
-
-[sub_resource type="Animation" id=15]
-resource_name = "dim"
-length = 0.15
-step = 0.01
-tracks/0/type = "value"
-tracks/0/path = NodePath("DimOverlay:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.15 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("DimOverlay:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
-}
-
-[sub_resource type="Animation" id=14]
-resource_name = "undim"
-length = 0.07
-step = 0.01
-tracks/0/type = "value"
-tracks/0/path = NodePath("DimOverlay:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.07 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("DimOverlay:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = false
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.07 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ true, false ]
-}
-
-[sub_resource type="Theme" id=16]
+[sub_resource type="Theme" id="16"]
 LineEdit/constants/minimum_spaces = 7
 
-[node name="main" type="Control"]
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-theme = ExtResource( 7 )
-script = ExtResource( 1 )
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/RESET = SubResource( 13 )
-anims/dim = SubResource( 15 )
-anims/undim = SubResource( 14 )
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("7")
+script = ExtResource("1")
 
 [node name="BgPanel" type="Panel" parent="."]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
@@ -133,234 +49,224 @@ size_flags_vertical = 3
 [node name="AudioStreamPlayer3" type="AudioStreamPlayer" parent="AudioPlayers"]
 
 [node name="HBoxToolBar" type="HBoxContainer" parent="."]
+layout_mode = 0
 anchor_left = 0.024
 anchor_top = 0.03
 anchor_right = 0.976
 anchor_bottom = 0.03
-margin_left = 0.424
-margin_right = 0.575989
-margin_bottom = 60.0
-custom_constants/separation = 30
+offset_left = 0.424
+offset_right = 0.575989
+offset_bottom = 60.0
+theme_override_constants/separation = 30
 
 [node name="Play" type="Button" parent="HBoxToolBar"]
-margin_right = 130.0
-margin_bottom = 60.0
-rect_min_size = Vector2( 100, 60 )
-focus_neighbour_left = NodePath("../More")
-focus_neighbour_right = NodePath("../Export")
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 60)
+layout_mode = 2
+focus_neighbor_left = NodePath("../More")
+focus_neighbor_right = NodePath("../Export")
 toggle_mode = true
 text = "BTN_PLAY"
 
 [node name="BPMHbox" type="HBoxContainer" parent="HBoxToolBar"]
 visible = false
-margin_left = 160.0
-margin_right = 284.0
-margin_bottom = 60.0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="HBoxToolBar/BPMHbox"]
-margin_top = 11.0
-margin_right = 55.0
-margin_bottom = 49.0
-theme_type_variation = "LabelSubtitle"
+layout_mode = 2
+theme_type_variation = &"LabelSubtitle"
 text = "BPM"
 
 [node name="BPMSpinBox" type="SpinBox" parent="HBoxToolBar/BPMHbox"]
-margin_left = 59.0
-margin_right = 124.0
-margin_bottom = 60.0
-theme = SubResource( 16 )
+unique_name_in_owner = true
+layout_mode = 2
+theme = SubResource("16")
 min_value = 50.0
 max_value = 150.0
 value = 80.0
-align = 1
 
 [node name="Control" type="Control" parent="HBoxToolBar"]
-margin_left = 160.0
-margin_right = 160.0
-margin_bottom = 60.0
+layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Export" type="Button" parent="HBoxToolBar"]
-margin_left = 190.0
-margin_right = 353.0
-margin_bottom = 60.0
-rect_min_size = Vector2( 100, 0 )
-focus_neighbour_left = NodePath("../Play")
-focus_neighbour_right = NodePath("../SaveProject")
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+focus_neighbor_left = NodePath("../Play")
+focus_neighbor_right = NodePath("../SaveProject")
 mouse_filter = 1
 text = "BTN_EXPORT"
 
 [node name="SaveProject" type="Button" parent="HBoxToolBar"]
-margin_left = 383.0
-margin_right = 633.0
-margin_bottom = 60.0
-rect_min_size = Vector2( 150, 0 )
-focus_neighbour_left = NodePath("../Export")
-focus_neighbour_right = NodePath("../OpenProject")
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+focus_neighbor_left = NodePath("../Export")
+focus_neighbor_right = NodePath("../OpenProject")
 mouse_filter = 1
 text = "BTN_SAVE_PROJECT"
 
 [node name="OpenProject" type="Button" parent="HBoxToolBar"]
-margin_left = 663.0
-margin_right = 917.0
-margin_bottom = 60.0
-rect_min_size = Vector2( 150, 0 )
-focus_neighbour_left = NodePath("../SaveProject")
-focus_neighbour_right = NodePath("../More")
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+focus_neighbor_left = NodePath("../SaveProject")
+focus_neighbor_right = NodePath("../More")
 mouse_filter = 1
 text = "BTN_OPEN_PROJECT"
 
-[node name="More" type="MenuButton" parent="HBoxToolBar"]
-margin_left = 947.0
-margin_right = 1007.0
-margin_bottom = 60.0
-rect_min_size = Vector2( 60, 60 )
-focus_neighbour_left = NodePath("../OpenProject")
-focus_neighbour_right = NodePath("../Play")
-focus_mode = 2
-mouse_filter = 1
-theme_type_variation = "MenuButtonIcon"
-action_mode = 1
-icon = ExtResource( 15 )
-flat = false
-icon_align = 1
+[node name="More" type="Button" parent="HBoxToolBar"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+focus_neighbor_left = NodePath("../OpenProject")
+focus_neighbor_right = NodePath("../Play")
+theme_type_variation = &"MenuButtonIcon"
+icon = ExtResource("3_y7whg")
+icon_alignment = 1
 expand_icon = true
-items = [ "BTN_SETTINGS", null, 0, false, false, 0, 0, null, "", false, "BTN_TUTORIAL", null, 0, false, false, 1, 0, null, "", false, "BTN_SEND_BUG", null, 0, false, false, 2, 0, null, "", false, "BTN_SEND_PROPOSAL", null, 0, false, false, 3, 0, null, "", false, "BTN_ABOUT", null, 0, false, false, 4, 0, null, "", false ]
+script = ExtResource("3_gwbec")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
 anchor_left = 0.034
 anchor_top = 0.167
 anchor_right = 0.977
 anchor_bottom = 0.167
-margin_left = 0.183998
-margin_top = -0.199997
-margin_right = -0.44812
-margin_bottom = 446.8
+offset_left = 0.183998
+offset_top = -0.199997
+offset_right = -0.44812
+offset_bottom = 446.8
 size_flags_vertical = 3
 
 [node name="ImageContainer" type="VBoxContainer" parent="HBoxContainer"]
-margin_right = 80.0
-margin_bottom = 447.0
-theme_type_variation = "ColumnContainer"
+layout_mode = 2
+theme_type_variation = &"ColumnContainer"
+theme_override_constants/separation = 8
 
 [node name="Control" type="Control" parent="HBoxContainer/ImageContainer"]
-margin_right = 80.0
-margin_bottom = 60.0
-rect_min_size = Vector2( 80, 60 )
+custom_minimum_size = Vector2(80, 60)
+layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/ImageContainer"]
-margin_top = 70.0
-margin_right = 80.0
-margin_bottom = 150.0
-rect_min_size = Vector2( 80, 80 )
-texture = ExtResource( 5 )
-expand = true
+[node name="Drums" type="TextureRect" parent="HBoxContainer/ImageContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture = ExtResource("5_ioqei")
+expand_mode = 1
 
-[node name="TextureRect2" type="TextureRect" parent="HBoxContainer/ImageContainer"]
-margin_top = 160.0
-margin_right = 80.0
-margin_bottom = 240.0
-rect_min_size = Vector2( 80, 80 )
-texture = ExtResource( 6 )
-expand = true
+[node name="Guitar" type="TextureRect" parent="HBoxContainer/ImageContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture = ExtResource("6_tdh5i")
+expand_mode = 1
 
-[node name="TextureRect3" type="TextureRect" parent="HBoxContainer/ImageContainer"]
-margin_top = 250.0
-margin_right = 80.0
-margin_bottom = 330.0
-rect_min_size = Vector2( 80, 80 )
-texture = ExtResource( 4 )
-expand = true
+[node name="Piano" type="TextureRect" parent="HBoxContainer/ImageContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture = ExtResource("7_ye766")
+expand_mode = 1
 
-[node name="TextureRect4" type="TextureRect" parent="HBoxContainer/ImageContainer"]
-margin_top = 340.0
-margin_right = 80.0
-margin_bottom = 420.0
-rect_min_size = Vector2( 80, 80 )
-texture = ExtResource( 2 )
-expand = true
+[node name="Trumpet" type="TextureRect" parent="HBoxContainer/ImageContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture = ExtResource("8_mj0ld")
+expand_mode = 1
 
 [node name="VSeparator" type="VSeparator" parent="HBoxContainer"]
-self_modulate = Color( 1, 1, 1, 0 )
-margin_left = 84.0
-margin_right = 92.0
-margin_bottom = 447.0
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer"]
-margin_left = 96.0
-margin_right = 964.0
-margin_bottom = 447.0
+unique_name_in_owner = true
+layout_mode = 2
 size_flags_horizontal = 3
 follow_focus = true
-scroll_vertical_enabled = false
 scroll_deadzone = 60
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/ScrollContainer"]
-margin_right = 868.0
-margin_bottom = 447.0
+[node name="ColumnContainer" type="HBoxContainer" parent="HBoxContainer/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_type_variation = "ColumnContainer"
+theme_type_variation = &"ColumnContainer"
+theme_override_constants/separation = 8
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/ScrollContainer/HBoxContainer"]
-margin_right = 60.0
-margin_bottom = 447.0
-rect_min_size = Vector2( 60, 0 )
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/ScrollContainer/ColumnContainer"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
 alignment = 1
 
-[node name="Control" type="Control" parent="HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer"]
-margin_top = 161.0
-margin_right = 60.0
-margin_bottom = 221.0
-rect_min_size = Vector2( 60, 60 )
+[node name="Control" type="Control" parent="HBoxContainer/ScrollContainer/ColumnContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
 
-[node name="AddButton" type="Button" parent="HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer"]
-margin_top = 225.0
-margin_right = 60.0
-margin_bottom = 285.0
-rect_min_size = Vector2( 60, 60 )
+[node name="AddButton" type="Button" parent="HBoxContainer/ScrollContainer/ColumnContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 text = "+"
 
 [node name="DimOverlay" type="Panel" parent="."]
 visible = false
-modulate = Color( 1, 1, 1, 0 )
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-theme_type_variation = "ShadowPanel"
+theme_type_variation = &"ShadowPanel"
 
-[node name="SoundDialog" parent="." instance=ExtResource( 3 )]
-
-[node name="SaveDialog" parent="." instance=ExtResource( 9 )]
-
-[node name="ColumnDialog" parent="." instance=ExtResource( 8 )]
-
-[node name="ProgressDialog" parent="." instance=ExtResource( 10 )]
-
-[node name="LoadDialog" parent="." instance=ExtResource( 11 )]
-
-[node name="UpdateDialog" parent="." instance=ExtResource( 14 )]
-
-[node name="TutorialDialog" parent="." instance=ExtResource( 13 )]
+[node name="SoundDialog" parent="." instance=ExtResource("3")]
 visible = false
+layout_mode = 0
+offset_right = 520.0
+offset_bottom = 598.0
 
-[node name="SettingsDialog" parent="." instance=ExtResource( 12 )]
+[node name="SaveDialog" parent="." instance=ExtResource("9")]
+visible = false
+layout_mode = 0
 
-[node name="AboutDialog" parent="." instance=ExtResource( 16 )]
+[node name="ColumnDialog" parent="." instance=ExtResource("8")]
+visible = false
+layout_mode = 0
 
-[connection signal="toggled" from="HBoxToolBar/Play" to="." method="_on_Play_toggled"]
-[connection signal="value_changed" from="HBoxToolBar/BPMHbox/BPMSpinBox" to="." method="_on_BPMSpinBox_value_changed"]
-[connection signal="value_changed" from="HBoxToolBar/BPMHbox/BPMSpinBox" to="SoundDialog" method="_on_BPMSpinBox_value_changed"]
-[connection signal="pressed" from="HBoxToolBar/Export" to="." method="_on_Export_pressed"]
-[connection signal="pressed" from="HBoxToolBar/SaveProject" to="." method="_on_SaveProject_pressed"]
-[connection signal="pressed" from="HBoxToolBar/OpenProject" to="." method="_on_OpenProject_pressed"]
-[connection signal="pressed" from="HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer/AddButton" to="." method="_on_AddButton_pressed"]
-[connection signal="project_name_picked" from="SaveDialog" to="." method="save_project"]
-[connection signal="song_name_picked" from="SaveDialog" to="." method="export_song"]
-[connection signal="cancelled" from="ProgressDialog" to="." method="_on_ProgressDialog_cancelled"]
-[connection signal="new_project" from="LoadDialog" to="." method="_on_LoadDialog_new_project"]
+[node name="ProgressDialog" parent="." instance=ExtResource("10")]
+visible = false
+layout_mode = 0
+
+[node name="LoadDialog" parent="." instance=ExtResource("11")]
+visible = false
+layout_mode = 0
+offset_right = 452.0
+offset_bottom = 580.0
+
+[node name="UpdateDialog" parent="." instance=ExtResource("14")]
+visible = false
+layout_mode = 0
+
+[node name="TutorialDialog" parent="." instance=ExtResource("13")]
+visible = false
+layout_mode = 0
+
+[node name="SettingsDialog" parent="." instance=ExtResource("12")]
+visible = false
+layout_mode = 0
+offset_right = 559.0
+offset_bottom = 587.0
+
+[node name="AboutDialog" parent="." instance=ExtResource("16")]
+visible = false
+layout_mode = 0
+offset_right = 593.0
+offset_bottom = 589.0
+
+[connection signal="toggled" from="HBoxToolBar/Play" to="." method="_on_play_toggled"]
+[connection signal="value_changed" from="HBoxToolBar/BPMHbox/BPMSpinBox" to="." method="_on_bpm_spin_box_value_changed"]
+[connection signal="pressed" from="HBoxToolBar/Export" to="." method="_on_export_pressed"]
+[connection signal="pressed" from="HBoxToolBar/SaveProject" to="." method="_on_save_project_pressed"]
+[connection signal="pressed" from="HBoxToolBar/OpenProject" to="." method="_on_open_project_pressed"]
+[connection signal="pressed" from="HBoxContainer/ScrollContainer/ColumnContainer/VBoxContainer/AddButton" to="." method="_on_add_button_pressed"]
+[connection signal="removed_column" from="ColumnDialog" to="." method="_on_column_dialog_removed_column"]
+[connection signal="new_project" from="LoadDialog" to="." method="_on_load_dialog_new_project"]
