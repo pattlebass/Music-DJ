@@ -68,15 +68,6 @@ spacing_glyph = -2
 
 [sub_resource type="StyleBoxEmpty" id="6"]
 
-[sub_resource type="FontFile" id="47"]
-fallbacks = Array[Font]([ExtResource("1")])
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
-cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
-
 [sub_resource type="StyleBoxFlat" id="21"]
 content_margin_left = 16.0
 content_margin_top = 16.0
@@ -185,6 +176,12 @@ cache/0/16/0/underline_position = 0.0
 cache/0/16/0/underline_thickness = 0.0
 cache/0/16/0/scale = 1.0
 cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_he2kq"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
 
 [sub_resource type="StyleBoxFlat" id="48"]
 content_margin_left = 8.0
@@ -395,10 +392,10 @@ CheckBox/styles/pressed = SubResource("6")
 ColumnContainer/constants/separation = 10
 ContextMenu/base_type = &"PopupMenu"
 ContextMenu/constants/v_separation = 8
-ContextMenu/fonts/font = SubResource("47")
 CustomDialog/base_type = &"PanelContainer"
 CustomDialog/styles/panel = SubResource("21")
 CustomPopupMenuButton/base_type = &"ListItem"
+CustomPopupMenuButton/colors/font_disabled_color = Color(0.866667, 0.866667, 0.866667, 1)
 CustomPopupMenuButton/font_sizes/font_size = 28
 HScrollBar/styles/grabber = SubResource("30")
 HScrollBar/styles/grabber_highlight = SubResource("8")
@@ -458,6 +455,7 @@ ListItem/colors/font_hover_color = Color(0, 0, 0, 0.6)
 ListItem/colors/font_pressed_color = Color(0, 0, 0, 0.6)
 ListItem/font_sizes/font_size = 30
 ListItem/fonts/font = SubResource("36")
+ListItem/styles/disabled = SubResource("StyleBoxEmpty_he2kq")
 ListItem/styles/focus = SubResource("48")
 ListItem/styles/hover = SubResource("32")
 ListItem/styles/normal = SubResource("33")

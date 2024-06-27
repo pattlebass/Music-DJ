@@ -1,8 +1,6 @@
 class_name Column
 extends VBoxContainer
 
-const CONTEXT_MENU = preload("res://scenes/dialogs/context_menu/context_menu.tscn")
-
 var column_no: int
 
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
@@ -87,7 +85,7 @@ func remove() -> void:
 func _on_tile_gui_input(event: InputEvent, button: Button) -> void:
 	var instrument: int = button.get_meta("instrument")
 	if event.is_action_pressed("right_click") or event.is_action_pressed("ui_menu"):
-		var context_menu: ContextMenu = CONTEXT_MENU.instantiate()
+		var context_menu := ContextMenu.new()
 		context_menu.top_level = true
 		add_child(context_menu)
 		

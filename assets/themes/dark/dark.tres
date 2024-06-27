@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=44 format=3 uid="uid://c4u5j7fm8hehe"]
+[gd_resource type="Theme" load_steps=45 format=3 uid="uid://c4u5j7fm8hehe"]
 
 [ext_resource type="FontFile" uid="uid://chtfugi11pfki" path="res://assets/fonts/GidoleFont/Gidole-Regular.ttf" id="1_hhvf6"]
 [ext_resource type="Texture2D" uid="uid://c151qlluhbslk" path="res://assets/themes/dark/checked_box.svg" id="2_r4kur"]
@@ -96,6 +96,12 @@ border_color = Color(0.305882, 0.8, 0.639216, 1)
 draw_center = false
 border_width_bottom = 2
 border_color = Color(1, 1, 1, 0.701961)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jsqt6"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
 
 [sub_resource type="StyleBoxFlat" id="48"]
 content_margin_left = 8.0
@@ -316,7 +322,6 @@ CheckBox/styles/pressed = SubResource("6")
 ColumnContainer/constants/separation = 10
 ContextMenu/base_type = &"PopupMenu"
 ContextMenu/constants/vseparation = 8
-ContextMenu/fonts/font = SubResource("FontVariation_5m483")
 CustomDialog/base_type = &"PanelContainer"
 CustomDialog/styles/panel = SubResource("20")
 CustomPopupMenuButton/base_type = &"ListItem"
@@ -380,6 +385,7 @@ LineEdit/styles/read_only = SubResource("50")
 ListItem/base_type = &"Button"
 ListItem/font_sizes/font_size = 30
 ListItem/fonts/font = SubResource("FontVariation_5m483")
+ListItem/styles/disabled = SubResource("StyleBoxEmpty_jsqt6")
 ListItem/styles/focus = SubResource("48")
 ListItem/styles/hover = SubResource("StyleBoxFlat_c6m16")
 ListItem/styles/normal = SubResource("29")

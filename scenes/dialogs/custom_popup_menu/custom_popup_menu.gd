@@ -22,7 +22,7 @@ func popup() -> void:
 			.from(Vector2(0.8, 0.8)).set_trans(Tween.TRANS_QUINT)
 
 
-func add_item(text: String, id := items) -> void:
+func add_item(text: String, id := items) -> Button:
 	var button := Button.new()
 	button.text = text
 	button.alignment = HORIZONTAL_ALIGNMENT_LEFT
@@ -35,3 +35,5 @@ func add_item(text: String, id := items) -> void:
 	items_container.add_child(button)
 	
 	items += 1
+	
+	return button
