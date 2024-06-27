@@ -26,7 +26,7 @@ func _ready() -> void:
 
 func load_song(path: String) -> void:
 	project_selected.emit(path)
-	hide()
+	popup_hide()
 
 
 func popup() -> void:
@@ -157,7 +157,7 @@ func _on_new_project_button_pressed() -> void:
 
 
 func _on_cancel_button_pressed() -> void:
-	hide()
+	popup_hide()
 
 
 func _on_open_button_pressed() -> void:
