@@ -210,7 +210,6 @@ size_flags_vertical = 0
 text = "+"
 
 [node name="DimOverlay" type="Panel" parent="."]
-visible = false
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 anchor_right = 1.0

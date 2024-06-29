@@ -9,7 +9,7 @@ signal chose
 
 func _ready() -> void:
 	super()
-	dim = false
+	dim_background = false
 
 
 func alert(title: String, subtitle: String) -> void:

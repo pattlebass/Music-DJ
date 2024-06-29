@@ -8,10 +8,11 @@ signal item_pressed(id: int)
 
 
 func _ready() -> void:
+	dim_background = false
 	add_child(items_container)
 
 
-func popup() -> void:
+func play_popup_animation() -> void:
 	show()
 	
 	var tween := create_tween()

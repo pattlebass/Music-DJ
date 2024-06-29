@@ -10,6 +10,8 @@ signal virtual_keyboard_visible
 signal virtual_keyboard_hidden
 signal theme_changed(new_theme: String)
 signal file_picked(path: String, mime_type: String)
+signal exclusive_popup_visible
+signal exclusive_popup_hidden
 
 
 func _ready() -> void:

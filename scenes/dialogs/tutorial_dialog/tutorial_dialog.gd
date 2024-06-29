@@ -75,7 +75,7 @@ func change_panel(_panel_no: int, _previous_panel_no: int) -> void:
 		if current_tutorial_version > Options.last_seen_tutorial:
 			Options.last_seen_tutorial = current_tutorial_version
 			Options.save()
-		hide()
+		popup_hide()
 		return
 	
 	previous_button.disabled = _panel_no == 0

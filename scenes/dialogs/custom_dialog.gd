@@ -1,7 +1,7 @@
 class_name CustomDialog
 extends PanelContainer
 
-var dim := true
+var dim_background := true
 
 const POPUP_TIME = 0.15
 
@@ -28,13 +28,9 @@ func _input(event: InputEvent) -> void:
 
 func popup() -> void:
 	show()
-	
-	var tween := create_tween()
-	tween.set_ease(Tween.EASE_OUT)
-	tween.parallel().tween_property(self, ^"modulate:a", 1, POPUP_TIME)\
-			.from(0.2).set_trans(Tween.TRANS_QUART)
-	tween.parallel().tween_property(self, ^"position:y", position.y, POPUP_TIME)\
-			.from(position.y - 10).set_trans(Tween.TRANS_BACK)
+	if dim_background:
+		Utils.exclusive_popup_visible.emit()
+	play_popup_animation()
 
 
 func popup_centered(bound: Rect2 = get_viewport_rect()) -> void:
@@ -43,10 +39,25 @@ func popup_centered(bound: Rect2 = get_viewport_rect()) -> void:
 
 
 func popup_hide() -> void:
+	if dim_background:
+		Utils.exclusive_popup_hidden.emit()
+	play_hide_animation()
+
+
+func play_hide_animation() -> void:
 	var tween := create_tween()
 	tween.set_ease(Tween.EASE_OUT)
 	tween.parallel().tween_property(self, ^"modulate:a", 0.2, POPUP_TIME / 2)
 	tween.tween_callback(hide)
+
+
+func play_popup_animation() -> void:
+	var tween := create_tween()
+	tween.set_ease(Tween.EASE_OUT)
+	tween.parallel().tween_property(self, ^"modulate:a", 1, POPUP_TIME)\
+			.from(0.2).set_trans(Tween.TRANS_QUART)
+	tween.parallel().tween_property(self, ^"position:y", position.y, POPUP_TIME)\
+			.from(position.y - 10).set_trans(Tween.TRANS_BACK)
 
 
 func _notification(what: int) -> void:

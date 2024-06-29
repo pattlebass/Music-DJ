@@ -13,6 +13,8 @@ signal removed_column
 
 
 func _ready() -> void:
+	dim_background = false
+	
 	Utils.theme_changed.connect(_on_theme_changed)
 
 

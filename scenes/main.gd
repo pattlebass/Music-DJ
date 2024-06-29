@@ -18,11 +18,12 @@ const COLUMN = preload("res://scenes/column/column.tscn")
 @onready var sound_dialog: SoundDialog = $SoundDialog
 @onready var progress_dialog: ProgressDialog = $ProgressDialog
 @onready var column_dialog: ColumnDialog = $ColumnDialog
-@onready var settings_dialog: PanelContainer = $SettingsDialog
+@onready var settings_dialog: CustomDialog = $SettingsDialog
 @onready var about_dialog: AboutDialog = $AboutDialog
 @onready var tutorial_dialog: TutorialDialog = $TutorialDialog
 
 @onready var bg_panel: Panel = $BgPanel
+@onready var dim_overlay: Panel = $DimOverlay
 
 var columns: Array[Column] = []
 
@@ -35,6 +36,8 @@ func _ready() -> void:
 	# Signals *******************************************
 	get_window().files_dropped.connect(_on_files_dropped)
 	Utils.theme_changed.connect(_on_theme_changed)
+	Utils.exclusive_popup_visible.connect(show_shadow)
+	Utils.exclusive_popup_hidden.connect(hide_shadow)
 	
 	BoomBox.play_ended.connect(_on_play_ended)
 	BoomBox.play_started.connect(_on_play_started)
@@ -161,7 +164,7 @@ func _on_add_button_pressed() -> void:
 	scroll_container.ensure_control_visible(add_button)
 
 
-func _on_bpm_spin_box_value_changed(value: float) -> void:
+func _on_bpm_spin_box_value_changed(value: int) -> void:
 	BoomBox.song.bpm = value
 	BoomBox.update_pitch()
 
@@ -330,12 +333,12 @@ func new_song() -> void:
 
 func show_shadow() -> void:
 	var tween := create_tween()
-	tween.tween_property(bg_panel, ^"modulate:a", 1.0, 0.1)
+	tween.tween_property(dim_overlay, ^"modulate:a", 1.0, 0.1)
 
 
 func hide_shadow() -> void:
 	var tween := create_tween()
-	tween.tween_property(bg_panel, ^"modulate:a", 0, 0.1)
+	tween.tween_property(dim_overlay, ^"modulate:a", 0, 0.1)
 
 
 func _on_files_dropped(files: PackedStringArray) -> void:

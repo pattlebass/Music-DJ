@@ -9,6 +9,10 @@ var duration: Length
 var text: String
 
 
+func _ready() -> void:
+	dim_background = false
+
+
 func popup() -> void:
 	super()
 	
