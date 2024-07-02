@@ -95,6 +95,7 @@ locale_filter=[0, []]
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true
 environment/defaults/default_clear_color=Color(0.137255, 0.160784, 0.192157, 1)
 quality/driver/driver_name="GLES2"
 vram_compression/import_etc=true
