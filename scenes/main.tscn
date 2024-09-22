@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bltvfi1s08p8i"]
+[gd_scene load_steps=18 format=3 uid="uid://bltvfi1s08p8i"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://ctcdj70gy8cjk" path="res://scenes/dialogs/sound_dialog/sound_dialog.tscn" id="3"]
@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://bhwn5w0b5pfsb" path="res://scenes/dialogs/column_dialog/column_dialog.tscn" id="8"]
 [ext_resource type="Texture2D" uid="uid://bma8j042fadt8" path="res://assets/trumpet.png" id="8_mj0ld"]
 [ext_resource type="PackedScene" uid="uid://c6x7qgd6xh3mr" path="res://scenes/dialogs/filename_dialog/filename_dialog.tscn" id="9"]
-[ext_resource type="PackedScene" uid="uid://b856d6b7lcmnb" path="res://scenes/dialogs/progress_dialog/progress_dialog.tscn" id="10"]
 [ext_resource type="PackedScene" uid="uid://c04t7hvga6qed" path="res://scenes/dialogs/load_dialog/load_dialog.tscn" id="11"]
 [ext_resource type="PackedScene" uid="uid://c5fivptia1eum" path="res://scenes/dialogs/settings_dialog/settings_dialog.tscn" id="12"]
 [ext_resource type="PackedScene" uid="uid://d3mp71v2tbwwq" path="res://scenes/dialogs/tutorial_dialog/tutorial_dialog.tscn" id="13"]
@@ -228,10 +227,6 @@ visible = false
 layout_mode = 0
 
 [node name="ColumnDialog" parent="." instance=ExtResource("8")]
-visible = false
-layout_mode = 0
-
-[node name="ProgressDialog" parent="." instance=ExtResource("10")]
 visible = false
 layout_mode = 0
 

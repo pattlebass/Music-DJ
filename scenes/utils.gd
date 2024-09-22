@@ -141,6 +141,11 @@ func _process(_delta):
 			virtual_keyboard_visible.emit()
 
 
+func signal_disconnect_all(s: Signal) -> void:
+	for i in s.get_connections():
+		s.disconnect(i.callable)
+
+
 # Keyboard focus
 var buttons: Array[Button] = []
 var show_focus := false

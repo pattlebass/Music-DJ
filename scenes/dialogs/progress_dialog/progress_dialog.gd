@@ -34,7 +34,7 @@ signal canceled
 
 
 func popup() -> void:
-	progress_bar.value = 0
+	progress = 0
 	progress_bar.show()
 	
 	open_button.disabled = true

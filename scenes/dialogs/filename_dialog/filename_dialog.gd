@@ -25,7 +25,7 @@ func _ready() -> void:
 
 func popup() -> void:
 	if not Utils.has_storage_perms():
-		hide()
+		popup_hide()
 		return
 	
 	line_edit.text = Variables.opened_file if Variables.opened_file else get_default_name()
@@ -35,17 +35,22 @@ func popup() -> void:
 	super()
 
 
+func popup_hide() -> void:
+	super()
+	Utils.signal_disconnect_all(name_picked)
+
+
 func get_default_name() -> String:
 	return "Song " + str(randi() % 1000)
 
 
 func _on_OkButton_pressed() -> void:
-	name_picked.emit(line_edit.text)
-	hide()
+	name_picked.emit(line_edit.text.strip_edges())
+	popup_hide()
 
 
 func _on_CancelButton_pressed() -> void:
-	hide()
+	popup_hide()
 
 
 func _on_virtual_kb_visible() -> void:

@@ -2,6 +2,7 @@ extends Control
 
 const FLOAT_BUTTON = preload("res://scenes/float_button/float_button.tscn")
 const COLUMN = preload("res://scenes/column/column.tscn")
+const PROGRESS_DIALOG = preload("res://scenes/dialogs/progress_dialog/progress_dialog.tscn")
 
 @onready var play_button: Button = %Play
 @onready var export_button: Button = %Export
@@ -16,7 +17,6 @@ const COLUMN = preload("res://scenes/column/column.tscn")
 @onready var save_dialog: FilenameDialog = $SaveDialog
 @onready var load_dialog: LoadDialog = $LoadDialog
 @onready var sound_dialog: SoundDialog = $SoundDialog
-@onready var progress_dialog: ProgressDialog = $ProgressDialog
 @onready var column_dialog: ColumnDialog = $ColumnDialog
 @onready var settings_dialog: CustomDialog = $SettingsDialog
 @onready var about_dialog: AboutDialog = $AboutDialog
@@ -142,12 +142,14 @@ func _on_tile_held(_column_no, _instrument, _button) -> void:
 func _on_export_pressed() -> void:
 	save_dialog.title = "DIALOG_SAVE_TITLE_EXPORT"
 	save_dialog.name_picked.connect(export_song, CONNECT_ONE_SHOT)
+	#save_dialog.popup_hidden.connect(save_dialog.name_picked.disconnect.bind(save_project), CONNECT_ONE_SHOT)
 	save_dialog.popup_centered()
 
 
 func _on_save_project_pressed() -> void:
 	save_dialog.title = "DIALOG_SAVE_TITLE_PROJECT"
 	save_dialog.name_picked.connect(save_project, CONNECT_ONE_SHOT)
+	#save_dialog.popup_hidden.connect(save_dialog.name_picked.disconnect.bind(save_project), CONNECT_ONE_SHOT)
 	save_dialog.popup_centered()
 
 
@@ -222,30 +224,36 @@ func get_project_from_query() -> Song:
 
 
 func save_project(file_name: String) -> void:
-	file_name = file_name.strip_edges()
-	
 	var path := Variables.projects_dir.path_join("%s.mdj" % file_name)
 	
 	# ProgressDialog
+	var progress_dialog: ProgressDialog = PROGRESS_DIALOG.instantiate()
+	add_child(progress_dialog)
 	progress_dialog.popup_centered()
 	progress_dialog.body_text = ""
-	progress_dialog.body_text_completed = "DIALOG_PROGRESS_AFTER_PROJECT"
+	progress_dialog.body_text_completed = ""
+	progress_dialog.popup_hidden.connect(progress_dialog.queue_free)
+	
+	progress_dialog.open_button.hide()
+	progress_dialog.share_button.hide()
+	progress_dialog.download_button.hide()
+	
 	progress_dialog.open_button.pressed.connect(
 		OS.shell_open.bind(ProjectSettings.globalize_path(Variables.saves_dir)),
 		CONNECT_ONE_SHOT
 	)
-	progress_dialog.download_button.pressed.connect(
-		Utils.download_file.bind(path, path.get_file()),
-		CONNECT_ONE_SHOT
-	)
-	progress_dialog.share_button.pressed.connect(
-		Utils.share_file.bind(path, "", "", "", "audio/wav"),
-		CONNECT_ONE_SHOT
-	)
+	#progress_dialog.download_button.pressed.connect(
+		#Utils.download_file.bind(path, path.get_file()),
+		#CONNECT_ONE_SHOT
+	#)
+	#progress_dialog.share_button.pressed.connect(
+		#Utils.share_file.bind(path, "", "", "", "audio/wav"),
+		#CONNECT_ONE_SHOT
+	#)
 	
 	var tween := create_tween()
 	tween.tween_property(progress_dialog, ^"progress", 1, 0.2)
-	tween.tween_callback(progress_dialog.hide)
+	tween.tween_callback(progress_dialog.popup_hide)
 	
 	var err := BoomBox.song.save(path)
 	
@@ -257,15 +265,17 @@ func save_project(file_name: String) -> void:
 
 # TODO: Remember web exports 
 func export_song(file_name: String) -> void:
-	file_name = file_name.strip_edges()
-	
 	var path := Variables.exports_dir.path_join(file_name + ".wav")
 	
 	# ProgressDialog
+	var progress_dialog: ProgressDialog = PROGRESS_DIALOG.instantiate()
+	add_child(progress_dialog)
 	if OS.get_name() == "Web":
 		progress_dialog.body_text = "DIALOG_PROGRESS_KEEP_FOCUSED"
 	else:
 		progress_dialog.body_text_completed = tr("DIALOG_PROGRESS_AFTER_EXPORT") % ProjectSettings.globalize_path(path)
+	
+	progress_dialog.popup_hidden.connect(progress_dialog.queue_free)
 	progress_dialog.popup_centered()
 	
 	progress_dialog.open_button.pressed.connect(

@@ -5,6 +5,7 @@ var dim_background := true
 
 const POPUP_TIME = 0.15
 
+signal popup_hidden
 
 # Hide on click outside of the popup
 func _input(event: InputEvent) -> void:
@@ -41,14 +42,16 @@ func popup_centered(bound: Rect2 = get_viewport_rect()) -> void:
 func popup_hide() -> void:
 	if dim_background:
 		Utils.exclusive_popup_hidden.emit()
-	play_hide_animation()
+	await play_hide_animation().finished
+	popup_hidden.emit()
 
 
-func play_hide_animation() -> void:
+func play_hide_animation() -> Tween:
 	var tween := create_tween()
 	tween.set_ease(Tween.EASE_OUT)
 	tween.parallel().tween_property(self, ^"modulate:a", 0.2, POPUP_TIME / 2)
 	tween.tween_callback(hide)
+	return tween
 
 
 func play_popup_animation() -> void:
