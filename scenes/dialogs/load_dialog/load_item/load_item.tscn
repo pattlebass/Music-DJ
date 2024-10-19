@@ -1,0 +1,184 @@
+[gd_scene load_steps=7 format=3 uid="uid://bn3pvmmilq3b3"]
+
+[ext_resource type="Script" path="res://scenes/dialogs/load_dialog/load_item/load_item.gd" id="1_qdfjw"]
+[ext_resource type="Texture2D" uid="uid://cshg15hmeanh" path="res://assets/themes/dark/open_file.svg" id="2_fcvbj"]
+[ext_resource type="Texture2D" uid="uid://c0u2h0ydu2d7b" path="res://assets/themes/dark/download.svg" id="3_2q3g4"]
+[ext_resource type="Texture2D" uid="uid://bvcersqkkeota" path="res://assets/themes/dark/share.svg" id="4_t66sg"]
+[ext_resource type="Texture2D" uid="uid://cqsv1adokq7hr" path="res://assets/themes/dark/link.svg" id="5_aewlk"]
+[ext_resource type="Texture2D" uid="uid://bwwifcbifjpyq" path="res://assets/themes/dark/delete.svg" id="6_ihof8"]
+
+[node name="LoadItem" type="VBoxContainer"]
+offset_right = 821.0
+offset_bottom = 114.0
+theme_override_constants/separation = 8
+script = ExtResource("1_qdfjw")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+mouse_filter = 1
+theme_type_variation = &"ListItem"
+toggle_mode = true
+text = "Project name"
+alignment = 0
+text_overrun_behavior = 3
+
+[node name="ActionsContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="OpenButton" type="Button" parent="ActionsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_type_variation = &"ListItem"
+icon_alignment = 1
+
+[node name="VBox" type="VBoxContainer" parent="ActionsContainer/OpenButton"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1.0
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Icon" type="TextureRect" parent="ActionsContainer/OpenButton/VBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("2_fcvbj")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="ActionsContainer/OpenButton/VBox"]
+layout_mode = 2
+mouse_filter = 1
+theme_type_variation = &"LabelIconButton"
+text = "DIALOG_LOAD_BTN_OPEN"
+horizontal_alignment = 1
+
+[node name="DownloadButton" type="Button" parent="ActionsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_type_variation = &"ListItem"
+icon_alignment = 1
+
+[node name="VBox" type="VBoxContainer" parent="ActionsContainer/DownloadButton"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1.0
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Icon" type="TextureRect" parent="ActionsContainer/DownloadButton/VBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("3_2q3g4")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="ActionsContainer/DownloadButton/VBox"]
+layout_mode = 2
+mouse_filter = 1
+theme_type_variation = &"LabelIconButton"
+text = "DIALOG_LOAD_BTN_DOWNLOAD"
+horizontal_alignment = 1
+
+[node name="ShareButton" type="Button" parent="ActionsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_type_variation = &"ListItem"
+icon_alignment = 1
+
+[node name="VBox" type="VBoxContainer" parent="ActionsContainer/ShareButton"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1.0
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Icon" type="TextureRect" parent="ActionsContainer/ShareButton/VBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("4_t66sg")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="ActionsContainer/ShareButton/VBox"]
+layout_mode = 2
+mouse_filter = 1
+theme_type_variation = &"LabelIconButton"
+text = "DIALOG_LOAD_BTN_SHARE"
+horizontal_alignment = 1
+
+[node name="LinkButton" type="Button" parent="ActionsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_type_variation = &"ListItem"
+icon_alignment = 1
+
+[node name="VBox" type="VBoxContainer" parent="ActionsContainer/LinkButton"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1.0
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Icon" type="TextureRect" parent="ActionsContainer/LinkButton/VBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("5_aewlk")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="ActionsContainer/LinkButton/VBox"]
+layout_mode = 2
+mouse_filter = 1
+theme_type_variation = &"LabelIconButton"
+text = "DIALOG_LOAD_BTN_LINK"
+horizontal_alignment = 1
+
+[node name="DeleteButton" type="Button" parent="ActionsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_type_variation = &"ListItem"
+icon_alignment = 1
+
+[node name="VBox" type="VBoxContainer" parent="ActionsContainer/DeleteButton"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1.0
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Icon" type="TextureRect" parent="ActionsContainer/DeleteButton/VBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("6_ihof8")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="ActionsContainer/DeleteButton/VBox"]
+layout_mode = 2
+mouse_filter = 1
+theme_type_variation = &"LabelIconButton"
+text = "DIALOG_LOAD_BTN_DELETE"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="."]
+layout_mode = 2
+
+[connection signal="toggled" from="Button" to="." method="_on_Button_toggled"]

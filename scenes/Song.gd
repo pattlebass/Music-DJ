@@ -1,13 +1,28 @@
 class_name Song
 
+const DEFAULT_SIZE = 15
+
 var format := 1
-var bpm := 80
-var data := [[], [], [], []]
-var used_columns := [-1]
+var bpm := 80:
+	set(value):
+		if value == bpm:
+			return
+		bpm = value
+		bpm_changed.emit()
+var data: Array = [[], [], [], []]
+
+signal bpm_changed
+signal changed
+
+
+func _init() -> void:
+	for i in 4:
+		data[i].resize(DEFAULT_SIZE)
+		data[i].fill(0)
 
 
 func convert_to_json() -> String:
-	return to_json(
+	return JSON.stringify(
 		{
 		"format": format,
 		"bpm": bpm,
@@ -16,7 +31,7 @@ func convert_to_json() -> String:
 	)
 
 
-func from(song: Dictionary):
+func from(song: Dictionary) -> Song:
 	if song.has("format"):
 		format = song.format
 	if song.has("bpm"):
@@ -27,35 +42,56 @@ func from(song: Dictionary):
 	return self
 
 
-func set_tile(instrument: int, column_no:int, sample_index: int) -> void:
+func set_tile(instrument: int, column_no: int, sample_index: int) -> void:
 	data[instrument][column_no] = sample_index
-	
-	if sample_index == 0:
-		# If all buttons in a column are clear remove that column from the play list
-		var uses = 0
-		for i in 4:
-			if data[i][column_no]:
-				uses += 1
-				break
-		if uses == 0:
-			used_columns.erase(column_no)
-	else:
-		if not used_columns.has(column_no):
-			used_columns.append(column_no)
+	changed.emit()
 
 
 func add_column() -> void:
 	for i in data:
 		i.append(0)
+	changed.emit()
 
 
 func remove_column(column_no: int) -> void:
 	for i in 4:
 		data[i].pop_back()
-		used_columns.erase(column_no)
+	changed.emit()
 
 
 func clear_column(column_no: int) -> void:
-	used_columns.erase(column_no)
 	for i in 4:
 		data[i][column_no] = 0
+	changed.emit()
+
+
+func get_length() -> int:
+	return data[0].size()
+
+
+func get_trimmed_length() -> int:
+	var longest := 0
+	for instrument in data:
+		for i in instrument.size():
+			var sample: int = instrument[i]
+			if sample != 0 and i + 1 > longest:
+				longest = i + 1
+	return longest
+
+
+func is_column_empty(column_no: int) -> bool:
+	var is_empty := true
+	
+	for i in 4:
+		if data[i][column_no]:
+			is_empty = false
+			break
+	
+	return is_empty
+
+
+func save(path: String) -> Error:
+	var file = FileAccess.open(path, FileAccess.WRITE)
+	file.store_string(convert_to_json())
+	file.close()
+	return FileAccess.get_open_error()

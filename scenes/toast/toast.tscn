@@ -1,0 +1,33 @@
+[gd_scene load_steps=2 format=3 uid="uid://djt8n7oy8fwt7"]
+
+[ext_resource type="Script" path="res://scenes/toast/toast.gd" id="1_jgp68"]
+
+[node name="Toast" type="PanelContainer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -46.0
+offset_top = -106.0
+offset_right = 46.0
+offset_bottom = -83.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_type_variation = &"Toast"
+script = ExtResource("1_jgp68")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+alignment = 1
+
+[node name="Panel" type="PanelContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_type_variation = &"Toast"
+
+[node name="Label" type="Label" parent="HBoxContainer/Panel"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"Text"
+text = "Lorem ipsum"
