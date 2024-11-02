@@ -4,10 +4,26 @@ const FILE_PATH = "user://options.cfg"
 
 # Keys
 var last_seen_tutorial := -1 # Hasn't seen the tutorial
-var theme := "dark"
-var language := "" # Auto
+var theme := "dark":
+	set(val):
+		if val == theme:
+			return
+		theme = val
+		Utils.change_theme(theme)
+
+var language := "": # Auto
+	set(val):
+		if val == language:
+			return
+		language = val
+		if language:
+			TranslationServer.set_locale(language)
+		else:
+			TranslationServer.set_locale(OS.get_locale_language())
+
 var check_updates := true
 var last_update_check := -1
+
 const _KEYS = [&"last_seen_tutorial", &"theme", &"language", &"check_updates", &"last_update_check"]
 
 var _config_file := ConfigFile.new()
@@ -46,7 +62,7 @@ func init_options() -> void:
 	save(0)
 
 
-func save(delay := 2) -> void:
+func save(delay := 2.0) -> void:
 	_timer.start(delay)
 
 

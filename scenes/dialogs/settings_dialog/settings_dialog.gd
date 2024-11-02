@@ -8,6 +8,14 @@ extends CustomDialog
 @onready var scroll_container: ScrollContainer = %ScrollContainer
 @onready var lang_auto: CheckBox = %LangAuto
 
+# HACK: for https://github.com/godotengine/godot-proposals/issues/2378
+var locale_names := {
+	"en": "English",
+	"ro": "Română",
+	"id": "Bahasa Indonesia",
+	"pl": "Polski",
+}
+
 
 func _ready() -> void:
 	# Theme
@@ -22,15 +30,6 @@ func _ready() -> void:
 	# Languages
 	var lang_btn_group := ButtonGroup.new()
 	
-	# HACK: for https://github.com/godotengine/godot-proposals/issues/2378
-	var locale_names := {
-		"en": "English",
-		"ro": "Română",
-		"id": "Bahasa Indonesia",
-		"pl": "Polski",
-	}
-	
-	lang_auto.text = tr("SETTING_LANG_AUTO") % locale_names[OS.get_locale_language()]
 	lang_auto.button_group = lang_btn_group
 	lang_auto.pressed.connect(_on_lang_chosen.bind(""))
 	lang_auto.set_pressed(Options.language == "")
@@ -50,24 +49,22 @@ func _ready() -> void:
 		check_updates.hide()
 		
 		# Warning for Web
-		var label_web_disable = Label.new()
+		var label_web_disable := Label.new()
 		label_web_disable.text = "SETTING_WEB_WARNING"
-		label_web_disable.autowrap = true
+		label_web_disable.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		label_web_disable.theme_type_variation = "LabelSubtitle"
-		settings_container.add_sibling(
-			$VBoxContainer/ScrollContainer/SettingsContainer/HSeparator2,
-			label_web_disable
-		)
+		settings_container.add_child(label_web_disable)
+		settings_container.move_child(label_web_disable, -2)
 
 
 func popup() -> void:
 	scroll_container.scroll_vertical = 0
+	lang_auto.text = tr("SETTING_LANG_AUTO") % locale_names[OS.get_locale_language()]
 	super()
 
 
 func _on_theme_chosen(button_pressed: bool, theme_name: String) -> void:
 	if button_pressed:
-		Utils.change_theme(theme_name)
 		Options.theme = theme_name
 		Options.save()
 
@@ -75,11 +72,6 @@ func _on_theme_chosen(button_pressed: bool, theme_name: String) -> void:
 func _on_lang_chosen(lang: String) -> void:
 	Options.language = lang
 	Options.save()
-	
-	if lang:
-		TranslationServer.set_locale(lang)
-	else:
-		TranslationServer.set_locale(OS.get_locale_language())
 
 
 func _on_check_updates_toggled(button_pressed: bool) -> void:
