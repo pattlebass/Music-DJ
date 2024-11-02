@@ -64,7 +64,6 @@ func play(from := 0, to := song.get_trimmed_length()) -> void:
 func stop() -> void:
 	is_playing = false
 	play_ended.emit()
-	
 	audio_player.stop()
 
 
@@ -98,7 +97,7 @@ func _on_play_ended() -> void:
 
 
 func _on_audio_stream_player_finished() -> void:
-	play_ended.emit()
+	stop()
 
 
 func convert_project(old_project: String) -> Song:
