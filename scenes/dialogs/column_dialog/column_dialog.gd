@@ -46,10 +46,11 @@ func popup():
 		new_pos.x = viewport_size.x - size.x
 	if new_pos.x < 0:
 		new_pos.x = 0
-		
-	global_position = new_pos
 	
+	global_position = new_pos
 	tear.global_position.x = column.column_button.global_position.x + column.column_button.size.x / 2
+	
+	play_button.grab_focus.call_deferred()
 	
 	super()
 	

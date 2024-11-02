@@ -80,6 +80,7 @@ func popup() -> void:
 	else:
 		clear_button.disabled = true
 		ok_button.disabled = true
+		button_group.get_buttons()[0].grab_focus.call_deferred()
 	
 	super()
 

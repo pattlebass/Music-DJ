@@ -21,6 +21,8 @@ alignment = 1
 unique_name_in_owner = true
 custom_minimum_size = Vector2(80, 50)
 layout_mode = 2
+focus_neighbor_top = NodePath("../RemoveButton")
+focus_neighbor_bottom = NodePath("../PlayColumnButton")
 disabled = true
 text = "BTN_PLAY"
 
@@ -28,6 +30,8 @@ text = "BTN_PLAY"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(80, 50)
 layout_mode = 2
+focus_neighbor_top = NodePath("../PlayButton")
+focus_neighbor_bottom = NodePath("../ClearButton")
 disabled = true
 text = "BTN_PLAY_COLUMN"
 
@@ -35,6 +39,8 @@ text = "BTN_PLAY_COLUMN"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(80, 50)
 layout_mode = 2
+focus_neighbor_top = NodePath("../PlayColumnButton")
+focus_neighbor_bottom = NodePath("../RemoveButton")
 disabled = true
 text = "BTN_CLEAR"
 
@@ -42,6 +48,8 @@ text = "BTN_CLEAR"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(80, 50)
 layout_mode = 2
+focus_neighbor_top = NodePath("../ClearButton")
+focus_neighbor_bottom = NodePath("../PlayButton")
 disabled = true
 text = "BTN_REMOVE"
 

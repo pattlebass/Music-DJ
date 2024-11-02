@@ -32,6 +32,8 @@ func popup() -> void:
 	line_edit.caret_column = line_edit.text.length()
 	_on_LineEdit_text_changed(line_edit.text) # Manually call the callback
 	
+	line_edit.grab_focus.call_deferred()
+	
 	super()
 
 

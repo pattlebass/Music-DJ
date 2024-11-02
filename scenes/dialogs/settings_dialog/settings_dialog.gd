@@ -42,6 +42,9 @@ func _ready() -> void:
 		check_box.pressed.connect(_on_lang_chosen.bind(i))
 		check_box.set_pressed(Options.language == i)
 		
+		if lang_container.get_child_count() > 0:
+			check_box.focus_neighbor_top = lang_container.get_child(-1).get_path()
+		
 		lang_container.add_child(check_box)
 	
 	if OS.get_name() == "Web":
@@ -58,6 +61,7 @@ func _ready() -> void:
 
 
 func popup() -> void:
+	$"%ThemeContainer/Dark".grab_focus.call_deferred()
 	scroll_container.scroll_vertical = 0
 	lang_auto.text = tr("SETTING_LANG_AUTO") % locale_names[OS.get_locale_language()]
 	super()

@@ -38,3 +38,9 @@ func add_item(text: String, id := items) -> Button:
 	items += 1
 	
 	return button
+
+
+func popup() -> void:
+	super()
+	if items_container.get_children().size() != 0:
+		items_container.get_child(0).grab_focus.call_deferred()
