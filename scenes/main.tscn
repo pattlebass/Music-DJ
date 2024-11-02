@@ -31,7 +31,8 @@ theme = ExtResource("7")
 script = ExtResource("1")
 
 [node name="BgPanel" type="Panel" parent="."]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
@@ -89,7 +90,7 @@ text = "BTN_EXPORT"
 
 [node name="SaveProject" type="Button" parent="HBoxToolBar"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(150, 0)
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 focus_neighbor_left = NodePath("../Export")
 focus_neighbor_right = NodePath("../OpenProject")
@@ -98,7 +99,7 @@ text = "BTN_SAVE_PROJECT"
 
 [node name="OpenProject" type="Button" parent="HBoxToolBar"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(150, 0)
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 focus_neighbor_left = NodePath("../SaveProject")
 focus_neighbor_right = NodePath("../More")
@@ -187,7 +188,7 @@ layout_mode = 2
 alignment = 1
 
 [node name="Control" type="Control" parent="HBoxContainer/ScrollContainer/ColumnContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 60)
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
 [node name="AddButton" type="Button" parent="HBoxContainer/ScrollContainer/ColumnContainer/VBoxContainer"]
@@ -205,6 +206,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 theme_type_variation = &"ShadowPanel"
+metadata/_edit_lock_ = true
 
 [node name="SoundDialog" parent="." instance=ExtResource("3")]
 visible = false

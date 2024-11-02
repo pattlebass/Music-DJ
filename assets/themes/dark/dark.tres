@@ -11,8 +11,8 @@ base_font = ExtResource("1_hhvf6")
 spacing_glyph = -2
 
 [sub_resource type="StyleBoxFlat" id="2"]
-content_margin_left = 4.0
-content_margin_right = 4.0
+content_margin_left = 8.0
+content_margin_right = 8.0
 bg_color = Color(0.309804, 0.8, 0.639216, 0.380392)
 border_color = Color(0.309804, 0.8, 0.639216, 0.380392)
 corner_radius_top_left = 12
@@ -33,8 +33,8 @@ corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
 [sub_resource type="StyleBoxFlat" id="4"]
-content_margin_left = 4.0
-content_margin_right = 4.0
+content_margin_left = 8.0
+content_margin_right = 8.0
 bg_color = Color(0.305882, 0.8, 0.639216, 1)
 border_color = Color(0.305882, 0.8, 0.639216, 1)
 corner_radius_top_left = 12
@@ -43,8 +43,8 @@ corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
 [sub_resource type="StyleBoxFlat" id="5"]
-content_margin_left = 4.0
-content_margin_right = 4.0
+content_margin_left = 8.0
+content_margin_right = 8.0
 bg_color = Color(0.501961, 0.996078, 0.835294, 1)
 border_color = Color(0.423529, 0.917647, 0.756863, 1)
 corner_radius_top_left = 12

@@ -45,6 +45,9 @@ text = "0"
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 mouse_filter = 1
+theme_override_colors/font_hover_color = Color(0.605469, 0.605469, 0.605469, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 shortcut_in_tooltip = false
 
@@ -59,6 +62,9 @@ shape = SubResource("1")
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 mouse_filter = 1
+theme_override_colors/font_hover_color = Color(0.605469, 0.605469, 0.605469, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 shortcut_in_tooltip = false
 
@@ -73,6 +79,9 @@ shape = SubResource("1")
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 mouse_filter = 1
+theme_override_colors/font_hover_color = Color(0.605469, 0.605469, 0.605469, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 shortcut_in_tooltip = false
 
@@ -87,6 +96,9 @@ shape = SubResource("1")
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 mouse_filter = 1
+theme_override_colors/font_hover_color = Color(0.605469, 0.605469, 0.605469, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 shortcut_in_tooltip = false
 
