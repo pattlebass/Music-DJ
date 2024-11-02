@@ -178,7 +178,6 @@ func _on_add_button_pressed() -> void:
 
 func _on_bpm_spin_box_value_changed(value: int) -> void:
 	BoomBox.song.bpm = value
-	BoomBox.update_pitch()
 
 
 func add_column(column_no: int) -> Column:

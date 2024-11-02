@@ -8,9 +8,9 @@ var song: Song:
 		song = value
 		song.bpm_changed.connect(bpm_changed.emit)
 		song.changed.connect(song_changed.emit)
+
 var is_playing := false
 
-var bar_length := 3.0
 var sounds := [
 	[preload("res://sounds/silence.ogg")],
 	[preload("res://sounds/silence.ogg")],
@@ -18,7 +18,6 @@ var sounds := [
 	[preload("res://sounds/silence.ogg")]
 ]
 
-@onready var column_container = Variables.main.column_container
 @onready var audio_player: AudioStreamPlayer = $AudioStreamPlayer
 @onready var sync_timer: Timer = $SyncTimer
 
@@ -32,10 +31,6 @@ signal song_changed
 
 
 func _ready() -> void:
-	while !column_container:
-		column_container = Variables.main.column_container
-		await get_tree().process_frame
-	
 	# Load all sounds
 	for instrument in 4:
 		for sample in 32:
@@ -104,16 +99,6 @@ func _on_play_ended() -> void:
 
 func _on_audio_stream_player_finished() -> void:
 	play_ended.emit()
-
-
-func update_pitch() -> void:
-	bar_length = (60.0/song.bpm) * 4
-	
-	var pitch = song.bpm / 80.0
-	var shift = AudioServer.get_bus_effect(0, 1)
-	shift.pitch_scale = 1.0 / pitch
-	
-	AudioServer.set_bus_effect_enabled(0, 1, shift.pitch_scale != 1)
 
 
 func convert_project(old_project: String) -> Song:
