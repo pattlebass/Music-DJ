@@ -14,6 +14,6 @@ dest_files=["res://.godot/imported/21.ogg-42d3935a975346c8e9364dd3f9e8390b.oggvo
 
 loop=false
 loop_offset=0
-bpm=0
+bpm=80.0
 beat_count=0
 bar_beats=4

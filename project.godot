@@ -24,7 +24,7 @@ config/windows_native_icon="res://assets/icon/icon.ico"
 [autoload]
 
 Variables="*res://scenes/variables.gd"
-BoomBox="*res://scenes/boom_box.gd"
+BoomBox="*res://scenes/boom_box/boom_box.tscn"
 Clipboard="*res://scenes/clipboard.gd"
 Utils="*res://scenes/utils.gd"
 Options="*res://scenes/options.gd"

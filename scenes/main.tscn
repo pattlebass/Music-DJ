@@ -37,16 +37,6 @@ anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="AudioPlayers" type="Node2D" parent="."]
-
-[node name="AudioStreamPlayer0" type="AudioStreamPlayer" parent="AudioPlayers"]
-
-[node name="AudioStreamPlayer1" type="AudioStreamPlayer" parent="AudioPlayers"]
-
-[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="AudioPlayers"]
-
-[node name="AudioStreamPlayer3" type="AudioStreamPlayer" parent="AudioPlayers"]
-
 [node name="HBoxToolBar" type="HBoxContainer" parent="."]
 layout_mode = 0
 anchor_left = 0.024

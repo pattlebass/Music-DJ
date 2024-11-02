@@ -41,7 +41,8 @@ func _ready() -> void:
 	
 	BoomBox.play_ended.connect(_on_play_ended)
 	BoomBox.play_started.connect(_on_play_started)
-	BoomBox.column_play_started.connect(scroll_container.ensure_control_visible)
+	BoomBox.column_play_started.connect(_on_column_play_started)
+	BoomBox.column_play_ended.connect(_on_column_play_ended)
 	BoomBox.song_changed.connect(_on_song_changed)
 	
 	load_dialog.project_selected.connect(load_song_path)
@@ -67,7 +68,7 @@ func _on_theme_changed(new_theme: String) -> void:
 
 func _on_play_toggled(button_pressed: bool) -> void:
 	if button_pressed:
-		BoomBox.play_song()
+		BoomBox.play()
 	else:
 		BoomBox.stop()
 
@@ -86,6 +87,15 @@ func _on_play_ended() -> void:
 	
 	export_button.disabled = BoomBox.song.get_trimmed_length() == 0
 	bpm_spinbox.editable = true
+
+
+func _on_column_play_started(column_no: int) -> void:
+	scroll_container.ensure_control_visible(columns[column_no])
+	columns[column_no].start_play()
+
+
+func _on_column_play_ended(column_no: int) -> void:
+	columns[column_no].end_play()
 
 
 func _on_song_changed() -> void:
