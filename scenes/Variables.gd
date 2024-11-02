@@ -9,6 +9,8 @@ const INSTRUMENT_NAMES: Array[String] = [
 ]
 const MINIMUM_DRAG = 100
 const MINIMUM_COLUMNS = 15
+const VIBRATION_MS = 75
+const HOLD_TIME_S = 0.5
 
 var saves_dir := "user://saves/"
 var projects_dir := "user://saves/Projects/"

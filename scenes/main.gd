@@ -33,7 +33,7 @@ var columns: Array[Column] = []
 
 
 func _ready() -> void:
-	# Signals *******************************************
+	#region Signals
 	get_window().files_dropped.connect(_on_files_dropped)
 	Utils.theme_changed.connect(_on_theme_changed)
 	Utils.exclusive_popup_visible.connect(show_shadow)
@@ -47,7 +47,7 @@ func _ready() -> void:
 	
 	load_dialog.project_selected.connect(load_song_path)
 	more_button.get_popup().item_pressed.connect(_on_more_item_pressed)
-	# Signals end ***************************************
+	#endregion
 	
 	Utils.change_theme(Options.theme)
 	
@@ -113,40 +113,40 @@ func _on_tile_pressed(column: Column, instrument: int) -> void:
 	sound_dialog.popup_centered()
 
 
-func _on_tile_held(_column_no, _instrument, _button) -> void:
+func _on_tile_held(column_no: int, instrument: int, tile_button: Button) -> void:
 	# Needs cleanup
-	if BoomBox.is_playing:
+	if BoomBox.is_playing or BoomBox.song.data[instrument][column_no] == 0:
 		return
-	await get_tree().create_timer(0.5).timeout
-	if _button.pressed and _button.text != "":
-		# This is so that the button doesn't send the "pressed" signal
-		_button.disabled = true
-		_button.disabled = false
-		
-		scroll_container.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		
-		var float_button_parent: FloatButton = FLOAT_BUTTON.instantiate()
-		
-		float_button_parent.add_child(_button.duplicate())
-		
-		var float_button = float_button_parent.get_child(1)
-		
-		var size = float_button.size
-		
-		float_button.get_node("Area2D").queue_free()
-		float_button.position = -size*1.5/2
-		float_button.size = size * 1.5
-		float_button.set("theme_override_colors/font_color", Color.BLACK)
-		float_button_parent.instrument = _instrument
-		float_button_parent.sample = BoomBox.song.data[_instrument][_column_no]
-		float_button_parent.global_position = get_global_mouse_position()
-		add_child(float_button_parent)
-		
-		Input.vibrate_handheld(70)
-		
-		await float_button_parent.released
-		
-		scroll_container.mouse_filter = Control.MOUSE_FILTER_STOP
+	
+	await get_tree().create_timer(Variables.HOLD_TIME_S).timeout
+	
+	if not tile_button.button_pressed:
+		return # Released before threshold
+	
+	Input.vibrate_handheld(Variables.VIBRATION_MS)
+	
+	# Prevent button from emmiting pressed
+	tile_button.disabled = true
+	tile_button.disabled = false
+	# Lock scroll
+	scroll_container.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	
+	var float_button: FloatButton = FLOAT_BUTTON.instantiate()
+	add_child(float_button)
+	float_button.add_fake_tile(tile_button.duplicate())
+	
+	float_button.released.connect(
+		func(collided_instrument: int, collided_column: Column):
+			# Unlock scroll
+			scroll_container.mouse_filter = Control.MOUSE_FILTER_STOP
+			
+			if collided_column == null or collided_instrument != instrument:
+				return
+			
+			var sample_to_copy: int = BoomBox.song.data[instrument][column_no]
+			collided_column.set_tile(instrument, sample_to_copy)
+			BoomBox.song.set_tile(instrument, collided_column.column_no, sample_to_copy)
+	)
 
 
 func _on_export_pressed() -> void:

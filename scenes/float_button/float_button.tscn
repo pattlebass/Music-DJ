@@ -1,15 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://dj4b3om30qn5x"]
+[gd_scene load_steps=2 format=3 uid="uid://dj4b3om30qn5x"]
 
 [ext_resource type="Script" path="res://scenes/float_button/float_button.gd" id="1_vlcb0"]
-
-[sub_resource type="RectangleShape2D" id="1"]
-size = Vector2(1, 1)
 
 [node name="FloatButton" type="Node2D"]
 modulate = Color(1, 1, 1, 0.784314)
 script = ExtResource("1_vlcb0")
-
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("1")
