@@ -6,53 +6,15 @@
 ;   [section] ; section goes between []
 ;   param=value ; assign values to parameters
 
-config_version=4
-
-_global_script_classes=[ {
-"base": "VBoxContainer",
-"class": "Column",
-"language": "GDScript",
-"path": "res://scenes/Column.gd"
-}, {
-"base": "Popup",
-"class": "CustomDialog",
-"language": "GDScript",
-"path": "res://scenes/dialogs/custom_dialog/DialogScript.gd"
-}, {
-"base": "Reference",
-"class": "MidiFile",
-"language": "GDScript",
-"path": "res://scenes/MidiFile.gd"
-}, {
-"base": "Reference",
-"class": "Song",
-"language": "GDScript",
-"path": "res://scenes/Song.gd"
-}, {
-"base": "Popup",
-"class": "Toast",
-"language": "GDScript",
-"path": "res://scenes/Toast.gd"
-}, {
-"base": "Object",
-"class": "TypeFormattingLogic",
-"language": "GDScript",
-"path": "res://addons/metadata_inspector/TypeFormattingLogic.gd"
-} ]
-_global_script_class_icons={
-"Column": "",
-"CustomDialog": "",
-"MidiFile": "",
-"Song": "",
-"Toast": "",
-"TypeFormattingLogic": ""
-}
+config_version=5
 
 [application]
 
 config/name="Music DJ"
 config/description="No Description"
+config/version="v2.0-beta1"
 run/main_scene="res://scenes/main.tscn"
+config/features=PackedStringArray("4.3")
 run/low_processor_mode=true
 boot_splash/image="res://assets/icon/icon.png"
 boot_splash/fullsize=false
@@ -61,25 +23,29 @@ config/windows_native_icon="res://assets/icon/icon.ico"
 
 [autoload]
 
-Variables="*res://scenes/Variables.gd"
-BoomBox="*res://scenes/BoomBox.gd"
+Variables="*res://scenes/variables.gd"
+BoomBox="*res://scenes/boom_box/boom_box.tscn"
+Clipboard="*res://scenes/clipboard.gd"
+Utils="*res://scenes/utils.gd"
+Options="*res://scenes/options.gd"
+Compat="*res://scenes/compat.gd"
 
 [debug]
 
-gdscript/warnings/unused_class_variable=true
+gdscript/warnings/unused_parameter=0
 gdscript/warnings/return_value_discarded=false
+gdscript/warnings/integer_division=0
 
 [display]
 
-window/dpi/allow_hidpi=true
 window/energy_saving/keep_screen_on=false
-window/handheld/orientation="sensor_landscape"
-window/stretch/mode="2d"
+window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+window/handheld/orientation="sensor_landscape"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/AutoExportVersion/plugin.cfg", "res://addons/Todo_Manager/plugin.cfg", "res://addons/metadata_inspector/plugin.cfg" )
+enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg")
 
 [gui]
 
@@ -88,44 +54,49 @@ theme/custom="res://assets/themes/dark/dark.tres"
 
 [input]
 
+ui_menu={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194370,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
 left_click={
 "deadzone": 0.5,
-"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
- ]
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":1,"canceled":false,"pressed":false,"double_click":false,"script":null)
+]
 }
 right_click={
 "deadzone": 0.5,
-"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":2,"pressed":false,"doubleclick":false,"script":null)
- ]
-}
-ui_menu={
-"deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777262,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":2,"canceled":false,"pressed":false,"double_click":false,"script":null)
+]
 }
 copy={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":true,"meta":false,"command":true,"pressed":false,"scancode":0,"physical_scancode":67,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":true,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":67,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
 }
 paste={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":true,"meta":false,"command":true,"pressed":false,"scancode":0,"physical_scancode":86,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":true,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":86,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
 }
 
 [input_devices]
 
 pointing/emulate_touch_from_mouse=true
 
+[internationalization]
+
+locale/translations=PackedStringArray("res://languages/text.en.translation", "res://languages/text.id.translation", "res://languages/text.pl.translation", "res://languages/text.ro.translation")
+
 [locale]
 
-translations=PoolStringArray( "res://languages/text.ro.translation", "res://languages/text.id.translation", "res://languages/text.en.translation", "res://languages/text.pl.translation" )
-locale_filter=[ 0, [  ] ]
+translations=PackedStringArray("res://languages/text.ro.translation", "res://languages/text.id.translation", "res://languages/text.en.translation", "res://languages/text.pl.translation")
+locale_filter=[0, []]
 
 [rendering]
 
+renderer/rendering_method="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true
+environment/defaults/default_clear_color=Color(0.137255, 0.160784, 0.192157, 1)
 quality/driver/driver_name="GLES2"
 vram_compression/import_etc=true
-vram_compression/import_etc2=false
-environment/default_clear_color=Color( 0.137255, 0.160784, 0.192157, 1 )

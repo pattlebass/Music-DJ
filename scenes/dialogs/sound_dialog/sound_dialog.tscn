@@ -1,0 +1,74 @@
+[gd_scene load_steps=2 format=3 uid="uid://ctcdj70gy8cjk"]
+
+[ext_resource type="Script" path="res://scenes/dialogs/sound_dialog/sound_dialog.gd" id="1"]
+
+[node name="SoundDialog" type="PanelContainer" node_paths=PackedStringArray("_ok_button", "_cancel_button")]
+offset_right = 439.0
+offset_bottom = 326.0
+script = ExtResource("1")
+_ok_button = NodePath("VBoxContainer/HBoxContainer/OkButton")
+_cancel_button = NodePath("VBoxContainer/HBoxContainer/CancelButton")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"LabelTitle"
+text = "Bass, column 0"
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+follow_focus = true
+
+[node name="SampleContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="OkButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 60)
+layout_mode = 2
+text = "OK"
+
+[node name="ClearButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 60)
+layout_mode = 2
+text = "BTN_CLEAR"
+
+[node name="CancelButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 60)
+layout_mode = 2
+text = "BTN_CANCEL"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/OkButton" to="." method="_on_ok_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/ClearButton" to="." method="_on_clear_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]

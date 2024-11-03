@@ -79,11 +79,10 @@ func parse(path: String, silent := false) -> void:
 	tempo = 0
 	bpm = 0
 	
-	var file := File.new()
-	file.open(path, File.READ_WRITE)
+	var file := FileAccess.open(path, FileAccess.READ_WRITE)
 	
 	var buffer := StreamPeerBuffer.new()
-	buffer.data_array = file.get_buffer(file.get_len())
+	buffer.data_array = file.get_buffer(file.get_length())
 	buffer.big_endian = true
 	
 	file.close()
@@ -268,7 +267,7 @@ func from_mdj(song):
 	# MThd header
 	var mtdh_buffer := StreamPeerBuffer.new()
 	mtdh_buffer.big_endian = true
-	mtdh_buffer.put_data("MThd".to_ascii())
+	mtdh_buffer.put_data("MThd".to_ascii_buffer())
 	mtdh_buffer.put_32(6) # header length
 	mtdh_buffer.put_16(1) # format
 	mtdh_buffer.put_16(2) # number of tracks
@@ -276,9 +275,9 @@ func from_mdj(song):
 	var mthd = mtdh_buffer.data_array
 	
 	# Sem1
-	var sem1 = PoolByteArray([0x53, 0x45, 0x4D, 0x31])
+	var sem1 = PackedByteArray([0x53, 0x45, 0x4D, 0x31])
 	
-	var sem1_data = PoolByteArray()
+	var sem1_data = PackedByteArray()
 	for instrument in 4:
 		for column in song[instrument].size():
 			var rest_of_song = song[instrument].slice(column, song[instrument].size()-1)
@@ -288,7 +287,7 @@ func from_mdj(song):
 				sem1_data.append((sample - 1) / 8)
 		sem1_data.append(255)
 	
-	var sem1_size = PoolByteArray([0x0, 0x0, 0x0, sem1_data.size() + 2]) # 2 = checksum
+	var sem1_size = PackedByteArray([0x0, 0x0, 0x0, sem1_data.size() + 2]) # 2 = checksum
 	
 	sem1.append_array(sem1_size)
 	sem1.append_array(sem1_data)
@@ -304,11 +303,10 @@ func from_mdj(song):
 static func to_mdj(midi_path):
 	var song = [[], [], [], []]
 	
-	var file := File.new()
-	file.open(midi_path, File.READ_WRITE)
+	var file := FileAccess.open(midi_path, FileAccess.READ_WRITE)
 	
 	var buffer := StreamPeerBuffer.new()
-	buffer.data_array = file.get_buffer(file.get_len())
+	buffer.data_array = file.get_buffer(file.get_length())
 	buffer.big_endian = true
 	
 	file.close()
@@ -386,7 +384,7 @@ func get_u24(buffer: StreamPeerBuffer) -> int:
 
 
 # Adapted from https://gist.github.com/pintoXD/a90e398bba5a1b6c121de4e1265d9a29
-func crc16(data: PoolByteArray, big_endian := true):
+func crc16(data: PackedByteArray, big_endian := true):
 	var crc = 0x0000
 	
 	for i in data.size():
