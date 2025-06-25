@@ -77,7 +77,17 @@ layout_mode = 2
 focus_mode = 1
 text = "BTN_CANCEL"
 
+[node name="FileDialog" type="FileDialog" parent="."]
+auto_translate_mode = 2
+oversampling_override = 1.0
+title = "Open a File"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.mdj;Music DJ project", "*.mid,*.midi;MIDI File;audio/midi", "*.txt;;")
+use_native_dialog = true
+
 [connection signal="pressed" from="VBoxContainer/TitleHBox/NewProjectButton" to="." method="_on_new_project_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/TitleHBox/OpenFolderButton" to="." method="_on_open_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/TitleHBox/FilePickerButton" to="." method="_on_pick_file_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]
+[connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]

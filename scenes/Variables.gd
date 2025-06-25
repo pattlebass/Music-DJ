@@ -30,5 +30,7 @@ func _ready() -> void:
 	DirAccess.make_dir_recursive_absolute(exports_dir)
 	
 	# Demo song
-	if not FileAccess.file_exists(projects_dir.path_join("Demo.mdj")):
-		DirAccess.copy_absolute("res://demo.mdj", projects_dir.path_join("Demo.mdj"))
+	if not FileAccess.file_exists(projects_dir.path_join("demo.mdj")):
+		# HACK: https://github.com/godotengine/godot/issues/741051
+		var dir := DirAccess.open("res://")
+		dir.copy("res://demo.mdj", projects_dir.path_join("demo.mdj"))

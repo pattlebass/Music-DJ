@@ -9,6 +9,7 @@ const LOAD_ITEM = preload("res://scenes/dialogs/load_dialog/load_item/load_item.
 @onready var open_folder_button: Button = %OpenFolderButton
 @onready var file_picker_button: Button = %FilePickerButton
 @onready var no_projects_label: Label = %NoProjectsLabel
+@onready var file_dialog: FileDialog = $FileDialog
 
 var selected_file := ""
 
@@ -18,10 +19,9 @@ signal new_project
 
 func _ready() -> void:
 	Utils.theme_changed.connect(_on_theme_changed)
-	Utils.file_picked.connect(_on_file_picked)
 	
-	open_folder_button.visible = OS.get_name() != "Web"
-	file_picker_button.visible = Utils.has_file_picker()
+	open_folder_button.visible = not OS.get_name() in ["Web", "Android"]
+	file_picker_button.visible = OS.get_name() in ["Windows", "Android"]
 
 
 func load_song(path: String) -> void:
@@ -67,7 +67,7 @@ func popup_hide() -> void:
 			i.queue_free()
 
 
-func _on_file_picked(path: String, _mime_type: String) -> void:
+func _on_file_dialog_file_selected(path: String) -> void:
 	if not path.get_extension() in ["mdj", "mdjt", "mid"]:
 		DirAccess.remove_absolute(path)
 		Utils.toast("%s is not a valid project" % path.get_file())
@@ -100,11 +100,10 @@ func _on_file_picked(path: String, _mime_type: String) -> void:
 		var file := FileAccess.open(new_path, FileAccess.WRITE)
 		file.store_string(JSON.stringify(MidiFile.to_mdj(path)))
 		file.close()
-		
-		DirAccess.remove_absolute(path)
 	else:
-		if DirAccess.copy_absolute(path, new_path) == OK:
-			DirAccess.remove_absolute(path)
+		# HACK: https://github.com/godotengine/godot/issues/741051
+		var dir := DirAccess.open(path.get_base_dir())
+		dir.copy(path, new_path)
 	
 	load_song(new_path)
 
@@ -161,14 +160,11 @@ func _on_cancel_button_pressed() -> void:
 
 
 func _on_open_button_pressed() -> void:
-	if OS.get_name() == "Android":
-		OS.alert(ProjectSettings.globalize_path(Variables.saves_dir), "Folder location")
-	else:
-		OS.shell_open(ProjectSettings.globalize_path(Variables.saves_dir))
+	OS.shell_open(ProjectSettings.globalize_path(Variables.saves_dir))
 
 
 func _on_pick_file_button_pressed() -> void:
-	Utils.open_file_picker("*/*")
+	file_dialog.popup()
 
 
 func _on_theme_changed(new_theme: String) -> void:

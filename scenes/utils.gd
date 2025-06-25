@@ -4,12 +4,10 @@ const CUSTOM_CONFIRM_DIALOG = preload("res://scenes/dialogs/custom_confirm_dialo
 const TOAST = preload("res://scenes/toast/toast.tscn")
 
 var share_service
-var android_picker
 
 signal virtual_keyboard_visible
 signal virtual_keyboard_hidden
 signal theme_changed(new_theme: String)
-signal file_picked(path: String, mime_type: String)
 signal exclusive_popup_visible
 signal exclusive_popup_hidden
 
@@ -24,9 +22,6 @@ func _ready() -> void:
 	# Singletons
 	if Engine.has_singleton("GodotFileSharing"):
 		share_service = Engine.get_singleton("GodotFileSharing")
-	if Engine.has_singleton("GodotFilePicker"):
-		android_picker = Engine.get_singleton("GodotFilePicker")
-		android_picker.file_picked.connect(func(): file_picked.emit())
 
 
 func change_theme(new_theme: String) -> void:
@@ -65,16 +60,6 @@ func share_file(path: String, title: String, subject: String, text: String, mime
 	if not can_share():
 		return
 	share_service.shareFile(ProjectSettings.globalize_path(path), title, subject, text, mime_type)
-
-
-func has_file_picker() -> bool:
-	return android_picker != null
-
-
-func open_file_picker(mime_type: String) -> void:
-	if not has_file_picker():
-		return
-	android_picker.openFilePicker(mime_type)
 
 
 func toast(text: String, duration: Toast.Length = Toast.Length.LENGTH_LONG) -> void:
