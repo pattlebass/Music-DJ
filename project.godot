@@ -45,7 +45,7 @@ window/handheld/orientation="sensor_landscape"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg")
+enabled=PackedStringArray("res://addons/SharePlugin/plugin.cfg", "res://addons/Todo_Manager/plugin.cfg")
 
 [gui]
 

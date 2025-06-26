@@ -3,7 +3,7 @@ extends Node
 const CUSTOM_CONFIRM_DIALOG = preload("res://scenes/dialogs/custom_confirm_dialog/custom_confirm_dialog.tscn")
 const TOAST = preload("res://scenes/toast/toast.tscn")
 
-var share_service
+var share_plugin := Share.new()
 
 signal virtual_keyboard_visible
 signal virtual_keyboard_hidden
@@ -18,11 +18,8 @@ func _ready() -> void:
 	
 	if Variables.main:
 		traverse(Variables.main)
-	
-	# Singletons
-	if Engine.has_singleton("GodotFileSharing"):
-		share_service = Engine.get_singleton("GodotFileSharing")
 
+	add_child(share_plugin)
 
 func change_theme(new_theme: String) -> void:
 	theme_changed.emit(new_theme)
@@ -53,13 +50,14 @@ func download_file(file_path: String, file_name: String):
 
 
 func can_share() -> bool:
-	return share_service != null
+	return share_plugin._plugin_singleton != null
 
 
 func share_file(path: String, title: String, subject: String, text: String, mime_type: String) -> void:
 	if not can_share():
 		return
-	share_service.shareFile(ProjectSettings.globalize_path(path), title, subject, text, mime_type)
+	
+	share_plugin.share_file(ProjectSettings.globalize_path(path), mime_type, title, subject, text)
 
 
 func toast(text: String, duration: Toast.Length = Toast.Length.LENGTH_LONG) -> void:
