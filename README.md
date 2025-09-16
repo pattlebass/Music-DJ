@@ -1,3 +1,35 @@
+
+<div align="right">
+  <details>
+    <summary >🌐 Language</summary>
+    <div>
+      <div align="center">
+        <a href="https://openaitx.github.io/view.html?user=pattlebass&project=Music-DJ&lang=en">English</a>
+        | <a href="https://openaitx.github.io/view.html?user=pattlebass&project=Music-DJ&lang=zh-CN">简体中文</a>
+        | <a href="https://openaitx.github.io/view.html?user=pattlebass&project=Music-DJ&lang=zh-TW">繁體中文</a>
+        | <a href="https://openaitx.github.io/view.html?user=pattlebass&project=Music-DJ&lang=ja">日本語</a>
+        | <a href="https://openaitx.github.io/view.html?user=pattlebass&project=Music-DJ&lang=ko">한국어</a>
+        | <a href="https://openaitx.github.io/view.html?user=pattlebass&project=Music-DJ&lang=hi">हिन्दी</a>
+        | <a href="https://openaitx.github.io/view.html?user=pattlebass&project=Music-DJ&lang=th">ไทย</a>
+        | <a href="https://openaitx.github.io/view.html?user=pattlebass&project=Music-DJ&lang=fr">Français</a>
+        | <a href="https://openaitx.github.io/view.html?user=pattlebass&project=Music-DJ&lang=de">Deutsch</a>
+        | <a href="https://openaitx.github.io/view.html?user=pattlebass&project=Music-DJ&lang=es">Español</a>
+        | <a href="https://openaitx.github.io/view.html?user=pattlebass&project=Music-DJ&lang=it">Italiano</a>
+        | <a href="https://openaitx.github.io/view.html?user=pattlebass&project=Music-DJ&lang=ru">Русский</a>
+        | <a href="https://openaitx.github.io/view.html?user=pattlebass&project=Music-DJ&lang=pt">Português</a>
+        | <a href="https://openaitx.github.io/view.html?user=pattlebass&project=Music-DJ&lang=nl">Nederlands</a>
+        | <a href="https://openaitx.github.io/view.html?user=pattlebass&project=Music-DJ&lang=pl">Polski</a>
+        | <a href="https://openaitx.github.io/view.html?user=pattlebass&project=Music-DJ&lang=ar">العربية</a>
+        | <a href="https://openaitx.github.io/view.html?user=pattlebass&project=Music-DJ&lang=fa">فارسی</a>
+        | <a href="https://openaitx.github.io/view.html?user=pattlebass&project=Music-DJ&lang=tr">Türkçe</a>
+        | <a href="https://openaitx.github.io/view.html?user=pattlebass&project=Music-DJ&lang=vi">Tiếng Việt</a>
+        | <a href="https://openaitx.github.io/view.html?user=pattlebass&project=Music-DJ&lang=id">Bahasa Indonesia</a>
+        | <a href="https://openaitx.github.io/view.html?user=pattlebass&project=Music-DJ&lang=as">অসমীয়া</
+      </div>
+    </div>
+  </details>
+</div>
+
 # MusicDJ recreated
 
 This is a recreation of the app with the same name found on Sony Ericsson devices of the 2000s.
