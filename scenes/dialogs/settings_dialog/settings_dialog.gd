@@ -18,6 +18,8 @@ var locale_names := {
 
 
 func _ready() -> void:
+	super()
+	
 	# Theme
 	for i in theme_container.get_children():
 		if i.has_meta("theme_name"):
@@ -60,7 +62,7 @@ func _ready() -> void:
 		settings_container.move_child(label_web_disable, -2)
 
 
-func popup() -> void:
+func popup2() -> void:
 	$"%ThemeContainer/Dark".grab_focus.call_deferred()
 	scroll_container.scroll_vertical = 0
 	lang_auto.text = tr("SETTING_LANG_AUTO") % locale_names[OS.get_locale_language()]

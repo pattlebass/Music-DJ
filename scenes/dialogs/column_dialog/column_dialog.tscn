@@ -1,23 +1,44 @@
-[gd_scene load_steps=3 format=3 uid="uid://bhwn5w0b5pfsb"]
+[gd_scene format=3 uid="uid://bhwn5w0b5pfsb"]
 
-[ext_resource type="Script" path="res://scenes/dialogs/column_dialog/column_dialog.gd" id="1"]
+[ext_resource type="Script" uid="uid://cnmxp6taj8vdc" path="res://scenes/dialogs/column_dialog/column_dialog.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://dj5xf1s363cgn" path="res://assets/themes/white/column_tear.png" id="2"]
 
-[node name="ColumnDialog" type="PanelContainer"]
-offset_right = 152.0
-offset_bottom = 230.0
-script = ExtResource("1")
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i35cf"]
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="ColumnDialog" type="PopupPanel" unique_id=1682905840 node_paths=PackedStringArray("container")]
+oversampling_override = 1.0
+initial_position = 2
+size = Vector2i(263, 328)
+visible = true
+theme_override_styles/panel = SubResource("StyleBoxEmpty_i35cf")
+script = ExtResource("1")
+container = NodePath("VBoxContainer/PanelContainer")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=474271265]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Tear" type="TextureRect" parent="VBoxContainer" unique_id=2087323235]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("2")
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer" unique_id=395461528]
+layout_mode = 2
+theme_type_variation = &"CustomDialog"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/PanelContainer" unique_id=1842437591]
 layout_mode = 2
 size_flags_horizontal = 13
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer"]
-layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="PlayButton" type="Button" parent="VBoxContainer/VBoxContainer2"]
+[node name="PlayButton" type="Button" parent="VBoxContainer/PanelContainer/VBoxContainer" unique_id=856816564]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(80, 50)
 layout_mode = 2
@@ -26,7 +47,7 @@ focus_neighbor_bottom = NodePath("../PlayColumnButton")
 disabled = true
 text = "BTN_PLAY"
 
-[node name="PlayColumnButton" type="Button" parent="VBoxContainer/VBoxContainer2"]
+[node name="PlayColumnButton" type="Button" parent="VBoxContainer/PanelContainer/VBoxContainer" unique_id=1163749884]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(80, 50)
 layout_mode = 2
@@ -35,7 +56,7 @@ focus_neighbor_bottom = NodePath("../ClearButton")
 disabled = true
 text = "BTN_PLAY_COLUMN"
 
-[node name="ClearButton" type="Button" parent="VBoxContainer/VBoxContainer2"]
+[node name="ClearButton" type="Button" parent="VBoxContainer/PanelContainer/VBoxContainer" unique_id=902250482]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(80, 50)
 layout_mode = 2
@@ -44,7 +65,7 @@ focus_neighbor_bottom = NodePath("../RemoveButton")
 disabled = true
 text = "BTN_CLEAR"
 
-[node name="RemoveButton" type="Button" parent="VBoxContainer/VBoxContainer2"]
+[node name="RemoveButton" type="Button" parent="VBoxContainer/PanelContainer/VBoxContainer" unique_id=1981141039]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(80, 50)
 layout_mode = 2
@@ -53,12 +74,7 @@ focus_neighbor_bottom = NodePath("../PlayButton")
 disabled = true
 text = "BTN_REMOVE"
 
-[node name="Tear" type="Sprite2D" parent="."]
-unique_name_in_owner = true
-position = Vector2(25, -0.345501)
-texture = ExtResource("2")
-
-[connection signal="pressed" from="VBoxContainer/VBoxContainer2/PlayButton" to="." method="_on_play_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/VBoxContainer2/PlayColumnButton" to="." method="_on_play_column_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/VBoxContainer2/ClearButton" to="." method="_on_clear_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/VBoxContainer2/RemoveButton" to="." method="_on_remove_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/PanelContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/PanelContainer/VBoxContainer/PlayColumnButton" to="." method="_on_play_column_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/PanelContainer/VBoxContainer/ClearButton" to="." method="_on_clear_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/PanelContainer/VBoxContainer/RemoveButton" to="." method="_on_remove_button_pressed"]

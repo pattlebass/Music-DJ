@@ -79,6 +79,11 @@ func get_trimmed_length() -> int:
 	return longest
 
 
+## Returns the song duration in seconds
+func get_duration() -> float:
+	return get_trimmed_length() * 3
+
+
 func is_column_empty(column_no: int) -> bool:
 	var is_empty := true
 	

@@ -3,13 +3,13 @@ extends CustomDialog
 
 const LOAD_ITEM = preload("res://scenes/dialogs/load_dialog/load_item/load_item.tscn")
 
-@onready var project_container: VBoxContainer = $VBoxContainer/ScrollContainer/VBoxContainer
-@onready var scroll_container: ScrollContainer = $VBoxContainer/ScrollContainer
+@onready var project_container: VBoxContainer = %ProjectContainer
+@onready var scroll_container: ScrollContainer = %ScrollContainer
 @onready var new_project_button: Button = %NewProjectButton
 @onready var open_folder_button: Button = %OpenFolderButton
 @onready var file_picker_button: Button = %FilePickerButton
 @onready var no_projects_label: Label = %NoProjectsLabel
-@onready var file_dialog: FileDialog = $FileDialog
+@onready var file_dialog: FileDialog = %FileDialog
 
 var selected_file := ""
 
@@ -18,6 +18,7 @@ signal new_project
 
 
 func _ready() -> void:
+	super()
 	Utils.theme_changed.connect(_on_theme_changed)
 	
 	open_folder_button.visible = not OS.get_name() in ["Web", "Android"]
@@ -26,10 +27,10 @@ func _ready() -> void:
 
 func load_song(path: String) -> void:
 	project_selected.emit(path)
-	popup_hide()
+	popup_hide2()
 
 
-func popup() -> void:
+func popup2() -> void:
 	if not Utils.has_storage_perms():
 		return
 	
@@ -60,7 +61,7 @@ func create_item(project_path: String) -> void:
 	item.share_button.visible = Utils.can_share()
 
 
-func popup_hide() -> void:
+func popup_hide2() -> void:
 	super()
 	for i in project_container.get_children():
 		if i is LoadItem:
@@ -156,7 +157,7 @@ func _on_new_project_button_pressed() -> void:
 
 
 func _on_cancel_button_pressed() -> void:
-	popup_hide()
+	popup_hide2()
 
 
 func _on_open_button_pressed() -> void:

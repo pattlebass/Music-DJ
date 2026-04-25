@@ -1,12 +1,12 @@
 class_name FilenameDialog
 extends CustomAcceptDialog
 
-var title := "Save":
+var title2 := "Save":
 	set(val):
-		if val == title:
+		if val == title2:
 			return
-		title = val
-		label_title.text = title
+		title2 = val
+		label_title.text = title2
 
 @onready var ok_button = %OkButton
 @onready var label_title: Label = %Title
@@ -23,10 +23,13 @@ func _ready() -> void:
 	Utils.virtual_keyboard_hidden.connect(_on_virtual_kb_hidden)
 
 
-func popup() -> void:
+func popup2() -> void:
 	if not Utils.has_storage_perms():
-		popup_hide()
+		popup_hide2()
 		return
+	
+	# HACK
+	Utils.signal_disconnect_all(name_picked)
 	
 	line_edit.text = Variables.opened_file if Variables.opened_file else get_default_name()
 	line_edit.caret_column = line_edit.text.length()
@@ -37,32 +40,27 @@ func popup() -> void:
 	super()
 
 
-func popup_hide() -> void:
-	super()
-	Utils.signal_disconnect_all(name_picked)
-
-
 func get_default_name() -> String:
 	return "Song " + str(randi() % 1000)
 
 
 func _on_OkButton_pressed() -> void:
+	popup_hide2()
 	name_picked.emit(line_edit.text.strip_edges())
-	popup_hide()
 
 
 func _on_CancelButton_pressed() -> void:
-	popup_hide()
+	popup_hide2()
 
 
 func _on_virtual_kb_visible() -> void:
 	# Hide title above viewport to make more space
-	position.y = -label_title.size.y 
+	position.y = int(-label_title.size.y)
 
 
 func _on_virtual_kb_hidden() -> void:
 	await get_tree().create_timer(0.2).timeout
-	position.y = (get_viewport().get_visible_rect().size.y - size.y) / 2
+	position.y = int(get_viewport().get_visible_rect().size.y - size.y) / 2
 
 
 func _on_LineEdit_text_changed(new_text: String) -> void:

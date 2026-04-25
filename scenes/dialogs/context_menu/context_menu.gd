@@ -16,11 +16,11 @@ func _ready() -> void:
 	paste_button = add_item("BTN_PASTE")
 	clear_button = add_item("BTN_CLEAR")
 	
-	copy_button.pressed.connect(popup_hide)
-	paste_button.pressed.connect(popup_hide)
-	clear_button.pressed.connect(popup_hide)
+	copy_button.pressed.connect(popup_hide2)
+	paste_button.pressed.connect(popup_hide2)
+	clear_button.pressed.connect(popup_hide2)
 
 
-func popup_hide() -> void:
+func popup_hide2() -> void:
 	super()
 	queue_free()

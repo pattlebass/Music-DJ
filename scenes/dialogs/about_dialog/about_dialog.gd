@@ -10,10 +10,11 @@ var open_meta := true
 
 
 func _ready() -> void:
+	super()
 	rich_text.text = "Version: %s\n\n" % ProjectSettings.get_setting("application/config/version") + rich_text.text
 
 
-func popup() -> void:
+func popup2() -> void:
 	scroll_container.scroll_vertical = 0
 	scroll_container.grab_focus()
 	super()

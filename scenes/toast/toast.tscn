@@ -1,32 +1,46 @@
-[gd_scene load_steps=2 format=3 uid="uid://djt8n7oy8fwt7"]
+[gd_scene format=3 uid="uid://djt8n7oy8fwt7"]
 
-[ext_resource type="Script" path="res://scenes/toast/toast.gd" id="1_jgp68"]
+[ext_resource type="Script" uid="uid://im8yjlbjpdth" path="res://scenes/toast/toast.gd" id="1_jgp68"]
 
-[node name="Toast" type="PanelContainer"]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -46.0
-offset_top = -106.0
-offset_right = 46.0
-offset_bottom = -83.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_type_variation = &"Toast"
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2l50j"]
+
+[node name="Toast" type="Window" unique_id=1057042053]
+transparent_bg = true
+oversampling_override = 1.0
+size = Vector2i(213, 100)
+wrap_controls = true
+transient = true
+unresizable = true
+borderless = true
+always_on_top = true
+transparent = true
+popup_window = true
+mouse_passthrough = true
+popup_wm_hint = true
+minimize_disabled = true
+maximize_disabled = true
+theme_type_variation = &"TooltipPanel"
 script = ExtResource("1_jgp68")
+metadata/_custom_type_script = "uid://im8yjlbjpdth"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=886719798]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_2l50j")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer" unique_id=781491949]
 layout_mode = 2
 alignment = 1
 
-[node name="Panel" type="PanelContainer" parent="HBoxContainer"]
+[node name="Panel" type="PanelContainer" parent="PanelContainer/HBoxContainer" unique_id=314060571]
 layout_mode = 2
 size_flags_vertical = 0
 theme_type_variation = &"Toast"
 
-[node name="Label" type="Label" parent="HBoxContainer/Panel"]
+[node name="Label" type="Label" parent="PanelContainer/HBoxContainer/Panel" unique_id=1378457281]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"Text"

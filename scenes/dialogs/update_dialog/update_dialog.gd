@@ -1,7 +1,7 @@
 class_name UpdateDialog
 extends CustomAcceptDialog
 
-@onready var title: Label = %Title
+@onready var title2: Label = %Title
 @onready var body_label: RichTextLabel = %Body
 @onready var ok_button: Button = %OkButton
 @onready var close_button: Button = %CloseButton
@@ -32,7 +32,7 @@ func _ready() -> void:
 
 func ask_permission() -> void:
 	asking_permission = true
-	title.text = "DIALOG_UPDATE_TITLE_ASK"
+	title2.text = "DIALOG_UPDATE_TITLE_ASK"
 	body_label.text = tr(&"DIALOG_UPDATE_BODY_ASK") % "https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement"
 	ok_button.text = "DIALOG_UPDATE_BTN_ACCEPT"
 	close_button.text = "DIALOG_UPDATE_BTN_DENY"
@@ -58,14 +58,14 @@ func _on_ok_button_pressed() -> void:
 		Options.save()
 	else:
 		OS.shell_open("https://www.github.com/pattlebass/Music-DJ/releases/latest")
-	popup_hide()
+	popup_hide2()
 
 
 func _on_close_button_pressed() -> void:
 	if asking_permission:
 		Options.check_updates = false
 		Options.save()
-	popup_hide()
+	popup_hide2()
 
 
 func _on_body_meta_clicked(meta: String) -> void:

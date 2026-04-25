@@ -2,7 +2,7 @@ class_name ProgressDialog
 extends CustomDialog
 
 @onready var progress_bar: ProgressBar = %ProgressBar
-@onready var title: Label = %Title
+@onready var title_label: Label = %Title
 @onready var body: Label = %Body
 @onready var open_button: Button = %OpenButton
 @onready var download_button: Button = %DownloadButton
@@ -20,7 +20,7 @@ var progress := 0.0:
 		progress = val
 		progress_bar.value = progress
 		if progress >= 1:
-			title.text = title_text_completed
+			title_label.text = title_text_completed
 			body.text = body_text_completed
 			
 			#share_button.disabled = false
@@ -33,14 +33,19 @@ var progress := 0.0:
 signal canceled
 
 
-func popup() -> void:
+func _ready() -> void:
+	super()
+	popup_window = false
+
+
+func popup2() -> void:
 	progress = 0
 	progress_bar.show()
 	
 	open_button.disabled = true
 	share_button.disabled = true
 	
-	title.text = "DIALOG_PROGRESS_TITLE"
+	title_label.text = "DIALOG_PROGRESS_TITLE"
 	body.text = body_text
 	cancel_button.text = "BTN_CANCEL"
 	
@@ -52,6 +57,8 @@ func popup() -> void:
 		share_button.hide()
 		open_button.hide()
 		download_button.show()
+	
+	size.y = 0
 	
 	super()
 

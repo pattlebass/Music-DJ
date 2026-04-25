@@ -6,19 +6,18 @@ extends Button
 
 func _ready() -> void:
 	add_child(popup_menu)
-	popup_menu.top_level = true
-	popup_menu.hide()
+	popup_menu.container.pivot_offset_ratio = Vector2(1, 0)
+	#popup_menu.top_level = true
+	#popup_menu.hide()
 	
 	pressed.connect(_on_about_to_popup)
 
 
 func _on_about_to_popup() -> void:
+	popup_menu.popup2()
 	if OS.has_feature("pc"):
-		popup_menu.global_position.y = global_position.y + int(size.y)
-	popup_menu.global_position.x = global_position.x + int(size.x - popup_menu.size.x)
-	popup_menu.pivot_offset.x = popup_menu.size.x
-	
-	popup_menu.popup()
+		popup_menu.position.y = global_position.y + int(size.y)
+	popup_menu.position.x = global_position.x + int(size.x - popup_menu.size.x)
 
 
 func get_popup() -> CustomPopupMenu:

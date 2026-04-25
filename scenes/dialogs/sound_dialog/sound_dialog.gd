@@ -57,7 +57,7 @@ func _ready() -> void:
 	BoomBox.bpm_changed.connect(_on_BPM_changed)
 
 
-func popup() -> void:
+func popup2() -> void:
 	# Set title
 	var instrument_name := tr(Variables.INSTRUMENT_NAMES[instrument])
 	title_label.text = tr(&"DIALOG_SOUND_TITLE") % [instrument_name, column.column_no + 1]
@@ -151,11 +151,11 @@ func _on_ok_button_pressed() -> void:
 func _on_clear_button_pressed() -> void:
 	column.clear_tile(instrument)
 	BoomBox.song.set_tile(instrument, column.column_no, 0)
-	popup_hide()
+	popup_hide2()
 
 
 func _on_cancel_button_pressed() -> void:
-	popup_hide()
+	popup_hide2()
 
 
 func _on_BPM_changed() -> void:

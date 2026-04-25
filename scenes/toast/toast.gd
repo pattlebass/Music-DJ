@@ -1,30 +1,40 @@
 class_name Toast
-extends CustomDialog
+extends Window
 
 enum Length {
 	LENGTH_SHORT,
 	LENGTH_LONG
 }
+
+@onready var label: Label = %Label
+
 var duration: Length
 var text: String
 
+@onready var container: Control = $PanelContainer
 
 func _ready() -> void:
-	dim_background = false
+	#super()
+	popup_window = false
+	#dim_background = false
 
 
-func popup() -> void:
-	super()
+func popup2() -> void:
+	#super()
 	
-	%Label.text = text
+	label.text = text
 	
-	create_tween().tween_property(self, ^"modulate:a", 1.0, 0.1)
-	
+	var tween := create_tween()
+	tween.tween_property(container, ^"modulate:a", 1.0, 0.1)
 	match duration:
 		Length.LENGTH_SHORT:
-			await get_tree().create_timer(2).timeout
+			tween.tween_interval(2)
 		Length.LENGTH_LONG:
-			await get_tree().create_timer(4).timeout
-	
-	await create_tween().tween_property(self, ^"modulate:a", 0.0, 0.1).finished
-	queue_free()
+			tween.tween_interval(4)
+	tween.tween_property(container, ^"modulate:a", 0.0, 0.1)
+	#tween.tween_callback(queue_free)
+
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed(&"ui_home"):
+		queue_free()

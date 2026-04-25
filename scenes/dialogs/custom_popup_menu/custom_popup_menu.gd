@@ -8,8 +8,16 @@ signal item_pressed(id: int)
 
 
 func _ready() -> void:
+	super()
+	
 	dim_background = false
-	add_child(items_container)
+	add_theme_stylebox_override(&"panel", StyleBoxEmpty.new())
+	
+	container = PanelContainer.new()
+	container.theme_type_variation = &"CustomDialog"
+	container.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	container.add_child(items_container)
+	add_child(container)
 
 
 func play_popup_animation() -> void:
@@ -17,9 +25,9 @@ func play_popup_animation() -> void:
 	
 	var tween := create_tween()
 	tween.set_ease(Tween.EASE_OUT)
-	tween.parallel().tween_property(self, ^"modulate:a", 1, POPUP_TIME)\
+	tween.parallel().tween_property(container, ^"modulate:a", 1, POPUP_TIME)\
 			.from(0.2).set_trans(Tween.TRANS_QUART)
-	tween.parallel().tween_property(self, ^"scale", Vector2(1, 1), POPUP_TIME)\
+	tween.parallel().tween_property(container, ^"scale", Vector2(1, 1), POPUP_TIME)\
 			.from(Vector2(0.8, 0.8)).set_trans(Tween.TRANS_QUINT)
 
 
@@ -30,8 +38,8 @@ func add_item(text: String, id := items) -> Button:
 	button.theme_type_variation = "CustomPopupMenuButton"
 	button.pressed.connect(
 		func():
+			popup_hide2()
 			item_pressed.emit(id)
-			popup_hide()
 	)
 	items_container.add_child(button)
 	
@@ -40,7 +48,7 @@ func add_item(text: String, id := items) -> Button:
 	return button
 
 
-func popup() -> void:
+func popup2() -> void:
 	super()
 	if items_container.get_children().size() != 0:
 		items_container.get_child(0).grab_focus.call_deferred()

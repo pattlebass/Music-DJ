@@ -32,7 +32,7 @@ var current_tutorial_version := 1
 
 @onready var video_player: VideoStreamPlayer = %VideoStreamPlayer
 @onready var texture_rect: TextureRect = %TextureRect
-@onready var animation: AnimationPlayer = $AnimationPlayer
+@onready var animation: AnimationPlayer = %AnimationPlayer
 @onready var previous_button: Button = %PreviousButton
 @onready var next_button: Button = %NextButton
 @onready var body: RichTextLabel = %RichTextLabel
@@ -40,6 +40,8 @@ var current_tutorial_version := 1
 
 
 func _ready() -> void:
+	super()
+	
 	if current_tutorial_version > Options.last_seen_tutorial:
 		popup_centered.call_deferred()
 	
@@ -52,7 +54,7 @@ func _ready() -> void:
 		panels = all_panels
 
 
-func popup() -> void:
+func popup2() -> void:
 	current = 0
 	change_panel(0, 0)
 	super()
@@ -75,7 +77,7 @@ func change_panel(_panel_no: int, _previous_panel_no: int) -> void:
 		if current_tutorial_version > Options.last_seen_tutorial:
 			Options.last_seen_tutorial = current_tutorial_version
 			Options.save()
-		popup_hide()
+		popup_hide2()
 		return
 	
 	previous_button.disabled = _panel_no == 0

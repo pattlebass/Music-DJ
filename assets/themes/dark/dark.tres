@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=45 format=3 uid="uid://c4u5j7fm8hehe"]
+[gd_resource type="Theme" format=3 uid="uid://c4u5j7fm8hehe"]
 
 [ext_resource type="FontFile" uid="uid://chtfugi11pfki" path="res://assets/fonts/GidoleFont/Gidole-Regular.ttf" id="1_hhvf6"]
 [ext_resource type="Texture2D" uid="uid://c151qlluhbslk" path="res://assets/themes/dark/checked_box.svg" id="2_r4kur"]
@@ -197,6 +197,15 @@ thickness = 5
 [sub_resource type="StyleBoxEmpty" id="31"]
 
 [sub_resource type="FontFile" id="33"]
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
 cache/0/16/0/ascent = 0.0
 cache/0/16/0/descent = 0.0
 cache/0/16/0/underline_position = 0.0

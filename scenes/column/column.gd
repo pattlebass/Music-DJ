@@ -86,7 +86,6 @@ func _on_tile_gui_input(event: InputEvent, button: Button) -> void:
 	var instrument: int = button.get_meta("instrument")
 	if event.is_action_pressed("right_click") or event.is_action_pressed("ui_menu"):
 		var context_menu := ContextMenu.new()
-		context_menu.top_level = true
 		add_child(context_menu)
 		
 		context_menu.copy_button.disabled = !button.get_meta("sample_index")
@@ -102,9 +101,9 @@ func _on_tile_gui_input(event: InputEvent, button: Button) -> void:
 		)
 		
 		if event is InputEventMouseButton:
-			context_menu.global_position = event.global_position
+			context_menu.position = event.global_position
 		else:
-			context_menu.global_position = button.global_position + button.size / 2
+			context_menu.position = button.global_position + button.size / 2
 		
 		context_menu.popup()
 		context_menu.copy_button.grab_focus()

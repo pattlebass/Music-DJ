@@ -1,3 +1,4 @@
+@warning_ignore_start("unused_variable")
 class_name MidiFile
 
 """

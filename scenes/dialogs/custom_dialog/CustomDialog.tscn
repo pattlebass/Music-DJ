@@ -12,7 +12,7 @@ _data = {
 "anim_fade_out": ExtResource("4")
 }
 
-[node name="CustomDialog" type="PanelContainer"]
+[node name="CustomDialog" type="PopupPanel"]
 visible = false
 script = ExtResource("1")
 

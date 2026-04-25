@@ -1,8 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://bltvfi1s08p8i"]
+[gd_scene format=3 uid="uid://bltvfi1s08p8i"]
 
-[ext_resource type="Script" path="res://scenes/main.gd" id="1"]
+[ext_resource type="Script" uid="uid://b0lqgog8g75bl" path="res://scenes/main.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://ctcdj70gy8cjk" path="res://scenes/dialogs/sound_dialog/sound_dialog.tscn" id="3"]
-[ext_resource type="Script" path="res://scenes/more_button.gd" id="3_gwbec"]
+[ext_resource type="Script" uid="uid://bj3rdm4hejegm" path="res://scenes/more_button.gd" id="3_gwbec"]
 [ext_resource type="Texture2D" uid="uid://40aobio0y13d" path="res://assets/themes/dark/more.svg" id="3_y7whg"]
 [ext_resource type="Texture2D" uid="uid://dhooe3adxpeog" path="res://assets/drum.png" id="5_ioqei"]
 [ext_resource type="Texture2D" uid="uid://dps6grd6p3qrh" path="res://assets/guitar.png" id="6_tdh5i"]
@@ -20,7 +20,7 @@
 [sub_resource type="Theme" id="16"]
 LineEdit/constants/minimum_spaces = 7
 
-[node name="Main" type="Control"]
+[node name="Main" type="Control" unique_id=1703479691]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -30,7 +30,7 @@ grow_vertical = 2
 theme = ExtResource("7")
 script = ExtResource("1")
 
-[node name="BgPanel" type="Panel" parent="."]
+[node name="BgPanel" type="Panel" parent="." unique_id=1439718253]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -40,7 +40,7 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="HBoxToolBar" type="HBoxContainer" parent="."]
+[node name="HBoxToolBar" type="HBoxContainer" parent="." unique_id=702930611]
 layout_mode = 0
 anchor_left = 0.024
 anchor_top = 0.03
@@ -51,7 +51,7 @@ offset_right = 0.575989
 offset_bottom = 60.0
 theme_override_constants/separation = 30
 
-[node name="Play" type="Button" parent="HBoxToolBar"]
+[node name="Play" type="Button" parent="HBoxToolBar" unique_id=1516222435]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 60)
 layout_mode = 2
@@ -60,16 +60,16 @@ focus_neighbor_right = NodePath("../Export")
 toggle_mode = true
 text = "BTN_PLAY"
 
-[node name="BPMHbox" type="HBoxContainer" parent="HBoxToolBar"]
+[node name="BPMHbox" type="HBoxContainer" parent="HBoxToolBar" unique_id=1514687625]
 visible = false
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HBoxToolBar/BPMHbox"]
+[node name="Label" type="Label" parent="HBoxToolBar/BPMHbox" unique_id=19778396]
 layout_mode = 2
 theme_type_variation = &"LabelSubtitle"
 text = "BPM"
 
-[node name="BPMSpinBox" type="SpinBox" parent="HBoxToolBar/BPMHbox"]
+[node name="BPMSpinBox" type="SpinBox" parent="HBoxToolBar/BPMHbox" unique_id=342771373]
 unique_name_in_owner = true
 layout_mode = 2
 theme = SubResource("16")
@@ -77,11 +77,11 @@ min_value = 50.0
 max_value = 150.0
 value = 80.0
 
-[node name="Control" type="Control" parent="HBoxToolBar"]
+[node name="Control" type="Control" parent="HBoxToolBar" unique_id=1447669869]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Export" type="Button" parent="HBoxToolBar"]
+[node name="Export" type="Button" parent="HBoxToolBar" unique_id=418475400]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
@@ -90,7 +90,7 @@ focus_neighbor_right = NodePath("../SaveProject")
 mouse_filter = 1
 text = "BTN_EXPORT"
 
-[node name="SaveProject" type="Button" parent="HBoxToolBar"]
+[node name="SaveProject" type="Button" parent="HBoxToolBar" unique_id=1808179876]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
@@ -99,7 +99,7 @@ focus_neighbor_right = NodePath("../OpenProject")
 mouse_filter = 1
 text = "BTN_SAVE_PROJECT"
 
-[node name="OpenProject" type="Button" parent="HBoxToolBar"]
+[node name="OpenProject" type="Button" parent="HBoxToolBar" unique_id=1296707841]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
@@ -108,7 +108,7 @@ focus_neighbor_right = NodePath("../More")
 mouse_filter = 1
 text = "BTN_OPEN_PROJECT"
 
-[node name="More" type="Button" parent="HBoxToolBar"]
+[node name="More" type="Button" parent="HBoxToolBar" unique_id=2026853064]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
@@ -120,7 +120,7 @@ icon_alignment = 1
 expand_icon = true
 script = ExtResource("3_gwbec")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=934383914]
 layout_mode = 0
 anchor_left = 0.034
 anchor_top = 0.167
@@ -132,51 +132,51 @@ offset_right = -0.44812
 offset_bottom = 446.8
 size_flags_vertical = 3
 
-[node name="ImageContainer" type="VBoxContainer" parent="HBoxContainer"]
+[node name="ImageContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=1857842920]
 layout_mode = 2
 theme_type_variation = &"ColumnContainer"
 theme_override_constants/separation = 8
 
-[node name="Control" type="Control" parent="HBoxContainer/ImageContainer"]
+[node name="Control" type="Control" parent="HBoxContainer/ImageContainer" unique_id=816227411]
 custom_minimum_size = Vector2(80, 60)
 layout_mode = 2
 
-[node name="Drums" type="TextureRect" parent="HBoxContainer/ImageContainer"]
+[node name="Drums" type="TextureRect" parent="HBoxContainer/ImageContainer" unique_id=1967677052]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 texture = ExtResource("5_ioqei")
 expand_mode = 1
 
-[node name="Guitar" type="TextureRect" parent="HBoxContainer/ImageContainer"]
+[node name="Guitar" type="TextureRect" parent="HBoxContainer/ImageContainer" unique_id=2142117989]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 texture = ExtResource("6_tdh5i")
 expand_mode = 1
 
-[node name="Piano" type="TextureRect" parent="HBoxContainer/ImageContainer"]
+[node name="Piano" type="TextureRect" parent="HBoxContainer/ImageContainer" unique_id=130407795]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 texture = ExtResource("7_ye766")
 expand_mode = 1
 
-[node name="Trumpet" type="TextureRect" parent="HBoxContainer/ImageContainer"]
+[node name="Trumpet" type="TextureRect" parent="HBoxContainer/ImageContainer" unique_id=145160081]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 texture = ExtResource("8_mj0ld")
 expand_mode = 1
 
-[node name="VSeparator" type="VSeparator" parent="HBoxContainer"]
+[node name="VSeparator" type="VSeparator" parent="HBoxContainer" unique_id=838682886]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer" unique_id=248774952]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 follow_focus = true
 scroll_deadzone = 60
 
-[node name="ColumnContainer" type="HBoxContainer" parent="HBoxContainer/ScrollContainer"]
+[node name="ColumnContainer" type="HBoxContainer" parent="HBoxContainer/ScrollContainer" unique_id=538502559]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -184,16 +184,16 @@ size_flags_vertical = 3
 theme_type_variation = &"ColumnContainer"
 theme_override_constants/separation = 8
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/ScrollContainer/ColumnContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/ScrollContainer/ColumnContainer" unique_id=644973499]
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 alignment = 1
 
-[node name="Control" type="Control" parent="HBoxContainer/ScrollContainer/ColumnContainer/VBoxContainer"]
+[node name="Control" type="Control" parent="HBoxContainer/ScrollContainer/ColumnContainer/VBoxContainer" unique_id=852383947]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
-[node name="AddButton" type="Button" parent="HBoxContainer/ScrollContainer/ColumnContainer/VBoxContainer"]
+[node name="AddButton" type="Button" parent="HBoxContainer/ScrollContainer/ColumnContainer/VBoxContainer" unique_id=1070366742]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
@@ -201,7 +201,7 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 text = "+"
 
-[node name="DimOverlay" type="Panel" parent="."]
+[node name="DimOverlay" type="Panel" parent="." unique_id=1061599277]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 anchor_right = 1.0
@@ -210,45 +210,30 @@ mouse_filter = 2
 theme_type_variation = &"ShadowPanel"
 metadata/_edit_lock_ = true
 
-[node name="SoundDialog" parent="." instance=ExtResource("3")]
+[node name="SoundDialog" parent="." unique_id=1843009550 instance=ExtResource("3")]
 visible = false
-layout_mode = 0
-offset_right = 520.0
-offset_bottom = 598.0
 
-[node name="SaveDialog" parent="." instance=ExtResource("9")]
+[node name="SaveDialog" parent="." unique_id=781384839 instance=ExtResource("9")]
 visible = false
-layout_mode = 0
 
-[node name="ColumnDialog" parent="." instance=ExtResource("8")]
+[node name="ColumnDialog" parent="." unique_id=674793486 instance=ExtResource("8")]
+initial_position = 0
 visible = false
-layout_mode = 0
 
-[node name="LoadDialog" parent="." instance=ExtResource("11")]
+[node name="LoadDialog" parent="." unique_id=1104895185 instance=ExtResource("11")]
 visible = false
-layout_mode = 0
-offset_right = 452.0
-offset_bottom = 580.0
 
-[node name="UpdateDialog" parent="." instance=ExtResource("14")]
+[node name="UpdateDialog" parent="." unique_id=970907588 instance=ExtResource("14")]
 visible = false
-layout_mode = 0
 
-[node name="TutorialDialog" parent="." instance=ExtResource("13")]
+[node name="TutorialDialog" parent="." unique_id=1990391682 instance=ExtResource("13")]
 visible = false
-layout_mode = 0
 
-[node name="SettingsDialog" parent="." instance=ExtResource("12")]
+[node name="SettingsDialog" parent="." unique_id=475561682 instance=ExtResource("12")]
 visible = false
-layout_mode = 0
-offset_right = 559.0
-offset_bottom = 587.0
 
-[node name="AboutDialog" parent="." instance=ExtResource("16")]
+[node name="AboutDialog" parent="." unique_id=1268433546 instance=ExtResource("16")]
 visible = false
-layout_mode = 0
-offset_right = 593.0
-offset_bottom = 589.0
 
 [connection signal="toggled" from="HBoxToolBar/Play" to="." method="_on_play_toggled"]
 [connection signal="value_changed" from="HBoxToolBar/BPMHbox/BPMSpinBox" to="." method="_on_bpm_spin_box_value_changed"]

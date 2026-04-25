@@ -66,7 +66,9 @@ func toast(text: String, duration: Toast.Length = Toast.Length.LENGTH_LONG) -> v
 	toast_node.duration = duration
 	
 	Variables.main.add_child(toast_node)
-	toast_node.popup()
+	toast_node.exclusive = false
+	toast_node.transient = false
+	toast_node.popup2()
 
 
 func confirm_popup(title: String, body: String) -> bool:

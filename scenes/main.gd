@@ -110,7 +110,7 @@ func _on_tile_pressed(column: Column, instrument: int) -> void:
 		return
 	sound_dialog.instrument = instrument
 	sound_dialog.column = column
-	sound_dialog.popup_centered()
+	sound_dialog.popup2()
 
 
 func _on_tile_held(column_no: int, instrument: int, tile_button: Button) -> void:
@@ -150,21 +150,19 @@ func _on_tile_held(column_no: int, instrument: int, tile_button: Button) -> void
 
 
 func _on_export_pressed() -> void:
-	save_dialog.title = "DIALOG_SAVE_TITLE_EXPORT"
+	save_dialog.title2 = "DIALOG_SAVE_TITLE_EXPORT"
+	save_dialog.popup2()
 	save_dialog.name_picked.connect(export_song, CONNECT_ONE_SHOT)
-	#save_dialog.popup_hidden.connect(save_dialog.name_picked.disconnect.bind(save_project), CONNECT_ONE_SHOT)
-	save_dialog.popup_centered()
 
 
 func _on_save_project_pressed() -> void:
-	save_dialog.title = "DIALOG_SAVE_TITLE_PROJECT"
+	save_dialog.title2 = "DIALOG_SAVE_TITLE_PROJECT"
+	save_dialog.popup2()
 	save_dialog.name_picked.connect(save_project, CONNECT_ONE_SHOT)
-	#save_dialog.popup_hidden.connect(save_dialog.name_picked.disconnect.bind(save_project), CONNECT_ONE_SHOT)
-	save_dialog.popup_centered()
 
 
 func _on_open_project_pressed() -> void:
-	load_dialog.popup_centered()
+	load_dialog.popup2()
 
 
 func _on_add_button_pressed() -> void:
@@ -191,7 +189,7 @@ func add_column(column_no: int) -> Column:
 		var button: Button = column.tiles[i]
 		button.pressed.connect(_on_tile_pressed.bind(column, i))
 		button.button_down.connect(_on_tile_held.bind(column_no, i, button))
-	column.column_button.pressed.connect(column_dialog._on_column_button_pressed.bind(column))
+	column.column_button.pressed.connect(column_dialog.popup_on_column.bind(column))
 	column.removed.connect(remove_column.bind(column_no))
 	
 	columns.insert(column_no, column)
@@ -234,11 +232,10 @@ func get_project_from_query() -> Song:
 
 func save_project(file_name: String) -> void:
 	var path := Variables.projects_dir.path_join("%s.mdj" % file_name)
-	
 	# ProgressDialog
 	var progress_dialog: ProgressDialog = PROGRESS_DIALOG.instantiate()
 	add_child(progress_dialog)
-	progress_dialog.popup_centered()
+	progress_dialog.popup2()
 	progress_dialog.body_text = ""
 	progress_dialog.body_text_completed = ""
 	progress_dialog.popup_hidden.connect(progress_dialog.queue_free)
@@ -262,7 +259,7 @@ func save_project(file_name: String) -> void:
 	
 	var tween := create_tween()
 	tween.tween_property(progress_dialog, ^"progress", 1, 0.2)
-	tween.tween_callback(progress_dialog.popup_hide)
+	tween.tween_callback(progress_dialog.popup_hide2)
 	
 	var err := BoomBox.song.save(path)
 	
@@ -285,7 +282,7 @@ func export_song(file_name: String) -> void:
 		progress_dialog.body_text_completed = tr("DIALOG_PROGRESS_AFTER_EXPORT") % ProjectSettings.globalize_path(path)
 	
 	progress_dialog.popup_hidden.connect(progress_dialog.queue_free)
-	progress_dialog.popup_centered()
+	progress_dialog.popup2()
 	
 	progress_dialog.open_button.pressed.connect(
 		OS.shell_open.bind(ProjectSettings.globalize_path(Variables.saves_dir)),
@@ -299,6 +296,27 @@ func export_song(file_name: String) -> void:
 		Utils.share_file.bind(path, "", "", "", "audio/wav"),
 		CONNECT_ONE_SHOT
 	)
+	
+	# Animate progress bar
+	var tween := create_tween()
+	tween.tween_property(progress_dialog, ^"progress", 1, BoomBox.song.get_duration() + 0.5)
+	
+	var bus_idx := AudioServer.get_bus_index(&"Master")
+	var effect: AudioEffectRecord = AudioServer.get_bus_effect(bus_idx, 0)
+	
+	# Recording
+	effect.set_recording_active(true)
+	BoomBox.play()
+	await BoomBox.play_ended
+	effect.set_recording_active(false)
+	
+	# Saving
+	var recording := effect.get_recording()
+	if recording == null:
+		print("Export cancelled.")
+	var err := recording.save_to_wav(path)
+	if err:
+		progress_dialog.error(err)
 
 
 func load_song(song: Song) -> void:
@@ -383,15 +401,15 @@ func _on_files_dropped(files: PackedStringArray) -> void:
 			else:
 				DirAccess.copy_absolute(i, Variables.projects_dir.path_join(file_name))
 	
-	load_dialog.popup_centered()
+	load_dialog.popup2()
 
 
 func _on_more_item_pressed(id: int) -> void:
 	match id:
 		0:
-			settings_dialog.popup_centered()
+			settings_dialog.popup2()
 		1:
-			tutorial_dialog.popup_centered()
+			tutorial_dialog.popup2()
 		2:
 			var link := "https://github.com/pattlebass/Music-DJ/issues/new?labels=bug&template=bug_report.yaml&title=%5BBug%5D%3A+&version={version}&device={device}"
 			link = link.format(
@@ -404,7 +422,7 @@ func _on_more_item_pressed(id: int) -> void:
 		3:
 			OS.shell_open("https://github.com/pattlebass/Music-DJ/issues/new?labels=enhancement&template=feature_request.yaml&title=%5BFeature%5D%3A+")
 		4:
-			about_dialog.popup_centered()
+			about_dialog.popup2()
 
 
 func _on_load_dialog_new_project() -> void:
