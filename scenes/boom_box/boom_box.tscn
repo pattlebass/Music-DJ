@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://3ofh3agnr8g0"]
+
+[ext_resource type="Script" path="res://scenes/boom_box/boom_box.gd" id="1_qvodg"]
+
+[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_0t18g"]
+loop = false
+fade_time = 0.0
+
+[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_f7dfc"]
+loop = false
+fade_time = 0.0
+
+[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_3boaf"]
+loop = false
+fade_time = 0.0
+
+[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_axndm"]
+loop = false
+fade_time = 0.0
+
+[sub_resource type="AudioStreamSynchronized" id="AudioStreamSynchronized_bt8x4"]
+stream_count = 4
+stream_0/stream = SubResource("AudioStreamPlaylist_0t18g")
+stream_0/volume = 0.0
+stream_1/stream = SubResource("AudioStreamPlaylist_f7dfc")
+stream_1/volume = 0.0
+stream_2/stream = SubResource("AudioStreamPlaylist_3boaf")
+stream_2/volume = 0.0
+stream_3/stream = SubResource("AudioStreamPlaylist_axndm")
+stream_3/volume = 0.0
+
+[node name="BoomBox" type="Node"]
+script = ExtResource("1_qvodg")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamSynchronized_bt8x4")
+
+[node name="SyncTimer" type="Timer" parent="."]
+wait_time = 3.0
+
+[connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]

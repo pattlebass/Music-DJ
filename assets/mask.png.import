@@ -2,12 +2,13 @@
 
 importer="image"
 type="Image"
-path="res://.import/mask.png-9f44758278b9ba6cd146ee809a9389e4.image"
+uid="uid://56ocpmr8n1mj"
+path="res://.godot/imported/mask.png-9f44758278b9ba6cd146ee809a9389e4.image"
 
 [deps]
 
 source_file="res://assets/mask.png"
-dest_files=[ "res://.import/mask.png-9f44758278b9ba6cd146ee809a9389e4.image" ]
+dest_files=["res://.godot/imported/mask.png-9f44758278b9ba6cd146ee809a9389e4.image"]
 
 [params]
 

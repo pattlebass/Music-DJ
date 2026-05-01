@@ -1,0 +1,82 @@
+[gd_scene format=3 uid="uid://c6x7qgd6xh3mr"]
+
+[ext_resource type="Script" uid="uid://c5qnpqposboig" path="res://scenes/dialogs/filename_dialog/filename_dialog.gd" id="1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i2cmc"]
+
+[node name="FilenameDialog" type="PopupPanel" unique_id=1888148372 node_paths=PackedStringArray("_ok_button", "_cancel_button", "container")]
+oversampling_override = 1.0
+initial_position = 2
+size = Vector2i(433, 268)
+visible = true
+theme_override_styles/panel = SubResource("StyleBoxEmpty_i2cmc")
+script = ExtResource("1")
+_ok_button = NodePath("PanelContainer/VBoxContainer/HBoxContainer/OkButton")
+_cancel_button = NodePath("PanelContainer/VBoxContainer/HBoxContainer/CancelButton")
+container = NodePath("PanelContainer")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=580620752]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"CustomDialog"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=1934204627]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=1777850097]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Title" type="Label" parent="PanelContainer/VBoxContainer/VBoxContainer" unique_id=565826757]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"LabelTitle"
+text = "Save as"
+
+[node name="Control" type="Control" parent="PanelContainer/VBoxContainer/VBoxContainer" unique_id=1504620595]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/VBoxContainer" unique_id=966972287]
+layout_mode = 2
+alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="PanelContainer/VBoxContainer/VBoxContainer/HBoxContainer" unique_id=1458147904]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 50)
+layout_mode = 2
+placeholder_text = "File name here"
+max_length = 100
+caret_blink = true
+
+[node name="Error" type="Label" parent="PanelContainer/VBoxContainer/VBoxContainer" unique_id=485469996]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"LabelSubtitle"
+theme_override_colors/font_color = Color(1, 0.2, 0.290196, 1)
+text = "Invalid file name: / \\ ? * \" | % < > :"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=1574442444]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 2
+
+[node name="OkButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer" unique_id=536313251]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+text = "DIALOG_SAVE_BTN"
+
+[node name="CancelButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer" unique_id=1030967843]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+text = "BTN_CANCEL"
+
+[connection signal="text_changed" from="PanelContainer/VBoxContainer/VBoxContainer/HBoxContainer/LineEdit" to="." method="_on_LineEdit_text_changed"]
+[connection signal="text_submitted" from="PanelContainer/VBoxContainer/VBoxContainer/HBoxContainer/LineEdit" to="." method="_on_LineEdit_text_entered"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/OkButton" to="." method="_on_OkButton_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/CancelButton" to="." method="_on_CancelButton_pressed"]

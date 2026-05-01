@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://deqkupbh7ke6w"]
+
+[ext_resource type="Script" uid="uid://bbvm3b1ohdw1q" path="res://scenes/dialogs/about_dialog/about_dialog.gd" id="1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qf61r"]
+
+[node name="AboutDialog" type="PopupPanel" unique_id=581290602 node_paths=PackedStringArray("container")]
+oversampling_override = 1.0
+initial_position = 2
+size = Vector2i(500, 600)
+visible = true
+theme_override_styles/panel = SubResource("StyleBoxEmpty_qf61r")
+script = ExtResource("1")
+container = NodePath("PanelContainer")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1308840324]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"CustomDialog"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=566642246]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer" unique_id=1908452827]
+layout_mode = 2
+theme_type_variation = &"LabelTitle"
+text = "DIALOG_ABOUT_TITLE"
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/VBoxContainer" unique_id=1564290555]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/VBoxContainer" unique_id=1349594647]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+focus_neighbor_top = NodePath(".")
+focus_neighbor_bottom = NodePath(".")
+focus_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer/ScrollContainer" unique_id=25604577]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+bbcode_enabled = true
+text = "Developer:
+- pattlebass ([color=#4ecca3][url=https://twitter.com/pattlebass_dev]@pattlebass_dev[/url][/color])
+
+Translators:
+- StarryWindy (Indonesian)
+- dawidsadowski (Polish)
+
+Credits and licenses:
+- [color=#4ecca3][url=https://github.com/pattlebass/Music-DJ/blob/main/LICENSE]MusicDJ[/url][/color] by pattlebass
+- [color=#4ecca3][url=https://godotengine.org/license]Godot Engine[/url][/color]
+- Icons made by [color=#4ecca3][url=https://www.flaticon.com/authors/freepik]Freepik[/url][/color] from [color=#4ecca3][url=https://www.flaticon.com/]www.flaticon.com[/url][/color].
+- Gidole Font by [color=#4ecca3][url=https://twitter.com/larsenwork]Andreas Larsen[/url][/color]. [color=#4ecca3][url=https://github.com/pattlebass/Music-DJ/blob/main/assets/fonts/GidoleFont/License.txt]LICENSE[/url][/color]
+
+For any issues regarding copyright, please email me at [color=#4ecca3][url=mailto:pattlebass.dev@gmail.com]pattlebass.dev@gmail.com[/url][/color]."
+fit_content = true
+scroll_active = false
+
+[node name="Control" type="Control" parent="PanelContainer/VBoxContainer" unique_id=2042197394]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=1147281400]
+layout_mode = 2
+alignment = 1
+
+[node name="CloseButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer" unique_id=1089791209]
+custom_minimum_size = Vector2(80, 50)
+layout_mode = 2
+text = "BTN_CLOSE"
+
+[connection signal="gui_input" from="PanelContainer/VBoxContainer/ScrollContainer" to="." method="_on_scroll_container_gui_input"]
+[connection signal="scroll_ended" from="PanelContainer/VBoxContainer/ScrollContainer" to="." method="_on_scroll_container_scroll_ended"]
+[connection signal="scroll_started" from="PanelContainer/VBoxContainer/ScrollContainer" to="." method="_on_scroll_container_scroll_started"]
+[connection signal="meta_clicked" from="PanelContainer/VBoxContainer/ScrollContainer/RichTextLabel" to="." method="_on_rich_text_label_meta_clicked"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]

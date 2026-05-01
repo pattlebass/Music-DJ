@@ -1,0 +1,91 @@
+[gd_scene format=3 uid="uid://b856d6b7lcmnb"]
+
+[ext_resource type="Script" uid="uid://dq3vqhdbd4fkk" path="res://scenes/dialogs/progress_dialog/progress_dialog.gd" id="1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ggbjy"]
+
+[node name="ProgressDialog" type="PopupPanel" unique_id=1214394077 node_paths=PackedStringArray("container")]
+oversampling_override = 1.0
+initial_position = 2
+size = Vector2i(573, 248)
+visible = true
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ggbjy")
+script = ExtResource("1")
+container = NodePath("PanelContainer")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1219134486]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"CustomDialog"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=1107591356]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="PanelContainer/VBoxContainer" unique_id=1723607335]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"LabelTitle"
+text = "Saving..."
+
+[node name="Body" type="Label" parent="PanelContainer/VBoxContainer" unique_id=767306068]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+theme_type_variation = &"LabelSubtitle"
+text = "documents/MusicDJ"
+autowrap_mode = 3
+
+[node name="Control" type="Control" parent="PanelContainer/VBoxContainer" unique_id=371298827]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="PanelContainer/VBoxContainer" unique_id=703950583]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+
+[node name="Control2" type="Control" parent="PanelContainer/VBoxContainer" unique_id=74246934]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=1468456572]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="OpenButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer" unique_id=252016384]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+disabled = true
+text = "DIALOG_PROGRESS_BTN_OPEN"
+
+[node name="DownloadButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer" unique_id=1955188073]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+disabled = true
+text = "  Download  "
+
+[node name="ShareButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer" unique_id=2055857120]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+disabled = true
+text = "Share"
+
+[node name="CancelButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer" unique_id=864164004]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+text = "BTN_CANCEL"
+
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]
