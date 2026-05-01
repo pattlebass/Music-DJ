@@ -14,6 +14,7 @@ var locale_names := {
 	"ro": "Română",
 	"id": "Bahasa Indonesia",
 	"pl": "Polski",
+	"ru": "Русский"
 }
 
 

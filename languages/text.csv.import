@@ -6,12 +6,14 @@ uid="uid://xvdo3a6n620a"
 
 [deps]
 
-files=["res://languages/text.en.translation", "res://languages/text.ro.translation", "res://languages/text.id.translation", "res://languages/text.pl.translation"]
+files=["res://languages/text.en.translation", "res://languages/text.ro.translation", "res://languages/text.id.translation", "res://languages/text.pl.translation", "res://languages/text.ru.translation"]
 
 source_file="res://languages/text.csv"
-dest_files=["res://languages/text.en.translation", "res://languages/text.ro.translation", "res://languages/text.id.translation", "res://languages/text.pl.translation"]
+dest_files=["res://languages/text.en.translation", "res://languages/text.ro.translation", "res://languages/text.id.translation", "res://languages/text.pl.translation", "res://languages/text.ru.translation"]
 
 [params]
 
 compress=true
 delimiter=0
+unescape_keys=false
+unescape_translations=true
