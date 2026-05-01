@@ -3,14 +3,21 @@
 #
 
 @tool
-class_name Share
-extends Node
+@icon("icon.png")
+class_name Share extends Node
 
 const PLUGIN_SINGLETON_NAME: String = "SharePlugin"
-const PLUGIN_TARGET_OS: String = "android"
+
+signal share_completed(activity_type: String)
+signal share_failed(error_message: String)
+signal share_canceled()
 
 const MIME_TYPE_TEXT: String = "text/plain"
 const MIME_TYPE_IMAGE: String = "image/*"
+
+const SIGNAL_NAME_SHARE_COMPLETED: String = "share_completed";
+const SIGNAL_NAME_SHARE_FAILED: String = "share_failed";
+const SIGNAL_NAME_SHARE_CANCELED: String = "share_canceled";
 
 @onready var _temp_image_path: String = OS.get_user_data_dir() + "/tmp_share_img_path.png"
 
@@ -30,10 +37,15 @@ func _update_plugin() -> void:
 	if _plugin_singleton == null:
 		if Engine.has_singleton(PLUGIN_SINGLETON_NAME):
 			_plugin_singleton = Engine.get_singleton(PLUGIN_SINGLETON_NAME)
-		elif OS.has_feature(PLUGIN_TARGET_OS):
-			printerr("%s singleton not found!" % PLUGIN_SINGLETON_NAME)
-		#else:
-			#printerr("%s plugin should be run on %s!" % [PLUGIN_SINGLETON_NAME, PLUGIN_TARGET_OS])
+			_connect_signals()
+		elif not OS.has_feature("editor_hint"):
+			log_error("%s singleton not found!" % PLUGIN_SINGLETON_NAME)
+
+
+func _connect_signals() -> void:
+	_plugin_singleton.connect(SIGNAL_NAME_SHARE_COMPLETED, _on_share_completed)
+	_plugin_singleton.connect(SIGNAL_NAME_SHARE_FAILED, _on_share_failed)
+	_plugin_singleton.connect(SIGNAL_NAME_SHARE_CANCELED, _on_share_canceled)
 
 
 func share_text(a_title: String, a_subject: String, a_content: String) -> void:
@@ -47,7 +59,7 @@ func share_text(a_title: String, a_subject: String, a_content: String) -> void:
 				.get_raw_data()
 		)
 	else:
-		printerr("%s plugin not initialized" % PLUGIN_SINGLETON_NAME)
+		log_error("%s plugin not initialized" % PLUGIN_SINGLETON_NAME)
 
 
 func share_image(a_path: String, a_title: String, a_subject: String, a_content: String) -> void:
@@ -80,4 +92,24 @@ func share_file(a_path: String, a_mime_type: String, a_title: String, a_subject:
 				.get_raw_data()
 		)
 	else:
-		printerr("%s plugin not initialized" % PLUGIN_SINGLETON_NAME)
+		log_error("%s plugin not initialized" % PLUGIN_SINGLETON_NAME)
+
+
+func _on_share_completed(a_activity_type: String) -> void:
+	emit_signal(SIGNAL_NAME_SHARE_COMPLETED, a_activity_type)
+
+
+func _on_share_failed(a_error_message: String) -> void:
+	emit_signal(SIGNAL_NAME_SHARE_FAILED, a_error_message)
+
+
+func _on_share_canceled() -> void:
+	emit_signal(SIGNAL_NAME_SHARE_CANCELED)
+
+
+static func log_error(a_description: String) -> void:
+	push_error(a_description)
+
+
+static func log_info(a_description: String) -> void:
+	print_rich("[color=cyan]INFO: %s[/color]" % a_description)

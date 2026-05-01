@@ -245,17 +245,8 @@ func save_project(file_name: String) -> void:
 	progress_dialog.download_button.hide()
 	
 	progress_dialog.open_button.pressed.connect(
-		OS.shell_open.bind(ProjectSettings.globalize_path(Variables.saves_dir)),
-		CONNECT_ONE_SHOT
+		OS.shell_open.bind(ProjectSettings.globalize_path(Variables.saves_dir))
 	)
-	#progress_dialog.download_button.pressed.connect(
-		#Utils.download_file.bind(path, path.get_file()),
-		#CONNECT_ONE_SHOT
-	#)
-	#progress_dialog.share_button.pressed.connect(
-		#Utils.share_file.bind(path, "", "", "", "audio/wav"),
-		#CONNECT_ONE_SHOT
-	#)
 	
 	var tween := create_tween()
 	tween.tween_property(progress_dialog, ^"progress", 1, 0.2)
@@ -285,26 +276,23 @@ func export_song(file_name: String) -> void:
 	progress_dialog.popup2()
 	
 	progress_dialog.open_button.pressed.connect(
-		OS.shell_open.bind(ProjectSettings.globalize_path(Variables.saves_dir)),
-		CONNECT_ONE_SHOT
+		OS.shell_open.bind(ProjectSettings.globalize_path(Variables.saves_dir))
 	)
 	progress_dialog.download_button.pressed.connect(
-		Utils.download_file.bind(path, path.get_file()),
-		CONNECT_ONE_SHOT
+		Utils.download_file.bind(path, path.get_file())
 	)
 	progress_dialog.share_button.pressed.connect(
-		Utils.share_file.bind(path, "", "", "", "audio/wav"),
-		CONNECT_ONE_SHOT
+		Utils.share_file.bind(path, "", "", "", "audio/wav")
 	)
 	
 	# Animate progress bar
 	var tween := create_tween()
 	tween.tween_property(progress_dialog, ^"progress", 1, BoomBox.song.get_duration() + 0.5)
 	
+	# Recording
 	var bus_idx := AudioServer.get_bus_index(&"Master")
 	var effect: AudioEffectRecord = AudioServer.get_bus_effect(bus_idx, 0)
 	
-	# Recording
 	effect.set_recording_active(true)
 	BoomBox.play()
 	await BoomBox.play_ended

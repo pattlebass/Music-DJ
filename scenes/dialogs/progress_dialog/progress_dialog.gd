@@ -23,7 +23,7 @@ var progress := 0.0:
 			title_label.text = title_text_completed
 			body.text = body_text_completed
 			
-			#share_button.disabled = false
+			share_button.disabled = false
 			open_button.disabled = false
 			download_button.disabled = false
 			cancel_button.text = "BTN_CLOSE"
@@ -50,7 +50,7 @@ func popup2() -> void:
 	cancel_button.text = "BTN_CANCEL"
 	
 	if OS.get_name() == "Android":
-#		share_button.show()
+		share_button.show()
 		open_button.hide()
 		download_button.hide()
 	elif OS.get_name() == "Web":

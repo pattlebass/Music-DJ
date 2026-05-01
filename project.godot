@@ -25,6 +25,10 @@ boot_splash/image="res://assets/icon/icon.png"
 config/icon="res://assets/icon/icon.png"
 config/windows_native_icon="res://assets/icon/icon.ico"
 
+[audio]
+
+buses/default_bus_layout="uid://brqnmj4fv1j4i"
+
 [autoload]
 
 Variables="*res://scenes/variables.gd"

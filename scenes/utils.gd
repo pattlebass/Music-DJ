@@ -18,8 +18,12 @@ func _ready() -> void:
 	
 	if Variables.main:
 		traverse(Variables.main)
+	
+	if can_share():
+		add_child(share_plugin)
+	
+	clean_temp()
 
-	add_child(share_plugin)
 
 func change_theme(new_theme: String) -> void:
 	theme_changed.emit(new_theme)
@@ -50,14 +54,28 @@ func download_file(file_path: String, file_name: String):
 
 
 func can_share() -> bool:
-	return share_plugin._plugin_singleton != null
+	return Engine.has_singleton(share_plugin.PLUGIN_SINGLETON_NAME)
 
 
 func share_file(path: String, title: String, subject: String, text: String, mime_type: String) -> void:
+	clean_temp()
+	
 	if not can_share():
 		return
 	
-	share_plugin.share_file(ProjectSettings.globalize_path(path), mime_type, title, subject, text)
+	var real_path := path
+	if not (path.begins_with("res://") or path.begins_with("user://")):
+		real_path = "user://_temp/".path_join(path.get_file())
+		DirAccess.copy_absolute(path, real_path)
+	share_plugin.share_file(ProjectSettings.globalize_path(real_path), mime_type, title, subject, text)
+	
+	# TODO: Clean copied file here
+
+
+func clean_temp() -> void:
+	var dir := DirAccess.open("user://_temp")
+	for file in dir.get_files():
+		dir.remove(file)
 
 
 func toast(text: String, duration: Toast.Length = Toast.Length.LENGTH_LONG) -> void:

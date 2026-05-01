@@ -38,6 +38,9 @@ func from(song: Dictionary) -> Song:
 		bpm = song.bpm
 	if song.has("data"):
 		data = song.data
+		# I hate that I have to do this...
+		for instrument in data.size():
+			data[instrument] = data[instrument].map(func(sample): return int(sample))
 	
 	return self
 

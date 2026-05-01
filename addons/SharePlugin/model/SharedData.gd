@@ -2,14 +2,14 @@
 # © 2024-present https://github.com/cengiz-pz
 #
 
-class_name SharedData
-extends RefCounted
+class_name SharedData extends RefCounted
 
 const DATA_KEY_TITLE = "title"
 const DATA_KEY_SUBJECT = "subject"
 const DATA_KEY_CONTENT = "content"
 const DATA_KEY_FILE_PATH = "file_path"
 const DATA_KEY_MIME_TYPE = "mime_type"
+const DATA_KEY_CUSTOM_THRESHOLD_MS = "custom_threshold"
 
 var _data: Dictionary
 
@@ -40,6 +40,11 @@ func set_file_path(a_file_path: String) -> SharedData:
 
 func set_mime_type(a_mime_type: String) -> SharedData:
 	_data[DATA_KEY_MIME_TYPE] = a_mime_type
+	return self
+
+
+func set_custom_threshold(a_threshold_ms: int) -> SharedData:
+	_data[DATA_KEY_CUSTOM_THRESHOLD_MS] = a_threshold_ms
 	return self
 
 
