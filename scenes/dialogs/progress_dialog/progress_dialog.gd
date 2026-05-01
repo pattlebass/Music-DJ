@@ -58,9 +58,14 @@ func popup2() -> void:
 		open_button.hide()
 		download_button.show()
 	
-	size.y = 0
+	size.y = 0 # HACK
 	
 	super()
+
+
+func _process(delta: float) -> void:
+	# Even uglier HACK
+	size.y = 0
 
 
 func error(code: int) -> void:
