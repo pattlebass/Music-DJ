@@ -50,9 +50,9 @@ func set_tile(instrument: int, column_no: int, sample_index: int) -> void:
 	changed.emit()
 
 
-func add_column() -> void:
+func add_column(column_no := get_length()) -> void:
 	for i in data:
-		i.append(0)
+		i.insert(column_no, 0)
 	changed.emit()
 
 

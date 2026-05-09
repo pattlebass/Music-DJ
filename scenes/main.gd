@@ -113,9 +113,10 @@ func _on_tile_pressed(column: Column, instrument: int) -> void:
 	sound_dialog.popup2()
 
 
-func _on_tile_held(column_no: int, instrument: int, tile_button: Button) -> void:
+func _on_tile_held(column: Column, instrument: int, tile_button: Button) -> void:
 	# Needs cleanup
-	if BoomBox.is_playing or BoomBox.song.data[instrument][column_no] == 0:
+	var sample_to_copy: int = BoomBox.song.data[instrument][column.column_no]
+	if BoomBox.is_playing or sample_to_copy == 0:
 		return
 	
 	await get_tree().create_timer(Variables.HOLD_TIME_S).timeout
@@ -125,7 +126,7 @@ func _on_tile_held(column_no: int, instrument: int, tile_button: Button) -> void
 	
 	Input.vibrate_handheld(Variables.VIBRATION_MS)
 	
-	# Prevent button from emmiting pressed
+	# Prevent button from emitting pressed
 	tile_button.disabled = true
 	tile_button.disabled = false
 	# Lock scroll
@@ -143,7 +144,6 @@ func _on_tile_held(column_no: int, instrument: int, tile_button: Button) -> void
 			if collided_column == null or collided_instrument != instrument:
 				return
 			
-			var sample_to_copy: int = BoomBox.song.data[instrument][column_no]
 			collided_column.set_tile(instrument, sample_to_copy)
 			BoomBox.song.set_tile(instrument, collided_column.column_no, sample_to_copy)
 	)
@@ -167,7 +167,7 @@ func _on_open_project_pressed() -> void:
 
 func _on_add_button_pressed() -> void:
 	BoomBox.song.add_column()
-	add_column(BoomBox.song.get_length() - 1).fade_in()
+	add_column(BoomBox.song.get_length() - 1)
 	# HACK
 	await get_tree().process_frame
 	await get_tree().process_frame
@@ -181,25 +181,41 @@ func _on_bpm_spin_box_value_changed(value: int) -> void:
 func add_column(column_no: int) -> Column:
 	var column: Column = COLUMN.instantiate()
 	column_container.add_child(column)
-	column_container.move_child(column, column_container.get_child_count() - 2)
+	column_container.move_child(column, column_no)
 	column.add(column_no)
 	
 	# Signals
 	for i in 4:
 		var button: Button = column.tiles[i]
 		button.pressed.connect(_on_tile_pressed.bind(column, i))
-		button.button_down.connect(_on_tile_held.bind(column_no, i, button))
+		button.button_down.connect(_on_tile_held.bind(column, i, button))
 	column.column_button.pressed.connect(column_dialog.popup_on_column.bind(column))
-	column.removed.connect(remove_column.bind(column_no))
+	column.fade_in()
 	
 	columns.insert(column_no, column)
+	
+	# Renumber columns
+	for i in range(column_no + 1, columns.size()):
+		columns[i].add(i)
 	
 	return column
 
 
 func remove_column(column_no: int) -> void:
+	await columns[column_no].remove()
 	columns.remove_at(column_no)
-	BoomBox.song.remove_column(column_no)
+	
+	# Renumber columns
+	for i in columns.size():
+		columns[i].add(i)
+	
+	# Decide focus
+	var next_focus: Control = add_button
+	if column_no < columns.size():
+		next_focus = columns[column_no].column_button
+	elif column_no - 1 > 0:
+		next_focus = columns[column_no - 1].column_button
+	next_focus.grab_focus.call_deferred()
 
 
 func get_project_from_query() -> Song:
@@ -419,7 +435,3 @@ func _on_load_dialog_new_project() -> void:
 	if confirmed:
 		new_song()
 		load_dialog.hide()
-
-
-func _on_column_dialog_removed_column() -> void:
-	add_button.grab_focus.call_deferred()

@@ -12,6 +12,8 @@ BTN_COPY,Copy,Copiază,Menyalin,Kopiuj,Копировать
 BTN_PASTE,Paste,Lipește,Tempel,Wklej,Вставить
 BTN_CLEAR,Clear,Golește,Kosongkan,Wyczyść,Очистить
 BTN_REMOVE,Remove,Șterge,Buang,Usuń,Убрать
+BTN_NEW_COLUMN,New column,Coloană nouă,,,
+BTN_DUPLICATE,Duplicate,Duplică,,,
 BTN_CANCEL,Cancel,Anulează,Batal,Anuluj,Отмена
 BTN_CLOSE,Close,Închide,Tutup,Zamknij,Закрыть
 BTN_TUTORIAL,Show tutorial,Arată tutorialul,Buka tutorial,Pokaż samouczek,Показать обучение
