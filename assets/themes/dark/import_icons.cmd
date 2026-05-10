@@ -1,1 +1,0 @@
-python -u "..\svg_import.py" --fill "#FFFFFF"
