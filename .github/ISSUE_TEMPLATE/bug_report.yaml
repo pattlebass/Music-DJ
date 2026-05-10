@@ -1,6 +1,5 @@
 name: Bug Report
 description: File a bug report
-title: ""
 labels: [bug]
 
 body:
@@ -12,7 +11,7 @@ body:
     id: what-happened
     attributes:
       label: What happened?
-      description: Also tell us, what did you expect to happen?
+      description: Also mention what you expected to happen.
       placeholder: Tell us what you see!
     validations:
       required: true
@@ -42,4 +41,4 @@ body:
     id: media
     attributes:
       label: Screenshots / Videos
-      description: You can upload screenshots or videos showing the issue.
+      description: You can upload screenshots or videos that show the issue.
