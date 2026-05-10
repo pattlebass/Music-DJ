@@ -12,7 +12,10 @@ var bpm := 80:
 var data: Array = [[], [], [], []]
 
 signal bpm_changed
-signal changed
+signal added_column(column_no: int)
+signal removed_column(column_no: int)
+signal tile_changed(instrument: int, column_no: int, sample_index: int)
+signal trimmed_length_changed
 
 
 func _init() -> void:
@@ -47,25 +50,35 @@ func from(song: Dictionary) -> Song:
 
 func set_tile(instrument: int, column_no: int, sample_index: int) -> void:
 	data[instrument][column_no] = sample_index
-	changed.emit()
+	tile_changed.emit(instrument, column_no, sample_index)
+	trimmed_length_changed.emit()
 
 
-func add_column(column_no := get_length()) -> void:
+func add_column(column_no: int) -> void:
 	for i in data:
 		i.insert(column_no, 0)
-	changed.emit()
+	added_column.emit(column_no)
+	trimmed_length_changed.emit()
 
 
 func remove_column(column_no: int) -> void:
 	for i in 4:
-		data[i].pop_back()
-	changed.emit()
+		data[i].remove_at(column_no)
+	removed_column.emit(column_no)
+	trimmed_length_changed.emit()
+
+
+func duplicate_column(column_no: int) -> void:
+	add_column(column_no + 1)
+	for instrument in 4:
+		set_tile(instrument, column_no + 1, data[instrument][column_no])
 
 
 func clear_column(column_no: int) -> void:
-	for i in 4:
-		data[i][column_no] = 0
-	changed.emit()
+	for instrument in 4:
+		data[instrument][column_no] = 0
+		tile_changed.emit(instrument, column_no, 0)
+	trimmed_length_changed.emit()
 
 
 func get_length() -> int:

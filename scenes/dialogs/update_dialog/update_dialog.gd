@@ -24,10 +24,22 @@ func _ready() -> void:
 		ask_permission()
 		return
 	
-	if Options.check_updates and Time.get_unix_time_from_system() - Options.last_update_check > CHECK_UPDATE_INTERVAL:
+	var time_since_last_check := Time.get_unix_time_from_system() - Options.last_update_check
+	time_since_last_check = CHECK_UPDATE_INTERVAL + 1
+	if Options.check_updates and time_since_last_check > CHECK_UPDATE_INTERVAL:
 		Options.last_update_check = int(Time.get_unix_time_from_system())
 		Options.save()
 		http_request.request("https://api.github.com/repos/pattlebass/Music-DJ/releases/latest")
+
+
+func popup2() -> void:
+	size.y = 0 # HACK
+	super()
+
+
+func _process(delta: float) -> void:
+	# Even uglier HACK
+	size.y = 0
 
 
 func ask_permission() -> void:
@@ -36,7 +48,7 @@ func ask_permission() -> void:
 	body_label.text = tr(&"DIALOG_UPDATE_BODY_ASK") % "https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement"
 	ok_button.text = "DIALOG_UPDATE_BTN_ACCEPT"
 	close_button.text = "DIALOG_UPDATE_BTN_DENY"
-	popup_centered.call_deferred()
+	popup2.call_deferred()
 
 
 func _on_HTTP_request_request_completed(_result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
@@ -49,7 +61,7 @@ func _on_HTTP_request_request_completed(_result: int, response_code: int, _heade
 	
 	if ProjectSettings.get_setting("application/config/version") != json_result.tag_name:
 		body_label.text = tr(&"DIALOG_UPDATE_BODY") % json_result.tag_name
-		popup_centered()
+		popup2()
 
 
 func _on_ok_button_pressed() -> void:

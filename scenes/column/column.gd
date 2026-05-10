@@ -3,11 +3,8 @@ extends VBoxContainer
 
 var column_no: int
 
-@onready var anim_player: AnimationPlayer = $AnimationPlayer
 @onready var column_button: Button = $ColumnButton
 @onready var tiles: Array[Button] = [$Button1, $Button2, $Button3, $Button4]
-
-signal removed
 
 
 func _ready() -> void:
@@ -66,8 +63,16 @@ func end_play() -> void:
 	column_button.remove_theme_color_override(&"font_pressed_color")
 
 
-func fade_in() -> void:
-	anim_player.play(&"fade_in")
+func fade_in() -> Signal:
+	var tween := create_tween()
+	tween.tween_property(self, ^"modulate:a", 1, 0.1).from(0)
+	return tween.finished
+
+
+func fade_out() -> Signal:
+	var tween := create_tween()
+	tween.tween_property(self, ^"modulate:a", 0, 0.1)
+	return tween.finished
 
 
 func add(p_column_no: int) -> void:
@@ -76,9 +81,7 @@ func add(p_column_no: int) -> void:
 
 
 func remove() -> void:
-	removed.emit()
-	anim_player.play_backwards(&"fade_in")
-	await anim_player.animation_finished
+	await fade_out()
 	queue_free()
 
 
@@ -97,7 +100,6 @@ func _on_tile_gui_input(event: InputEvent, button: Button) -> void:
 		context_menu.clear_button.pressed.connect(
 			func():
 				BoomBox.song.set_tile(instrument, column_no, 0)
-				clear_tile(instrument)
 		)
 		
 		if event is InputEventMouseButton:
@@ -121,7 +123,6 @@ func copy_tile(instrument: int) -> void:
 func paste_tile() -> void:
 	if Clipboard.has_tile():
 		BoomBox.song.set_tile(Clipboard.get_tile().instrument, column_no, Clipboard.get_tile().sample)
-		set_tile(Clipboard.get_tile().instrument, Clipboard.get_tile().sample)
 
 
 func _notification(what: int) -> void:

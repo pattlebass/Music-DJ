@@ -6,8 +6,7 @@ var song: Song:
 		if song == value:
 			return
 		song = value
-		song.bpm_changed.connect(bpm_changed.emit)
-		song.changed.connect(song_changed.emit)
+		song_loaded.emit()
 
 var is_playing := false
 
@@ -26,8 +25,7 @@ signal play_ended
 signal column_play_started(column_no: int)
 signal column_play_ended(column_no: int)
 
-signal bpm_changed
-signal song_changed
+signal song_loaded
 
 
 func _ready() -> void:

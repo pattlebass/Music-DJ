@@ -121,14 +121,15 @@ expand_icon = true
 script = ExtResource("3_gwbec")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=934383914]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
 anchor_left = 0.034
 anchor_top = 0.167
 anchor_right = 0.977
 anchor_bottom = 0.167
-offset_left = 0.183998
-offset_top = -0.199997
-offset_right = -0.44812
+offset_left = 0.18399811
+offset_top = -0.19999695
+offset_right = -2.5040283
 offset_bottom = 446.8
 size_flags_vertical = 3
 

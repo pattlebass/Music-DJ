@@ -54,7 +54,6 @@ func _ready() -> void:
 		buttons[i].focus_neighbor_bottom = buttons[i + 1].get_path()
 	
 	BoomBox.play_started.connect(audio_player.stop)
-	BoomBox.bpm_changed.connect(_on_BPM_changed)
 
 
 func popup2() -> void:
@@ -138,25 +137,14 @@ func _on_ok_button_pressed() -> void:
 	if BoomBox.song.data[instrument][column.column_no] - 1 == pressed_button_index:
 		hide()
 		return
-	
 	BoomBox.song.set_tile(instrument, column.column_no, pressed_button_index + 1)
-	column.set_tile(
-		instrument,
-		pressed_button_index + 1
-	)
-	
 	hide()
 
 
 func _on_clear_button_pressed() -> void:
-	column.clear_tile(instrument)
 	BoomBox.song.set_tile(instrument, column.column_no, 0)
 	popup_hide2()
 
 
 func _on_cancel_button_pressed() -> void:
 	popup_hide2()
-
-
-func _on_BPM_changed() -> void:
-	audio_player.pitch_scale = BoomBox.song.bpm / 80.0
