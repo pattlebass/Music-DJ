@@ -414,7 +414,7 @@ func _on_more_item_pressed(id: int) -> void:
 		1:
 			tutorial_dialog.popup2()
 		2:
-			var link := "https://github.com/pattlebass/Music-DJ/issues/new?labels=bug&template=bug_report.yaml&title=%5BBug%5D%3A+&version={version}&device={device}"
+			var link := "https://github.com/pattlebass/Music-DJ/issues/new?labels=bug&template=bug_report.yaml&version={version}&device={device}"
 			link = link.format(
 				{
 					"version": ProjectSettings.get_setting("application/config/version"),
@@ -423,8 +423,10 @@ func _on_more_item_pressed(id: int) -> void:
 			)
 			OS.shell_open(link)
 		3:
-			OS.shell_open("https://github.com/pattlebass/Music-DJ/issues/new?labels=enhancement&template=feature_request.yaml&title=%5BFeature%5D%3A+")
+			OS.shell_open("https://github.com/pattlebass/Music-DJ/issues/new?labels=enhancement&template=feature_request.yaml")
 		4:
+			OS.shell_open("https://ko-fi.com/fabians")
+		5:
 			about_dialog.popup2()
 
 

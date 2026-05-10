@@ -10,6 +10,7 @@ func _ready() -> void:
 	popup_menu.add_item("BTN_TUTORIAL")
 	popup_menu.add_item("BTN_SEND_BUG")
 	popup_menu.add_item("BTN_SEND_PROPOSAL")
+	popup_menu.add_item("BTN_DONATE")
 	popup_menu.add_item("BTN_ABOUT")
 
 
