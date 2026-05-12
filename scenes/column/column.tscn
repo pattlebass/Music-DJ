@@ -4,9 +4,6 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3m7mp"]
 
-[sub_resource type="RectangleShape2D" id="1"]
-size = Vector2(50, 50)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3m7mp"]
 draw_center = false
 border_width_left = 3
@@ -57,14 +54,6 @@ theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0.605469, 0.605469, 0.605469, 1)
 shortcut_in_tooltip = false
 
-[node name="Area2D" type="Area2D" parent="VBoxContainer/Button1" unique_id=1029127526]
-position = Vector2(40, 40)
-monitoring = false
-monitorable = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="VBoxContainer/Button1/Area2D" unique_id=844332420]
-shape = SubResource("1")
-
 [node name="Button2" type="Button" parent="VBoxContainer" unique_id=771115099]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(80, 80)
@@ -75,14 +64,6 @@ theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0.605469, 0.605469, 0.605469, 1)
 shortcut_in_tooltip = false
-
-[node name="Area2D" type="Area2D" parent="VBoxContainer/Button2" unique_id=1290982411]
-position = Vector2(40, 40)
-monitoring = false
-monitorable = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="VBoxContainer/Button2/Area2D" unique_id=856154060]
-shape = SubResource("1")
 
 [node name="Button3" type="Button" parent="VBoxContainer" unique_id=2063173622]
 unique_name_in_owner = true
@@ -95,14 +76,6 @@ theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0.605469, 0.605469, 0.605469, 1)
 shortcut_in_tooltip = false
 
-[node name="Area2D" type="Area2D" parent="VBoxContainer/Button3" unique_id=744822406]
-position = Vector2(40, 40)
-monitoring = false
-monitorable = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="VBoxContainer/Button3/Area2D" unique_id=992248221]
-shape = SubResource("1")
-
 [node name="Button4" type="Button" parent="VBoxContainer" unique_id=643472156]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(80, 80)
@@ -113,14 +86,6 @@ theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0.605469, 0.605469, 0.605469, 1)
 shortcut_in_tooltip = false
-
-[node name="Area2D" type="Area2D" parent="VBoxContainer/Button4" unique_id=303288491]
-position = Vector2(40, 40)
-monitoring = false
-monitorable = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="VBoxContainer/Button4/Area2D" unique_id=1778524845]
-shape = SubResource("1")
 
 [node name="DragOverlay" type="Panel" parent="." unique_id=1636419657]
 unique_name_in_owner = true
