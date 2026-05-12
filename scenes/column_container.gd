@@ -86,7 +86,7 @@ func _on_song_loaded() -> void:
 			var sample: int = BoomBox.song.data[instrument][column_no]
 			column.set_tile(instrument, sample)
 	
-	sort_children.connect(func(): do_animation = true)
+	sort_children.connect(func(): do_animation = true) # Otherwise sort() gets called first
 	
 	# Signals
 	BoomBox.song.added_column.connect(add_column)
