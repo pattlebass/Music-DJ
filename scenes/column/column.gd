@@ -94,6 +94,11 @@ func copy_tile(instrument: int) -> void:
 	Clipboard.set_tile(instrument, sample)
 
 
+func cut_tile(instrument: int) -> void:
+	copy_tile(instrument)
+	BoomBox.song.set_tile(instrument, column_no, 0)
+
+
 func paste_tile() -> void:
 	if Clipboard.has_tile():
 		BoomBox.song.set_tile(Clipboard.get_tile().instrument, column_no, Clipboard.get_tile().sample)
@@ -185,15 +190,17 @@ func _on_tile_button_down(instrument: int) -> void:
 func _on_tile_gui_input(event: InputEvent, instrument: int) -> void:
 	var tile_button := tiles[instrument]
 	var sample: int = BoomBox.song.data[instrument][column_no]
-	if event.is_action_pressed("right_click") or event.is_action_pressed("ui_menu"):
+	if event.is_action_pressed(&"right_click") or event.is_action_pressed(&"ui_menu"):
 		var context_menu := ContextMenu.new()
 		add_child(context_menu)
 		
 		context_menu.copy_button.disabled = sample == 0
+		context_menu.cut_button.disabled = sample == 0
 		context_menu.paste_button.disabled = not Clipboard.has_tile()
 		context_menu.clear_button.disabled = sample == 0
 		
 		context_menu.copy_button.pressed.connect(copy_tile.bind(instrument))
+		context_menu.cut_button.pressed.connect(cut_tile.bind(instrument))
 		context_menu.paste_button.pressed.connect(paste_tile)
 		context_menu.clear_button.pressed.connect(BoomBox.song.set_tile.bind(instrument, column_no, 0))
 		
@@ -204,9 +211,11 @@ func _on_tile_gui_input(event: InputEvent, instrument: int) -> void:
 		
 		context_menu.popup()
 		context_menu.copy_button.grab_focus()
-	elif event.is_action_pressed("copy") and Utils.show_focus:
+	elif event.is_action_pressed(&"ui_copy") and Utils.show_focus:
 		copy_tile(instrument)
-	elif event.is_action_pressed("paste") and Utils.show_focus:
+	elif event.is_action_pressed(&"ui_cut") and Utils.show_focus:
+		cut_tile(instrument)
+	elif event.is_action_pressed(&"ui_paste") and Utils.show_focus:
 		paste_tile()
 
 
