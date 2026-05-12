@@ -74,6 +74,7 @@ func fade_in() -> Signal:
 
 
 func fade_out() -> Signal:
+	mouse_behavior_recursive = Control.MOUSE_BEHAVIOR_DISABLED
 	var tween := create_tween()
 	tween.tween_property(self, ^"modulate:a", 0, 0.1)
 	return tween.finished

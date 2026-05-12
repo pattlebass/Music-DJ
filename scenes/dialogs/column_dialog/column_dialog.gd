@@ -35,7 +35,9 @@ func popup2():
 	duplicate_button.disabled = is_column_empty or BoomBox.is_playing
 	new_button.disabled = BoomBox.is_playing
 	clear_button.disabled = is_column_empty or BoomBox.is_playing
-	remove_button.disabled = BoomBox.song.get_length() <= 1 or BoomBox.is_playing
+	remove_button.disabled = (
+		BoomBox.song.get_length() <= Variables.MINIMUM_COLUMNS or BoomBox.is_playing
+	)
 	
 	# Positioning
 	var new_pos := column.column_button.global_position

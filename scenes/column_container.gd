@@ -51,7 +51,7 @@ func _on_tile_changed(instrument: int, column_no: int, sample_index: int) -> voi
 
 
 func remove_column(column_no: int) -> void:
-	await columns[column_no].remove()
+	columns[column_no].remove()
 	columns.remove_at(column_no)
 	
 	# Renumber columns
