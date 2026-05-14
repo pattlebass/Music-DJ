@@ -22,6 +22,7 @@ func _ready() -> void:
 	super()
 	
 	# Theme
+	%ThemeContainer/Dark.focus_entered.connect(func(): scroll_container.scroll_vertical = 0)
 	for i in theme_container.get_children():
 		if i.has_meta("theme_name"):
 			i.toggled.connect(_on_theme_chosen.bind(i.get_meta("theme_name")))
@@ -50,6 +51,10 @@ func _ready() -> void:
 		
 		lang_container.add_child(check_box)
 	
+	# Version label focus
+	@warning_ignore("narrowing_conversion")
+	check_updates.focus_entered.connect(func(): scroll_container.scroll_vertical = scroll_container.size.y)
+	
 	if OS.get_name() == "Web":
 		# Hide Check for update
 		check_updates.hide()
@@ -64,7 +69,7 @@ func _ready() -> void:
 
 
 func popup2() -> void:
-	$"%ThemeContainer/Dark".grab_focus.call_deferred()
+	%ThemeContainer/Dark.grab_focus.call_deferred()
 	scroll_container.scroll_vertical = 0
 	lang_auto.text = tr("SETTING_LANG_AUTO") % locale_names[OS.get_locale_language()]
 	super()

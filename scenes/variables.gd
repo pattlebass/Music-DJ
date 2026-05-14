@@ -8,7 +8,7 @@ const INSTRUMENT_NAMES: Array[String] = [
 	"INSTRUMENT_TRUMPET"
 ]
 const MINIMUM_DRAG = 100
-const MINIMUM_COLUMNS = 15
+const MINIMUM_COLUMNS = 1
 const VIBRATION_MS = 50
 const HOLD_TIME_S = 0.5
 

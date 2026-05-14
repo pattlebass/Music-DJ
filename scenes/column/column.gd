@@ -97,12 +97,42 @@ func copy_tile(instrument: int) -> void:
 
 func cut_tile(instrument: int) -> void:
 	copy_tile(instrument)
-	BoomBox.song.set_tile(instrument, column_no, 0)
+	if not BoomBox.is_playing:
+		BoomBox.song.set_tile(instrument, column_no, 0)
 
 
 func paste_tile() -> void:
-	if Clipboard.has_tile():
+	if Clipboard.has_tile() and not BoomBox.is_playing:
 		BoomBox.song.set_tile(Clipboard.get_tile().instrument, column_no, Clipboard.get_tile().sample)
+
+
+func move_tile_relative(delta: int) -> void:
+	if BoomBox.is_playing:
+		return
+	var new_column_no := clampi(column_no + delta, 0, BoomBox.song.get_length() - 1)
+	BoomBox.song.move_column(column_no, new_column_no)
+
+
+func show_context_menu(instrument: int, pos: Vector2) -> void:
+	var sample: int = BoomBox.song.data[instrument][column_no]
+	
+	var context_menu := ContextMenu.new()
+	add_child(context_menu)
+	
+	context_menu.copy_button.disabled = sample == 0
+	context_menu.cut_button.disabled = sample == 0
+	context_menu.paste_button.disabled = not Clipboard.has_tile()
+	context_menu.clear_button.disabled = sample == 0
+	
+	context_menu.copy_button.pressed.connect(copy_tile.bind(instrument))
+	context_menu.cut_button.pressed.connect(cut_tile.bind(instrument))
+	context_menu.paste_button.pressed.connect(paste_tile)
+	context_menu.clear_button.pressed.connect(BoomBox.song.set_tile.bind(instrument, column_no, 0))
+	
+	context_menu.position = pos
+	
+	context_menu.popup()
+	context_menu.copy_button.grab_focus()
 
 
 func _start_drag() -> void:
@@ -154,7 +184,20 @@ func _end_tile_drag() -> void:
 	tile_drag_ended.emit()
 
 
+func _check_common_shortcuts(event: InputEvent) -> void:
+	if event.is_action_pressed(&"column_move_left", true):
+		move_tile_relative(-1)
+	elif event.is_action_pressed(&"column_move_right", true):
+		move_tile_relative(1)
+	elif event.is_action_pressed(&"column_duplicate"):
+		if not BoomBox.is_playing:
+			BoomBox.song.duplicate_column(column_no)
+
+
 func _on_column_button_down() -> void:
+	if Utils.show_focus:
+		return
+	
 	await get_tree().create_timer(Variables.HOLD_TIME_S).timeout
 	
 	if not column_button.button_pressed:
@@ -171,10 +214,25 @@ func _on_column_button_gui_input(event: InputEvent) -> void:
 	# Slight HACK
 	if event is InputEventMouseButton and not event.is_pressed() and is_dragged:
 		_end_drag()
+	
+	if not Utils.show_focus:
+		return
+	
+	if event.is_action_pressed(&"column_clear"):
+		if not BoomBox.is_playing:
+			BoomBox.song.clear_column(column_no)
+	elif event.is_action_pressed(&"column_remove"):
+		if not BoomBox.is_playing and BoomBox.song.get_length() > Variables.MINIMUM_COLUMNS:
+			BoomBox.song.remove_column(column_no)
+	else:
+		_check_common_shortcuts(event)
 
 
 # It should ideally be part of Button, but oh well
 func _on_tile_button_down(instrument: int) -> void:
+	if Utils.show_focus:
+		return
+	
 	await get_tree().create_timer(Variables.HOLD_TIME_S).timeout
 	
 	var button := tiles[instrument]
@@ -189,35 +247,21 @@ func _on_tile_button_down(instrument: int) -> void:
 
 
 func _on_tile_gui_input(event: InputEvent, instrument: int) -> void:
-	var tile_button := tiles[instrument]
-	var sample: int = BoomBox.song.data[instrument][column_no]
 	if event.is_action_pressed(&"right_click") or event.is_action_pressed(&"ui_menu"):
-		var context_menu := ContextMenu.new()
-		add_child(context_menu)
-		
-		context_menu.copy_button.disabled = sample == 0
-		context_menu.cut_button.disabled = sample == 0
-		context_menu.paste_button.disabled = not Clipboard.has_tile()
-		context_menu.clear_button.disabled = sample == 0
-		
-		context_menu.copy_button.pressed.connect(copy_tile.bind(instrument))
-		context_menu.cut_button.pressed.connect(cut_tile.bind(instrument))
-		context_menu.paste_button.pressed.connect(paste_tile)
-		context_menu.clear_button.pressed.connect(BoomBox.song.set_tile.bind(instrument, column_no, 0))
-		
+		var tile_button := tiles[instrument]
+		var pos := tile_button.global_position + tile_button.size / 2
 		if event is InputEventMouseButton:
-			context_menu.position = event.global_position
+			pos = event.global_position
+		show_context_menu(instrument, pos)
+	elif Utils.show_focus:
+		if event.is_action_pressed(&"ui_copy"):
+			copy_tile(instrument)
+		elif event.is_action_pressed(&"ui_cut"):
+			cut_tile(instrument)
+		elif event.is_action_pressed(&"ui_paste"):
+			paste_tile()
 		else:
-			context_menu.position = tile_button.global_position + tile_button.size / 2
-		
-		context_menu.popup()
-		context_menu.copy_button.grab_focus()
-	elif event.is_action_pressed(&"ui_copy") and Utils.show_focus:
-		copy_tile(instrument)
-	elif event.is_action_pressed(&"ui_cut") and Utils.show_focus:
-		cut_tile(instrument)
-	elif event.is_action_pressed(&"ui_paste") and Utils.show_focus:
-		paste_tile()
+			_check_common_shortcuts(event)
 
 
 func _can_drop_data(at_position: Vector2, data: Variant) -> bool:

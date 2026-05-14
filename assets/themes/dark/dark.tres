@@ -282,6 +282,17 @@ corner_radius_top_right = 90
 corner_radius_bottom_right = 90
 corner_radius_bottom_left = 90
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1lj4o"]
+content_margin_left = 4.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.223529, 0.243137, 0.27451, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
 [sub_resource type="StyleBoxLine" id="24"]
 color = Color(1, 1, 1, 0.270588)
 thickness = 5
@@ -458,6 +469,8 @@ Tile/styles/Introduction = SubResource("35")
 Tile/styles/Solo = SubResource("36")
 Tile/styles/Verse = SubResource("37")
 Toast/styles/panel = SubResource("49")
+TooltipLabel/font_sizes/font_size = 24
+TooltipPanel/styles/panel = SubResource("StyleBoxFlat_1lj4o")
 VScrollBar/icons/decrement = null
 VScrollBar/icons/decrement_highlight = null
 VScrollBar/icons/increment = null

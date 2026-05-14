@@ -414,6 +414,17 @@ shadow_color = Color(0, 0, 0, 0.160784)
 shadow_size = 8
 shadow_offset = Vector2(0, 4)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4s71j"]
+content_margin_left = 4.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
 [sub_resource type="StyleBoxLine" id="27"]
 color = Color(0, 0, 0, 0.25098)
 thickness = 5
@@ -593,6 +604,8 @@ Tile/styles/Solo = SubResource("40")
 Tile/styles/Verse = SubResource("46")
 Toast/base_type = &"PanelContainer"
 Toast/styles/panel = SubResource("49")
+TooltipLabel/font_sizes/font_size = 24
+TooltipPanel/styles/panel = SubResource("StyleBoxFlat_4s71j")
 VScrollBar/icons/decrement = null
 VScrollBar/icons/decrement_highlight = null
 VScrollBar/icons/increment = null
