@@ -18,6 +18,7 @@ var sounds := [
 ]
 
 @onready var audio_player: AudioStreamPlayer = $AudioStreamPlayer
+@onready var preview_player: AudioStreamPlayer = $PreviewStreamPlayer
 @onready var sync_timer: Timer = $SyncTimer
 
 signal play_started
@@ -34,6 +35,7 @@ func _ready() -> void:
 		for sample in 32:
 			sounds[instrument].append(load("res://sounds/%s/%s.ogg" % [instrument, sample + 1]))
 	
+	play_started.connect(_on_play_started)
 	play_ended.connect(_on_play_ended)
 	
 	sync_timer.timeout.connect(_on_sync_timer_timeout)
@@ -73,6 +75,11 @@ func play_from_column(p_column_no: int) -> void:
 	play(p_column_no)
 
 
+func play_preview_sample(instrument: int, sample: int) -> void:
+	preview_player.stream = sounds[instrument][sample]
+	preview_player.play()
+
+
 func _on_sync_timer_timeout() -> void:
 	if _playing_column_no + 1 >= song.get_trimmed_length():
 		sync_timer.stop()
@@ -84,6 +91,10 @@ func _on_sync_timer_timeout() -> void:
 		column_play_ended.emit(_playing_column_no - 1)
 	
 	column_play_started.emit(_playing_column_no)
+
+
+func _on_play_started() -> void:
+	preview_player.stop()
 
 
 func _on_play_ended() -> void:

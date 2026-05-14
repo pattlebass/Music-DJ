@@ -184,14 +184,27 @@ func _end_tile_drag() -> void:
 	tile_drag_ended.emit()
 
 
+func _quick_edit_tile(instrument: int, delta: int) -> void:
+	if BoomBox.is_playing:
+		return
+	
+	var new_sample: int = BoomBox.song.data[instrument][column_no] + delta
+	new_sample = clampi(new_sample, 0, 32)
+	BoomBox.song.set_tile(instrument, column_no, new_sample)
+	BoomBox.play_preview_sample(instrument, new_sample)
+
+
 func _check_common_shortcuts(event: InputEvent) -> void:
 	if event.is_action_pressed(&"column_move_left", true):
 		move_tile_relative(-1)
+		accept_event()
 	elif event.is_action_pressed(&"column_move_right", true):
 		move_tile_relative(1)
+		accept_event()
 	elif event.is_action_pressed(&"column_duplicate"):
 		if not BoomBox.is_playing:
 			BoomBox.song.duplicate_column(column_no)
+		accept_event()
 
 
 func _on_column_button_down() -> void:
@@ -221,9 +234,11 @@ func _on_column_button_gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed(&"column_clear"):
 		if not BoomBox.is_playing:
 			BoomBox.song.clear_column(column_no)
+		accept_event()
 	elif event.is_action_pressed(&"column_remove"):
 		if not BoomBox.is_playing and BoomBox.song.get_length() > Variables.MINIMUM_COLUMNS:
 			BoomBox.song.remove_column(column_no)
+		accept_event()
 	else:
 		_check_common_shortcuts(event)
 
@@ -253,13 +268,24 @@ func _on_tile_gui_input(event: InputEvent, instrument: int) -> void:
 		if event is InputEventMouseButton:
 			pos = event.global_position
 		show_context_menu(instrument, pos)
+	
+	elif event.is_action_pressed(&"tile_increment"):
+		_quick_edit_tile(instrument, 1)
+		accept_event()
+	elif event.is_action_pressed(&"tile_decrement"):
+		_quick_edit_tile(instrument, -1)
+		accept_event()
+	
 	elif Utils.show_focus:
 		if event.is_action_pressed(&"ui_copy"):
 			copy_tile(instrument)
+			accept_event()
 		elif event.is_action_pressed(&"ui_cut"):
 			cut_tile(instrument)
+			accept_event()
 		elif event.is_action_pressed(&"ui_paste"):
 			paste_tile()
+			accept_event()
 		else:
 			_check_common_shortcuts(event)
 

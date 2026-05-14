@@ -3,7 +3,6 @@ extends CustomAcceptDialog
 
 @onready var sample_btn_container: VBoxContainer = %SampleContainer
 @onready var scroll_container: ScrollContainer = %ScrollContainer
-@onready var audio_player: AudioStreamPlayer = %AudioStreamPlayer
 @onready var title_label: Label = %TitleLabel
 @onready var ok_button: Button = %OkButton
 @onready var clear_button: Button = %ClearButton
@@ -52,8 +51,6 @@ func _ready() -> void:
 	for i in range(1, buttons.size() - 1):
 		buttons[i].focus_neighbor_top = buttons[i - 1].get_path()
 		buttons[i].focus_neighbor_bottom = buttons[i + 1].get_path()
-	
-	BoomBox.play_started.connect(audio_player.stop)
 
 
 func popup2() -> void:
@@ -122,15 +119,13 @@ func _on_sample_selected(index: int, button: Button) -> void:
 	if Utils.show_focus:
 		_on_ok_button_pressed()
 	else:
-		audio_player.stream = BoomBox.sounds[instrument][index + 1]
-		audio_player.play()
+		BoomBox.play_preview_sample(instrument, index + 1)
 
 
-func _on_sample_focused(sample_index) -> void:
+func _on_sample_focused(index: int) -> void:
 	if not Utils.show_focus:
 		return
-	audio_player.stream = BoomBox.sounds[instrument][sample_index + 1]
-	audio_player.play()
+	BoomBox.play_preview_sample(instrument, index + 1)
 
 
 func _on_ok_button_pressed() -> void:
