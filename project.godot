@@ -115,10 +115,6 @@ tile_decrement={
 ]
 }
 
-[input_devices]
-
-pointing/emulate_touch_from_mouse=true
-
 [internationalization]
 
 locale/translations=PackedStringArray("res://languages/text.en.translation", "res://languages/text.id.translation", "res://languages/text.pl.translation", "res://languages/text.ro.translation", "res://languages/text.ru.translation")
