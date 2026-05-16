@@ -5,7 +5,6 @@ const PROGRESS_DIALOG = preload("res://scenes/dialogs/progress_dialog/progress_d
 @onready var play_button: Button = %Play
 @onready var export_button: Button = %Export
 @onready var save_button: Button = %SaveProject
-@onready var more_button: CustomMenuButton = %More
 
 @onready var add_button: Button = %AddButton
 @onready var column_container: ColumnContainer = %ColumnContainer
@@ -21,7 +20,6 @@ const PROGRESS_DIALOG = preload("res://scenes/dialogs/progress_dialog/progress_d
 
 @onready var bg_panel: Panel = $BgPanel
 @onready var dim_overlay: Panel = $DimOverlay
-
 
 # Notes:
 # "column" refers to the column node itself, while "column_no" refers
@@ -43,7 +41,6 @@ func _ready() -> void:
 	column_container.column_added.connect(_on_column_added_node)
 	
 	load_dialog.project_selected.connect(load_song_path)
-	more_button.get_popup().item_pressed.connect(_on_more_item_pressed)
 	#endregion
 	
 	Utils.change_theme(Options.theme)
@@ -56,18 +53,26 @@ func _ready() -> void:
 	if OS.get_name() == "Web":
 		var project := get_project_from_query()
 		if project != null:
-			BoomBox.song = project
+			BoomBox.load_song(project)
 
 
 func _on_theme_changed(new_theme: String) -> void:
 	theme = load("res://assets/themes/%s/%s.tres" % [new_theme, new_theme])
 
 
-func _on_song_loaded() -> void:
+func _shortcut_input(event: InputEvent) -> void:
+	if event.is_action_pressed(&"ui_undo", false, true):
+		BoomBox.undo()
+	elif event.is_action_pressed(&"ui_redo", false, true):
+		BoomBox.redo()
+
+
+func _on_song_loaded(is_undo: bool) -> void:
 	BoomBox.song.removed_column.connect(_on_removed_column)
 	BoomBox.song.trimmed_length_changed.connect(_on_song_trimmed_length_changed)
 	
-	scroll_container.scroll_horizontal = 0
+	if not is_undo:
+		scroll_container.scroll_horizontal = 0
 	_on_song_trimmed_length_changed()
 
 
@@ -295,12 +300,12 @@ func load_song_path(path: String) -> void:
 		printerr(msg)
 		return
 	
-	BoomBox.song = Song.new().from(parser.data)
+	BoomBox.load_song(Song.new().from(parser.data))
 	Variables.opened_file = path.get_file().get_basename()
 
 
 func new_song() -> void:
-	BoomBox.song = Song.new()
+	BoomBox.load_song(Song.new())
 	Variables.opened_file = ""
 
 
@@ -338,29 +343,6 @@ func _on_files_dropped(files: PackedStringArray) -> void:
 				DirAccess.copy_absolute(i, Variables.projects_dir.path_join(file_name))
 	
 	load_dialog.popup2()
-
-
-func _on_more_item_pressed(id: int) -> void:
-	match id:
-		0:
-			settings_dialog.popup2()
-		1:
-			tutorial_dialog.popup2()
-		2:
-			var link := "https://github.com/pattlebass/Music-DJ/issues/new?labels=bug&template=bug_report.yaml&version={version}&device={device}"
-			link = link.format(
-				{
-					"version": ProjectSettings.get_setting("application/config/version"),
-					"device": OS.get_model_name().uri_encode() if OS.get_name() == "Android" else ""
-				}
-			)
-			OS.shell_open(link)
-		3:
-			OS.shell_open("https://github.com/pattlebass/Music-DJ/issues/new?labels=enhancement&template=feature_request.yaml")
-		4:
-			OS.shell_open("https://ko-fi.com/fabians")
-		5:
-			about_dialog.popup2()
 
 
 func _on_load_dialog_new_project() -> void:

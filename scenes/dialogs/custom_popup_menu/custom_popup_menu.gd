@@ -31,14 +31,15 @@ func play_popup_animation() -> void:
 			.from(Vector2(0.8, 0.8)).set_trans(Tween.TRANS_QUINT)
 
 
-func add_item(text: String, id := items) -> Button:
+func add_item(text: String, auto_close := true, id := items) -> Button:
 	var button := Button.new()
 	button.text = text
 	button.alignment = HORIZONTAL_ALIGNMENT_LEFT
 	button.theme_type_variation = "CustomPopupMenuButton"
 	button.pressed.connect(
 		func():
-			popup_hide2()
+			if auto_close:
+				popup_hide2()
 			item_pressed.emit(id)
 	)
 	items_container.add_child(button)
@@ -46,6 +47,11 @@ func add_item(text: String, id := items) -> Button:
 	items += 1
 	
 	return button
+
+
+func add_separator() -> void:
+	var separator := HSeparator.new()
+	items_container.add_child(separator)
 
 
 func popup2() -> void:

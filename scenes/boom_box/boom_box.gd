@@ -1,14 +1,13 @@
 ## The audio and song manager
 extends Node
 
-var song: Song:
-	set(value):
-		if song == value:
-			return
-		song = value
-		song_loaded.emit()
+const MAX_UNDO_SIZE := 30
+
+var song: Song
 
 var is_playing := false
+var undo_stack: Array[Song] = []
+var redo_stack: Array[Song] = []
 
 var sounds := [
 	[preload("res://sounds/silence.ogg")],
@@ -26,7 +25,9 @@ signal play_ended
 signal column_play_started(column_no: int)
 signal column_play_ended(column_no: int)
 
-signal song_loaded
+signal song_loaded(is_undo: bool)
+
+signal history_changed
 
 
 func _ready() -> void:
@@ -78,6 +79,56 @@ func play_from_column(p_column_no: int) -> void:
 func play_preview_sample(instrument: int, sample: int) -> void:
 	preview_player.stream = sounds[instrument][sample]
 	preview_player.play()
+
+
+func load_song(p_song: Song) -> void:
+	undo_stack.clear()
+	redo_stack.clear()
+	history_changed.emit()
+	_load_song(p_song, false)
+
+
+func _load_song(p_song: Song, is_undo: bool) -> void:
+	if song != null:
+		song.disconnect_all()
+	
+	p_song.about_to_change.connect(
+		func():
+			undo_stack.append(p_song.duplicate())
+			if undo_stack.size() > MAX_UNDO_SIZE:
+				undo_stack.pop_front()
+			redo_stack.clear()
+			history_changed.emit()
+	)
+	
+	song = p_song
+	song_loaded.emit(is_undo)
+
+
+func undo() -> void:
+	if not can_undo():
+		return
+	
+	redo_stack.append(song)
+	_load_song(undo_stack.pop_back(), true)
+	history_changed.emit()
+
+
+func redo() -> void:
+	if not can_redo():
+		return
+	
+	undo_stack.append(song)
+	_load_song(redo_stack.pop_back(), true)
+	history_changed.emit()
+
+
+func can_undo() -> bool:
+	return not undo_stack.is_empty()
+
+
+func can_redo() -> bool:
+	return not redo_stack.is_empty()
 
 
 func _on_sync_timer_timeout() -> void:

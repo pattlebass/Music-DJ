@@ -70,7 +70,7 @@ func move_column(from_no: int, to_no: int) -> void:
 		columns[i].add(i)
 
 
-func _on_song_loaded() -> void:
+func _on_song_loaded(is_undo: bool) -> void:
 	do_animation = false
 	
 	for column in columns:

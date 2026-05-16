@@ -144,7 +144,7 @@ focus_neighbor_right = NodePath("../More")
 shortcut = SubResource("Shortcut_jscy8")
 text = "BTN_OPEN_PROJECT"
 
-[node name="More" type="Button" parent="HBoxToolBar" unique_id=2026853064]
+[node name="More" type="Button" parent="HBoxToolBar" unique_id=2026853064 node_paths=PackedStringArray("settings_dialog", "about_dialog", "tutorial_dialog")]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
@@ -155,6 +155,9 @@ icon = ExtResource("3_y7whg")
 icon_alignment = 1
 expand_icon = true
 script = ExtResource("3_gwbec")
+settings_dialog = NodePath("../../SettingsDialog")
+about_dialog = NodePath("../../AboutDialog")
+tutorial_dialog = NodePath("../../TutorialDialog")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=934383914]
 layout_mode = 1
