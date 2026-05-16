@@ -7,32 +7,36 @@
 [node name="AboutDialog" type="PopupPanel" unique_id=581290602 node_paths=PackedStringArray("container")]
 oversampling_override = 1.0
 initial_position = 2
-size = Vector2i(500, 600)
+size = Vector2i(520, 620)
 visible = true
 theme_override_styles/panel = SubResource("StyleBoxEmpty_qf61r")
 script = ExtResource("1")
-container = NodePath("PanelContainer")
+container = NodePath("MarginContainer/PanelContainer")
 
-[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1308840324]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=631600405]
+offset_right = 520.0
+offset_bottom = 620.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer" unique_id=1308840324]
+layout_mode = 2
 theme_type_variation = &"CustomDialog"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=566642246]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer" unique_id=566642246]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="PanelContainer/VBoxContainer" unique_id=1908452827]
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer" unique_id=1908452827]
 layout_mode = 2
 theme_type_variation = &"LabelTitle"
 text = "DIALOG_ABOUT_TITLE"
 
-[node name="HSeparator" type="HSeparator" parent="PanelContainer/VBoxContainer" unique_id=1564290555]
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/PanelContainer/VBoxContainer" unique_id=1564290555]
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/VBoxContainer" unique_id=1349594647]
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/PanelContainer/VBoxContainer" unique_id=1349594647]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
@@ -41,7 +45,7 @@ focus_neighbor_bottom = NodePath(".")
 focus_mode = 2
 horizontal_scroll_mode = 0
 
-[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer/ScrollContainer" unique_id=25604577]
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/PanelContainer/VBoxContainer/ScrollContainer" unique_id=25604577]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -66,21 +70,21 @@ For any issues regarding copyright, please email me at [color=#4ecca3][url=mailt
 fit_content = true
 scroll_active = false
 
-[node name="Control" type="Control" parent="PanelContainer/VBoxContainer" unique_id=2042197394]
+[node name="Control" type="Control" parent="MarginContainer/PanelContainer/VBoxContainer" unique_id=2042197394]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=1147281400]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer" unique_id=1147281400]
 layout_mode = 2
 alignment = 1
 
-[node name="CloseButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer" unique_id=1089791209]
+[node name="CloseButton" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=1089791209]
 custom_minimum_size = Vector2(80, 50)
 layout_mode = 2
 text = "BTN_CLOSE"
 
-[connection signal="gui_input" from="PanelContainer/VBoxContainer/ScrollContainer" to="." method="_on_scroll_container_gui_input"]
-[connection signal="scroll_ended" from="PanelContainer/VBoxContainer/ScrollContainer" to="." method="_on_scroll_container_scroll_ended"]
-[connection signal="scroll_started" from="PanelContainer/VBoxContainer/ScrollContainer" to="." method="_on_scroll_container_scroll_started"]
-[connection signal="meta_clicked" from="PanelContainer/VBoxContainer/ScrollContainer/RichTextLabel" to="." method="_on_rich_text_label_meta_clicked"]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="gui_input" from="MarginContainer/PanelContainer/VBoxContainer/ScrollContainer" to="." method="_on_scroll_container_gui_input"]
+[connection signal="scroll_ended" from="MarginContainer/PanelContainer/VBoxContainer/ScrollContainer" to="." method="_on_scroll_container_scroll_ended"]
+[connection signal="scroll_started" from="MarginContainer/PanelContainer/VBoxContainer/ScrollContainer" to="." method="_on_scroll_container_scroll_started"]
+[connection signal="meta_clicked" from="MarginContainer/PanelContainer/VBoxContainer/ScrollContainer/RichTextLabel" to="." method="_on_rich_text_label_meta_clicked"]
+[connection signal="pressed" from="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]

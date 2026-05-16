@@ -15,6 +15,6 @@ dest_files=["res://.godot/imported/add.svg-d43e551e3d173b8279ab6f2daf92d147.dpit
 base_scale=1.0
 saturation=1.0
 color_map={
-"ffffff": "000000de"
+"ffffff": "666"
 }
 compress=true

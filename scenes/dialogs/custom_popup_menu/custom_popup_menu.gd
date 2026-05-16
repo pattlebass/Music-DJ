@@ -13,11 +13,18 @@ func _ready() -> void:
 	dim_background = false
 	add_theme_stylebox_override(&"panel", StyleBoxEmpty.new())
 	
+	var margin_container := MarginContainer.new()
+	margin_container.add_theme_constant_override(&"margin_top", 10)
+	margin_container.add_theme_constant_override(&"margin_right", 10)
+	margin_container.add_theme_constant_override(&"margin_bottom", 10)
+	margin_container.add_theme_constant_override(&"margin_left", 10)
+	add_child(margin_container)
+	
 	container = PanelContainer.new()
 	container.theme_type_variation = &"CustomDialog"
 	container.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	container.add_child(items_container)
-	add_child(container)
+	margin_container.add_child(container)
 
 
 func play_popup_animation() -> void:

@@ -12,82 +12,86 @@
 [node name="LoadDialog" type="PopupPanel" unique_id=893238263 node_paths=PackedStringArray("container")]
 oversampling_override = 1.0
 initial_position = 2
-size = Vector2i(617, 600)
+size = Vector2i(637, 620)
 visible = true
 theme_override_styles/panel = SubResource("StyleBoxEmpty_lh2kr")
 script = ExtResource("1")
-container = NodePath("PanelContainer")
+container = NodePath("MarginContainer/PanelContainer")
 
-[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1972879928]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1982037013]
+offset_right = 637.0
+offset_bottom = 620.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer" unique_id=1972879928]
+layout_mode = 2
 theme_type_variation = &"CustomDialog"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=507026643]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer" unique_id=507026643]
 layout_mode = 2
 
-[node name="TitleHBox" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=1438938543]
+[node name="TitleHBox" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer" unique_id=1438938543]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/TitleHBox" unique_id=665393041]
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/TitleHBox" unique_id=665393041]
 layout_mode = 2
 theme_type_variation = &"LabelTitle"
 text = "DIALOG_LOAD_TITLE"
 
-[node name="VSeparator" type="VSeparator" parent="PanelContainer/VBoxContainer/TitleHBox" unique_id=1229377450]
+[node name="VSeparator" type="VSeparator" parent="MarginContainer/PanelContainer/VBoxContainer/TitleHBox" unique_id=1229377450]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/separator = SubResource("5")
 
-[node name="NewProjectButton" type="Button" parent="PanelContainer/VBoxContainer/TitleHBox" unique_id=730389600]
+[node name="NewProjectButton" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/TitleHBox" unique_id=730389600]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"ListItem"
 icon = ExtResource("2_yhwsu")
 
-[node name="OpenFolderButton" type="Button" parent="PanelContainer/VBoxContainer/TitleHBox" unique_id=700050358]
+[node name="OpenFolderButton" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/TitleHBox" unique_id=700050358]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"ListItem"
 icon = ExtResource("3_wvchh")
 
-[node name="FilePickerButton" type="Button" parent="PanelContainer/VBoxContainer/TitleHBox" unique_id=1011465494]
+[node name="FilePickerButton" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/TitleHBox" unique_id=1011465494]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"ListItem"
 icon = ExtResource("4_rcxnu")
 
-[node name="HSeparator" type="HSeparator" parent="PanelContainer/VBoxContainer" unique_id=2005822504]
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/PanelContainer/VBoxContainer" unique_id=2005822504]
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/VBoxContainer" unique_id=1783961598]
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/PanelContainer/VBoxContainer" unique_id=1783961598]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 follow_focus = true
 
-[node name="ProjectContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/ScrollContainer" unique_id=1484736640]
+[node name="ProjectContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/ScrollContainer" unique_id=1484736640]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 8
 
-[node name="NoProjectsLabel" type="Label" parent="PanelContainer/VBoxContainer/ScrollContainer/ProjectContainer" unique_id=1464181617]
+[node name="NoProjectsLabel" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/ScrollContainer/ProjectContainer" unique_id=1464181617]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"LabelSubtitle"
 text = "DIALOG_LOAD_NO_PROJECTS"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=1898270315]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer" unique_id=1898270315]
 layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="CancelButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer" unique_id=680418419]
+[node name="CancelButton" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=680418419]
 custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 focus_mode = 1
@@ -103,8 +107,8 @@ access = 2
 filters = PackedStringArray("*.mdj;Music DJ project", "*.mid,*.midi;MIDI File;audio/midi", "*.txt;;")
 use_native_dialog = true
 
-[connection signal="pressed" from="PanelContainer/VBoxContainer/TitleHBox/NewProjectButton" to="." method="_on_new_project_button_pressed"]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/TitleHBox/OpenFolderButton" to="." method="_on_open_button_pressed"]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/TitleHBox/FilePickerButton" to="." method="_on_pick_file_button_pressed"]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]
+[connection signal="pressed" from="MarginContainer/PanelContainer/VBoxContainer/TitleHBox/NewProjectButton" to="." method="_on_new_project_button_pressed"]
+[connection signal="pressed" from="MarginContainer/PanelContainer/VBoxContainer/TitleHBox/OpenFolderButton" to="." method="_on_open_button_pressed"]
+[connection signal="pressed" from="MarginContainer/PanelContainer/VBoxContainer/TitleHBox/FilePickerButton" to="." method="_on_pick_file_button_pressed"]
+[connection signal="pressed" from="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]
 [connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]

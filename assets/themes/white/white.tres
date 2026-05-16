@@ -60,6 +60,9 @@ corner_radius_top_left = 12
 corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
+shadow_color = Color(0, 0, 0, 0.078431375)
+shadow_size = 4
+shadow_offset = Vector2(2, 2)
 
 [sub_resource type="StyleBoxFlat" id="5"]
 content_margin_left = 8.0
@@ -87,9 +90,9 @@ corner_radius_top_left = 12
 corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
-shadow_color = Color(0, 0, 0, 0.16)
+shadow_color = Color(0, 0, 0, 0.078431375)
 shadow_size = 4
-shadow_offset = Vector2(0, 4)
+shadow_offset = Vector2(0, 2)
 
 [sub_resource type="StyleBoxLine" id="30"]
 color = Color(0, 0, 0, 0.25098)
@@ -419,7 +422,7 @@ content_margin_left = 4.0
 content_margin_top = 8.0
 content_margin_right = 8.0
 content_margin_bottom = 8.0
-bg_color = Color(1, 1, 1, 1)
+bg_color = Color(0.42745098, 0.42745098, 0.42745098, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -475,6 +478,7 @@ CheckBox/styles/pressed = SubResource("6")
 ColumnContainer/constants/separation = 10
 ContextMenu/base_type = &"PopupMenu"
 ContextMenu/constants/v_separation = 8
+CustomConfirmDialog/base_type = &"CustomDialog"
 CustomDialog/base_type = &"PanelContainer"
 CustomDialog/styles/panel = SubResource("21")
 CustomPopupMenuButton/base_type = &"ListItem"
@@ -604,6 +608,7 @@ Tile/styles/Solo = SubResource("40")
 Tile/styles/Verse = SubResource("46")
 Toast/base_type = &"PanelContainer"
 Toast/styles/panel = SubResource("49")
+TooltipLabel/colors/font_color = Color(0.96862745, 0.96862745, 0.96862745, 1)
 TooltipLabel/font_sizes/font_size = 24
 TooltipPanel/styles/panel = SubResource("StyleBoxFlat_4s71j")
 VScrollBar/icons/decrement = null

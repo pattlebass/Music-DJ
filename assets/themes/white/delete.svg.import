@@ -15,6 +15,6 @@ dest_files=["res://.godot/imported/delete.svg-3064e3332ad43af86d2e218d61f90aa6.d
 base_scale=1.0
 saturation=1.0
 color_map={
-"ffffff": "000000de"
+"ffffff": "666"
 }
 compress=true

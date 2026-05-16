@@ -15,6 +15,6 @@ dest_files=["res://.godot/imported/unchecked_box.svg-6421880513eed4c57226c5ae2de
 base_scale=1.0
 saturation=1.0
 color_map={
-"ffffff": "000000de"
+"ffffff": "666"
 }
 compress=true
