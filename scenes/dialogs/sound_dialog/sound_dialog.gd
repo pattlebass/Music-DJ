@@ -17,40 +17,7 @@ var button_group := ButtonGroup.new()
 
 func _ready() -> void:
 	super()
-	
-	# Create list
-	var category_titles := [
-		"SAMPLE_CAT_INTRODUCTION",
-		"SAMPLE_CAT_VERSE",
-		"SAMPLE_CAT_CHORUS",
-		"SAMPLE_CAT_SOLO"
-	]
-	var button_index := -1
-	
-	for category in 4:
-		sample_btn_container.add_spacer(false).custom_minimum_size.y = 10
-		
-		var category_label := Label.new()
-		category_label.text = category_titles[category]
-		category_label.theme_type_variation = &"LabelSubtitle"
-		sample_btn_container.add_child(category_label)
-		
-		sample_btn_container.add_child(HSeparator.new())
-		
-		# Buttons
-		var category_icon := get_category_icon(category)
-		for sample_type in 8:
-			button_index += 1
-			create_sample_button(sample_type, button_index, category_icon)
-	
-	# Keyboard focus
-	var buttons := button_group.get_buttons()
-	buttons[0].focus_neighbor_top = buttons[-1].get_path()
-	buttons[-1].focus_neighbor_bottom = buttons[0].get_path()
-	
-	for i in range(1, buttons.size() - 1):
-		buttons[i].focus_neighbor_top = buttons[i - 1].get_path()
-		buttons[i].focus_neighbor_bottom = buttons[i + 1].get_path()
+	build()
 
 
 func popup2() -> void:
@@ -81,6 +48,42 @@ func popup2() -> void:
 	super()
 
 
+func build() -> void:
+	# Create list
+	var category_titles := [
+		"SAMPLE_CAT_INTRODUCTION",
+		"SAMPLE_CAT_VERSE",
+		"SAMPLE_CAT_CHORUS",
+		"SAMPLE_CAT_SOLO"
+	]
+	var button_index := -1
+	
+	for category in 4:
+		sample_btn_container.add_spacer(false).custom_minimum_size.y = 10
+		
+		var category_label := Label.new()
+		category_label.text = category_titles[category]
+		category_label.theme_type_variation = &"LabelSubtitle"
+		sample_btn_container.add_child(category_label)
+		
+		sample_btn_container.add_child(HSeparator.new())
+		
+		# Buttons
+		for sample_type in 8:
+			button_index += 1
+			var category_icon := get_sample_icon(button_index + 1, category)
+			create_sample_button(sample_type, button_index, category_icon)
+	
+	# Keyboard focus
+	var buttons := button_group.get_buttons()
+	buttons[0].focus_neighbor_top = buttons[-1].get_path()
+	buttons[-1].focus_neighbor_bottom = buttons[0].get_path()
+	
+	for i in range(1, buttons.size() - 1):
+		buttons[i].focus_neighbor_top = buttons[i - 1].get_path()
+		buttons[i].focus_neighbor_bottom = buttons[i + 1].get_path()
+
+
 func create_sample_button(sample_type: int, index: int, texture: Texture2D) -> void:
 	var names: Array[String] = ["Groove 1", "Groove 2", "Salsa 1", "Salsa 2", "Reggae 1", "Reggae 2", "Techno 1", "Techno 2"]
 	
@@ -98,15 +101,15 @@ func create_sample_button(sample_type: int, index: int, texture: Texture2D) -> v
 	sample_btn_container.add_child(button_in_list)
 
 
-func get_category_icon(category: int) -> Texture2D:
-	var icon: Image = load("res://assets/mask.png")
+func get_sample_icon(sample: int, category: int) -> Texture2D:
 	var color := get_theme_color(Variables.CATEGORY_NAMES[category], &"Tile")
+	var icon: DPITexture = load("res://assets/sample_icons/sample_%s.svg" % sample)
+	icon = DPITexture.create_from_string(
+		icon.get_source(),
+		1.0, 1.0, {"fff": color.to_html()}
+	)
 	
-	for y in icon.get_height():
-		for x in icon.get_width():
-			icon.set_pixel(x, y, color * icon.get_pixel(x, y))
-	
-	return ImageTexture.create_from_image(icon)
+	return icon
 
 
 func _on_sample_selected(index: int, button: Button) -> void:

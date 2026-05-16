@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="32"
+   height="32"
+   version="1.1"
+   id="svg1"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <rect
+     width="32"
+     height="32"
+     x="0"
+     y="0"
+     fill="#fff"
+     rx="4"
+     id="rect1" />
+  <path
+     d="M 21.054687,18.917598 H 19.46875 v 2.710937 H 16.601562 V 18.917598 H 10.96875 v -2.203125 l 5.445312,-6.7500002 h 3.054688 v 6.8281252 h 1.585937 z m -4.453125,-2.125 v -4.203125 l -3.382812,4.203125 z"
+     id="text1"
+     style="font-weight:600;font-size:16px;dominant-baseline:central;text-anchor:middle;fill:#333333"
+     aria-label="4" />
+</svg>
