@@ -1,8 +1,8 @@
 class_name Column
 extends PanelContainer
 
-@onready var column_button: Button = %ColumnButton
-@onready var tiles: Array[Button] = [%Button1, %Button2, %Button3, %Button4]
+@onready var column_button: GestureButton = %ColumnButton
+@onready var tiles: Array[GestureButton] = [%Button1, %Button2, %Button3, %Button4]
 @onready var drag_overlay: Panel = %DragOverlay # Hopefully temporary
 
 var column_no: int
@@ -14,16 +14,20 @@ signal drag_started
 signal drag_ended
 signal tile_drag_started
 signal tile_drag_ended
+signal tile_swipe_started
+signal tile_swipe_ended
 
 
 func _ready() -> void:
 	column_button.gui_input.connect(_on_column_button_gui_input)
-	column_button.button_down.connect(_on_column_button_down)
+	column_button.long_pressed.connect(_start_drag)
 	column_button.pressed.connect(column_button_pressed.emit)
 	for i in tiles.size():
 		tiles[i].gui_input.connect(_on_tile_gui_input.bind(i))
-		tiles[i].button_down.connect(_on_tile_button_down.bind(i))
+		tiles[i].long_pressed.connect(_on_tile_long_pressed.bind(i))
 		tiles[i].pressed.connect(tile_pressed.emit.bind(i))
+		tiles[i].swiped.connect(_on_tile_swiped.bind(i))
+		tiles[i].swipe_released.connect(_on_tile_swipe_released.bind(i))
 
 
 func set_tile(instrument: int, sample_index: int) -> void:
@@ -136,7 +140,7 @@ func show_context_menu(instrument: int, pos: Vector2) -> void:
 
 
 func _start_drag() -> void:
-	if BoomBox.is_playing:
+	if BoomBox.is_playing or Utils.show_focus:
 		return
 	
 	is_dragged = true
@@ -158,7 +162,7 @@ func _end_drag() -> void:
 
 func _start_tile_drag(instrument: int) -> void:
 	var sample: int = BoomBox.song.data[instrument][column_no]
-	if sample == 0 or BoomBox.is_playing:
+	if sample == 0 or BoomBox.is_playing or Utils.show_focus:
 		return
 	
 	tile_drag_started.emit()
@@ -167,6 +171,10 @@ func _start_tile_drag(instrument: int) -> void:
 	
 	var preview := Control.new()
 	var duplicate_tile := tiles[instrument].duplicate()
+	var stylebox := duplicate_tile.get_theme_stylebox(&"normal").duplicate() as StyleBoxFlat
+	stylebox.shadow_color = Color("00000039")
+	stylebox.shadow_size = 10
+	duplicate_tile.add_theme_stylebox_override(&"normal", stylebox)
 	preview.add_child(duplicate_tile)
 	duplicate_tile.position -= tiles[instrument].size / 2
 	
@@ -188,6 +196,8 @@ func _quick_edit_tile(instrument: int, delta: int) -> void:
 	if BoomBox.is_playing:
 		return
 	
+	Input.vibrate_handheld(Variables.VIBRATION_MS)
+	
 	var new_sample: int = BoomBox.song.data[instrument][column_no] + delta
 	new_sample = clampi(new_sample, 0, 32)
 	BoomBox.song.set_tile(instrument, column_no, new_sample)
@@ -205,22 +215,6 @@ func _check_common_shortcuts(event: InputEvent) -> void:
 		if not BoomBox.is_playing:
 			BoomBox.song.duplicate_column(column_no)
 		accept_event()
-
-
-func _on_column_button_down() -> void:
-	if Utils.show_focus:
-		return
-	
-	await get_tree().create_timer(Variables.HOLD_TIME_S).timeout
-	
-	if not column_button.button_pressed:
-		return # Released before threshold
-	
-	# Prevent button from emitting pressed
-	column_button.disabled = true
-	column_button.disabled = false
-	
-	_start_drag()
 
 
 func _on_column_button_gui_input(event: InputEvent) -> void:
@@ -241,24 +235,6 @@ func _on_column_button_gui_input(event: InputEvent) -> void:
 		accept_event()
 	else:
 		_check_common_shortcuts(event)
-
-
-# It should ideally be part of Button, but oh well
-func _on_tile_button_down(instrument: int) -> void:
-	if Utils.show_focus:
-		return
-	
-	await get_tree().create_timer(Variables.HOLD_TIME_S).timeout
-	
-	var button := tiles[instrument]
-	if not button.button_pressed:
-		return # Released before threshold
-	
-	# Prevent button from emitting pressed
-	button.disabled = true
-	button.disabled = false
-	
-	_start_tile_drag(instrument)
 
 
 func _on_tile_gui_input(event: InputEvent, instrument: int) -> void:
@@ -290,6 +266,24 @@ func _on_tile_gui_input(event: InputEvent, instrument: int) -> void:
 			_check_common_shortcuts(event)
 
 
+var _emulate_touch: bool = ProjectSettings.get_setting_with_override("input_devices/pointing/emulate_touch_from_mouse")
+func _on_tile_long_pressed(instrument: int) -> void:
+	if Input.is_action_pressed(&"left_click") and not _emulate_touch:
+		return
+	_start_tile_drag(instrument)
+
+
+func _on_tile_swiped(direction: int, instrument: int) -> void:
+	tile_swipe_started.emit()
+	tiles[instrument].set_meta(&"is_swiping", true)
+	_quick_edit_tile(instrument, direction)
+
+
+func _on_tile_swipe_released(instrument: int) -> void:
+	if tiles[instrument].get_meta(&"is_swiping", false):
+		tile_swipe_ended.emit()
+
+
 func _can_drop_data(at_position: Vector2, data: Variant) -> bool:
 	if data is not SongTileData:
 		return false
@@ -312,7 +306,7 @@ func _notification(what: int) -> void:
 		if tiles.is_empty():
 			return
 		for instrument in 4:
-			var sample_index := 0
+			var sample_index: int = BoomBox.song.data[instrument][column_no]
 			set_tile(instrument, sample_index)
 	elif what == NOTIFICATION_DRAG_END:
 		# HUGE HACK

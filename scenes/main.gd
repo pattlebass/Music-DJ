@@ -74,6 +74,12 @@ func _on_song_loaded() -> void:
 func _on_column_added_node(column: Column) -> void:
 	column.tile_pressed.connect(_on_tile_pressed.bind(column))
 	column.column_button_pressed.connect(column_dialog.popup_on_column.bind(column))
+	column.drag_started.connect(
+		func(): scroll_container.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	)
+	column.drag_ended.connect(
+		func(): scroll_container.mouse_filter = Control.MOUSE_FILTER_PASS
+	)
 	column.tile_drag_started.connect(
 		func():
 			scroll_container.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -82,11 +88,13 @@ func _on_column_added_node(column: Column) -> void:
 		func():
 			scroll_container.mouse_filter = Control.MOUSE_FILTER_PASS
 	)
-	column.drag_started.connect(
-		func(): scroll_container.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	column.tile_swipe_started.connect(
+		func():
+			scroll_container.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	)
-	column.drag_ended.connect(
-		func(): scroll_container.mouse_filter = Control.MOUSE_FILTER_PASS
+	column.tile_swipe_ended.connect(
+		func():
+			scroll_container.mouse_filter = Control.MOUSE_FILTER_PASS
 	)
 
 

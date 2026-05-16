@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dwulq63k55vcv"]
 
 [ext_resource type="Script" uid="uid://evw2qnc4qcjs" path="res://scenes/column/column.gd" id="1"]
+[ext_resource type="Script" uid="uid://buewur2q4didq" path="res://scenes/gesture_button.gd" id="2_iq7rl"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3m7mp"]
 
@@ -42,6 +43,7 @@ mouse_filter = 1
 theme_type_variation = &"ListItem"
 button_mask = 3
 text = "0"
+script = ExtResource("2_iq7rl")
 
 [node name="Button1" type="Button" parent="VBoxContainer" unique_id=1749007449]
 unique_name_in_owner = true
@@ -53,6 +55,7 @@ theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0.605469, 0.605469, 0.605469, 1)
 shortcut_in_tooltip = false
+script = ExtResource("2_iq7rl")
 
 [node name="Button2" type="Button" parent="VBoxContainer" unique_id=771115099]
 unique_name_in_owner = true
@@ -64,6 +67,7 @@ theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0.605469, 0.605469, 0.605469, 1)
 shortcut_in_tooltip = false
+script = ExtResource("2_iq7rl")
 
 [node name="Button3" type="Button" parent="VBoxContainer" unique_id=2063173622]
 unique_name_in_owner = true
@@ -75,6 +79,7 @@ theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0.605469, 0.605469, 0.605469, 1)
 shortcut_in_tooltip = false
+script = ExtResource("2_iq7rl")
 
 [node name="Button4" type="Button" parent="VBoxContainer" unique_id=643472156]
 unique_name_in_owner = true
@@ -86,6 +91,7 @@ theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0.605469, 0.605469, 0.605469, 1)
 shortcut_in_tooltip = false
+script = ExtResource("2_iq7rl")
 
 [node name="DragOverlay" type="Panel" parent="." unique_id=1636419657]
 unique_name_in_owner = true
