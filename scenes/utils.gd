@@ -8,8 +8,10 @@ var share_plugin := Share.new()
 signal virtual_keyboard_visible
 signal virtual_keyboard_hidden
 signal theme_changed(new_theme: String)
-signal exclusive_popup_visible
-signal exclusive_popup_hidden
+signal dim_dialog_shown
+signal dim_dialog_hidden
+signal input_block_dialog_shown
+signal input_block_dialog_hidden
 
 
 func _ready() -> void:
@@ -80,20 +82,18 @@ func clean_temp() -> void:
 
 
 func toast(text: String, duration: Toast.Length = Toast.Length.LENGTH_LONG) -> void:
-	var toast_node: Toast = TOAST.instantiate()
+	var toast_node: Toast = Toast.new()
 	toast_node.text = text
 	toast_node.duration = duration
 	
 	Variables.main.add_child(toast_node)
-	toast_node.exclusive = false
-	toast_node.transient = false
-	toast_node.popup2()
+	toast_node.open()
 
 
-func confirm_popup(title: String, body: String) -> bool:
+func confirm_popup(title: String, body: String, parent: Node = Variables.main) -> bool:
 	var dialog: CustomConfirmDialog = CUSTOM_CONFIRM_DIALOG.instantiate()
 	
-	Variables.main.add_child(dialog)
+	parent.add_child(dialog)
 	dialog.alert(title, body)
 	
 	return await dialog.chose
@@ -127,6 +127,29 @@ func has_storage_perms() -> bool:
 	if OS.get_granted_permissions().is_empty() && OS.get_name() == "Android":
 		return OS.request_permissions()
 	return true
+
+
+var _dim_dialog_count := 0
+var _block_dialog_count := 0
+func notify_dialog_visibility(shown: bool, dim_background: bool) -> void:
+	if shown:
+		_block_dialog_count += 1
+		if dim_background:
+			_dim_dialog_count += 1
+	else:
+		_block_dialog_count -= 1
+		if dim_background:
+			_dim_dialog_count -= 1
+	
+	if _dim_dialog_count == 1:
+		dim_dialog_shown.emit()
+	elif _dim_dialog_count == 0:
+		dim_dialog_hidden.emit()
+	
+	if _block_dialog_count == 1:
+		input_block_dialog_shown.emit()
+	elif _block_dialog_count == 0:
+		input_block_dialog_hidden.emit()
 
 
 # Virtual keyboard signals

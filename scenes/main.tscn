@@ -56,6 +56,8 @@ keycode = 78
 [sub_resource type="Shortcut" id="Shortcut_dp3eg"]
 events = [SubResource("InputEventKey_gqmmt")]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_muem4"]
+
 [node name="Main" type="Control" unique_id=1703479691]
 layout_mode = 3
 anchors_preset = 15
@@ -249,12 +251,26 @@ shortcut = SubResource("Shortcut_dp3eg")
 text = "+"
 
 [node name="DimOverlay" type="Panel" parent="." unique_id=1061599277]
+visible = false
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-mouse_filter = 2
+mouse_filter = 1
+mouse_behavior_recursive = 2
+mouse_force_pass_scroll_events = false
 theme_type_variation = &"ShadowPanel"
+metadata/_edit_lock_ = true
+
+[node name="InputBlock" type="Panel" parent="." unique_id=1759030026]
+visible = false
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_behavior_recursive = 2
+mouse_force_pass_scroll_events = false
+theme_override_styles/panel = SubResource("StyleBoxEmpty_muem4")
 metadata/_edit_lock_ = true
 
 [node name="SoundDialog" parent="." unique_id=1843009550 instance=ExtResource("3")]

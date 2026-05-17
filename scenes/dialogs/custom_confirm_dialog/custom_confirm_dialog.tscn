@@ -74,5 +74,5 @@ custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 text = "Cancel"
 
-[connection signal="pressed" from="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/OKButton" to="." method="_on_OKButton_pressed"]
-[connection signal="pressed" from="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/CancelButton" to="." method="_on_CancelButton_pressed"]
+[connection signal="pressed" from="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/OKButton" to="." method="_on_ok_button_pressed"]
+[connection signal="pressed" from="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]

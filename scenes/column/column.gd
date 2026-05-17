@@ -135,8 +135,7 @@ func show_context_menu(instrument: int, pos: Vector2) -> void:
 	
 	context_menu.position = pos
 	
-	context_menu.popup()
-	context_menu.copy_button.grab_focus()
+	context_menu.open()
 
 
 func _start_drag() -> void:

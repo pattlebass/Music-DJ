@@ -1,86 +1,103 @@
 class_name CustomDialog
 extends PopupPanel
 
-const POPUP_TIME = 0.15
+const DISPLAY_DURATION = 0.15
+const HIDE_DURATION = 0.05
 
 @export var container: Container
-var dim_background := true
-var animation_running := false
+@export var dim_background := true
+@export var hide_on_unfocus := true
+
+var dialog_hidden := true
 
 signal popup_hidden
 
 
 func _ready() -> void:
 	transient = true
-	exclusive = true
+	transient_to_focused = true
+	popup_window = false
+	focus_exited.connect(
+		func():
+			if hide_on_unfocus:
+				close()
+	)
+	
+	# HACK: https://github.com/godotengine/godot/issues/99715 AHHHHHH
+	ready.connect(
+		func():
+			var material = CanvasItemMaterial.new()
+			material.blend_mode = CanvasItemMaterial.BLEND_MODE_PREMULT_ALPHA
+			container.material = material
+			for child in get_children():
+				if &"material" in child:
+					child.material = material
+	)
 
 
-func _on_about_to_popup() -> void:
-	if animation_running:
-		return
-	if dim_background:
-		Utils.exclusive_popup_visible.emit()
-	play_popup_animation()
+func open() -> void:
+	dialog_hidden = false
+	gui_disable_input = false
+	_populate()
+	popup()
+	Utils.notify_dialog_visibility(true, dim_background)
+	await play_popup_animation()
 
 
-func _on_popup_hide() -> void:
-	return
-	if animation_running:
+func close() -> void:
+	_cleanup()
+	
+	if dialog_hidden:
 		return
 	
-	visible = true
-	animation_running = true
-	print("hide")
-	if dim_background:
-		Utils.exclusive_popup_hidden.emit()
-	await play_hide_animation().finished
-	popup_hidden.emit()
-	visible = false
-	animation_running = false
-	print("done")
+	dialog_hidden = true
+	gui_disable_input = true
+	Utils.notify_dialog_visibility(false, dim_background)
+	
+	play_hide_animation().connect(popup_hidden.emit)
 
 
-func popup2() -> void:
-	popup()
-	if dim_background:
-		Utils.exclusive_popup_visible.emit()
-	play_popup_animation()
+func _populate() -> void:
+	pass
 
 
-func popup_hide2() -> void:
-	var exclusive_before = exclusive
-	exclusive = false
-	if dim_background:
-		Utils.exclusive_popup_hidden.emit()
-	await play_hide_animation().finished
-	popup_hidden.emit()
-	exclusive = exclusive_before
+func _cleanup() -> void:
+	pass
 
 
-func play_hide_animation() -> Tween:
-	var tween := create_tween()
-	tween.set_ease(Tween.EASE_OUT)
-	tween.parallel().tween_property(container, ^"modulate:a", 0.2, POPUP_TIME / 2)
-	tween.tween_callback(hide)
-	return tween
+var _display_tween: Tween
+func play_hide_animation() -> Signal:
+	if _display_tween:
+		_display_tween.finished.emit()
+		_display_tween.kill()
+	
+	_display_tween = create_tween()
+	_display_tween.set_ease(Tween.EASE_OUT)
+	_display_tween.parallel().tween_property(container, ^"modulate:a", 0.2, HIDE_DURATION)
+	_display_tween.tween_callback(hide)
+	
+	return _display_tween.finished
 
 
-func play_popup_animation() -> void:
-	var tween := create_tween()
-	tween.set_ease(Tween.EASE_OUT)
-	tween.parallel().tween_property(container, ^"modulate:a", 1, POPUP_TIME)\
+func play_popup_animation() -> Signal:
+	if _display_tween:
+		_display_tween.finished.emit()
+		_display_tween.kill()
+	
+	_display_tween = create_tween()
+	_display_tween.set_ease(Tween.EASE_OUT)
+	_display_tween.parallel().tween_property(container, ^"modulate:a", 1, DISPLAY_DURATION)\
 			.from(0.2).set_trans(Tween.TRANS_QUART)
-	tween.parallel().tween_property(self, ^"position:y", position.y, POPUP_TIME)\
+	_display_tween.parallel().tween_property(self, ^"position:y", position.y, DISPLAY_DURATION)\
 			.from(position.y - 10).set_trans(Tween.TRANS_BACK)
+	
+	return _display_tween.finished
 
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_ENTER_TREE:
 		theme_type_variation = "CustomDialog"
-		about_to_popup.connect(_on_about_to_popup)
-		popup_hide.connect(_on_popup_hide)
-	elif what == NOTIFICATION_WM_CLOSE_REQUEST:
-		print("close req")
+
 
 # HACK: Temporary
 func _input(event: InputEvent) -> void:

@@ -18,12 +18,15 @@ func _ready() -> void:
 	paste_button = add_item("BTN_PASTE")
 	clear_button = add_item("BTN_CLEAR")
 	
-	copy_button.pressed.connect(popup_hide2)
-	cut_button.pressed.connect(popup_hide2)
-	paste_button.pressed.connect(popup_hide2)
-	clear_button.pressed.connect(popup_hide2)
+	copy_button.pressed.connect(close)
+	cut_button.pressed.connect(close)
+	paste_button.pressed.connect(close)
+	clear_button.pressed.connect(close)
 
 
-func popup_hide2() -> void:
-	super()
+func _populate() -> void:
+	copy_button.grab_focus()
+
+
+func _cleanup() -> void:
 	queue_free()

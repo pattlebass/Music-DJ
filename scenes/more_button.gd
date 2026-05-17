@@ -45,9 +45,9 @@ func _on_item_pressed(id: int) -> void:
 		1:
 			BoomBox.redo()
 		2:
-			settings_dialog.popup2()
+			settings_dialog.open()
 		3:
-			tutorial_dialog.popup2()
+			tutorial_dialog.open()
 		4:
 			var link := "https://github.com/pattlebass/Music-DJ/issues/new?labels=bug&template=bug_report.yaml&version={version}&device={device}"
 			link = link.format(
@@ -62,7 +62,7 @@ func _on_item_pressed(id: int) -> void:
 		6:
 			OS.shell_open("https://ko-fi.com/fabians")
 		7:
-			about_dialog.popup2()
+			about_dialog.open()
 
 
 func _on_theme_changed(new_theme: String) -> void:

@@ -33,12 +33,7 @@ var progress := 0.0:
 signal canceled
 
 
-func _ready() -> void:
-	super()
-	popup_window = false
-
-
-func popup2() -> void:
+func _populate() -> void:
 	progress = 0
 	progress_bar.show()
 	
@@ -57,15 +52,12 @@ func popup2() -> void:
 		share_button.hide()
 		open_button.hide()
 		download_button.show()
-	
-	size.y = 0 # HACK
-	
-	super()
 
 
-func _process(delta: float) -> void:
-	# Even uglier HACK
+func open() -> void:
+	# HACK
 	size.y = 0
+	super()
 
 
 func error(code: int) -> void:
@@ -79,4 +71,4 @@ func error(code: int) -> void:
 
 func _on_cancel_button_pressed() -> void:
 	canceled.emit()
-	hide()
+	close()

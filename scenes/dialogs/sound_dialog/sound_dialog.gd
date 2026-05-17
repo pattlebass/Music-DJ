@@ -20,7 +20,7 @@ func _ready() -> void:
 	build()
 
 
-func popup2() -> void:
+func _populate() -> void:
 	# Set title
 	var instrument_name := tr(Variables.INSTRUMENT_NAMES[instrument])
 	title_label.text = tr(&"DIALOG_SOUND_TITLE") % [instrument_name, column.column_no + 1]
@@ -44,8 +44,6 @@ func popup2() -> void:
 		clear_button.disabled = true
 		ok_button.disabled = true
 		button_group.get_buttons()[0].grab_focus.call_deferred()
-	
-	super()
 
 
 func build() -> void:
@@ -108,7 +106,6 @@ func get_sample_icon(sample: int, category: int) -> Texture2D:
 		icon.get_source(),
 		1.0, 1.0, {"fff": color.to_html()}
 	)
-	
 	return icon
 
 
@@ -133,16 +130,16 @@ func _on_sample_focused(index: int) -> void:
 
 func _on_ok_button_pressed() -> void:
 	if BoomBox.song.data[instrument][column.column_no] - 1 == pressed_button_index:
-		hide()
+		close()
 		return
 	BoomBox.song.set_tile(instrument, column.column_no, pressed_button_index + 1)
-	hide()
+	close()
 
 
 func _on_clear_button_pressed() -> void:
 	BoomBox.song.set_tile(instrument, column.column_no, 0)
-	popup_hide2()
+	close()
 
 
 func _on_cancel_button_pressed() -> void:
-	popup_hide2()
+	close()

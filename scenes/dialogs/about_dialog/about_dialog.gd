@@ -14,14 +14,13 @@ func _ready() -> void:
 	rich_text.text = "Version: %s\n\n" % ProjectSettings.get_setting("application/config/version") + rich_text.text
 
 
-func popup2() -> void:
+func _populate() -> void:
 	scroll_container.scroll_vertical = 0
 	scroll_container.grab_focus()
-	super()
 
 
 func _on_close_button_pressed() -> void:
-	hide()
+	close()
 
 
 func _on_rich_text_label_meta_clicked(meta: String) -> void:

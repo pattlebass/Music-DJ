@@ -23,9 +23,9 @@ func _ready() -> void:
 	Utils.virtual_keyboard_hidden.connect(_on_virtual_kb_hidden)
 
 
-func popup2() -> void:
+func _populate() -> void:
 	if not Utils.has_storage_perms():
-		popup_hide2()
+		close()
 		return
 	
 	# HACK
@@ -36,8 +36,6 @@ func popup2() -> void:
 	_on_LineEdit_text_changed(line_edit.text) # Manually call the callback
 	
 	line_edit.grab_focus.call_deferred()
-	
-	super()
 
 
 func get_default_name() -> String:
@@ -45,12 +43,12 @@ func get_default_name() -> String:
 
 
 func _on_OkButton_pressed() -> void:
-	popup_hide2()
+	close()
 	name_picked.emit(line_edit.text.strip_edges())
 
 
 func _on_CancelButton_pressed() -> void:
-	popup_hide2()
+	close()
 
 
 func _on_virtual_kb_visible() -> void:

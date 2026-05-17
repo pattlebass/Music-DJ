@@ -11,6 +11,24 @@ func _ready() -> void:
 	super()
 	
 	dim_background = false
+	build()
+
+
+func play_popup_animation() -> Signal:
+	if _display_tween:
+		_display_tween.kill()
+	
+	_display_tween = create_tween()
+	_display_tween.set_ease(Tween.EASE_OUT)
+	_display_tween.parallel().tween_property(container, ^"modulate:a", 1, DISPLAY_DURATION)\
+			.from(0.2).set_trans(Tween.TRANS_QUART)
+	_display_tween.parallel().tween_property(container, ^"scale", Vector2(1, 1), DISPLAY_DURATION)\
+			.from(Vector2(0.8, 0.8)).set_trans(Tween.TRANS_QUINT)
+	
+	return _display_tween.finished
+
+
+func build() -> void:
 	add_theme_stylebox_override(&"panel", StyleBoxEmpty.new())
 	
 	var margin_container := MarginContainer.new()
@@ -27,17 +45,6 @@ func _ready() -> void:
 	margin_container.add_child(container)
 
 
-func play_popup_animation() -> void:
-	show()
-	
-	var tween := create_tween()
-	tween.set_ease(Tween.EASE_OUT)
-	tween.parallel().tween_property(container, ^"modulate:a", 1, POPUP_TIME)\
-			.from(0.2).set_trans(Tween.TRANS_QUART)
-	tween.parallel().tween_property(container, ^"scale", Vector2(1, 1), POPUP_TIME)\
-			.from(Vector2(0.8, 0.8)).set_trans(Tween.TRANS_QUINT)
-
-
 func add_item(text: String, auto_close := true, id := items) -> Button:
 	var button := Button.new()
 	button.text = text
@@ -46,7 +53,7 @@ func add_item(text: String, auto_close := true, id := items) -> Button:
 	button.pressed.connect(
 		func():
 			if auto_close:
-				popup_hide2()
+				close()
 			item_pressed.emit(id)
 	)
 	items_container.add_child(button)
@@ -61,7 +68,6 @@ func add_separator() -> void:
 	items_container.add_child(separator)
 
 
-func popup2() -> void:
-	super()
+func _populate() -> void:
 	if items_container.get_children().size() != 0:
 		items_container.get_child(0).grab_focus.call_deferred()

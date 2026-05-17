@@ -25,12 +25,7 @@ func _ready() -> void:
 	file_picker_button.visible = OS.get_name() in ["Windows", "Android"]
 
 
-func load_song(path: String) -> void:
-	project_selected.emit(path)
-	popup_hide2()
-
-
-func popup2() -> void:
+func _populate() -> void:
 	if not Utils.has_storage_perms():
 		return
 	
@@ -42,8 +37,17 @@ func popup2() -> void:
 		create_item(i)
 	
 	no_projects_label.visible = projects.is_empty()
-	
-	super()
+
+
+func _cleanup() -> void:
+	for i in project_container.get_children():
+		if i is LoadItem:
+			i.queue_free()
+
+
+func load_song(path: String) -> void:
+	project_selected.emit(path)
+	close()
 
 
 func create_item(project_path: String) -> void:
@@ -59,13 +63,6 @@ func create_item(project_path: String) -> void:
 	item.link_button.pressed.connect(_on_link_pressed.bind(project_path))
 	item.download_button.visible = OS.get_name() == "Web" or OS.get_name() == "Android"
 	item.share_button.visible = Utils.can_share()
-
-
-func popup_hide2() -> void:
-	super()
-	for i in project_container.get_children():
-		if i is LoadItem:
-			i.queue_free()
 
 
 func _on_file_dialog_file_selected(path: String) -> void:
@@ -110,9 +107,8 @@ func _on_file_dialog_file_selected(path: String) -> void:
 
 
 func _on_delete_pressed(item: LoadItem, file_name: String) -> void:
-	#modulate = Color.TRANSPARENT
-	
-	var body = tr("DIALOG_CONFIRMATION_BODY_DELETE") % "[color=#4ecca3]%s[/color]" % Utils.truncate(file_name, 22)
+	var file_name_bbcode := "[color=#4ecca3]%s[/color]" % Utils.truncate(file_name, 22)
+	var body = tr("DIALOG_CONFIRMATION_BODY_DELETE") % file_name_bbcode
 	
 	if await Utils.confirm_popup("DIALOG_CONFIRMATION_TITLE_DELETE", body):
 		var path := Variables.projects_dir.path_join("%s" % file_name)
@@ -124,9 +120,7 @@ func _on_delete_pressed(item: LoadItem, file_name: String) -> void:
 		if OS.get_name() == "Web":
 			Options.save(0)
 		
-		item.queue_free()
-	
-	#modulate = Color.WHITE
+		#item.queue_free() # dialog gets hidden anyway
 
 
 func _on_share_pressed(file_name: String) -> void:
@@ -157,7 +151,7 @@ func _on_new_project_button_pressed() -> void:
 
 
 func _on_cancel_button_pressed() -> void:
-	popup_hide2()
+	close()
 
 
 func _on_open_button_pressed() -> void:

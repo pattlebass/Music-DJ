@@ -20,7 +20,10 @@ var locale_names := {
 
 func _ready() -> void:
 	super()
-	
+	build()
+
+
+func build() -> void:
 	# Theme
 	%ThemeContainer/Dark.focus_entered.connect(func(): scroll_container.scroll_vertical = 0)
 	for i in theme_container.get_children():
@@ -68,11 +71,10 @@ func _ready() -> void:
 		settings_container.move_child(label_web_disable, -2)
 
 
-func popup2() -> void:
+func _populate() -> void:
 	%ThemeContainer/Dark.grab_focus.call_deferred()
 	scroll_container.scroll_vertical = 0
 	lang_auto.text = tr("SETTING_LANG_AUTO") % locale_names[OS.get_locale_language()]
-	super()
 
 
 func _on_theme_chosen(button_pressed: bool, theme_name: String) -> void:
@@ -92,4 +94,4 @@ func _on_check_updates_toggled(button_pressed: bool) -> void:
 
 
 func _on_close_button_pressed() -> void:
-	hide()
+	close()

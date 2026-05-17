@@ -7,15 +7,16 @@
 
 [node name="ColumnDialog" type="PopupPanel" unique_id=1682905840 node_paths=PackedStringArray("container")]
 oversampling_override = 1.0
-size = Vector2i(283, 430)
+size = Vector2i(311, 430)
 visible = true
 theme_override_styles/panel = SubResource("StyleBoxEmpty_i35cf")
 script = ExtResource("1")
-container = NodePath("MarginContainer/VBoxContainer/PanelContainer")
+container = NodePath("MarginContainer/VBoxContainer")
+dim_background = false
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1965770182]
 editor_description = "Needed because the PanelContainer's shadow gets clipped"
-offset_right = 283.0
+offset_right = 311.0
 offset_bottom = 430.0
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
@@ -29,11 +30,13 @@ theme_override_constants/separation = 0
 [node name="Tear" type="TextureRect" parent="MarginContainer/VBoxContainer" unique_id=2087323235]
 unique_name_in_owner = true
 z_index = 1
+use_parent_material = true
 layout_mode = 2
 size_flags_horizontal = 4
 texture = ExtResource("2")
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer" unique_id=395461528]
+use_parent_material = true
 layout_mode = 2
 theme_type_variation = &"CustomDialog"
 

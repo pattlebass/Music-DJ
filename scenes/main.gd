@@ -20,6 +20,7 @@ const PROGRESS_DIALOG = preload("res://scenes/dialogs/progress_dialog/progress_d
 
 @onready var bg_panel: Panel = $BgPanel
 @onready var dim_overlay: Panel = $DimOverlay
+@onready var input_block: Panel = $InputBlock
 
 # Notes:
 # "column" refers to the column node itself, while "column_no" refers
@@ -30,8 +31,10 @@ func _ready() -> void:
 	#region Signals
 	get_window().files_dropped.connect(_on_files_dropped)
 	Utils.theme_changed.connect(_on_theme_changed)
-	Utils.exclusive_popup_visible.connect(show_shadow)
-	Utils.exclusive_popup_hidden.connect(hide_shadow)
+	Utils.dim_dialog_shown.connect(show_shadow)
+	Utils.dim_dialog_hidden.connect(hide_shadow)
+	Utils.input_block_dialog_shown.connect(input_block.show)
+	Utils.input_block_dialog_hidden.connect(input_block.hide)
 	
 	BoomBox.play_ended.connect(_on_play_ended)
 	BoomBox.play_started.connect(_on_play_started)
@@ -78,7 +81,7 @@ func _on_song_loaded(is_undo: bool) -> void:
 
 func _on_column_added_node(column: Column) -> void:
 	column.tile_pressed.connect(_on_tile_pressed.bind(column))
-	column.column_button_pressed.connect(column_dialog.popup_on_column.bind(column))
+	column.column_button_pressed.connect(column_dialog.open_on_column.bind(column))
 	column.drag_started.connect(
 		func(): scroll_container.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	)
@@ -126,7 +129,7 @@ func _on_tile_pressed(instrument: int, column: Column) -> void:
 		return
 	sound_dialog.instrument = instrument
 	sound_dialog.column = column
-	sound_dialog.popup2()
+	sound_dialog.open()
 
 
 func _on_play_toggled(button_pressed: bool) -> void:
@@ -156,18 +159,18 @@ func _on_column_play_started(column_no: int) -> void:
 
 func _on_export_pressed() -> void:
 	save_dialog.title2 = "DIALOG_SAVE_TITLE_EXPORT"
-	save_dialog.popup2()
+	save_dialog.open()
 	save_dialog.name_picked.connect(export_song, CONNECT_ONE_SHOT)
 
 
 func _on_save_project_pressed() -> void:
 	save_dialog.title2 = "DIALOG_SAVE_TITLE_PROJECT"
-	save_dialog.popup2()
+	save_dialog.open()
 	save_dialog.name_picked.connect(save_project, CONNECT_ONE_SHOT)
 
 
 func _on_open_project_pressed() -> void:
-	load_dialog.popup2()
+	load_dialog.open()
 
 
 func _on_add_button_pressed() -> void:
@@ -215,7 +218,7 @@ func save_project(file_name: String) -> void:
 	# ProgressDialog
 	var progress_dialog: ProgressDialog = PROGRESS_DIALOG.instantiate()
 	add_child(progress_dialog)
-	progress_dialog.popup2()
+	progress_dialog.open()
 	progress_dialog.body_text = ""
 	progress_dialog.body_text_completed = ""
 	progress_dialog.popup_hidden.connect(progress_dialog.queue_free)
@@ -230,7 +233,7 @@ func save_project(file_name: String) -> void:
 	
 	var tween := create_tween()
 	tween.tween_property(progress_dialog, ^"progress", 1, 0.2)
-	tween.tween_callback(progress_dialog.popup_hide2)
+	tween.tween_callback(progress_dialog.close)
 	
 	var err := BoomBox.song.save(path)
 	
@@ -253,7 +256,7 @@ func export_song(file_name: String) -> void:
 		progress_dialog.body_text_completed = tr("DIALOG_PROGRESS_AFTER_EXPORT") % ProjectSettings.globalize_path(path)
 	
 	progress_dialog.popup_hidden.connect(progress_dialog.queue_free)
-	progress_dialog.popup2()
+	progress_dialog.open()
 	
 	progress_dialog.open_button.pressed.connect(
 		OS.shell_open.bind(ProjectSettings.globalize_path(Variables.saves_dir))
@@ -309,14 +312,21 @@ func new_song() -> void:
 	Variables.opened_file = ""
 
 
+var _shadow_tween: Tween
 func show_shadow() -> void:
-	var tween := create_tween()
-	tween.tween_property(dim_overlay, ^"modulate:a", 1.0, 0.1)
+	if _shadow_tween:
+		_shadow_tween.kill()
+	_shadow_tween = create_tween()
+	_shadow_tween.tween_callback(dim_overlay.show)
+	_shadow_tween.tween_property(dim_overlay, ^"modulate:a", 1.0, 0.1)
 
 
 func hide_shadow() -> void:
-	var tween := create_tween()
-	tween.tween_property(dim_overlay, ^"modulate:a", 0, 0.1)
+	if _shadow_tween:
+		_shadow_tween.kill()
+	_shadow_tween = create_tween()
+	_shadow_tween.tween_property(dim_overlay, ^"modulate:a", 0, 0.1)
+	_shadow_tween.tween_callback(dim_overlay.hide)
 
 
 func _on_files_dropped(files: PackedStringArray) -> void:
@@ -342,7 +352,7 @@ func _on_files_dropped(files: PackedStringArray) -> void:
 			else:
 				DirAccess.copy_absolute(i, Variables.projects_dir.path_join(file_name))
 	
-	load_dialog.popup2()
+	load_dialog.open()
 
 
 func _on_load_dialog_new_project() -> void:
@@ -350,4 +360,4 @@ func _on_load_dialog_new_project() -> void:
 			"DIALOG_CONFIRMATION_BODY_NEW_PROJECT"))
 	if confirmed:
 		new_song()
-		load_dialog.hide()
+		load_dialog.hide() # normal hide() is fine, it's a hack anyway

@@ -16,7 +16,7 @@ var projects_dir := "user://saves/Projects/"
 var exports_dir := "user://saves/Exports/"
 var opened_file := ""
 
-@onready var main = get_node("/root/Main/")
+@onready var main: Control = get_node("/root/Main/")
 
 
 func _ready() -> void:
