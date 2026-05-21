@@ -66,19 +66,21 @@ func create_item(project_path: String) -> void:
 
 
 func _on_file_dialog_file_selected(path: String) -> void:
+	var file_name := path.uri_file_decode().get_file()
+	
 	if not path.get_extension() in ["mdj", "mdjt", "mid"]:
 		DirAccess.remove_absolute(path)
-		Utils.toast("%s is not a valid project" % path.get_file())
+		Utils.toast("%s is not a valid project" % file_name)
 		return
 	
-	var new_path := "user://saves/Projects".path_join(path.get_file())
+	var new_path := "user://saves/Projects".path_join(file_name)
 	
 	if FileAccess.file_exists(new_path):
 		# Match file name with bracket numbering
 		# From stackoverflow.com/questions/7846389
 		var regex := RegEx.new()
 		regex.compile("^(.*?)(?:\\((\\d+)\\))?\\.(.+)$")
-		var result := regex.search(path.get_file())
+		var result := regex.search(file_name)
 		
 		var groups := {
 				"file_name": result.strings[1],
@@ -99,9 +101,19 @@ func _on_file_dialog_file_selected(path: String) -> void:
 		file.store_string(JSON.stringify(MidiFile.to_mdj(path)))
 		file.close()
 	else:
-		# HACK: https://github.com/godotengine/godot/issues/741051
-		var dir := DirAccess.open(path.get_base_dir())
-		dir.copy(path, new_path)
+		# HACK: https://github.com/godotengine/godot/issues/74105
+		var original_file := FileAccess.open(path, FileAccess.READ)
+		var buffer := original_file.get_buffer(original_file.get_length())
+		var new_file := FileAccess.open(new_path, FileAccess.WRITE)
+		new_file.store_buffer(buffer)
+		new_file.close()
+		
+		# Might be old format
+		var song := BoomBox.convert_project(new_path)
+		song.save(new_path)
+	
+	#var new_file := FileAccess.open(new_path, FileAccess.READ)
+	#print(new_file.get_as_text())
 	
 	load_song(new_path)
 

@@ -161,14 +161,14 @@ func _on_audio_stream_player_finished() -> void:
 
 
 func convert_project(old_project: String) -> Song:
-	# DEPRECATED v1.0-stable: Convert projects
+	# DEPRECATED v2.0: Convert projects
 	var file := FileAccess.open(old_project, FileAccess.READ)
 	var song2 := Song.new()
 	
 	var json_song = JSON.parse_string(file.get_as_text())
 	
 	if json_song == null:
-		song2.data = file.get_var()
+		song2.data = file.get_var() # Kinda scary, ngl
 		return song2
 	
 	file.close()
