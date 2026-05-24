@@ -5,7 +5,6 @@ extends FilenameDialog
 
 func _ready() -> void:
 	super()
-	native_file_dialog.add_filter("*.wav")
 	native_file_dialog.file_selected.connect(path_picked.emit)
 
 

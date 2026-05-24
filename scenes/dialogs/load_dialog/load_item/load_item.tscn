@@ -148,6 +148,36 @@ theme_type_variation = &"LabelIconButton"
 text = "DIALOG_LOAD_BTN_LINK"
 horizontal_alignment = 1
 
+[node name="ExportButton" type="Button" parent="ActionsContainer" unique_id=1457290835]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_type_variation = &"ListItem"
+icon_alignment = 1
+
+[node name="VBox" type="VBoxContainer" parent="ActionsContainer/ExportButton" unique_id=1735805166]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1.0
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Icon" type="TextureRect" parent="ActionsContainer/ExportButton/VBox" unique_id=1116810832]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("4_t66sg")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="ActionsContainer/ExportButton/VBox" unique_id=1438480261]
+layout_mode = 2
+mouse_filter = 1
+theme_type_variation = &"LabelIconButton"
+text = "DIALOG_LOAD_BTN_EXPORT"
+horizontal_alignment = 1
+
 [node name="DeleteButton" type="Button" parent="ActionsContainer" unique_id=1749142959]
 layout_mode = 2
 size_flags_horizontal = 3

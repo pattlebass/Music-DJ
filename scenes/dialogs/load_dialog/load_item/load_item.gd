@@ -5,6 +5,7 @@ extends VBoxContainer
 @onready var open_button: Button = $ActionsContainer/OpenButton
 @onready var download_button: Button = $ActionsContainer/DownloadButton
 @onready var share_button: Button = $ActionsContainer/ShareButton
+@onready var export_button: Button = $ActionsContainer/ExportButton
 @onready var link_button: Button = $ActionsContainer/LinkButton
 @onready var delete_button: Button = $ActionsContainer/DeleteButton
 @onready var actions_container: HBoxContainer = $ActionsContainer
@@ -18,6 +19,7 @@ func _ready() -> void:
 	open_button.get_node("VBox/Icon").texture = load(theme_path + "open_file.svg")
 	download_button.get_node("VBox/Icon").texture = load(theme_path + "download.svg")
 	share_button.get_node("VBox/Icon").texture = load(theme_path + "share.svg")
+	export_button.get_node("VBox/Icon").texture = load(theme_path + "export_file.svg")
 	link_button.get_node("VBox/Icon").texture = load(theme_path + "link.svg")
 	delete_button.get_node("VBox/Icon").texture = load(theme_path + "delete.svg")
 	

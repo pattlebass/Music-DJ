@@ -41,6 +41,7 @@ DIALOG_LOAD_TITLE,Open project,Deschide,Buka proyek,Otwórz projekt,Открыт
 DIALOG_LOAD_BTN_OPEN,Open,Deschide,Buka,Otwórz,Открыть
 DIALOG_LOAD_BTN_DOWNLOAD,Download,Descarcă,Unduh,Pobierz,Скачать
 DIALOG_LOAD_BTN_SHARE,Share,Distribuie,Bagikan,Udostępnij,Поделиться
+DIALOG_LOAD_BTN_EXPORT,Export,Exportă,,,
 DIALOG_LOAD_BTN_LINK,Copy link,Copiază linkul,Salin tautan,Skopiuj link,Скопировать ссылку
 DIALOG_LOAD_BTN_DELETE,Delete,Șterge,Hapus,Usuń,Удалить
 DIALOG_LOAD_NO_PROJECTS,No saved projects,Niciun proiect salvat,Tidak ada proyek yang disimpan,Brak zapisanych projektów,Нет сохранённых проектов

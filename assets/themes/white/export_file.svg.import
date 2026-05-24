@@ -1,0 +1,20 @@
+[remap]
+
+importer="svg"
+type="DPITexture"
+uid="uid://dc3trvl8xpxpe"
+path="res://.godot/imported/export_file.svg-c4134738e814eeddfbf6182664557154.dpitex"
+
+[deps]
+
+source_file="res://assets/themes/white/export_file.svg"
+dest_files=["res://.godot/imported/export_file.svg-c4134738e814eeddfbf6182664557154.dpitex"]
+
+[params]
+
+base_scale=1.0
+saturation=1.0
+color_map={
+"ffffff": "666"
+}
+compress=true

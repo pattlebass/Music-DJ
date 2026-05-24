@@ -9,7 +9,8 @@ const LOAD_ITEM = preload("res://scenes/dialogs/load_dialog/load_item/load_item.
 @onready var open_folder_button: Button = %OpenFolderButton
 @onready var file_picker_button: Button = %FilePickerButton
 @onready var no_projects_label: Label = %NoProjectsLabel
-@onready var file_dialog: FileDialog = %FileDialog
+@onready var import_file_dialog: FileDialog = %ImportFileDialog
+@onready var export_file_dialog: FileDialog = %ExportFileDialog
 
 var selected_file := ""
 
@@ -19,7 +20,9 @@ signal new_project
 
 func _ready() -> void:
 	super()
+	
 	Utils.theme_changed.connect(_on_theme_changed)
+	export_file_dialog.file_selected.connect(_on_export_file_selected)
 	
 	open_folder_button.visible = not OS.get_name() in ["Web", "Android"]
 	file_picker_button.visible = OS.get_name() in ["Windows", "Android"]
@@ -54,25 +57,21 @@ func create_item(project_path: String) -> void:
 	var item: LoadItem = LOAD_ITEM.instantiate()
 	project_container.add_child(item)
 	
-	item.expanded.connect(scroll_container.ensure_control_visible.bind(item))
+	item.expanded.connect(scroll_container.ensure_control_visible.bind(item), CONNECT_DEFERRED)
 	item.button.text = project_path
 	item.open_button.pressed.connect(load_song.bind(Variables.projects_dir.path_join(project_path)))
 	item.delete_button.pressed.connect(_on_delete_pressed.bind(item, project_path))
 	item.download_button.pressed.connect(_on_download_pressed.bind(project_path))
 	item.share_button.pressed.connect(_on_share_pressed.bind(project_path))
+	item.export_button.pressed.connect(_on_export_pressed.bind(project_path))
 	item.link_button.pressed.connect(_on_link_pressed.bind(project_path))
-	item.download_button.visible = OS.get_name() == "Web" or OS.get_name() == "Android"
+	item.download_button.visible = OS.get_name() == "Web"
+	item.export_button.visible = DisplayServer.has_feature(DisplayServer.FEATURE_NATIVE_DIALOG_FILE)
 	item.share_button.visible = Utils.can_share()
 
 
-func _on_file_dialog_file_selected(path: String) -> void:
+func _on_import_file_dialog_file_selected(path: String) -> void:
 	var file_name := path.uri_file_decode().get_file()
-	
-	if not path.get_extension() in ["mdj", "mdjt", "mid"]:
-		DirAccess.remove_absolute(path)
-		Utils.toast("%s is not a valid project" % file_name)
-		return
-	
 	var new_path := "user://saves/Projects".path_join(file_name)
 	
 	if FileAccess.file_exists(new_path):
@@ -112,9 +111,6 @@ func _on_file_dialog_file_selected(path: String) -> void:
 		var song := BoomBox.convert_project(new_path)
 		song.save(new_path)
 	
-	#var new_file := FileAccess.open(new_path, FileAccess.READ)
-	#print(new_file.get_as_text())
-	
 	load_song(new_path)
 
 
@@ -152,10 +148,23 @@ func _on_link_pressed(file_name: String) -> void:
 
 
 func _on_download_pressed(file_name: String) -> void:
-	Utils.download_file(
-		Variables.saves_dir.path_join("Projects/%s" % file_name),
-		file_name
-	)
+	var file_path := Variables.saves_dir.path_join("Projects/%s" % file_name)
+	if OS.get_name() == "Web":
+		Utils.download_file(file_path, file_name)
+
+
+var _export_source_path := ""
+func _on_export_pressed(file_name: String) -> void:
+	var file_path := Variables.saves_dir.path_join("Projects/%s" % file_name)
+	_export_source_path = file_path
+	export_file_dialog.current_file = file_name
+	export_file_dialog.popup_file_dialog()
+
+
+func _on_export_file_selected(dest: String) -> void:
+	var err := DirAccess.copy_absolute(_export_source_path, dest)
+	if err:
+		printerr("Failed to copy project (%s) to %s: %s" % [_export_source_path, dest, err])
 
 
 func _on_new_project_button_pressed() -> void:
@@ -171,7 +180,7 @@ func _on_open_button_pressed() -> void:
 
 
 func _on_pick_file_button_pressed() -> void:
-	file_dialog.popup()
+	import_file_dialog.popup()
 
 
 func _on_theme_changed(new_theme: String) -> void:

@@ -32,27 +32,17 @@ func change_theme(new_theme: String) -> void:
 
 
 func download_file(file_path: String, file_name: String):
-	if OS.get_name() == "Web":
-		var file := FileAccess.open(file_path, FileAccess.READ)
-		var file_data_raw := file.get_buffer(file.get_length())
-		file.close()
-		
-		var mime_type: String
-		if file_name.ends_with(".wav"):
-			mime_type = "audio/wav"
-		elif file_name.ends_with(".mdj"):
-			mime_type = "application/octet-stream"
-		
-		JavaScriptBridge.download_buffer(file_data_raw, file_name, mime_type)
-	elif OS.get_name() == "Android":
-		var destination_dir := OS.get_system_dir(OS.SYSTEM_DIR_DOWNLOADS).path_join("MusicDJ")
-		DirAccess.make_dir_absolute(destination_dir)
-		
-		var err = DirAccess.copy_absolute(file_path, destination_dir.path_join(file_name))
-		if err:
-			printerr("Failed to copy project (%s) to %s: " % [file_name, destination_dir] + err)
-		else:
-			print("Copied project (%s) to %s" % [file_name, destination_dir])
+	var file := FileAccess.open(file_path, FileAccess.READ)
+	var file_data_raw := file.get_buffer(file.get_length())
+	file.close()
+	
+	var mime_type: String
+	if file_name.ends_with(".wav"):
+		mime_type = "audio/wav"
+	elif file_name.ends_with(".mdj"):
+		mime_type = "application/octet-stream"
+	
+	JavaScriptBridge.download_buffer(file_data_raw, file_name, mime_type)
 
 
 func can_share() -> bool:
