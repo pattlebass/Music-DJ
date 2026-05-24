@@ -10,7 +10,8 @@ const PROGRESS_DIALOG = preload("res://scenes/dialogs/progress_dialog/progress_d
 @onready var column_container: ColumnContainer = %ColumnContainer
 @onready var scroll_container: ScrollContainer = %ScrollContainer
 
-@onready var save_dialog: FilenameDialog = $SaveDialog
+@onready var export_save_dialog: FilenameDialog = $ExportSaveDialog
+@onready var project_save_dialog: FilenameDialog = $ProjectSaveDialog
 @onready var load_dialog: LoadDialog = $LoadDialog
 @onready var sound_dialog: SoundDialog = $SoundDialog
 @onready var column_dialog: ColumnDialog = $ColumnDialog
@@ -44,6 +45,10 @@ func _ready() -> void:
 	column_container.column_added.connect(_on_column_added_node)
 	
 	load_dialog.project_selected.connect(load_song_path)
+	
+	project_save_dialog.path_picked.connect(save_project)
+	export_save_dialog.path_picked.connect(export_song)
+	
 	#endregion
 	
 	Utils.change_theme(Options.theme)
@@ -158,15 +163,11 @@ func _on_column_play_started(column_no: int) -> void:
 
 
 func _on_export_pressed() -> void:
-	save_dialog.title2 = "DIALOG_SAVE_TITLE_EXPORT"
-	save_dialog.open()
-	save_dialog.name_picked.connect(export_song, CONNECT_ONE_SHOT)
+	export_save_dialog.open()
 
 
 func _on_save_project_pressed() -> void:
-	save_dialog.title2 = "DIALOG_SAVE_TITLE_PROJECT"
-	save_dialog.open()
-	save_dialog.name_picked.connect(save_project, CONNECT_ONE_SHOT)
+	project_save_dialog.open()
 
 
 func _on_open_project_pressed() -> void:
@@ -213,8 +214,7 @@ func get_project_from_query() -> Song:
 	return null
 
 
-func save_project(file_name: String) -> void:
-	var path := Variables.projects_dir.path_join("%s.mdj" % file_name)
+func save_project(path: String) -> void:
 	# ProgressDialog
 	var progress_dialog: ProgressDialog = PROGRESS_DIALOG.instantiate()
 	add_child(progress_dialog)
@@ -240,12 +240,13 @@ func save_project(file_name: String) -> void:
 	if err:
 		progress_dialog.error(err)
 	
-	Variables.opened_file = file_name
+	var decoded_path := path.uri_file_decode()
+	Variables.opened_file = decoded_path.get_basename().get_file()
 
 
 # TODO: Remember web exports 
-func export_song(file_name: String) -> void:
-	var path := Variables.exports_dir.path_join(file_name + ".wav")
+func export_song(path: String) -> void:
+	var decoded_path := path.uri_file_decode()
 	
 	# ProgressDialog
 	var progress_dialog: ProgressDialog = PROGRESS_DIALOG.instantiate()
@@ -262,7 +263,7 @@ func export_song(file_name: String) -> void:
 		OS.shell_open.bind(ProjectSettings.globalize_path(Variables.saves_dir))
 	)
 	progress_dialog.download_button.pressed.connect(
-		Utils.download_file.bind(path, path.get_file())
+		Utils.download_file.bind(path, decoded_path.get_file())
 	)
 	progress_dialog.share_button.pressed.connect(
 		Utils.share_file.bind(path, "", "", "", "audio/wav")

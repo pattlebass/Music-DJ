@@ -10,10 +10,11 @@
 [ext_resource type="Texture2D" uid="uid://cn2vpe0ceeqdc" path="res://assets/piano.png" id="7_ye766"]
 [ext_resource type="PackedScene" uid="uid://bhwn5w0b5pfsb" path="res://scenes/dialogs/column_dialog/column_dialog.tscn" id="8"]
 [ext_resource type="Texture2D" uid="uid://bma8j042fadt8" path="res://assets/trumpet.png" id="8_mj0ld"]
-[ext_resource type="PackedScene" uid="uid://c6x7qgd6xh3mr" path="res://scenes/dialogs/filename_dialog/filename_dialog.tscn" id="9"]
 [ext_resource type="Script" uid="uid://b4tjxpsb6iqal" path="res://scenes/column_container.gd" id="9_muem4"]
 [ext_resource type="PackedScene" uid="uid://c04t7hvga6qed" path="res://scenes/dialogs/load_dialog/load_dialog.tscn" id="11"]
+[ext_resource type="PackedScene" uid="uid://b14dd1leuy8mw" path="res://scenes/dialogs/project_save_dialog/project_save_dialog.tscn" id="11_dp3eg"]
 [ext_resource type="PackedScene" uid="uid://c5fivptia1eum" path="res://scenes/dialogs/settings_dialog/settings_dialog.tscn" id="12"]
+[ext_resource type="PackedScene" uid="uid://bksqa6gvjnt5e" path="res://scenes/dialogs/export_save_dialog/export_save_dialog.tscn" id="12_dp3eg"]
 [ext_resource type="PackedScene" uid="uid://d3mp71v2tbwwq" path="res://scenes/dialogs/tutorial_dialog/tutorial_dialog.tscn" id="13"]
 [ext_resource type="PackedScene" uid="uid://c8yhh7y4x3ra7" path="res://scenes/dialogs/update_dialog/update_dialog.tscn" id="14"]
 [ext_resource type="PackedScene" uid="uid://deqkupbh7ke6w" path="res://scenes/dialogs/about_dialog/about_dialog.tscn" id="16"]
@@ -276,7 +277,10 @@ metadata/_edit_lock_ = true
 [node name="SoundDialog" parent="." unique_id=1843009550 instance=ExtResource("3")]
 visible = false
 
-[node name="SaveDialog" parent="." unique_id=781384839 instance=ExtResource("9")]
+[node name="ProjectSaveDialog" parent="." unique_id=1888148372 instance=ExtResource("11_dp3eg")]
+visible = false
+
+[node name="ExportSaveDialog" parent="." unique_id=1644531561 instance=ExtResource("12_dp3eg")]
 visible = false
 
 [node name="ColumnDialog" parent="." unique_id=674793486 instance=ExtResource("8")]

@@ -13,7 +13,8 @@ var title2 := "Save":
 @onready var line_edit: LineEdit = %LineEdit
 @onready var label_error: Label = %Error
 
-signal name_picked(file_name)
+@warning_ignore("unused_signal")
+signal path_picked(path: String)
 
 
 func _ready() -> void:
@@ -28,14 +29,13 @@ func _populate() -> void:
 		close()
 		return
 	
-	# HACK
-	Utils.signal_disconnect_all(name_picked)
-	
 	line_edit.text = Variables.opened_file if Variables.opened_file else get_default_name()
 	line_edit.caret_column = line_edit.text.length()
 	_on_LineEdit_text_changed(line_edit.text) # Manually call the callback
 	
 	line_edit.grab_focus.call_deferred()
+	
+	size.x = 0
 
 
 func get_default_name() -> String:
@@ -44,7 +44,6 @@ func get_default_name() -> String:
 
 func _on_OkButton_pressed() -> void:
 	close()
-	name_picked.emit(line_edit.text.strip_edges())
 
 
 func _on_CancelButton_pressed() -> void:

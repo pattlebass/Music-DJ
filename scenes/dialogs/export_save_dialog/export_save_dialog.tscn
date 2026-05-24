@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://bksqa6gvjnt5e"]
+
+[ext_resource type="PackedScene" uid="uid://c6x7qgd6xh3mr" path="res://scenes/dialogs/filename_dialog/filename_dialog.tscn" id="1_0tln0"]
+[ext_resource type="Script" uid="uid://b0id4jmr8vgn1" path="res://scenes/dialogs/export_save_dialog/export_save_dialog.gd" id="2_rolbf"]
+
+[node name="ExportSaveDialog" unique_id=1888148372 instance=ExtResource("1_0tln0")]
+size = Vector2i(606, 287)
+script = ExtResource("2_rolbf")
+
+[node name="MarginContainer" parent="." index="1" unique_id=945465657]
+offset_right = 606.0
+offset_bottom = 287.0
+
+[node name="Title" parent="MarginContainer/PanelContainer/VBoxContainer/VBoxContainer" parent_id_path=PackedInt32Array(1777850097) index="0" unique_id=565826757]
+text = "DIALOG_SAVE_TITLE_EXPORT"
+
+[node name="NativeFileDialog" type="FileDialog" parent="." index="2" unique_id=1226014576]
+unique_name_in_owner = true
+oversampling_override = 1.0
+position = Vector2i(0, 36)
+access = 2
+use_native_dialog = true
