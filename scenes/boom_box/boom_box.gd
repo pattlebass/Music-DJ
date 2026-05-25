@@ -168,7 +168,10 @@ func convert_project(old_project: String) -> Song:
 	var json_song = JSON.parse_string(file.get_as_text())
 	
 	if json_song == null:
-		song2.data = file.get_var() # Kinda scary, ngl
+		# TODO: Create method to check if file is valid instead of returning empty song
+		var err_msg := "File (%s) is not json format." % old_project
+		printerr(err_msg)
+		Utils.toast(err_msg)
 		return song2
 	
 	file.close()

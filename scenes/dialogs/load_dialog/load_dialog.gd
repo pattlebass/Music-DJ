@@ -80,6 +80,11 @@ func _on_import_file_dialog_file_selected(path: String) -> void:
 		var regex := RegEx.new()
 		regex.compile("^(.*?)(?:\\((\\d+)\\))?\\.(.+)$")
 		var result := regex.search(file_name)
+		if result == null:
+			printerr("Something went wrong when importing %s" % path)
+			print_stack()
+			Utils.toast("Something went wrong.")
+			return
 		
 		var groups := {
 				"file_name": result.strings[1],
@@ -157,6 +162,11 @@ var _export_source_path := ""
 func _on_export_pressed(file_name: String) -> void:
 	var file_path := Variables.saves_dir.path_join("Projects/%s" % file_name)
 	_export_source_path = file_path
+	
+	# HACK: AHHHHHHHHH
+	if OS.get_name() != "Android":
+		file_name = file_name.get_basename()
+	
 	export_file_dialog.current_file = file_name
 	export_file_dialog.popup_file_dialog()
 
@@ -165,6 +175,7 @@ func _on_export_file_selected(dest: String) -> void:
 	var err := DirAccess.copy_absolute(_export_source_path, dest)
 	if err:
 		printerr("Failed to copy project (%s) to %s: %s" % [_export_source_path, dest, err])
+		Utils.toast("Export failed (%s). A file with that name may already exist." % err)
 
 
 func _on_new_project_button_pressed() -> void:
