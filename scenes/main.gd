@@ -245,6 +245,7 @@ func save_project(path: String) -> void:
 
 
 # TODO: Remember web exports 
+var _export_canceled := false
 func export_song(path: String) -> void:
 	var decoded_path := path.uri_file_decode()
 	
@@ -257,6 +258,11 @@ func export_song(path: String) -> void:
 		progress_dialog.body_text_completed = tr("DIALOG_PROGRESS_AFTER_EXPORT") % ProjectSettings.globalize_path(path)
 	
 	progress_dialog.popup_hidden.connect(progress_dialog.queue_free)
+	progress_dialog.canceled.connect(
+		func():
+			_export_canceled = true
+			BoomBox.stop()
+	)
 	progress_dialog.open()
 	
 	progress_dialog.open_button.pressed.connect(
@@ -282,10 +288,12 @@ func export_song(path: String) -> void:
 	await BoomBox.play_ended
 	effect.set_recording_active(false)
 	
+	if _export_canceled:
+		print("Export canceled.")
+		return
+	
 	# Saving
 	var recording := effect.get_recording()
-	if recording == null:
-		print("Export cancelled.")
 	var err := recording.save_to_wav(path)
 	if err:
 		progress_dialog.error(err)
