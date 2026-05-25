@@ -41,7 +41,7 @@ func build() -> void:
 	
 	size.y = 0
 	add_theme_stylebox_override(&"panel", StyleBoxEmpty.new())
-	var window_size := DisplayServer.window_get_size()
+	var window_size: Vector2i = get_tree().root.get_visible_rect().size
 	position.x = window_size.x / 2 - size.x / 2
 	position.y = window_size.y * 3 / 4
 
