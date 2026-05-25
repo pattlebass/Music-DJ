@@ -95,7 +95,7 @@ alignment = 1
 custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 focus_mode = 1
-text = "BTN_CANCEL"
+text = "BTN_CLOSE"
 
 [node name="ImportFileDialog" type="FileDialog" parent="." unique_id=1863226514]
 unique_name_in_owner = true
