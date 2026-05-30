@@ -63,6 +63,12 @@ func add_item(text: String, auto_close := true, id := items) -> Button:
 	return button
 
 
+func add_item_icon(text: String, icon: Texture2D, auto_close := true, id := items) -> Button:
+	var button := add_item(text, auto_close, id)
+	button.icon = icon
+	return button
+
+
 func add_separator() -> void:
 	var separator := HSeparator.new()
 	items_container.add_child(separator)

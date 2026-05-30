@@ -66,4 +66,7 @@ func _on_item_pressed(id: int) -> void:
 
 
 func _on_theme_changed(new_theme: String) -> void:
-	icon = load("res://assets/themes/%s/more.svg" % new_theme)
+	var path := "res://assets/themes/%s/" % new_theme
+	icon = load(path.path_join("more.svg"))
+	undo_button.icon = load(path.path_join("undo.svg"))
+	redo_button.icon = load(path.path_join("redo.svg"))

@@ -1,0 +1,20 @@
+[remap]
+
+importer="svg"
+type="DPITexture"
+uid="uid://wgynh6hgmqfr"
+path="res://.godot/imported/undo.svg-cf7c6372ea1579ac41a7835528034ec4.dpitex"
+
+[deps]
+
+source_file="res://assets/themes/white/undo.svg"
+dest_files=["res://.godot/imported/undo.svg-cf7c6372ea1579ac41a7835528034ec4.dpitex"]
+
+[params]
+
+base_scale=1.0
+saturation=1.0
+color_map={
+"fff": "666"
+}
+compress=true

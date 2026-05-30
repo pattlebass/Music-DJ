@@ -1,0 +1,20 @@
+[remap]
+
+importer="svg"
+type="DPITexture"
+uid="uid://48iulaisk8s2"
+path="res://.godot/imported/redo.svg-489d79a81d21761fac006a2ca480a3b1.dpitex"
+
+[deps]
+
+source_file="res://assets/themes/white/redo.svg"
+dest_files=["res://.godot/imported/redo.svg-489d79a81d21761fac006a2ca480a3b1.dpitex"]
+
+[params]
+
+base_scale=1.0
+saturation=1.0
+color_map={
+"fff": "666"
+}
+compress=true
