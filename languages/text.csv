@@ -81,11 +81,12 @@ INSTRUMENT_DRUMS,Drums,Tobe,Drum,Bębny,Барабаны
 INSTRUMENT_BASS,Bass,Bas,Bass,Bass,Бас
 INSTRUMENT_KEYS,Keys,Pian,Piano,Klawisze,Пианино
 INSTRUMENT_TRUMPET,Trumpet,Trompetă,Terompet,Trąbka,Труба
-TUTORIAL_HOLD_TILE,Tap and hold a tile to copy it.,Ține apăsat pe o celulă pentru a o copia.,Ketuk dan tahan balok untuk menyalinnya.,"Dotknij i przytrzymaj kafelek, aby go skopiować.","Нажмите и удерживайте плитку, чтобы скопировать ее."
+TUTORIAL_TILE_LONG_PRESS,Tap and hold a tile to copy it.,Apasă lung pe o celulă pentru a o copia.,Ketuk dan tahan balok untuk menyalinnya.,"Dotknij i przytrzymaj kafelek, aby go skopiować.","Нажмите и удерживайте плитку, чтобы скопировать ее."
+TUTORIAL_TILE_QE_SWIPE,Swipe up or down on a tile to quick edit it.,Glisează în sus sau în jos pe o celulă pentru a o edita rapid.,,,
+TUTORIAL_TILE_QE_SCROLL,Scroll up on a tile (or press %s when focused) to quick edit it.,Derulează în sus pe o celulă (sau apasă %s când celula este selectată) pentru a o edita rapid.,,,
+TUTORIAL_TILE_CONTEXT_MENU,Right-click a tile to open its context menu.,Fă clic dreapta pe o celulă pentru a-i deschide meniul contextual.,Klik kanan di balok untuk menampilkan menu konteks.,"Kliknij prawym przyciskiem myszy na płytkę, aby otworzyć menu kontekstowe.",Клик правой кнопкой по плитке откроет ее меню
 TUTORIAL_COLUMN_BTN,Tap the number of a column to open its menu.,Apasă pe numărul unei coloane pentru a-i deschide meniul.,Ketuk nomor kolom untuk membuka menunya.,"Dotknij numeru kolumny, aby otworzyć jej menu.",Нажмите на номер столбца чтобы открыть его меню.
-TUTORIAL_DRAG_FILE,You can drag and drop project files into the App's window.,Poți trage fișierele de proiect în fereastra aplicației.,Anda bisa tarik file proyek langsung ke jendela aplikasi.,Możesz przeciągać i upuszczać pliki projektu do okna aplikacji.,Вы можете перетаскивать файлы проекта в окно приложения.
-TUTORIAL_FOLLOW,Follow %s on Twitter for updates.,Urmărește %s pe Twitter pentru actualizări.,Ikuti %s di Twitter untuk info terbaru.,"Śledź %s na Twitterze, aby być na bieżąco.",Подпишитесь %s в Twitter для получения новостей.
-TUTORIAL_RIGHT_CLICK,Right-click a tile to open its context menu.,Dă clic dreapta pe o celulă pentru a-i deschide meniul.,Klik kanan di balok untuk menampilkan menu konteks.,"Kliknij prawym przyciskiem myszy na płytkę, aby otworzyć menu kontekstowe.",Клик правой кнопкой по плитке откроет ее меню
+TUTORIAL_COLUMN_MOVE,Long press on a column (or press %s when focused) to move it.,Apasă lung pe o coloană (sau apasă %s când coloana este selectată) pentru a o muta.,,,
 SAMPLE_CAT_INTRODUCTION,Introduction,Introducere,Intro,Wprowadzenie,Интро
 SAMPLE_CAT_VERSE,Verse,Strofă,Bait,Zwrotka,Куплет
 SAMPLE_CAT_CHORUS,Chorus,Refren,Refrain,Refren,Хор

@@ -4,8 +4,6 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hwxs1"]
 
-[sub_resource type="StyleBoxEmpty" id="6"]
-
 [sub_resource type="Animation" id="7"]
 length = 0.001
 tracks/0/type = "value"
@@ -203,7 +201,7 @@ _data = {
 [node name="TutorialDialog" type="PopupPanel" unique_id=1979726671 node_paths=PackedStringArray("container")]
 oversampling_override = 1.0
 initial_position = 2
-size = Vector2i(740, 532)
+size = Vector2i(740, 553)
 visible = true
 theme_override_styles/panel = SubResource("StyleBoxEmpty_hwxs1")
 script = ExtResource("1")
@@ -211,7 +209,7 @@ container = NodePath("MarginContainer/PanelContainer")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=186472451]
 offset_right = 740.0
-offset_bottom = 532.0
+offset_bottom = 553.0
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
@@ -223,6 +221,7 @@ theme_type_variation = &"CustomDialog"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer" unique_id=1616980008]
 layout_mode = 2
+theme_override_constants/separation = 10
 
 [node name="Title" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer" unique_id=1382662597]
 layout_mode = 2
@@ -236,18 +235,12 @@ mouse_filter = 1
 
 [node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/PanelContainer/VBoxContainer" unique_id=1220380090]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 40)
+custom_minimum_size = Vector2(0, 70)
 layout_mode = 2
 mouse_filter = 1
 bbcode_enabled = true
-text = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore. "
 scroll_active = false
-
-[node name="HSeparator2" type="HSeparator" parent="MarginContainer/PanelContainer/VBoxContainer" unique_id=1667763896]
-layout_mode = 2
-mouse_filter = 1
-theme_override_constants/separation = 20
-theme_override_styles/separator = SubResource("6")
+vertical_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer" unique_id=664631855]
 layout_mode = 2

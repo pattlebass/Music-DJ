@@ -4,31 +4,37 @@ extends CustomDialog
 
 var all_panels := [
 	{
-		"key": "TUTORIAL_HOLD_TILE",
-		"video":"res://assets/tutorial/hold_tile.ogv",
+		"key": "TUTORIAL_TILE_LONG_PRESS",
+		"video":"res://assets/tutorial/tile_long_press.ogv",
 		"condition": OS.has_feature("mobile") or OS.has_feature("web"),
 	},
-	{"key": "TUTORIAL_COLUMN_BTN", "video":"res://assets/tutorial/column_btn.ogv"},
 	{
-		"key": "TUTORIAL_DRAG_FILE",
-		"video":"res://assets/tutorial/drag_file.ogv",
-		"condition": OS.has_feature("pc") or OS.has_feature("web"),
+		"key": "TUTORIAL_TILE_QE_SWIPE",
+		"video":"res://assets/tutorial/tile_quick_edit_swipe.ogv",
+		"condition": OS.has_feature("mobile") or OS.has_feature("web"),
 	},
 	{
-		"key": "TUTORIAL_RIGHT_CLICK",
-		"video": "res://assets/tutorial/right_click_tile.ogv",
+		"key": "TUTORIAL_TILE_QE_SCROLL",
+		"video":"res://assets/tutorial/tile_quick_edit_scroll.ogv",
 		"condition": OS.has_feature("pc") or OS.has_feature("web"),
+		"placeholders": ["Alt+↑/↓"]
 	},
 	{
-		"key": "TUTORIAL_FOLLOW",
-		"image":"res://assets/tutorial/follow.jpg",
-		"placeholders": ["[color=#4ecca3][url=https://twitter.com/pattlebass_dev]@pattlebass_dev[/url][/color]"],
+		"key": "TUTORIAL_TILE_CONTEXT_MENU",
+		"video":"res://assets/tutorial/tile_context_menu.ogv",
+		"condition": OS.has_feature("pc") or OS.has_feature("web"),
+	},
+	{"key": "TUTORIAL_COLUMN_BTN", "video":"res://assets/tutorial/column_button.ogv"},
+	{
+		"key": "TUTORIAL_COLUMN_MOVE",
+		"video":"res://assets/tutorial/column_move.ogv",
+		"placeholders": ["Ctrl+→/←"]
 	},
 ]
 
 var panels := []
 var current := 0
-var current_tutorial_version := 1
+var current_tutorial_version := 2
 
 @onready var video_player: VideoStreamPlayer = %VideoStreamPlayer
 @onready var texture_rect: TextureRect = %TextureRect
@@ -43,7 +49,7 @@ func _ready() -> void:
 	super()
 	
 	if current_tutorial_version > Options.last_seen_tutorial:
-		popup_centered.call_deferred()
+		open.call_deferred()
 	
 	if OS.has_feature("standalone"):
 		for panel in all_panels:
@@ -102,10 +108,10 @@ func change_panel(_panel_no: int, _previous_panel_no: int) -> void:
 		texture_rect.show()
 		texture_rect.texture = load(panel.image)
 	
+	var text := tr(panel.key)
 	if panel.has("placeholders"):
-		body.text = tr(panel.key) % panel.placeholders
-	else:
-		body.text = tr(panel.key)
+		text = text % panel.placeholders
+	body.text = text
 	page_label.text = "%s/%s" % [_panel_no + 1, panels.size()]
 	
 	if _panel_no >= _previous_panel_no:
