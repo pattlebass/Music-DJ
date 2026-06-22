@@ -11,14 +11,14 @@
 [node name="SettingsDialog" type="PopupPanel" unique_id=1057938968 node_paths=PackedStringArray("container")]
 oversampling_override = 1.0
 initial_position = 2
-size = Vector2i(506, 620)
+size = Vector2i(526, 620)
 visible = true
 theme_override_styles/panel = SubResource("StyleBoxEmpty_q4dur")
 script = ExtResource("1")
 container = NodePath("MarginContainer/PanelContainer")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1132320273]
-offset_right = 506.0
+offset_right = 526.0
 offset_bottom = 620.0
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10

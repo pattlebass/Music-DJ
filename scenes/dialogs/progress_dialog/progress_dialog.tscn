@@ -7,7 +7,7 @@
 [node name="ProgressDialog" type="PopupPanel" unique_id=1214394077 node_paths=PackedStringArray("container")]
 oversampling_override = 1.0
 initial_position = 2
-size = Vector2i(593, 902)
+size = Vector2i(618, 902)
 visible = true
 theme_override_styles/panel = SubResource("StyleBoxEmpty_ggbjy")
 script = ExtResource("1")
@@ -15,7 +15,7 @@ container = NodePath("MarginContainer/PanelContainer")
 hide_on_unfocus = false
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=545575949]
-offset_right = 593.0
+offset_right = 618.0
 offset_bottom = 902.0
 size_flags_vertical = 4
 theme_override_constants/margin_left = 10
