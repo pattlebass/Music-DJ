@@ -45,7 +45,7 @@ gdscript/warnings/integer_division=0
 window/energy_saving/keep_screen_on=false
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
-window/handheld/orientation="sensor_landscape"
+window/handheld/orientation=4
 
 [editor_plugins]
 
