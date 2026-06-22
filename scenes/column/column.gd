@@ -187,6 +187,8 @@ func _end_tile_drag() -> void:
 	event.pressed = true
 	event.position *= Vector2(10**10, 10**10)
 	Input.parse_input_event(event)
+	event.pressed = false
+	Input.parse_input_event(event)
 	
 	tile_drag_ended.emit()
 
