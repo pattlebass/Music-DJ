@@ -14,14 +14,15 @@ func _ready() -> void:
 	
 	Utils.theme_changed.connect(_on_theme_changed)
 	popup_menu.item_pressed.connect(_on_item_pressed)
+	popup_menu.about_to_open.connect(update_undo_redo_buttons)
 	build_menu()
 
 
 func build_menu() -> void:
 	undo_button = popup_menu.add_item("BTN_UNDO", false)
 	redo_button = popup_menu.add_item("BTN_REDO", false)
-	_on_history_changed()
-	BoomBox.history_changed.connect(_on_history_changed)
+	update_undo_redo_buttons()
+	BoomBox.history_changed.connect(update_undo_redo_buttons)
 	
 	popup_menu.add_separator()
 	
@@ -33,9 +34,9 @@ func build_menu() -> void:
 	popup_menu.add_item("BTN_ABOUT")
 
 
-func _on_history_changed() -> void:
-	undo_button.disabled = not BoomBox.can_undo()
-	redo_button.disabled = not BoomBox.can_redo()
+func update_undo_redo_buttons() -> void:
+	undo_button.disabled = not BoomBox.can_undo() or BoomBox.is_playing
+	redo_button.disabled = not BoomBox.can_redo() or BoomBox.is_playing
 
 
 func _on_item_pressed(id: int) -> void:

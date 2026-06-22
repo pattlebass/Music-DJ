@@ -10,6 +10,7 @@ const HIDE_DURATION = 0.05
 
 var dialog_hidden := true
 
+signal about_to_open
 signal popup_hidden
 
 
@@ -36,6 +37,7 @@ func _ready() -> void:
 
 
 func open() -> void:
+	about_to_open.emit()
 	dialog_hidden = false
 	gui_disable_input = false
 	_populate()
