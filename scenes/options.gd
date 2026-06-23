@@ -64,7 +64,7 @@ func init_options() -> void:
 	save(0)
 
 
-func save(delay := 2.0) -> void:
+func save(delay := 0.5) -> void:
 	_timer.start(delay)
 
 
