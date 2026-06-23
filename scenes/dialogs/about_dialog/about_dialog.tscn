@@ -52,8 +52,10 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 1
 bbcode_enabled = true
-text = "Developer:
-- pattlebass ([color=#4ecca3][url=https://twitter.com/pattlebass_dev]@pattlebass_dev[/url][/color])
+text = "Main Developer:
+- Fabian S. (pattlebass)
+	[color=#4ecca3][url=https://bsky.app/profile/pattlebass.bsky.social]Bluesky[/url][/color]
+	[color=#4ecca3][url=mailto:pattlebass.dev@gmail.com]Email[/url][/color]
 
 Translators:
 - StarryWindy (Indonesian)
@@ -64,9 +66,7 @@ Credits and licenses:
 - [color=#4ecca3][url=https://github.com/pattlebass/Music-DJ/blob/main/LICENSE]MusicDJ[/url][/color] by pattlebass
 - [color=#4ecca3][url=https://godotengine.org/license]Godot Engine[/url][/color]
 - Icons made by [color=#4ecca3][url=https://www.flaticon.com/authors/freepik]Freepik[/url][/color] from [color=#4ecca3][url=https://www.flaticon.com/]www.flaticon.com[/url][/color].
-- Gidole Font by [color=#4ecca3][url=https://twitter.com/larsenwork]Andreas Larsen[/url][/color]. [color=#4ecca3][url=https://github.com/pattlebass/Music-DJ/blob/main/assets/fonts/GidoleFont/License.txt]LICENSE[/url][/color]
-
-For any issues regarding copyright, please email me at [color=#4ecca3][url=mailto:pattlebass.dev@gmail.com]pattlebass.dev@gmail.com[/url][/color]."
+- Gidole Font by [color=#4ecca3][url=https://twitter.com/larsenwork]Andreas Larsen[/url][/color]. [color=#4ecca3][url=https://github.com/pattlebass/Music-DJ/blob/main/assets/fonts/GidoleFont/License.txt]LICENSE[/url][/color]"
 fit_content = true
 scroll_active = false
 
