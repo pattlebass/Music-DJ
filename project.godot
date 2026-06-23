@@ -20,6 +20,7 @@ boot_splash/stretch_mode=0
 boot_splash/image="res://assets/icon/icon.png"
 config/icon="res://assets/icon/icon.png"
 config/windows_native_icon="res://assets/icon/icon.ico"
+config/beta=true
 
 [audio]
 

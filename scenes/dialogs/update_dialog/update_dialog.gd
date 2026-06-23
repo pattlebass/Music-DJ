@@ -1,6 +1,8 @@
 class_name UpdateDialog
 extends CustomAcceptDialog
 
+const CHECK_UPDATE_INTERVAL = 3600 # seconds
+
 @onready var title2: Label = %Title
 @onready var body_label: RichTextLabel = %Body
 @onready var ok_button: Button = %OkButton
@@ -8,24 +10,20 @@ extends CustomAcceptDialog
 @onready var http_request: HTTPRequest = %HTTPRequest
 
 var asking_permission := false
-
-const CHECK_UPDATE_INTERVAL = 3600 # seconds
-
+var version: String = ProjectSettings.get_setting("application/config/version")
+var beta: bool = ProjectSettings.get_setting("application/config/beta")
 
 func _ready() -> void:
 	super()
 	
-	if not OS.has_feature("standalone") or OS.get_name() == "Web":
+	if OS.has_feature("editor") or OS.get_name() == "Web" or beta:
 		return
 	
-	if Options.last_update_check == -1:
-		Options.last_update_check = int(Time.get_unix_time_from_system())
-		Options.save()
+	if not Options.check_updates_answered:
 		ask_permission()
 		return
 	
-	var time_since_last_check := Time.get_unix_time_from_system() - Options.last_update_check
-	time_since_last_check = CHECK_UPDATE_INTERVAL + 1
+	var time_since_last_check := int(Time.get_unix_time_from_system()) - Options.last_update_check
 	if Options.check_updates and time_since_last_check > CHECK_UPDATE_INTERVAL:
 		Options.last_update_check = int(Time.get_unix_time_from_system())
 		Options.save()
@@ -60,7 +58,7 @@ func _on_HTTP_request_request_completed(_result: int, response_code: int, _heade
 	if not json_result:
 		return
 	
-	if ProjectSettings.get_setting("application/config/version") != json_result.tag_name:
+	if version != json_result.tag_name:
 		body_label.text = tr(&"DIALOG_UPDATE_BODY") % json_result.tag_name
 		open()
 
@@ -68,6 +66,7 @@ func _on_HTTP_request_request_completed(_result: int, response_code: int, _heade
 func _on_ok_button_pressed() -> void:
 	if asking_permission:
 		Options.check_updates = true
+		Options.check_updates_answered = true
 		Options.save()
 	else:
 		OS.shell_open("https://www.github.com/pattlebass/Music-DJ/releases/latest")
@@ -77,6 +76,7 @@ func _on_ok_button_pressed() -> void:
 func _on_close_button_pressed() -> void:
 	if asking_permission:
 		Options.check_updates = false
+		Options.check_updates_answered = true
 		Options.save()
 	close()
 

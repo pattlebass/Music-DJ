@@ -21,10 +21,12 @@ var language := "": # Auto
 		else:
 			TranslationServer.set_locale(OS.get_locale_language())
 
-var check_updates := true
-var last_update_check := -1
+var check_updates := false
+var check_updates_answered := false
+var last_update_check := 0
 
-const _KEYS = [&"last_seen_tutorial", &"theme", &"language", &"check_updates", &"last_update_check"]
+const _KEYS = [&"last_seen_tutorial", &"theme", &"language", &"check_updates",
+				&"check_updates_answered", &"last_update_check"]
 
 var _config_file := ConfigFile.new()
 var _timer: Timer
