@@ -121,6 +121,7 @@ func change_panel(_panel_no: int, _previous_panel_no: int) -> void:
 
 
 func _input(event: InputEvent) -> void:
+	super(event)
 	if not visible:
 		return
 	if event.is_action_pressed("ui_left"):

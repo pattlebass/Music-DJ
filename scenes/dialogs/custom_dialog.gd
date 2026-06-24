@@ -101,6 +101,9 @@ func _notification(what: int) -> void:
 		theme_type_variation = "CustomDialog"
 
 
-# HACK: Temporary
 func _input(event: InputEvent) -> void:
+	# HACK: Temporary
 	Utils._input(event)
+	
+	if event.is_action_pressed(&"ui_close_dialog"):
+		close()
