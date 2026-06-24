@@ -263,6 +263,9 @@ func _on_tile_gui_input(event: InputEvent, instrument: int) -> void:
 		elif event.is_action_pressed(&"ui_paste"):
 			paste_tile()
 			accept_event()
+		elif event.is_action_pressed(&"tile_clear"):
+			BoomBox.song.set_tile(instrument, column_no, 0)
+			accept_event()
 		else:
 			_check_common_shortcuts(event)
 
