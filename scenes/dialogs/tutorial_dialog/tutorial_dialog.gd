@@ -51,7 +51,7 @@ func _ready() -> void:
 	if current_tutorial_version > Options.last_seen_tutorial:
 		open.call_deferred()
 	
-	if OS.has_feature("standalone"):
+	if not OS.has_feature("editor"):
 		for panel in all_panels:
 			if panel.has("condition") and not panel.condition:
 				continue
