@@ -35,11 +35,15 @@ func _populate() -> void:
 	selected_file = ""
 	
 	var projects := Utils.list_files_in_directory("user://saves/Projects/", ["mdj"])
+	var items: Array[LoadItem] = []
 	
 	for i in projects:
-		create_item(i)
+		items.append(create_item(i))
 	
 	no_projects_label.visible = projects.is_empty()
+	if items.size():
+		await get_tree().process_frame
+		items[0].button.grab_focus.call_deferred()
 
 
 func _cleanup() -> void:
@@ -53,7 +57,7 @@ func load_song(path: String) -> void:
 	close()
 
 
-func create_item(project_path: String) -> void:
+func create_item(project_path: String) -> LoadItem:
 	var item: LoadItem = LOAD_ITEM.instantiate()
 	project_container.add_child(item)
 	
@@ -68,6 +72,8 @@ func create_item(project_path: String) -> void:
 	item.download_button.visible = OS.get_name() == "Web"
 	item.export_button.visible = DisplayServer.has_feature(DisplayServer.FEATURE_NATIVE_DIALOG_FILE)
 	item.share_button.visible = Utils.can_share()
+	
+	return item
 
 
 func _on_import_file_dialog_file_selected(path: String) -> void:

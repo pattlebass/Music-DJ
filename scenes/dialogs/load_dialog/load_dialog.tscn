@@ -50,18 +50,22 @@ theme_override_styles/separator = SubResource("5")
 [node name="NewProjectButton" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/TitleHBox" unique_id=730389600]
 unique_name_in_owner = true
 layout_mode = 2
+focus_neighbor_right = NodePath("../OpenFolderButton")
 theme_type_variation = &"ListItem"
 icon = ExtResource("2_yhwsu")
 
 [node name="OpenFolderButton" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/TitleHBox" unique_id=700050358]
 unique_name_in_owner = true
 layout_mode = 2
+focus_neighbor_left = NodePath("../NewProjectButton")
+focus_neighbor_right = NodePath("../FilePickerButton")
 theme_type_variation = &"ListItem"
 icon = ExtResource("3_wvchh")
 
 [node name="FilePickerButton" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/TitleHBox" unique_id=1011465494]
 unique_name_in_owner = true
 layout_mode = 2
+focus_neighbor_left = NodePath("../OpenFolderButton")
 theme_type_variation = &"ListItem"
 icon = ExtResource("4_rcxnu")
 

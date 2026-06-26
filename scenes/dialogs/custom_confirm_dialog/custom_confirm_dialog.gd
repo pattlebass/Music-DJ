@@ -13,6 +13,10 @@ func alert(p_title: String, subtitle: String) -> void:
 	open()
 
 
+func _populate() -> void:
+	_cancel_button.grab_focus.call_deferred()
+
+
 func _cleanup() -> void:
 	await get_tree().create_timer(0.1).timeout
 	queue_free()
