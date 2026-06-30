@@ -46,6 +46,10 @@ func _populate() -> void:
 		button_group.get_buttons()[0].grab_focus.call_deferred()
 
 
+func _cleanup() -> void:
+	BoomBox.play_preview_sample(instrument, 0)
+
+
 func build() -> void:
 	# Create list
 	var category_titles := [

@@ -2,42 +2,17 @@
 
 [ext_resource type="Script" uid="uid://btkvbn5ysujvh" path="res://scenes/boom_box/boom_box.gd" id="1_qvodg"]
 
-[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_0t18g"]
-loop = false
-fade_time = 0.0
-
-[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_f7dfc"]
-loop = false
-fade_time = 0.0
-
-[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_3boaf"]
-loop = false
-fade_time = 0.0
-
-[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_axndm"]
-loop = false
-fade_time = 0.0
-
-[sub_resource type="AudioStreamSynchronized" id="AudioStreamSynchronized_bt8x4"]
-stream_count = 4
-stream_0/stream = SubResource("AudioStreamPlaylist_0t18g")
-stream_0/volume = 0.0
-stream_1/stream = SubResource("AudioStreamPlaylist_f7dfc")
-stream_1/volume = 0.0
-stream_2/stream = SubResource("AudioStreamPlaylist_3boaf")
-stream_2/volume = 0.0
-stream_3/stream = SubResource("AudioStreamPlaylist_axndm")
-stream_3/volume = 0.0
+[sub_resource type="AudioStreamMidiSequencer" id="AudioStreamMidiSequencer_upilm"]
+soundfont_path = "res://Sony Ericsson A100 DB2020 Synth 1.0.4(1).sf2"
+bpm = 80.0
 
 [node name="BoomBox" type="Node" unique_id=628387329]
 script = ExtResource("1_qvodg")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1663498809]
-stream = SubResource("AudioStreamSynchronized_bt8x4")
+stream = SubResource("AudioStreamMidiSequencer_upilm")
 
 [node name="PreviewStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1977082198]
-
-[node name="SyncTimer" type="Timer" parent="." unique_id=1234224659]
-wait_time = 3.0
+stream = SubResource("AudioStreamMidiSequencer_upilm")
 
 [connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]

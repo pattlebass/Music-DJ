@@ -1,0 +1,115 @@
+[configuration]
+entry_symbol = "fluidsynthgd_init"
+compatibility_minimum = "4.6"
+reloadable = true
+
+[libraries]
+; Relative paths ensure that our GDExtension can be placed anywhere in the project directory.
+windows.debug.x86_32 = "./bin/windows/x86_32/fluidsynthgd.windows.template_debug.x86_32.single.dll"
+windows.release.x86_32 = "./bin/windows/x86_32/fluidsynthgd.windows.template_release.x86_32.single.dll"
+
+windows.debug.x86_64 = "./bin/windows/x86_64/fluidsynthgd.windows.template_debug.x86_64.single.dll"
+windows.release.x86_64 = "./bin/windows/x86_64/fluidsynthgd.windows.template_release.x86_64.single.dll"
+
+windows.debug.arm64 = "./bin/windows/arm64/fluidsynthgd.windows.template_debug.arm64.single.dll"
+windows.release.arm64 = "./bin/windows/arm64/fluidsynthgd.windows.template_release.arm64.single.dll"
+
+linux.debug.x86_32 = "./bin/linux/x86_32/libfluidsynthgd.linux.template_debug.x86_32.single.so"
+linux.release.x86_32 = "./bin/linux/x86_32/libfluidsynthgd.linux.template_release.x86_32.single.so"
+
+linux.debug.x86_64 = "./bin/linux/x86_64/libfluidsynthgd.linux.template_debug.x86_64.single.so"
+linux.release.x86_64 = "./bin/linux/x86_64/libfluidsynthgd.linux.template_release.x86_64.single.so"
+
+linux.debug.arm32 = "./bin/linux/arm32/libfluidsynthgd.linux.template_debug.arm32.single.so"
+linux.release.arm32 = "./bin/linux/arm32/libfluidsynthgd.linux.template_release.arm32.single.so"
+
+linux.debug.arm64 = "./bin/linux/arm64/libfluidsynthgd.linux.template_debug.arm64.single.so"
+linux.release.arm64 = "./bin/linux/arm64/libfluidsynthgd.linux.template_release.arm64.single.so"
+
+android.debug.x86_64 = "./bin/android/x86_64/libfluidsynthgd.android.template_debug.x86_64.single.so"
+android.release.x86_64 = "./bin/android/x86_64/libfluidsynthgd.android.template_release.x86_64.single.so"
+
+android.debug.arm64 = "./bin/android/arm64/libfluidsynthgd.android.template_debug.arm64.single.so"
+android.release.arm64 = "./bin/android/arm64/libfluidsynthgd.android.template_release.arm64.single.so"
+
+android.debug.arm32 = "./bin/android/arm32/libfluidsynthgd.android.template_debug.arm32.single.so"
+android.release.arm32 = "./bin/android/arm32/libfluidsynthgd.android.template_release.arm32.single.so"
+
+web.debug.threads.wasm32 = "./bin/web/wasm32/libfluidsynthgd.web.template_debug.wasm32.threads.single.wasm"
+web.release.threads.wasm32 = "./bin/web/wasm32/libfluidsynthgd.web.template_release.wasm32.threads.single.wasm"
+
+web.debug.wasm32 = "./bin/web/wasm32/libfluidsynthgd.web.template_debug.wasm32.single.wasm"
+web.release.wasm32 = "./bin/web/wasm32/libfluidsynthgd.web.template_release.wasm32.single.wasm"
+
+[dependencies]
+
+windows.debug.x86_32 = {
+"./bin/windows/x86_32/libfluidsynth-3.dll" : ""
+}
+windows.release.x86_32 = {
+"./bin/windows/x86_32/libfluidsynth-3.dll" : ""
+}
+
+windows.debug.x86_64 = {
+"./bin/windows/x86_64/libfluidsynth-3.dll" : ""
+}
+windows.release.x86_64 = {
+"./bin/windows/x86_64/libfluidsynth-3.dll" : ""
+}
+
+windows.debug.arm64 = {
+"./bin/windows/arm64/libfluidsynth-3.dll" : ""
+}
+windows.release.arm64 = {
+"./bin/windows/arm64/libfluidsynth-3.dll" : ""
+}
+
+linux.debug.x86_32 = {
+"./bin/linux/x86_32/libfluidsynth.so" : ""
+}
+linux.release.x86_32 = {
+"./bin/linux/x86_32/libfluidsynth.so" : ""
+}
+
+linux.debug.x86_64 = {
+"./bin/linux/x86_64/libfluidsynth.so" : ""
+}
+linux.release.x86_64 = {
+"./bin/linux/x86_64/libfluidsynth.so" : ""
+}
+
+linux.debug.arm32 = {
+"./bin/linux/arm32/libfluidsynth.so" : ""
+}
+linux.release.arm32 = {
+"./bin/linux/arm32/libfluidsynth.so" : ""
+}
+
+linux.debug.arm64 = {
+"./bin/linux/arm64/libfluidsynth.so" : ""
+}
+linux.release.arm64 = {
+"./bin/linux/arm64/libfluidsynth.so" : ""
+}
+
+android.debug.x86_64 = {
+"./bin/android/x86_64/libfluidsynth.so" : ""
+}
+android.release.x86_64 = {
+"./bin/android/x86_64/libfluidsynth.so" : ""
+}
+
+android.debug.arm64 = {
+"./bin/android/arm64/libfluidsynth.so" : ""
+}
+android.release.arm64 = {
+"./bin/android/arm64/libfluidsynth.so" : ""
+}
+
+android.debug.arm32 = {
+"./bin/android/arm32/libfluidsynth.so" : ""
+}
+android.release.arm32 = {
+"./bin/android/arm32/libfluidsynth.so" : ""
+}
+
