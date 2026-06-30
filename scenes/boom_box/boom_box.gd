@@ -9,16 +9,8 @@ var is_playing := false
 var undo_stack: Array[Song] = []
 var redo_stack: Array[Song] = []
 
-var sounds := [
-	[preload("res://sounds/silence.ogg")],
-	[preload("res://sounds/silence.ogg")],
-	[preload("res://sounds/silence.ogg")],
-	[preload("res://sounds/silence.ogg")]
-]
-
 @onready var audio_player: AudioStreamPlayer = $AudioStreamPlayer
 @onready var preview_player: AudioStreamPlayer = $PreviewStreamPlayer
-@onready var sync_timer: Timer = $SyncTimer
 
 signal play_started
 signal play_ended
@@ -31,33 +23,52 @@ signal history_changed
 
 
 func _ready() -> void:
-	# Load all sounds
-	for instrument in 4:
-		for sample in 32:
-			sounds[instrument].append(load("res://sounds/%s/%s.ogg" % [instrument, sample + 1]))
-	
 	play_started.connect(_on_play_started)
 	play_ended.connect(_on_play_ended)
-	
-	sync_timer.timeout.connect(_on_sync_timer_timeout)
 
 
 func assemble_song_stream(from: int, to: int) -> void:
-	for i in 4:
-		var playlist_stream: AudioStreamPlaylist = audio_player.stream.get_sync_stream(i)
-		playlist_stream.stream_count = to - from
-		for j in range(from, to):
-			playlist_stream.set_list_stream(j - from, sounds[i][song.data[i][j]])
+	var midi_stream := audio_player.stream as AudioStreamMidiSequencer
+	midi_stream.bpm = song.bpm
+	midi_stream.clear_scheduled_midi_files()
+	
+	var column_no := -1
+	for j in range(from, to):
+		column_no += 1
+		for i in 4:
+			var sample: int = song.data[i][j]
+			if sample == 0:
+				continue
+			midi_stream.schedule_midi_file_at_beat("res://samples/sample_%s_%s.mid" % [i, sample], 4 * column_no)
+	audio_player.stream = midi_stream
 
+
+func _process(delta: float) -> void:
+	if not is_playing:
+		return
+	
+	var seconds := audio_player.get_playback_position() + AudioServer.get_time_since_last_mix()
+	var beat := seconds * song.bpm / 60.0
+	var column_no := mini(_column_no_end - 1, _column_no_start + floori(beat / 4))
+	
+	if _playing_column_no != column_no:
+		column_play_ended.emit(_playing_column_no)
+		column_play_started.emit(column_no)
+		_playing_column_no = column_no
 
 var _playing_column_no := 0
+var _column_no_start := 0
+var _column_no_end := 0
 func play(from := 0, to := song.get_trimmed_length()) -> void:
+	audio_player.stop()
 	assemble_song_stream(from, to)
 	audio_player.play()
 	
 	is_playing = true
 	_playing_column_no = from
-	sync_timer.start()
+	_column_no_start = from
+	_column_no_end = to
+	
 	column_play_started.emit(from)
 	play_started.emit()
 
@@ -77,7 +88,15 @@ func play_from_column(p_column_no: int) -> void:
 
 
 func play_preview_sample(instrument: int, sample: int) -> void:
-	preview_player.stream = sounds[instrument][sample]
+	if sample == 0:
+		preview_player.stop()
+		return
+	
+	var midi_stream := audio_player.stream as AudioStreamMidiSequencer
+	midi_stream.bpm = song.bpm
+	midi_stream.clear_scheduled_midi_files()
+	midi_stream.schedule_midi_file_at_beat("res://samples/sample_%s_%s.mid" % [instrument, sample], 0)
+	
 	preview_player.play()
 
 
@@ -131,19 +150,6 @@ func can_redo() -> bool:
 	return not redo_stack.is_empty()
 
 
-func _on_sync_timer_timeout() -> void:
-	if _playing_column_no + 1 >= song.get_trimmed_length():
-		sync_timer.stop()
-		return
-	
-	_playing_column_no += 1
-	
-	if _playing_column_no > 0:
-		column_play_ended.emit(_playing_column_no - 1)
-	
-	column_play_started.emit(_playing_column_no)
-
-
 func _on_play_started() -> void:
 	preview_player.stop()
 
@@ -152,8 +158,6 @@ func _on_play_ended() -> void:
 	# HACK
 	for i in song.get_length():
 		column_play_ended.emit(i)
-	
-	sync_timer.stop()
 
 
 func _on_audio_stream_player_finished() -> void:
@@ -187,3 +191,27 @@ func convert_project(old_project: String) -> Song:
 			song2.data = json_song.data
 	
 	return song2
+
+
+# TEMP and HACK-y
+func export_to_wav(path: String) -> Error:
+	assemble_song_stream(0, song.get_trimmed_length())
+	var midi_stream := audio_player.stream as AudioStreamMidiSequencer
+	
+	var ret: Array[Error] = []
+	var frames := 0
+	
+	var task_id = WorkerThreadPool.add_task(
+		func(): ret.append(midi_stream.save_to_wav(path)),
+		true,
+		"Save to wav"
+	)
+	
+	while not WorkerThreadPool.is_task_completed(task_id):
+		frames += 1
+		await get_tree().process_frame
+	
+	WorkerThreadPool.wait_for_task_completion(task_id)
+	print("Export: waited for %s frames" % frames)
+	
+	return ret[0] if not ret.is_empty() else Error.FAILED

@@ -5,6 +5,7 @@ const PROGRESS_DIALOG = preload("res://scenes/dialogs/progress_dialog/progress_d
 @onready var play_button: Button = %Play
 @onready var export_button: Button = %Export
 @onready var save_button: Button = %SaveProject
+@onready var bpm_spin_box: SpinBox = %BPMSpinBox
 
 @onready var add_button: Button = %AddButton
 @onready var column_container: ColumnContainer = %ColumnContainer
@@ -62,6 +63,12 @@ func _ready() -> void:
 		var project := get_project_from_query()
 		if project != null:
 			BoomBox.load_song(project)
+	
+	# https://github.com/godotengine/godot/issues/73351
+	play_button.focus_neighbor_right = bpm_spin_box.get_line_edit().get_path()
+	bpm_spin_box.get_line_edit().focus_neighbor_left = play_button.get_path()
+	bpm_spin_box.get_line_edit().focus_neighbor_right = export_button.get_path()
+	export_button.focus_neighbor_left = bpm_spin_box.get_line_edit().get_path()
 
 
 func _on_theme_changed(new_theme: String) -> void:
@@ -78,6 +85,9 @@ func _shortcut_input(event: InputEvent) -> void:
 func _on_song_loaded(is_undo: bool) -> void:
 	BoomBox.song.removed_column.connect(_on_removed_column)
 	BoomBox.song.trimmed_length_changed.connect(_on_song_trimmed_length_changed)
+	BoomBox.song.bpm_changed.connect(bpm_spin_box.set_value_no_signal)
+	
+	bpm_spin_box.set_value_no_signal(BoomBox.song.bpm)
 	
 	if not is_undo:
 		scroll_container.scroll_horizontal = 0
@@ -149,6 +159,7 @@ func _on_play_started() -> void:
 	play_button.set_pressed_no_signal(true)
 	
 	export_button.disabled = true
+	bpm_spin_box.editable = false
 
 
 func _on_play_ended() -> void:
@@ -156,6 +167,7 @@ func _on_play_ended() -> void:
 	play_button.set_pressed_no_signal(false)
 	
 	export_button.disabled = BoomBox.song.get_trimmed_length() == 0
+	bpm_spin_box.editable = true
 
 
 func _on_column_play_started(column_no: int) -> void:
@@ -244,7 +256,8 @@ func save_project(path: String) -> void:
 	Variables.opened_file = decoded_path.get_basename().get_file()
 
 
-# TODO: Remember web exports 
+# TODO: Remember web exports
+# HACK: All this should be done more cleanly at some point
 var _export_canceled := false
 func export_song(path: String) -> void:
 	var decoded_path := path.uri_file_decode()
@@ -255,18 +268,14 @@ func export_song(path: String) -> void:
 	if OS.get_name() == "Web":
 		progress_dialog.body_text = "DIALOG_PROGRESS_KEEP_FOCUSED"
 	else:
-		progress_dialog.body_text_completed = tr("DIALOG_PROGRESS_AFTER_EXPORT") % ProjectSettings.globalize_path(path)
+		progress_dialog.body_text_completed = tr("DIALOG_PROGRESS_AFTER_EXPORT") % ProjectSettings.globalize_path(decoded_path)
 	
 	progress_dialog.popup_hidden.connect(progress_dialog.queue_free)
-	progress_dialog.canceled.connect(
-		func():
-			_export_canceled = true
-			BoomBox.stop()
-	)
+	progress_dialog.canceled.connect(func(): _export_canceled = true)
 	progress_dialog.open()
 	
 	progress_dialog.open_button.pressed.connect(
-		OS.shell_open.bind(ProjectSettings.globalize_path(Variables.saves_dir))
+		OS.shell_open.bind(path.get_base_dir())
 	)
 	progress_dialog.download_button.pressed.connect(
 		Utils.download_file.bind(path, decoded_path.get_file())
@@ -275,28 +284,28 @@ func export_song(path: String) -> void:
 		Utils.share_file.bind(path, "", "", "", "audio/wav")
 	)
 	
-	# Animate progress bar
-	var tween := create_tween()
-	tween.tween_property(progress_dialog, ^"progress", 1, BoomBox.song.get_duration() + 0.5)
+	progress_dialog.progress_bar.indeterminate = true
 	
-	# Recording
-	var bus_idx := AudioServer.get_bus_index(&"Master")
-	var effect: AudioEffectRecord = AudioServer.get_bus_effect(bus_idx, 0)
+	var temp_path := Variables.TEMP_DIR.path_join("export.wav")
+	var err := await BoomBox.export_to_wav(temp_path)
 	
-	effect.set_recording_active(true)
-	BoomBox.play()
-	await BoomBox.play_ended
-	effect.set_recording_active(false)
+	if err:
+		progress_dialog.error(err)
+		return
+	
+	err = DirAccess.copy_absolute(temp_path, path)
+	DirAccess.remove_absolute(temp_path)
+	
+	if err:
+		progress_dialog.error(err)
+		return
+	
+	progress_dialog.progress_bar.indeterminate = false
+	progress_dialog.progress = 1.0
 	
 	if _export_canceled:
 		print("Export canceled.")
 		return
-	
-	# Saving
-	var recording := effect.get_recording()
-	var err := recording.save_to_wav(path)
-	if err:
-		progress_dialog.error(err)
 
 
 func load_song_path(path: String) -> void:

@@ -65,10 +65,11 @@ func share_file(path: String, title: String, subject: String, text: String, mime
 
 
 func clean_temp() -> void:
-	var dir := DirAccess.open("user://_temp")
+	var dir := DirAccess.open(Variables.TEMP_DIR)
 	if dir:
 		for file in dir.get_files():
 			dir.remove(file)
+			print("Removed temp file %s" % file)
 
 
 func toast(text: String, duration: Toast.Length = Toast.Length.LENGTH_LONG) -> void:

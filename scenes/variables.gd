@@ -11,6 +11,7 @@ const MINIMUM_DRAG = 100
 const MINIMUM_COLUMNS = 1
 const VIBRATION_MS = 40
 
+var TEMP_DIR := "user://_temp/"
 var saves_dir := "user://saves/"
 var projects_dir := "user://saves/Projects/"
 var opened_file := ""
@@ -20,6 +21,7 @@ var opened_file := ""
 
 func _ready() -> void:
 	# Make directories
+	DirAccess.make_dir_recursive_absolute(TEMP_DIR)
 	DirAccess.make_dir_recursive_absolute(projects_dir)
 	
 	# Demo song
