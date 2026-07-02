@@ -2,7 +2,7 @@ name: Itch.io release
 
 on:
   release:
-    types: [published]
+    types: [released]
   workflow_dispatch:
 
 jobs:
@@ -28,7 +28,7 @@ jobs:
           echo "Body: ${{ steps.fetch-release.outputs.body }}"
 
       - name: Butler Push Linux
-        uses: manleydev/butler-publish-itchio-action@v1.0.3
+        uses: yeslayla/butler-publish-itchio-action@v1.2.0
         env:
           BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
           CHANNEL: linux
@@ -38,7 +38,7 @@ jobs:
           PACKAGE: MusicDJ.Linux.zip
 
       - name: Butler Push Windows
-        uses: manleydev/butler-publish-itchio-action@v1.0.3
+        uses: yeslayla/butler-publish-itchio-action@v1.2.0
         env:
           BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
           CHANNEL: windows
@@ -48,7 +48,7 @@ jobs:
           PACKAGE: MusicDJ.Windows.zip
 
       - name: Butler Push Android 32bit
-        uses: manleydev/butler-publish-itchio-action@v1.0.3
+        uses: yeslayla/butler-publish-itchio-action@v1.2.0
         env:
           BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
           CHANNEL: android-32bit
@@ -58,7 +58,7 @@ jobs:
           PACKAGE: MusicDJ_32bit.apk
 
       - name: Butler Push Android 64bit
-        uses: manleydev/butler-publish-itchio-action@v1.0.3
+        uses: yeslayla/butler-publish-itchio-action@v1.2.0
         env:
           BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
           CHANNEL: android-64bit
@@ -68,11 +68,11 @@ jobs:
           PACKAGE: MusicDJ_64bit.apk
 
       - name: Butler Push HTML5
-        uses: manleydev/butler-publish-itchio-action@v1.0.3
+        uses: yeslayla/butler-publish-itchio-action@v1.2.0
         env:
           BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
           CHANNEL: html5
           VERSION: ${{ steps.fetch-release.outputs.version }}
           ITCH_GAME: musicdj
           ITCH_USER: pattlebass
-          PACKAGE: MusicDJ.HTML5.zip
+          PACKAGE: MusicDJ.Web.zip
