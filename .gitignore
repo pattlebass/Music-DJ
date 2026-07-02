@@ -17,12 +17,10 @@ mono_crash.*.json
 # Android-specific ignores
 *.apk
 *.TMP
-android/build/
+android/
 
 # Other
 bin/*
 !bin/.gdignore
-!bin/after_export.cmd
-!bin/Before Android export.md
 
 *.zip
