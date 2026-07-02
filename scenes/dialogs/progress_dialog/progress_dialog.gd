@@ -52,11 +52,14 @@ func _populate() -> void:
 		share_button.hide()
 		open_button.hide()
 		download_button.show()
+	
+	cancel_button.grab_focus.call_deferred()
 
 
 func open() -> void:
 	# HACK
 	size.y = 0
+	await get_tree().process_frame
 	super()
 
 

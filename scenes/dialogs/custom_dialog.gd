@@ -7,6 +7,7 @@ const HIDE_DURATION = 0.05
 @export var container: Container
 @export var dim_background := true
 @export var hide_on_unfocus := true
+@export var close_on_escape := true
 
 var dialog_hidden := true
 
@@ -105,5 +106,5 @@ func _input(event: InputEvent) -> void:
 	# HACK: Temporary
 	Utils._input(event)
 	
-	if event.is_action_pressed(&"ui_close_dialog"):
+	if event.is_action_pressed(&"ui_close_dialog") and close_on_escape:
 		close()

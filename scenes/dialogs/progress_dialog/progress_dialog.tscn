@@ -13,6 +13,7 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_ggbjy")
 script = ExtResource("1")
 container = NodePath("MarginContainer/PanelContainer")
 hide_on_unfocus = false
+close_on_escape = false
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=545575949]
 offset_right = 618.0
