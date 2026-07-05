@@ -35,6 +35,7 @@ func _export_end() -> void:
 		return
 	
 	var archive_path = FINAL_DIR.path_join("%s.%s.zip" % [base_name, platform_name])
+	archive_path = archive_path.replace(" ", "_")
 	
 	if platform_name == "Web":
 		var dir := DirAccess.open(base_dir)

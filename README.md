@@ -18,10 +18,10 @@ A modern recreation of the iconic MusicDJ app found on Sony Ericsson devices of 
 
 ## Download
 
-* [Android (64-bit)](https://github.com/pattlebass/Music-Dj/releases/latest/download/MusicDJ_64bit.apk) - Recommended 
-* [Android (32-bit)](https://github.com/pattlebass/Music-Dj/releases/latest/download/MusicDJ_32bit.apk)
-* [Windows](https://github.com/pattlebass/Music-Dj/releases/latest/download/MusicDJ.Windows.zip)
-* [Linux](https://github.com/pattlebass/Music-Dj/releases/latest/download/MusicDJ.Linux.zip)
+* [Android (64-bit)](https://github.com/pattlebass/Music-Dj/releases/latest/download/MusicDJ_Redux_64bit.apk) - Recommended 
+* [Android (32-bit)](https://github.com/pattlebass/Music-Dj/releases/latest/download/MusicDJ_Redux_32bit.apk)
+* [Windows](https://github.com/pattlebass/Music-Dj/releases/latest/download/MusicDJ_Redux.Windows.zip)
+* [Linux](https://github.com/pattlebass/Music-Dj/releases/latest/download/MusicDJ_Redux.Linux.zip)
 * [Web](https://pattlebass.itch.io/musicdj)
 
 > [!WARNING]
