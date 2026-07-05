@@ -7,12 +7,13 @@ var bpm := 80:
 	set(value):
 		if value == bpm:
 			return
+		about_to_change.emit()
 		bpm = value
-		bpm_changed.emit()
+		bpm_changed.emit(bpm)
 var data: Array = [[], [], [], []]
 
 signal about_to_change
-signal bpm_changed
+signal bpm_changed(new_bpm: int)
 signal added_column(column_no: int)
 signal removed_column(column_no: int)
 signal moved_column(from_no: int, to_no: int)
@@ -38,6 +39,7 @@ func convert_to_json() -> String:
 
 func duplicate() -> Song:
 	var new_song := Song.new()
+	new_song.bpm = bpm
 	new_song.data = data.duplicate_deep()
 	return new_song
 

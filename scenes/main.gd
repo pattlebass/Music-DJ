@@ -85,6 +85,7 @@ func _shortcut_input(event: InputEvent) -> void:
 func _on_song_loaded(is_undo: bool) -> void:
 	BoomBox.song.removed_column.connect(_on_removed_column)
 	BoomBox.song.trimmed_length_changed.connect(_on_song_trimmed_length_changed)
+	BoomBox.song.bpm_changed.connect(bpm_spin_box.set_value_no_signal)
 	
 	bpm_spin_box.set_value_no_signal(BoomBox.song.bpm)
 	
