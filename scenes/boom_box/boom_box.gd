@@ -60,6 +60,7 @@ var _playing_column_no := 0
 var _column_no_start := 0
 var _column_no_end := 0
 func play(from := 0, to := song.get_trimmed_length()) -> void:
+	audio_player.stop()
 	assemble_song_stream(from, to)
 	audio_player.play()
 	
@@ -90,8 +91,12 @@ func play_preview_sample(instrument: int, sample: int) -> void:
 	if sample == 0:
 		preview_player.stop()
 		return
-	preview_player.stream.clear_scheduled_midi_files()
-	preview_player.stream.schedule_midi_file_at_beat("res://samples/sample_%s_%s.mid" % [instrument, sample], 0)
+	
+	var midi_stream := audio_player.stream as AudioStreamMidiSequencer
+	midi_stream.bpm = song.bpm
+	midi_stream.clear_scheduled_midi_files()
+	midi_stream.schedule_midi_file_at_beat("res://samples/sample_%s_%s.mid" % [instrument, sample], 0)
+	
 	preview_player.play()
 
 

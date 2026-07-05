@@ -19,9 +19,6 @@
 [ext_resource type="PackedScene" uid="uid://c8yhh7y4x3ra7" path="res://scenes/dialogs/update_dialog/update_dialog.tscn" id="14"]
 [ext_resource type="PackedScene" uid="uid://deqkupbh7ke6w" path="res://scenes/dialogs/about_dialog/about_dialog.tscn" id="16"]
 
-[sub_resource type="Theme" id="16"]
-LineEdit/constants/minimum_spaces = 7
-
 [sub_resource type="InputEventKey" id="InputEventKey_dp3eg"]
 device = -1
 command_or_control_autoremap = true
@@ -95,12 +92,10 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 60)
 layout_mode = 2
 focus_neighbor_left = NodePath(".")
-focus_neighbor_right = NodePath("../Export")
 toggle_mode = true
 text = "BTN_PLAY"
 
 [node name="BPMHbox" type="HBoxContainer" parent="HBoxToolBar" unique_id=1514687625]
-visible = false
 layout_mode = 2
 
 [node name="Label" type="Label" parent="HBoxToolBar/BPMHbox" unique_id=19778396]
@@ -111,10 +106,11 @@ text = "BPM"
 [node name="BPMSpinBox" type="SpinBox" parent="HBoxToolBar/BPMHbox" unique_id=342771373]
 unique_name_in_owner = true
 layout_mode = 2
-theme = SubResource("16")
 min_value = 50.0
 max_value = 150.0
 value = 80.0
+alignment = 2
+select_all_on_focus = true
 
 [node name="Control" type="Control" parent="HBoxToolBar" unique_id=1447669869]
 layout_mode = 2
@@ -124,7 +120,6 @@ size_flags_horizontal = 3
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-focus_neighbor_left = NodePath("../Play")
 focus_neighbor_right = NodePath("../SaveProject")
 shortcut = SubResource("Shortcut_gqmmt")
 text = "BTN_EXPORT"

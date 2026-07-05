@@ -5,6 +5,7 @@ const PROGRESS_DIALOG = preload("res://scenes/dialogs/progress_dialog/progress_d
 @onready var play_button: Button = %Play
 @onready var export_button: Button = %Export
 @onready var save_button: Button = %SaveProject
+@onready var bpm_spin_box: SpinBox = %BPMSpinBox
 
 @onready var add_button: Button = %AddButton
 @onready var column_container: ColumnContainer = %ColumnContainer
@@ -62,6 +63,12 @@ func _ready() -> void:
 		var project := get_project_from_query()
 		if project != null:
 			BoomBox.load_song(project)
+	
+	# https://github.com/godotengine/godot/issues/73351
+	play_button.focus_neighbor_right = bpm_spin_box.get_line_edit().get_path()
+	bpm_spin_box.get_line_edit().focus_neighbor_left = play_button.get_path()
+	bpm_spin_box.get_line_edit().focus_neighbor_right = export_button.get_path()
+	export_button.focus_neighbor_left = bpm_spin_box.get_line_edit().get_path()
 
 
 func _on_theme_changed(new_theme: String) -> void:
@@ -78,6 +85,8 @@ func _shortcut_input(event: InputEvent) -> void:
 func _on_song_loaded(is_undo: bool) -> void:
 	BoomBox.song.removed_column.connect(_on_removed_column)
 	BoomBox.song.trimmed_length_changed.connect(_on_song_trimmed_length_changed)
+	
+	bpm_spin_box.set_value_no_signal(BoomBox.song.bpm)
 	
 	if not is_undo:
 		scroll_container.scroll_horizontal = 0
@@ -149,6 +158,7 @@ func _on_play_started() -> void:
 	play_button.set_pressed_no_signal(true)
 	
 	export_button.disabled = true
+	bpm_spin_box.editable = false
 
 
 func _on_play_ended() -> void:
@@ -156,6 +166,7 @@ func _on_play_ended() -> void:
 	play_button.set_pressed_no_signal(false)
 	
 	export_button.disabled = BoomBox.song.get_trimmed_length() == 0
+	bpm_spin_box.editable = true
 
 
 func _on_column_play_started(column_no: int) -> void:
