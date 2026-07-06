@@ -191,3 +191,10 @@ func convert_project(old_project: String) -> Song:
 			song2.data = json_song.data
 	
 	return song2
+
+
+# TEMP
+func export_to_wav(path: String) -> Error:
+	assemble_song_stream(0, song.get_trimmed_length())
+	var midi_stream := audio_player.stream as AudioStreamMidiSequencer
+	return midi_stream.save_to_wav(path)

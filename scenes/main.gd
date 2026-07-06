@@ -278,7 +278,7 @@ func export_song(path: String) -> void:
 	progress_dialog.open()
 	
 	progress_dialog.open_button.pressed.connect(
-		OS.shell_open.bind(ProjectSettings.globalize_path(Variables.saves_dir))
+		OS.shell_open.bind(path.get_base_dir())
 	)
 	progress_dialog.download_button.pressed.connect(
 		Utils.download_file.bind(path, decoded_path.get_file())
@@ -289,26 +289,16 @@ func export_song(path: String) -> void:
 	
 	# Animate progress bar
 	var tween := create_tween()
-	tween.tween_property(progress_dialog, ^"progress", 1, BoomBox.song.get_duration() + 0.5)
+	tween.tween_property(progress_dialog, ^"progress", 1, 0.2)
 	
-	# Recording
-	var bus_idx := AudioServer.get_bus_index(&"Master")
-	var effect: AudioEffectRecord = AudioServer.get_bus_effect(bus_idx, 0)
-	
-	effect.set_recording_active(true)
-	BoomBox.play()
-	await BoomBox.play_ended
-	effect.set_recording_active(false)
+	var err := BoomBox.export_to_wav(path)
+	if err:
+		progress_dialog.error(err)
+		return
 	
 	if _export_canceled:
 		print("Export canceled.")
 		return
-	
-	# Saving
-	var recording := effect.get_recording()
-	var err := recording.save_to_wav(path)
-	if err:
-		progress_dialog.error(err)
 
 
 func load_song_path(path: String) -> void:
