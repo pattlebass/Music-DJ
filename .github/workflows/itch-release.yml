@@ -35,7 +35,7 @@ jobs:
           VERSION: ${{ steps.fetch-release.outputs.version }}
           ITCH_GAME: musicdj
           ITCH_USER: pattlebass
-          PACKAGE: MusicDJ.Linux.zip
+          PACKAGE: MusicDJ_Redux.Linux.zip
 
       - name: Butler Push Windows
         uses: yeslayla/butler-publish-itchio-action@v1.2.0
@@ -45,7 +45,7 @@ jobs:
           VERSION: ${{ steps.fetch-release.outputs.version }}
           ITCH_GAME: musicdj
           ITCH_USER: pattlebass
-          PACKAGE: MusicDJ.Windows.zip
+          PACKAGE: MusicDJ_Redux.Windows.zip
 
       - name: Butler Push Android 32bit
         uses: yeslayla/butler-publish-itchio-action@v1.2.0
@@ -55,7 +55,7 @@ jobs:
           VERSION: ${{ steps.fetch-release.outputs.version }}
           ITCH_GAME: musicdj
           ITCH_USER: pattlebass
-          PACKAGE: MusicDJ_32bit.apk
+          PACKAGE: MusicDJ_Redux_32bit.apk
 
       - name: Butler Push Android 64bit
         uses: yeslayla/butler-publish-itchio-action@v1.2.0
@@ -65,7 +65,7 @@ jobs:
           VERSION: ${{ steps.fetch-release.outputs.version }}
           ITCH_GAME: musicdj
           ITCH_USER: pattlebass
-          PACKAGE: MusicDJ_64bit.apk
+          PACKAGE: MusicDJ_Redux_64bit.apk
 
       - name: Butler Push HTML5
         uses: yeslayla/butler-publish-itchio-action@v1.2.0
@@ -75,4 +75,4 @@ jobs:
           VERSION: ${{ steps.fetch-release.outputs.version }}
           ITCH_GAME: musicdj
           ITCH_USER: pattlebass
-          PACKAGE: MusicDJ.Web.zip
+          PACKAGE: MusicDJ_Redux.Web.zip
