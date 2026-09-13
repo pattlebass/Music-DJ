@@ -256,7 +256,8 @@ func save_project(path: String) -> void:
 	Variables.opened_file = decoded_path.get_basename().get_file()
 
 
-# TODO: Remember web exports 
+# TODO: Remember web exports
+# HACK: All this should be done more cleanly at some point
 var _export_canceled := false
 func export_song(path: String) -> void:
 	var decoded_path := path.uri_file_decode()
@@ -267,14 +268,10 @@ func export_song(path: String) -> void:
 	if OS.get_name() == "Web":
 		progress_dialog.body_text = "DIALOG_PROGRESS_KEEP_FOCUSED"
 	else:
-		progress_dialog.body_text_completed = tr("DIALOG_PROGRESS_AFTER_EXPORT") % ProjectSettings.globalize_path(path)
+		progress_dialog.body_text_completed = tr("DIALOG_PROGRESS_AFTER_EXPORT") % ProjectSettings.globalize_path(decoded_path)
 	
 	progress_dialog.popup_hidden.connect(progress_dialog.queue_free)
-	progress_dialog.canceled.connect(
-		func():
-			_export_canceled = true
-			BoomBox.stop()
-	)
+	progress_dialog.canceled.connect(func(): _export_canceled = true)
 	progress_dialog.open()
 	
 	progress_dialog.open_button.pressed.connect(
@@ -287,11 +284,20 @@ func export_song(path: String) -> void:
 		Utils.share_file.bind(path, "", "", "", "audio/wav")
 	)
 	
-	# Animate progress bar
-	var tween := create_tween()
-	tween.tween_property(progress_dialog, ^"progress", 1, 0.2)
+	progress_dialog.progress_bar.indeterminate = true
 	
-	var err := BoomBox.export_to_wav(path)
+	var temp_path := "user://_temp/export.wav"
+	var err := await BoomBox.export_to_wav(temp_path)
+	
+	progress_dialog.progress_bar.indeterminate = false
+	progress_dialog.progress = 1.0
+
+	if err:
+		progress_dialog.error(err)
+		return
+	
+	err = DirAccess.copy_absolute(temp_path, path)
+	DirAccess.remove_absolute(temp_path)
 	if err:
 		progress_dialog.error(err)
 		return

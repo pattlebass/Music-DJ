@@ -193,8 +193,25 @@ func convert_project(old_project: String) -> Song:
 	return song2
 
 
-# TEMP
+# TEMP and HACK-y
 func export_to_wav(path: String) -> Error:
 	assemble_song_stream(0, song.get_trimmed_length())
 	var midi_stream := audio_player.stream as AudioStreamMidiSequencer
-	return midi_stream.save_to_wav(path)
+	
+	var ret: Array[Error] = []
+	var frames := 0
+	
+	var task_id = WorkerThreadPool.add_task(
+		func(): ret.append(midi_stream.save_to_wav(path)),
+		true,
+		"Save to wav"
+	)
+	
+	while not WorkerThreadPool.is_task_completed(task_id):
+		frames += 1
+		await get_tree().process_frame
+	
+	WorkerThreadPool.wait_for_task_completion(task_id)
+	print("Export: waited for %s frames" % frames)
+	
+	return ret[0] if not ret.is_empty() else Error.FAILED
