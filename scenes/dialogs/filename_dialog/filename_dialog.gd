@@ -42,11 +42,11 @@ func get_default_name() -> String:
 	return "Song " + str(randi() % 1000)
 
 
-func _on_OkButton_pressed() -> void:
+func _on_ok_button_pressed() -> void:
 	close()
 
 
-func _on_CancelButton_pressed() -> void:
+func _on_cancel_button_pressed() -> void:
 	close()
 
 

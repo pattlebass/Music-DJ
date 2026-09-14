@@ -11,8 +11,10 @@ script = ExtResource("1_qvodg")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1663498809]
 stream = SubResource("AudioStreamMidiSequencer_upilm")
+playback_type = 1
 
 [node name="PreviewStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1977082198]
 stream = SubResource("AudioStreamMidiSequencer_upilm")
+playback_type = 1
 
 [connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]

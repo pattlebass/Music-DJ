@@ -286,21 +286,22 @@ func export_song(path: String) -> void:
 	
 	progress_dialog.progress_bar.indeterminate = true
 	
-	var temp_path := "user://_temp/export.wav"
+	var temp_path := Variables.TEMP_DIR.path_join("export.wav")
 	var err := await BoomBox.export_to_wav(temp_path)
 	
-	progress_dialog.progress_bar.indeterminate = false
-	progress_dialog.progress = 1.0
-
 	if err:
 		progress_dialog.error(err)
 		return
 	
 	err = DirAccess.copy_absolute(temp_path, path)
 	DirAccess.remove_absolute(temp_path)
+	
 	if err:
 		progress_dialog.error(err)
 		return
+	
+	progress_dialog.progress_bar.indeterminate = false
+	progress_dialog.progress = 1.0
 	
 	if _export_canceled:
 		print("Export canceled.")

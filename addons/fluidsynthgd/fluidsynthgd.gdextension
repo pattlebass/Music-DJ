@@ -35,11 +35,11 @@ android.release.arm64 = "./bin/android/arm64/libfluidsynthgd.android.template_re
 android.debug.arm32 = "./bin/android/arm32/libfluidsynthgd.android.template_debug.arm32.single.so"
 android.release.arm32 = "./bin/android/arm32/libfluidsynthgd.android.template_release.arm32.single.so"
 
-web.debug.threads.wasm32 = "./bin/web/wasm32/libfluidsynthgd.web.template_debug.wasm32.threads.single.wasm"
-web.release.threads.wasm32 = "./bin/web/wasm32/libfluidsynthgd.web.template_release.wasm32.threads.single.wasm"
+web.debug.threads.wasm32 = "./bin/web/wasm32/fluidsynthgd.web.template_debug.wasm32.threads.single.wasm"
+web.release.threads.wasm32 = "./bin/web/wasm32/fluidsynthgd.web.template_release.wasm32.threads.single.wasm"
 
-web.debug.wasm32 = "./bin/web/wasm32/libfluidsynthgd.web.template_debug.wasm32.single.wasm"
-web.release.wasm32 = "./bin/web/wasm32/libfluidsynthgd.web.template_release.wasm32.single.wasm"
+web.debug.wasm32 = "./bin/web/wasm32/fluidsynthgd.web.template_debug.wasm32.single.wasm"
+web.release.wasm32 = "./bin/web/wasm32/fluidsynthgd.web.template_release.wasm32.single.wasm"
 
 [dependencies]
 
