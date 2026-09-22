@@ -30,16 +30,18 @@ func _ready() -> void:
 func assemble_song_stream(from: int, to: int) -> void:
 	var midi_stream := audio_player.stream as AudioStreamMidiSequencer
 	midi_stream.bpm = song.bpm
+	midi_stream.soundfont_path = Options.get_soundfont_path()
 	midi_stream.clear_scheduled_midi_files()
 	
 	var column_no := -1
 	for j in range(from, to):
 		column_no += 1
-		for i in 4:
-			var sample: int = song.data[i][j]
+		for instrument in 4:
+			var sample: int = song.data[instrument][j]
 			if sample == 0:
 				continue
-			midi_stream.schedule_midi_file_at_beat("res://samples/sample_%s_%s.mid" % [i, sample], 4 * column_no)
+			var sample_path := "res://playback/samples/sample_%s_%s.mid" % [instrument, sample]
+			midi_stream.schedule_midi_file_at_beat(sample_path, 4 * column_no)
 	audio_player.stream = midi_stream
 
 
@@ -55,6 +57,7 @@ func _process(delta: float) -> void:
 		column_play_ended.emit(_playing_column_no)
 		column_play_started.emit(column_no)
 		_playing_column_no = column_no
+
 
 var _playing_column_no := 0
 var _column_no_start := 0
@@ -94,8 +97,10 @@ func play_preview_sample(instrument: int, sample: int) -> void:
 	
 	var midi_stream := audio_player.stream as AudioStreamMidiSequencer
 	midi_stream.bpm = song.bpm
+	midi_stream.soundfont_path = Options.get_soundfont_path()
 	midi_stream.clear_scheduled_midi_files()
-	midi_stream.schedule_midi_file_at_beat("res://samples/sample_%s_%s.mid" % [instrument, sample], 0)
+	var sample_path := "res://playback/samples/sample_%s_%s.mid" % [instrument, sample]
+	midi_stream.schedule_midi_file_at_beat(sample_path, 0)
 	
 	preview_player.play()
 

@@ -25,11 +25,14 @@ BTN_REDO,Redo,Refă,Ulangi,,Переделать
 BTN_SEND_BUG,Send a bug report,Raportează un bug,Laporkan masalah,Wyślij raport błędu,Отправить сообщение об ошибке
 BTN_SEND_PROPOSAL,Send a proposal,Trimite o propunere,Kirimkan proposal,Wyślij propozycję,Отправить предложение
 DIALOG_SETTINGS_TITLE,Settings,Setări,Pengaturan,Ustawienia,Настройки
+SETTING_DEFAULT,Default,Implicit,Bawaan,Domyślne,По умолчанию
 SETTING_THEME,Theme,Temă,Tema,Motyw,Тема
 SETTING_THEME_DARK,Dark,Întunecată,Gelap,Ciemny,Темная
 SETTING_THEME_WHITE,Light,Deschisă,Terang,Jasny,Светлый
 SETTING_LANG,Language,Limbă,Bahasa,Język,Язык
 SETTING_LANG_AUTO,Auto (%s),Auto (%s),Otomatis (%s),Domyślny (%s),Авто (%s)
+SETTING_SF,Soundfont,Soundfont,Soundfont,Soundfont,Soundfont
+SETTING_SF_BTN_IMPORT,Import,Importă,Impor,Importuj,Импорт
 SETTING_CHECK_UPDATES,Check for updates,Verifică actualizările,Periksa pembaruan,Sprawdzaj aktualizacje,Проверять обновления
 SETTING_WEB_WARNING,Some settings are not available in the web version.,Unele setări nu sunt disponibile în versiunea web.,Beberapa pengaturan tidak tersedia di versi web.,Niektóre ustawienia nie są dostępne w wersji przeglądarkowej.,Некоторые настройки недоступны для WEB-версии
 DIALOG_TUTORIAL_TITLE,Tutorial,Tutorial,Tutorial,Samouczek,Обучение

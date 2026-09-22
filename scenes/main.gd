@@ -348,29 +348,34 @@ func hide_shadow() -> void:
 
 
 func _on_files_dropped(files: PackedStringArray) -> void:
-	for i in files:
-		if not i.get_extension() in ["mdj", "mdjt", "mid"]:
-			continue
-		
-		var file_name := i.get_file()
-		
-		if file_name.get_extension() == "mid":
-			file_name += ".mdj"
-		
-		var can_overwrite := true
-		if FileAccess.file_exists(Variables.saves_dir.path_join("Projects/%s" % file_name)):
-			var body := tr("DIALOG_CONFIRMATION_BODY_OVERWRITE") % "[color=#4ecca3]%s[/color]" % file_name
-			can_overwrite = await Utils.confirm_popup("DIALOG_CONFIRMATION_TITLE_OVERWRITE", body)
-		
-		if can_overwrite:
-			if i.get_extension() == "mid":
-				var file := FileAccess.open(Variables.projects_dir.path_join(file_name), FileAccess.WRITE)
-				file.store_string(JSON.stringify(MidiFile.to_mdj(i)))
-				file.close()
-			else:
-				DirAccess.copy_absolute(i, Variables.projects_dir.path_join(file_name))
+	for path in files:
+		var err := Error.OK
+		match path.get_extension():
+			["mdj", "mdjt", "mid"]:
+				import_dropped_project(path)
+			"sf2":
+				err = Options.import_soundfont(path)
+		if err:
+			Utils.toast("Error for '%s': %s (%s)" % [path.get_file(), error_string(err), err])
+
+
+func import_dropped_project(path: String) -> void:
+	var file_name := path.get_file()
+	if file_name.get_extension() == "mid":
+		file_name += ".mdj"
 	
-	load_dialog.open()
+	var can_overwrite := true
+	if FileAccess.file_exists(Variables.saves_dir.path_join("Projects/%s" % file_name)):
+		var body := tr("DIALOG_CONFIRMATION_BODY_OVERWRITE") % "[color=#4ecca3]%s[/color]" % file_name
+		can_overwrite = await Utils.confirm_popup("DIALOG_CONFIRMATION_TITLE_OVERWRITE", body)
+	
+	if can_overwrite:
+		if path.get_extension() == "mid":
+			var file := FileAccess.open(Variables.projects_dir.path_join(file_name), FileAccess.WRITE)
+			file.store_string(JSON.stringify(MidiFile.to_mdj(path)))
+			file.close()
+		else:
+			DirAccess.copy_absolute(path, Variables.projects_dir.path_join(file_name))
 
 
 func _on_load_dialog_new_project() -> void:
